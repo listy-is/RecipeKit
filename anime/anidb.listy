@@ -1,0 +1,386 @@
+{
+  "type": "Anime",
+  "uuid": "a242bd1200",
+  "shortcut": "anime_anidb",
+  "version": 1,
+  "engine_version": 13,
+  "title": "Anidb",
+  "description": "A recipe to get a list of animes from Anidb",
+  "urls": [
+    "https://anidb.net",
+    "anidb.net"
+  ],
+  "headers": {
+    "Accept-Language": "en-UK,en",
+    "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/98.0.4758.102 Safari/537.36"
+  },
+  "autocomplete_steps": [
+    {
+      "command": "load",
+      "url": "https://anidb.net/anime/?adb.search=$INPUT",
+      "config": {
+        "js": true
+      },
+      "description": "Searches anime movies"
+    },
+    {
+      "command": "store_text",
+      "locator": "table.animelist tr:nth-child(1) td.anime.name a",
+      "output": {
+        "name": "TITLE1"
+      }
+    },
+    {
+      "command": "store_text",
+      "locator": "table.animelist tr:nth-child(1) td.airdate.date",
+      "output": {
+        "name": "DATE1"
+      }
+    },
+    {
+      "command": "regex",
+      "input": "$DATE1",
+      "expression": "\\d\\d\\d\\d",
+      "output": {
+        "name": "DATE1"
+      }
+    },
+    {
+      "command": "store",
+      "input": "$TITLE1 $DATE1",
+      "expression": "\\d\\d\\d\\d",
+      "output": {
+        "name": "TITLE1"
+      }
+    },
+    {
+      "command": "store_text",
+      "locator": "table.animelist tr:nth-child(2) td.anime.name a",
+      "output": {
+        "name": "TITLE2"
+      }
+    },
+    {
+      "command": "store_text",
+      "locator": "table.animelist tr:nth-child(2) td.airdate.date",
+      "output": {
+        "name": "DATE2"
+      }
+    },
+    {
+      "command": "regex",
+      "input": "$DATE2",
+      "expression": "\\d\\d\\d\\d",
+      "output": {
+        "name": "DATE2"
+      }
+    },
+    {
+      "command": "store",
+      "input": "$TITLE2 $DATE2",
+      "expression": "\\d\\d\\d\\d",
+      "output": {
+        "name": "TITLE2"
+      }
+    },
+    {
+      "command": "store_text",
+      "locator": "table.animelist tr:nth-child(3) td.anime.name a",
+      "output": {
+        "name": "TITLE3"
+      }
+    },
+    {
+      "command": "store_text",
+      "locator": "table.animelist tr:nth-child(3) td.airdate.date",
+      "output": {
+        "name": "DATE3"
+      }
+    },
+    {
+      "command": "regex",
+      "input": "$DATE3",
+      "expression": "\\d\\d\\d\\d",
+      "output": {
+        "name": "DATE3"
+      }
+    },
+    {
+      "command": "store",
+      "input": "$TITLE3 $DATE3",
+      "expression": "\\d\\d\\d\\d",
+      "output": {
+        "name": "TITLE3"
+      }
+    },
+    {
+      "command": "store_text",
+      "locator": "table.animelist tr:nth-child(4) td.anime.name a",
+      "output": {
+        "name": "TITLE4"
+      }
+    },
+    {
+      "command": "store_text",
+      "locator": "table.animelist tr:nth-child(4) td.airdate.date",
+      "output": {
+        "name": "DATE4"
+      }
+    },
+    {
+      "command": "regex",
+      "input": "$DATE4",
+      "expression": "\\d\\d\\d\\d",
+      "output": {
+        "name": "DATE4"
+      }
+    },
+    {
+      "command": "store",
+      "input": "$TITLE4 $DATE4",
+      "expression": "\\d\\d\\d\\d",
+      "output": {
+        "name": "TITLE4"
+      }
+    },
+    {
+      "command": "store_text",
+      "locator": "table.animelist tr:nth-child(5) td.anime.name a",
+      "output": {
+        "name": "TITLE5"
+      }
+    },
+    {
+      "command": "store_text",
+      "locator": "table.animelist tr:nth-child(5) td.airdate.date",
+      "output": {
+        "name": "DATE5"
+      }
+    },
+    {
+      "command": "regex",
+      "input": "$DATE5",
+      "expression": "\\d\\d\\d\\d",
+      "output": {
+        "name": "DATE5"
+      }
+    },
+    {
+      "command": "store",
+      "input": "$TITLE5 $DATE5",
+      "expression": "\\d\\d\\d\\d",
+      "output": {
+        "name": "TITLE5"
+      }
+    },
+    {
+      "command": "store_text",
+      "locator": "table.animelist tr:nth-child(6) td.anime.name a",
+      "output": {
+        "name": "TITLE6"
+      }
+    },
+    {
+      "command": "store_text",
+      "locator": "table.animelist tr:nth-child(6) td.airdate.date",
+      "output": {
+        "name": "DATE6"
+      }
+    },
+    {
+      "command": "regex",
+      "input": "$DATE6",
+      "expression": "\\d\\d\\d\\d",
+      "output": {
+        "name": "DATE6"
+      }
+    },
+    {
+      "command": "store",
+      "input": "$TITLE6 $DATE6",
+      "expression": "\\d\\d\\d\\d",
+      "output": {
+        "name": "TITLE6"
+      }
+    },
+    {
+      "command": "store_attribute",
+      "locator": "table.animelist tr:nth-child(1) td.anime.name a",
+      "attribute_name": "href",
+      "output": {
+        "name": "URL1"
+      }
+    },
+    {
+      "command": "store",
+      "input": "https://anidb.net$URL1",
+      "output": {
+        "name": "URL1"
+      }
+    },
+    {
+      "command": "store_attribute",
+      "locator": "table.animelist tr:nth-child(2) td.anime.name a",
+      "attribute_name": "href",
+      "output": {
+        "name": "URL2"
+      }
+    },
+    {
+      "command": "store",
+      "input": "https://anidb.net$URL2",
+      "output": {
+        "name": "URL2"
+      }
+    },
+    {
+      "command": "store_attribute",
+      "locator": "table.animelist tr:nth-child(3) td.anime.name a",
+      "attribute_name": "href",
+      "output": {
+        "name": "URL3"
+      }
+    },
+    {
+      "command": "store",
+      "input": "https://anidb.net$URL3",
+      "output": {
+        "name": "URL3"
+      }
+    },
+    {
+      "command": "store_attribute",
+      "locator": "table.animelist tr:nth-child(4) td.anime.name a",
+      "attribute_name": "href",
+      "output": {
+        "name": "URL4"
+      }
+    },
+    {
+      "command": "store",
+      "input": "https://anidb.net$URL4",
+      "output": {
+        "name": "URL4"
+      }
+    },
+    {
+      "command": "store_attribute",
+      "locator": "table.animelist tr:nth-child(5) td.anime.name a",
+      "attribute_name": "href",
+      "output": {
+        "name": "URL5"
+      }
+    },
+    {
+      "command": "store",
+      "input": "https://anidb.net$URL5",
+      "output": {
+        "name": "URL5"
+      }
+    },
+    {
+      "command": "store_attribute",
+      "locator": "table.animelist tr:nth-child(6) td.anime.name a",
+      "attribute_name": "href",
+      "output": {
+        "name": "URL6"
+      }
+    },
+    {
+      "command": "store",
+      "input": "https://anidb.net$URL6",
+      "output": {
+        "name": "URL6"
+      }
+    }
+  ],
+  "url_steps": [
+    {
+      "command": "load",
+      "url": "$INPUT",
+      "config": {
+        "js": true
+      },
+      "headers": {
+        "User-Agent": "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.113 Mobile Safari/537.36"
+      },
+      "description": "Load the url of the movie"
+    },
+    {
+      "command": "store_url",
+      "output": {
+        "name": "URL"
+      },
+      "description": "Saves the URL of the detail"
+    },
+    {
+      "command": "store_text",
+      "locator": "div.g_definitionlist span[itemprop=name]",
+      "output": {
+        "name": "TITLE"
+      },
+      "description": "Takes the title of the anime"
+    },
+    {
+      "command": "store_text",
+      "locator": "span[itemprop=startDate]",
+      "output": {
+        "name": "DATE"
+      },
+      "description": "Takes the title of the anime"
+    },
+    {
+      "command": "regex",
+      "input": "$DATE",
+      "expression": "\\d\\d\\d\\d",
+      "output": {
+        "name": "DATE",
+        "type": "date",
+        "format": "YYYY"
+      },
+      "description": "Takes the date of the anime"
+    },
+    {
+      "command": "store_text",
+      "locator": "div[itemprop=description]",
+      "output": {
+        "name": "DESCRIPTION"
+      },
+      "description": "Saves the description"
+    },
+    {
+      "command": "store_text",
+      "locator": "span[itemprop=ratingValue]",
+      "output": {
+        "name": "RATING",
+        "type": "float"
+      },
+      "description": "Takes the rating"
+    },
+    {
+      "command": "store_text",
+      "locator": "table.stafflist td.name.creator a",
+      "output": {
+        "name": "AUTHOR"
+      },
+      "description": "Saves the director of the movie"
+    },
+    {
+      "command": "store_attribute",
+      "locator": "img[itemprop=image]",
+      "attribute_name": "src",
+      "output": {
+        "name": "COVER"
+      },
+      "description": "Saves the image"
+    },
+    {
+      "command": "store_text",
+      "locator": "span[itemprop=numberOfEpisodes]",
+      "output": {
+        "name": "EPISODES"
+      },
+      "description": "Saves the episodes"
+    }
+  ]
+}

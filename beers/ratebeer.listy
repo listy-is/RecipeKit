@@ -1,0 +1,243 @@
+{
+  "type": "Beers",
+  "uuid": "7d17dccc83",
+  "shortcut": "ratebeer_beers",
+  "version": 1,
+  "engine_version": 9,
+  "title": "Ratebeer Beers",
+  "description": "Retrieve the beers from page ratebeer",
+  "urls": [
+    "ratebeer.com",
+    "https://ratebeer.com",
+    "https://www.ratebeer.com"
+  ],
+  "headers": {
+    "Accept-Language": "en-UK,en",
+    "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.113 Safari/537.36"
+  },
+  "autocomplete_steps": [
+    {
+      "command": "load",
+      "url": "https://www.ratebeer.com/search?tab=beer&q=$INPUT",
+      "description": "Load the url of the beer",
+      "config": {
+        "js": true,
+        "timeout": 3000
+      }
+    },
+    {
+      "command": "store_text",
+      "locator": "[class^=BeerTab]:nth-child(1) div.fg-1 div.fd-r:nth-child(2)",
+      "output": {
+        "name": "TITLE1"
+      },
+      "description": "Saves the title of the beer"
+    },
+    {
+      "command": "store_text",
+      "locator": "[class^=BeerTab]:nth-child(3) div.fg-1 div.fd-r:nth-child(2)",
+      "output": {
+        "name": "TITLE2"
+      },
+      "description": "Saves the title of the beer"
+    },
+    {
+      "command": "store_text",
+      "locator": "[class^=BeerTab]:nth-child(5) div.fg-1 div.fd-r:nth-child(2)",
+      "output": {
+        "name": "TITLE3"
+      },
+      "description": "Saves the title of the beer"
+    },
+    {
+      "command": "store_text",
+      "locator": "[class^=BeerTab]:nth-child(7) div.fg-1 div.fd-r:nth-child(2)",
+      "output": {
+        "name": "TITLE4"
+      },
+      "description": "Saves the title of the beer"
+    },
+    {
+      "command": "store_text",
+      "locator": "[class^=BeerTab]:nth-child(9) div.fg-1 div.fd-r:nth-child(2)",
+      "output": {
+        "name": "TITLE5"
+      },
+      "description": "Saves the title of the beer"
+    },
+    {
+      "command": "store_text",
+      "locator": "[class^=BeerTab]:nth-child(11) div.fg-1 div.fd-r:nth-child(2)",
+      "output": {
+        "name": "TITLE6"
+      },
+      "description": "Saves the title of the beer"
+    },
+    {
+      "command": "store_attribute",
+      "locator": "[class^=BeerTab]:nth-child(1) a",
+      "attribute_name": "href",
+      "output": {
+        "name": "URL1"
+      }
+    },
+    {
+      "command": "store",
+      "input": "https://www.ratebeer.com$URL1",
+      "output": {
+        "name": "URL1"
+      }
+    },
+    {
+      "command": "store_attribute",
+      "locator": "[class^=BeerTab]:nth-child(3) a",
+      "attribute_name": "href",
+      "output": {
+        "name": "URL2"
+      }
+    },
+    {
+      "command": "store",
+      "input": "https://www.ratebeer.com$URL2",
+      "output": {
+        "name": "URL2"
+      }
+    },
+    {
+      "command": "store_attribute",
+      "locator": "[class^=BeerTab]:nth-child(5) a",
+      "attribute_name": "href",
+      "output": {
+        "name": "URL3"
+      }
+    },
+    {
+      "command": "store",
+      "input": "https://www.ratebeer.com$URL3",
+      "output": {
+        "name": "URL3"
+      }
+    },
+    {
+      "command": "store_attribute",
+      "locator": "[class^=BeerTab]:nth-child(7) a",
+      "attribute_name": "href",
+      "output": {
+        "name": "URL4"
+      }
+    },
+    {
+      "command": "store",
+      "input": "https://www.ratebeer.com$URL4",
+      "output": {
+        "name": "URL4"
+      }
+    },
+    {
+      "command": "store_attribute",
+      "locator": "[class^=BeerTab]:nth-child(9) a",
+      "attribute_name": "href",
+      "output": {
+        "name": "URL5"
+      }
+    },
+    {
+      "command": "store",
+      "input": "https://www.ratebeer.com$URL5",
+      "output": {
+        "name": "URL5"
+      }
+    },
+    {
+      "command": "store_attribute",
+      "locator": "[class^=BeerTab]:nth-child(11) a",
+      "attribute_name": "href",
+      "output": {
+        "name": "URL6"
+      }
+    },
+    {
+      "command": "store",
+      "input": "https://www.ratebeer.com$URL6",
+      "output": {
+        "name": "URL6"
+      }
+    }
+  ],
+  "url_steps": [
+    {
+      "command": "load",
+      "url": "$INPUT",
+      "config": {
+        "js": true,
+        "timeout": 1
+      },
+      "description": "Load the url of the beer"
+    },
+    {
+      "command": "store_url",
+      "output": {
+        "name": "URL"
+      },
+      "description": "Saves the URL of the detail"
+    },
+    {
+      "command": "store_text",
+      "locator": "div[class*=BeerCard___StyledPaper] div.px-4 > div > div > div > div > a",
+      "output": {
+        "name": "AUTHOR"
+      },
+      "description": "Field: Saves the beerhouse of the beer"
+    },
+    {
+      "command": "store_text",
+      "locator": "div[class*=BeerCard___StyledPaper] div.px-4 > div > div > div > div > div",
+      "output": {
+        "name": "TITLE"
+      },
+      "description": "Field: Saves the title of the beer"
+    },
+    {
+      "command": "store_text",
+      "locator": "[class*=BeerCard___StyledDiv] > div > div",
+      "output": {
+        "name": "RATING",
+        "type": "float"
+      },
+      "description": "Field: Get the rating"
+    },
+    {
+      "command": "store_text",
+      "locator": "div[class*=BeerCard___StyledDiv2] > div:nth-child(2) > div:nth-child(3)",
+      "output": {
+        "name": "ALCOHOL"
+      },
+      "description": "Field: Get the alcohol"
+    },
+    {
+      "command": "store_text",
+      "locator": "div[class*=BeerCard___StyledDiv2] > div:nth-child(2) > a",
+      "output": {
+        "name": "STYLE"
+      },
+      "description": "Field: Saves the style"
+    },
+    {
+      "command": "store_text",
+      "locator": "div[class*=BeerCard___StyledDiv2] > div",
+      "output": {
+        "name": "REGION"
+      },
+      "description": "Field: Saves the region"
+    },
+    {
+      "command": "store_attribute",
+      "locator": "img[class*=BeerCard___StyledImg]",
+      "attribute_name": "src",
+      "output": {
+        "name": "COVER"
+      },
+      "description": "Field: Saves the image"
+    }
+  ]
+}

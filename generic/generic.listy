@@ -1,0 +1,61 @@
+{
+  "type": "Generic",
+  "uuid": "c0ed452929",
+  "shortcut": "generic",
+  "version": 4,
+  "engine_version": 5,
+  "title": "Url generic",
+  "description": "Takes the og tags of the url",
+  "urls": [
+    "*"
+  ],
+  "headers": {
+    "Accept-Language": "en-UK,en",
+    "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.113 Safari/537.36"
+  },
+  "autocomplete_steps": null,
+  "url_steps": [
+    {
+      "command": "load",
+      "url": "$INPUT",
+      "config": {
+        "js": true
+      },
+      "description": "Load the url"
+    },
+    {
+      "command": "store_url",
+      "output": {
+        "name": "URL"
+      },
+      "description": "Saves the URL of the detail"
+    },
+    {
+      "command": "store_attribute",
+      "locator": "meta[property='og:title']",
+      "attribute_name": "content",
+      "output": {
+        "name": "TITLE"
+      },
+      "description": "Saves the title"
+    },
+    {
+      "command": "store_attribute",
+      "locator": "meta[property='og:image']",
+      "attribute_name": "content",
+      "output": {
+        "name": "COVER"
+      },
+      "description": "Saves the image"
+    },
+    {
+      "command": "store_attribute",
+      "locator": "meta[property='og:description']",
+      "attribute_name": "content",
+      "output": {
+        "name": "DESCRIPTION"
+      },
+      "description": "Saves the description"
+    }
+  ]
+}

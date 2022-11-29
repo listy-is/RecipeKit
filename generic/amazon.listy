@@ -1,0 +1,91 @@
+{
+  "type": "Generic",
+  "uuid": "45d1a4d6dd",
+  "shortcut": "amazon_generic",
+  "version": 1,
+  "engine_version": 8,
+  "title": "Amazon Generic",
+  "description": "Load a amazon url correctly in generic lists",
+  "urls": [
+    "https://www.amazon.es",
+    "https://www.amazon.com",
+    "amazon.com",
+    "amazon.es",
+    "https://www.amazon.co.jp",
+    "amazon.co.jp",
+    "https://www.amazon.co.uk",
+    "amazon.co.uk",
+    "https://amazon.co.uk",
+    "https://amazon.*",
+    "https://*.amazon.*",
+    "*.amazon.*",
+    "https://www.amazon.it"
+  ],
+  "headers": {
+    "Accept-Language": "en-UK,en",
+    "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.113 Safari/537.36"
+  },
+  "autocomplete_steps": null,
+  "url_steps": [
+    {
+      "command": "load",
+      "url": "$INPUT",
+      "config": {
+        "js": true
+      },
+      "description": "Load the url"
+    },
+    {
+      "command": "store_url",
+      "output": {
+        "name": "URL"
+      },
+      "description": "Saves the URL of the detail"
+    },
+    {
+      "command": "store_attribute",
+      "locator": "meta[property='og:url']",
+      "attribute_name": "content",
+      "output": {
+        "name": "URL"
+      },
+      "description": "Saves the URL of the detail"
+    },
+    {
+      "command": "store_attribute",
+      "locator": "meta[name='title']",
+      "attribute_name": "content",
+      "output": {
+        "name": "TITLE"
+      },
+      "description": "Saves the title"
+    },
+    {
+      "command": "regex",
+      "input": "$TITLE",
+      "expression": "(?<=Amazon\\.com\\:\\s).+",
+      "output": {
+        "name": "TITLE"
+      },
+      "description": "Applies a regular expression to get just title"
+    },
+    {
+      "command": "store_attribute",
+      "locator": "div.imgTagWrapper img",
+      "attribute_name": "data-old-hires",
+      "output": {
+        "name": "COVER"
+      },
+      "description": "Saves the image"
+    },
+    {
+      "command": "store_attribute",
+      "locator": "meta[name='description']",
+      "attribute_name": "content",
+      "output": {
+        "name": "DESCRIPTION"
+      },
+      "description": "Saves the description"
+    }
+  ]
+}

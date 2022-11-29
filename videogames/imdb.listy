@@ -1,0 +1,561 @@
+{
+  "type": "Videogames",
+  "uuid": "72849e7ef1",
+  "shortcut": "imdb_videogames",
+  "version": 2,
+  "engine_version": 6,
+  "title": "IMDB Videogames",
+  "description": "A recipe to get a list of videogames",
+  "urls": [
+    "https://m.imdb.com/title/"
+  ],
+  "headers": {
+    "Accept-Language": "en-UK,en",
+    "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.113 Safari/537.36"
+  },
+  "autocomplete_steps": [
+    {
+      "command": "load",
+      "url": "https://www.imdb.com/search/title/?title=$INPUT&title_type=video_game",
+      "description": "Searches videogames by title"
+    },
+    {
+      "command": "store_text",
+      "locator": "#main > div > div.lister.list.detail.sub-list > div > div:nth-child(1) > div.lister-item-content > h3",
+      "output": {
+        "name": "TITLE1"
+      }
+    },
+    {
+      "command": "regex",
+      "input": "$TITLE1",
+      "expression": "(?<=\\.\\s).+",
+      "output": {
+        "name": "TITLE1"
+      },
+      "description": "Applies a regular expression to get just the title without the ennum"
+    },
+    {
+      "command": "store_text",
+      "locator": "#main > div > div.lister.list.detail.sub-list > div > div:nth-child(2) > div.lister-item-content > h3",
+      "output": {
+        "name": "TITLE2"
+      }
+    },
+    {
+      "command": "regex",
+      "input": "$TITLE2",
+      "expression": "(?<=\\.\\s).+",
+      "output": {
+        "name": "TITLE2"
+      },
+      "description": "Applies a regular expression to get just the title without the ennum"
+    },
+    {
+      "command": "store_text",
+      "locator": "#main > div > div.lister.list.detail.sub-list > div > div:nth-child(3) > div.lister-item-content > h3",
+      "output": {
+        "name": "TITLE3"
+      }
+    },
+    {
+      "command": "regex",
+      "input": "$TITLE3",
+      "expression": "(?<=\\.\\s).+",
+      "output": {
+        "name": "TITLE3"
+      },
+      "description": "Applies a regular expression to get just the title without the ennum"
+    },
+    {
+      "command": "store_text",
+      "locator": "#main > div > div.lister.list.detail.sub-list > div > div:nth-child(4) > div.lister-item-content > h3",
+      "output": {
+        "name": "TITLE4"
+      }
+    },
+    {
+      "command": "regex",
+      "input": "$TITLE4",
+      "expression": "(?<=\\.\\s).+",
+      "output": {
+        "name": "TITLE4"
+      },
+      "description": "Applies a regular expression to get just the title without the ennum"
+    },
+    {
+      "command": "store_text",
+      "locator": "#main > div > div.lister.list.detail.sub-list > div > div:nth-child(5) > div.lister-item-content > h3",
+      "output": {
+        "name": "TITLE5"
+      }
+    },
+    {
+      "command": "regex",
+      "input": "$TITLE5",
+      "expression": "(?<=\\.\\s).+",
+      "output": {
+        "name": "TITLE5"
+      },
+      "description": "Applies a regular expression to get just the title without the ennum"
+    },
+    {
+      "command": "store_text",
+      "locator": "#main > div > div.lister.list.detail.sub-list > div > div:nth-child(6) > div.lister-item-content > h3",
+      "output": {
+        "name": "TITLE6"
+      }
+    },
+    {
+      "command": "regex",
+      "input": "$TITLE6",
+      "expression": "(?<=\\.\\s).+",
+      "output": {
+        "name": "TITLE6"
+      },
+      "description": "Applies a regular expression to get just the title without the ennum"
+    },
+    {
+      "command": "store_attribute",
+      "locator": "#main > div > div.lister.list.detail.sub-list > div > div:nth-child(1) > div.lister-item-content > h3 > a",
+      "attribute_name": "href",
+      "output": {
+        "name": "URL1"
+      }
+    },
+    {
+      "command": "store",
+      "input": "https://m.imdb.com$URL1",
+      "output": {
+        "name": "URL1"
+      }
+    },
+    {
+      "command": "store_attribute",
+      "locator": "#main > div > div.lister.list.detail.sub-list > div > div:nth-child(2) > div.lister-item-content > h3 > a",
+      "attribute_name": "href",
+      "output": {
+        "name": "URL2"
+      }
+    },
+    {
+      "command": "store",
+      "input": "https://m.imdb.com$URL2",
+      "output": {
+        "name": "URL2"
+      }
+    },
+    {
+      "command": "store_attribute",
+      "locator": "#main > div > div.lister.list.detail.sub-list > div > div:nth-child(3) > div.lister-item-content > h3 > a",
+      "attribute_name": "href",
+      "output": {
+        "name": "URL3"
+      }
+    },
+    {
+      "command": "store",
+      "input": "https://m.imdb.com$URL3",
+      "output": {
+        "name": "URL3"
+      }
+    },
+    {
+      "command": "store_attribute",
+      "locator": "#main > div > div.lister.list.detail.sub-list > div > div:nth-child(4) > div.lister-item-content > h3 > a",
+      "attribute_name": "href",
+      "output": {
+        "name": "URL4"
+      }
+    },
+    {
+      "command": "store",
+      "input": "https://m.imdb.com$URL4",
+      "output": {
+        "name": "URL4"
+      }
+    },
+    {
+      "command": "store_attribute",
+      "locator": "#main > div > div.lister.list.detail.sub-list > div > div:nth-child(5) > div.lister-item-content > h3 > a",
+      "attribute_name": "href",
+      "output": {
+        "name": "URL5"
+      }
+    },
+    {
+      "command": "store",
+      "input": "https://m.imdb.com$URL5",
+      "output": {
+        "name": "URL5"
+      }
+    },
+    {
+      "command": "store_attribute",
+      "locator": "#main > div > div.lister.list.detail.sub-list > div > div:nth-child(6) > div.lister-item-content > h3 > a",
+      "attribute_name": "href",
+      "output": {
+        "name": "URL6"
+      }
+    },
+    {
+      "command": "store",
+      "input": "https://m.imdb.com$URL6",
+      "output": {
+        "name": "URL6"
+      }
+    }
+  ],
+  "url_steps": [
+    {
+      "command": "load",
+      "url": "$INPUT",
+      "description": "Load the url of the movie"
+    },
+    {
+      "command": "store_url",
+      "output": {
+        "name": "URL"
+      },
+      "description": "Saves the URL of the detail"
+    },
+    {
+      "command": "store_attribute",
+      "locator": "meta[property='og:title']",
+      "attribute_name": "content",
+      "output": {
+        "name": "TITLE"
+      },
+      "description": "Takes the title of the movie including the year"
+    },
+    {
+      "command": "regex",
+      "input": "$TITLE",
+      "expression": "\\d\\d\\d\\d(?=\\))",
+      "output": {
+        "name": "DATE",
+        "type": "date",
+        "format": "YYYY"
+      },
+      "description": "Applies a regular expression to get just the year of the date"
+    },
+    {
+      "command": "regex",
+      "input": "$TITLE",
+      "expression": "[^\\(]*",
+      "output": {
+        "name": "TITLE"
+      },
+      "description": "Applies a regular expression to get just the title of the movie before the year"
+    },
+    {
+      "command": "store_attribute",
+      "locator": "meta[name='description']",
+      "attribute_name": "content",
+      "output": {
+        "name": "DESCRIPTION"
+      },
+      "description": "Saves temporary the actors, director and description"
+    },
+    {
+      "command": "store_text",
+      "locator": "div[data-testid*=hero-rating-bar__aggregate-rating__score]",
+      "output": {
+        "name": "RATING",
+        "type": "string"
+      },
+      "description": "Saves the rating of the movie"
+    },
+    {
+      "command": "regex",
+      "input": "$RATING",
+      "expression": "([0-9,\\.]+)",
+      "output": {
+        "name": "RATING",
+        "type": "float"
+      },
+      "description": "Applies a regular expression to get part of the rating"
+    },
+    {
+      "command": "store_attribute",
+      "locator": "meta[property='og:image']",
+      "attribute_name": "content",
+      "output": {
+        "name": "COVER"
+      },
+      "description": "Saves the image"
+    },
+    {
+      "command": "regex",
+      "input": "$COVER",
+      "expression": ".+?images.+?[\\.]",
+      "output": {
+        "name": "COVER"
+      },
+      "description": "Applies a regular expression to get part of the cover"
+    },
+    {
+      "command": "store",
+      "input": "$COVER._V1_.jpg",
+      "output": {
+        "name": "COVER"
+      },
+      "description": "Add high res param to the cover"
+    },
+    {
+      "command": "url_encode",
+      "input": "$TITLE",
+      "output": {
+        "name": "AUX_TITLE"
+      },
+      "description": "Url encode of the title"
+    },
+    {
+      "command": "store",
+      "input": "https://www.amazon.com/s?&rh=n%3A468642&dc&language=es&ref=sr_nr_n_1&k=$AUX_TITLE",
+      "output": {
+        "name": "URL_SALE"
+      },
+      "description": "Saves the url to sale the product"
+    },
+    {
+      "command": "regex",
+      "input": "$URL",
+      "expression": "(?<=m.).*",
+      "output": {
+        "name": "KEYWORDS"
+      },
+      "description": "Applies a regular expression to get part of the cover"
+    },
+    {
+      "command": "regex",
+      "input": "$KEYWORDS",
+      "expression": ".*\\/",
+      "output": {
+        "name": "KEYWORDS"
+      },
+      "description": "Applies a regular expression to get part of the cover"
+    },
+    {
+      "command": "store",
+      "input": "https://www.$KEYWORDSkeywords",
+      "output": {
+        "name": "KEYWORDS"
+      },
+      "description": "Get the platforms url"
+    },
+    {
+      "command": "load",
+      "url": "$KEYWORDS",
+      "description": "Load the url of the keywords"
+    },
+    {
+      "command": "store_array",
+      "locator": "td[data-item-keyword='playstation'] div.sodatext",
+      "output": {
+        "name": "TAGS"
+      },
+      "description": "List of platforms"
+    },
+    {
+      "command": "store_array",
+      "locator": "td[data-item-keyword='playstation 1'] div.sodatext",
+      "output": {
+        "name": "TAGS"
+      },
+      "description": "List of platforms"
+    },
+    {
+      "command": "store_array",
+      "locator": "td[data-item-keyword='playstation 2'] div.sodatext",
+      "output": {
+        "name": "TAGS"
+      },
+      "description": "List of platforms"
+    },
+    {
+      "command": "store_array",
+      "locator": "td[data-item-keyword='playstation 3'] div.sodatext",
+      "output": {
+        "name": "TAGS"
+      },
+      "description": "List of platforms"
+    },
+    {
+      "command": "store_array",
+      "locator": "td[data-item-keyword='playstation 4'] div.sodatext",
+      "output": {
+        "name": "TAGS"
+      },
+      "description": "List of platforms"
+    },
+    {
+      "command": "store_array",
+      "locator": "td[data-item-keyword='gameboy'] div.sodatext",
+      "output": {
+        "name": "TAGS"
+      },
+      "description": "List of platforms"
+    },
+    {
+      "command": "store_array",
+      "locator": "td[data-item-keyword='game boy'] div.sodatext",
+      "output": {
+        "name": "TAGS"
+      },
+      "description": "List of platforms"
+    },
+    {
+      "command": "store_array",
+      "locator": "td[data-item-keyword='game boy advance'] div.sodatext",
+      "output": {
+        "name": "TAGS"
+      },
+      "description": "List of platforms"
+    },
+    {
+      "command": "store_array",
+      "locator": "td[data-item-keyword='nintendo ds'] div.sodatext",
+      "output": {
+        "name": "TAGS"
+      },
+      "description": "List of platforms"
+    },
+    {
+      "command": "store_array",
+      "locator": "td[data-item-keyword='xbox'] div.sodatext",
+      "output": {
+        "name": "TAGS"
+      },
+      "description": "List of platforms"
+    },
+    {
+      "command": "store_array",
+      "locator": "td[data-item-keyword='megadrive'] div.sodatext",
+      "output": {
+        "name": "TAGS"
+      },
+      "description": "List of platforms"
+    },
+    {
+      "command": "store_array",
+      "locator": "td[data-item-keyword='sega genesis'] div.sodatext",
+      "output": {
+        "name": "TAGS"
+      },
+      "description": "List of platforms"
+    },
+    {
+      "command": "store_array",
+      "locator": "td[data-item-keyword='sega master system'] div.sodatext",
+      "output": {
+        "name": "TAGS"
+      },
+      "description": "List of platforms"
+    },
+    {
+      "command": "store_array",
+      "locator": "td[data-item-keyword='sega game gear'] div.sodatext",
+      "output": {
+        "name": "TAGS"
+      },
+      "description": "List of platforms"
+    },
+    {
+      "command": "store_array",
+      "locator": "td[data-item-keyword='nintendo 3ds'] div.sodatext",
+      "output": {
+        "name": "TAGS"
+      },
+      "description": "List of platforms"
+    },
+    {
+      "command": "store_array",
+      "locator": "td[data-item-keyword='nintendo switch'] div.sodatext",
+      "output": {
+        "name": "TAGS"
+      },
+      "description": "List of platforms"
+    },
+    {
+      "command": "store_array",
+      "locator": "td[data-item-keyword='nintendo 64'] div.sodatext",
+      "output": {
+        "name": "TAGS"
+      },
+      "description": "List of platforms"
+    },
+    {
+      "command": "store_array",
+      "locator": "td[data-item-keyword='nintendo gamecube'] div.sodatext",
+      "output": {
+        "name": "TAGS"
+      },
+      "description": "List of platforms"
+    },
+    {
+      "command": "store_array",
+      "locator": "td[data-item-keyword='nintendo wii”'] div.sodatext",
+      "output": {
+        "name": "TAGS"
+      },
+      "description": "List of platforms"
+    },
+    {
+      "command": "store_array",
+      "locator": "td[data-item-keyword='xbox one'] div.sodatext",
+      "output": {
+        "name": "TAGS"
+      },
+      "description": "List of platforms"
+    },
+    {
+      "command": "store_array",
+      "locator": "td[data-item-keyword='sega dreamcast'] div.sodatext",
+      "output": {
+        "name": "TAGS"
+      },
+      "description": "List of platforms"
+    },
+    {
+      "command": "store_array",
+      "locator": "td[data-item-keyword='xbox 360'] div.sodatext",
+      "output": {
+        "name": "TAGS"
+      },
+      "description": "List of platforms"
+    },
+    {
+      "command": "store_array",
+      "locator": "td[data-item-keyword='microsoft windows'] div.sodatext",
+      "output": {
+        "name": "TAGS"
+      },
+      "description": "List of platforms"
+    },
+    {
+      "command": "store_array",
+      "locator": "td[data-item-keyword='super nintendo'] div.sodatext",
+      "output": {
+        "name": "TAGS"
+      },
+      "description": "List of platforms"
+    },
+    {
+      "command": "store_array",
+      "locator": "td[data-item-keyword='nintendo wii u'] div.sodatext",
+      "output": {
+        "name": "TAGS"
+      },
+      "description": "List of platforms"
+    },
+    {
+      "command": "store_array",
+      "locator": "td[data-item-keyword='playstation 5'] div.sodatext",
+      "output": {
+        "name": "TAGS"
+      },
+      "description": "List of platforms"
+    }
+  ]
+}

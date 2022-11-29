@@ -1,0 +1,304 @@
+{
+  "type": "Wines",
+  "uuid": "c8820e8890",
+  "shortcut": "vivino_wines",
+  "version": 1,
+  "engine_version": 8,
+  "title": "Vivino Wines",
+  "description": "Retrieve the wines from page vivino",
+  "urls": [
+    "vivino.com",
+    "https://vivino.com",
+    "https://www.vivino.com"
+  ],
+  "headers": {
+    "Accept-Language": "en-UK,en",
+    "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.113 Safari/537.36"
+  },
+  "autocomplete_steps": [
+    {
+      "command": "load",
+      "url": "https://www.vivino.com/search/wines?q=$INPUT",
+      "description": "Load the url of the wine"
+    },
+    {
+      "command": "store_text",
+      "locator": "div.search-results-list > div:nth-child(1) span.wine-card__name",
+      "output": {
+        "name": "TITLE1"
+      },
+      "description": "Saves the title of the wine"
+    },
+    {
+      "command": "store_text",
+      "locator": "div.search-results-list > div:nth-child(2) span.wine-card__name",
+      "output": {
+        "name": "TITLE2"
+      },
+      "description": "Saves the title of the wine"
+    },
+    {
+      "command": "store_text",
+      "locator": "div.search-results-list > div:nth-child(3) span.wine-card__name",
+      "output": {
+        "name": "TITLE3"
+      },
+      "description": "Saves the title of the wine"
+    },
+    {
+      "command": "store_text",
+      "locator": "div.search-results-list > div:nth-child(4) span.wine-card__name",
+      "output": {
+        "name": "TITLE4"
+      },
+      "description": "Saves the title of the wine"
+    },
+    {
+      "command": "store_text",
+      "locator": "div.search-results-list > div:nth-child(5) span.wine-card__name",
+      "output": {
+        "name": "TITLE5"
+      },
+      "description": "Saves the title of the wine"
+    },
+    {
+      "command": "store_text",
+      "locator": "div.search-results-list > div:nth-child(6) span.wine-card__name",
+      "output": {
+        "name": "TITLE6"
+      },
+      "description": "Saves the title of the wine"
+    },
+    {
+      "command": "store_attribute",
+      "locator": "body > div.wrap > section.search-page.section-alt > div > div > div > div.search-page__content > div > div:nth-child(1) > div > div.wine-card__content > div.wine-card__header-wrapper > span.header-smaller.text-block.wine-card__name > a",
+      "attribute_name": "href",
+      "output": {
+        "name": "URL1"
+      }
+    },
+    {
+      "command": "store",
+      "input": "https://www.vivino.com$URL1",
+      "output": {
+        "name": "URL1"
+      }
+    },
+    {
+      "command": "store_attribute",
+      "locator": "body > div.wrap > section.search-page.section-alt > div > div > div > div.search-page__content > div > div:nth-child(2) > div > div.wine-card__content > div.wine-card__header-wrapper > span.header-smaller.text-block.wine-card__name > a",
+      "attribute_name": "href",
+      "output": {
+        "name": "URL2"
+      }
+    },
+    {
+      "command": "store",
+      "input": "https://www.vivino.com$URL2",
+      "output": {
+        "name": "URL2"
+      }
+    },
+    {
+      "command": "store_attribute",
+      "locator": "body > div.wrap > section.search-page.section-alt > div > div > div > div.search-page__content > div > div:nth-child(3) > div > div.wine-card__content > div.wine-card__header-wrapper > span.header-smaller.text-block.wine-card__name > a",
+      "attribute_name": "href",
+      "output": {
+        "name": "URL3"
+      }
+    },
+    {
+      "command": "store",
+      "input": "https://www.vivino.com$URL3",
+      "output": {
+        "name": "URL3"
+      }
+    },
+    {
+      "command": "store_attribute",
+      "locator": "body > div.wrap > section.search-page.section-alt > div > div > div > div.search-page__content > div > div:nth-child(4) > div > div.wine-card__content > div.wine-card__header-wrapper > span.header-smaller.text-block.wine-card__name > a",
+      "attribute_name": "href",
+      "output": {
+        "name": "URL4"
+      }
+    },
+    {
+      "command": "store",
+      "input": "https://www.vivino.com$URL4",
+      "output": {
+        "name": "URL4"
+      }
+    },
+    {
+      "command": "store_attribute",
+      "locator": "body > div.wrap > section.search-page.section-alt > div > div > div > div.search-page__content > div > div:nth-child(5) > div > div.wine-card__content > div.wine-card__header-wrapper > span.header-smaller.text-block.wine-card__name > a",
+      "attribute_name": "href",
+      "output": {
+        "name": "URL5"
+      }
+    },
+    {
+      "command": "store",
+      "input": "https://www.vivino.com$URL5",
+      "output": {
+        "name": "URL5"
+      }
+    },
+    {
+      "command": "store_attribute",
+      "locator": "body > div.wrap > section.search-page.section-alt > div > div > div > div.search-page__content > div > div:nth-child(6) > div > div.wine-card__content > div.wine-card__header-wrapper > span.header-smaller.text-block.wine-card__name > a",
+      "attribute_name": "href",
+      "output": {
+        "name": "URL6"
+      }
+    },
+    {
+      "command": "store",
+      "input": "https://www.vivino.com$URL6",
+      "output": {
+        "name": "URL6"
+      }
+    }
+  ],
+  "url_steps": [
+    {
+      "command": "load",
+      "url": "$INPUT",
+      "config": {
+        "js": true,
+        "timeout": 1
+      },
+      "description": "Load the url of the wine"
+    },
+    {
+      "command": "store_url",
+      "output": {
+        "name": "URL"
+      },
+      "description": "Saves the URL of the detail"
+    },
+    {
+      "command": "store_text",
+      "locator": "title",
+      "output": {
+        "name": "WINERY"
+      },
+      "description": "Saves the winery of the wine"
+    },
+    {
+      "command": "regex",
+      "input": "$WINERY",
+      "expression": "[^\\|]*",
+      "output": {
+        "name": "TITLE"
+      },
+      "description": "Applies a regular expression to get just the title"
+    },
+    {
+      "command": "store",
+      "input": "$TITLE",
+      "output": {
+        "name": "WINERY"
+      },
+      "description": ""
+    },
+    {
+      "command": "store_text",
+      "locator": "span.vintage",
+      "output": {
+        "name": "VINTAGE"
+      },
+      "description": "Saves the vintage of the wine"
+    },
+    {
+      "command": "store_text",
+      "locator": "div.rating > div > a > div > div:nth-child(1)",
+      "output": {
+        "name": "RATING",
+        "type": "float"
+      },
+      "description": "Field: Get the rating"
+    },
+    {
+      "command": "store_text",
+      "locator": "#purchase-availability span",
+      "output": {
+        "name": "PRICE"
+      },
+      "description": "Get the price"
+    },
+    {
+      "command": "store_text",
+      "locator": "a[href*='/grapes/']",
+      "output": {
+        "name": "GRAPES"
+      },
+      "description": "Field: Type of grape"
+    },
+    {
+      "command": "store_text",
+      "locator": "a[href*='/wine-styles/']",
+      "output": {
+        "name": "STYLE"
+      },
+      "description": "Field: Saves the style"
+    },
+    {
+      "command": "store_text",
+      "locator": "a[href*='/wine-countries/']",
+      "output": {
+        "name": "COUNTRY"
+      },
+      "description": "Saves the description"
+    },
+    {
+      "command": "store_text",
+      "locator": "a[href*='/wine-regions/']",
+      "output": {
+        "name": "PLACE"
+      },
+      "description": "Saves the description"
+    },
+    {
+      "command": "store",
+      "input": "$COUNTRY $REGION",
+      "output": {
+        "name": "REGION"
+      },
+      "description": "Field: Saves the region"
+    },
+    {
+      "command": "store_attribute",
+      "locator": "picture.bottleShot img",
+      "attribute_name": "src",
+      "output": {
+        "name": "COVER"
+      },
+      "description": "Saves the image"
+    },
+    {
+      "command": "store",
+      "input": "https:$COVER",
+      "output": {
+        "name": "COVER"
+      },
+      "description": "Field: Add url param to the cover"
+    },
+    {
+      "command": "store_text",
+      "locator": "div[class*=wineLocationHeader__text]",
+      "output": {
+        "name": "DESCRIPTION"
+      },
+      "description": "Saves the description"
+    },
+    {
+      "command": "store",
+      "input": "$URL",
+      "output": {
+        "name": "URL_SALE"
+      },
+      "description": "Field: Saves the url to sale the product"
+    }
+  ]
+}
