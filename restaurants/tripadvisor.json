@@ -1,0 +1,313 @@
+{
+  "type": "Restaurants",
+  "uuid": "abcd60a201",
+  "shortcut": "tripadvisor_restaurants",
+  "version": 1,
+  "engine_version": 13,
+  "title": "Tripadvisor restaurants",
+  "description": "A recipe to get a list of restaurants",
+  "urls": [
+    "https://www.tripadvisor.es/",
+    "https://www.tripadvisor.com/"
+  ],
+  "headers": {
+    "Accept-Language": "en-UK",
+    "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.113 Safari/537.36"
+  },
+  "autocomplete_steps": [
+    {
+      "command": "api_request",
+      "output": {
+        "name": "JSON"
+      },
+      "url": "https://www.tripadvisor.com/TypeAheadJson?interleaved=true&link_type=geo&scoreThreshold=0.8&max=6&nearby=true&action=API&types=eat&query=$INPUT",
+      "config": {
+        "method": "GET"
+      },
+      "description": "Retreives a JSON with output of tripadvisor"
+    },
+    {
+      "command": "json_store_text",
+      "locator": "results.[0].name",
+      "input": "$JSON",
+      "output": {
+        "name": "TITLE1"
+      },
+      "description": "Saves the restaurant."
+    },
+    {
+      "command": "json_store_text",
+      "locator": "results.[1].name",
+      "input": "$JSON",
+      "output": {
+        "name": "TITLE2"
+      },
+      "description": "Saves the restaurant."
+    },
+    {
+      "command": "json_store_text",
+      "locator": "results.[2].name",
+      "input": "$JSON",
+      "output": {
+        "name": "TITLE3"
+      },
+      "description": "Saves the restaurant."
+    },
+    {
+      "command": "json_store_text",
+      "locator": "results.[3].name",
+      "input": "$JSON",
+      "output": {
+        "name": "TITLE4"
+      },
+      "description": "Saves the restaurant."
+    },
+    {
+      "command": "json_store_text",
+      "locator": "results.[4].name",
+      "input": "$JSON",
+      "output": {
+        "name": "TITLE5"
+      },
+      "description": "Saves the restaurant."
+    },
+    {
+      "command": "json_store_text",
+      "locator": "results.[5].name",
+      "input": "$JSON",
+      "output": {
+        "name": "TITLE6"
+      },
+      "description": "Saves the restaurant."
+    },
+    {
+      "command": "json_store_text",
+      "locator": "results.[0].url",
+      "input": "$JSON",
+      "output": {
+        "name": "ID1"
+      },
+      "description": "Saves the url."
+    },
+    {
+      "command": "json_store_text",
+      "locator": "results.[1].url",
+      "input": "$JSON",
+      "output": {
+        "name": "ID2"
+      },
+      "description": "Saves the url."
+    },
+    {
+      "command": "json_store_text",
+      "locator": "results.[2].url",
+      "input": "$JSON",
+      "output": {
+        "name": "ID3"
+      },
+      "description": "Saves the url."
+    },
+    {
+      "command": "json_store_text",
+      "locator": "results.[3].url",
+      "input": "$JSON",
+      "output": {
+        "name": "ID4"
+      },
+      "description": "Saves the url."
+    },
+    {
+      "command": "json_store_text",
+      "locator": "results.[4].url",
+      "input": "$JSON",
+      "output": {
+        "name": "ID5"
+      },
+      "description": "Saves the url."
+    },
+    {
+      "command": "json_store_text",
+      "locator": "results.[5].url",
+      "input": "$JSON",
+      "output": {
+        "name": "ID6"
+      },
+      "description": "Saves the url."
+    },
+    {
+      "command": "store",
+      "input": "https://www.tripadvisor.com$ID1",
+      "output": {
+        "name": "URL1"
+      }
+    },
+    {
+      "command": "store",
+      "input": "https://www.tripadvisor.com$ID2",
+      "output": {
+        "name": "URL2"
+      }
+    },
+    {
+      "command": "store",
+      "input": "https://www.tripadvisor.com$ID3",
+      "output": {
+        "name": "URL3"
+      }
+    },
+    {
+      "command": "store",
+      "input": "https://www.tripadvisor.com$ID4",
+      "output": {
+        "name": "URL4"
+      }
+    },
+    {
+      "command": "store",
+      "input": "https://www.tripadvisor.com$ID5",
+      "output": {
+        "name": "URL5"
+      }
+    },
+    {
+      "command": "store",
+      "input": "https://www.tripadvisor.com$ID6",
+      "output": {
+        "name": "URL6"
+      }
+    }
+  ],
+  "url_steps": [
+    {
+      "command": "load",
+      "url": "$INPUT",
+      "config": {
+        "js": true,
+        "timeout": 10
+      },
+      "description": "Load the url of the restaurant"
+    },
+    {
+      "command": "store_text",
+      "locator": "div[data-test-target*=restaurant-detail-info] > div:nth-child(3) > span:nth-child(1) > span:nth-child(1) > a",
+      "output": {
+        "name": "ADDRESS"
+      },
+      "description": "Saves the address."
+    },
+    {
+      "command": "store_text",
+      "locator": "div[data-test-target*=restaurant-detail-info] > div:nth-child(2) > span:nth-child(3) > a:nth-child(1)",
+      "output": {
+        "name": "ORIENTATIVE_PRICE"
+      },
+      "description": "Saves the style"
+    },
+    {
+      "command": "store_text",
+      "locator": "div[data-test-target*=restaurant-detail-info] > div:nth-child(1) > h1",
+      "output": {
+        "name": "TITLE"
+      },
+      "description": "Saves the name"
+    },
+    {
+      "command": "store_text",
+      "locator": "div[data-test-target*=restaurant-detail-info] > div:nth-child(3) > span:nth-child(2) > span:nth-child(1) > span:nth-child(2)",
+      "output": {
+        "name": "PHONE"
+      },
+      "description": "Saves the style"
+    },
+    {
+      "command": "store_attribute",
+      "locator": "div[data-test-target*=restaurant-detail-info] > div:nth-child(2) > span:nth-child(1) svg",
+      "attribute_name": "aria-label",
+      "output": {
+        "name": "ARATING"
+      },
+      "description": "Saves the rating"
+    },
+    {
+      "command": "regex",
+      "input": "$ARATING",
+      "expression": "\\d\\.\\d",
+      "output": {
+        "name": "RATING"
+      },
+      "description": "Applies a regular expression to get part of the rating"
+    },
+    {
+      "command": "store_text",
+      "locator": "div[data-test-target*=restaurant-detail-info] div:nth-child(2) span:nth-child(3) a:nth-child(2)",
+      "output": {
+        "name": "STYLE"
+      },
+      "description": "Saves the style"
+    },
+    {
+      "command": "store_attribute",
+      "locator": "meta[property='og:image']",
+      "attribute_name": "content",
+      "output": {
+        "name": "COVER"
+      },
+      "description": "Saves the image"
+    },
+    {
+      "command": "store_attribute",
+      "locator": "div[data-test-target*=restaurant-detail-info] > div:nth-child(3) > span:nth-child(3) > span:nth-child(1) > a ",
+      "attribute_name": "href",
+      "output": {
+        "name": "WEBSITE"
+      },
+      "description": "Saves the website"
+    },
+    {
+      "command": "url_encode",
+      "input": "$TITLE",
+      "output": {
+        "name": "AUX_TITLE"
+      },
+      "description": "Url encode of the title"
+    },
+    {
+      "command": "api_request",
+      "output": {
+        "name": "JSON"
+      },
+      "url": "https://www.tripadvisor.com/TypeAheadJson?interleaved=true&link_type=geo&scoreThreshold=0.8&max=6&nearby=true&action=API&types=eat&query=$AUX_TITLE",
+      "config": {
+        "method": "GET"
+      },
+      "description": "Retreives a JSON with output of tripadvisor"
+    },
+    {
+      "command": "json_store_text",
+      "locator": "results.[0].coords",
+      "input": "$JSON",
+      "output": {
+        "name": "COORDS"
+      },
+      "description": "Saves the coords."
+    },
+    {
+      "command": "store_attribute",
+      "locator": "span[data-test-target*=staticMapSnapshot] > img",
+      "attribute_name": "src",
+      "output": {
+        "name": "ACOORDS"
+      },
+      "description": "Saves the address."
+    },
+    {
+      "command": "regex",
+      "input": "$ACOORDS",
+      "expression": "\\d+\\.\\d+\\,\\-?\\d+\\.\\d+",
+      "output": {
+        "name": "COORDS"
+      },
+      "description": "Applies a regular expression to get part of the rating"
+    }
+  ]
+}

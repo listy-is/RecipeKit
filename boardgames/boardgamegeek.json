@@ -1,0 +1,281 @@
+{
+  "type": "Boardgames",
+  "uuid": "a1b960a204",
+  "shortcut": "boardgamegeek_boardgames",
+  "version": 1,
+  "engine_version": 7,
+  "title": "Boardgames Geek Boardgames",
+  "description": "A recipe to get a list of boardgames",
+  "urls": [
+    "https://www.boardgamegeek.com",
+    "https://boardgamegeek.com/boardgame/",
+    "https://www.boardgamegeek.com/boardgame/",
+    "https://boardgamegeek.com/boardgame/",
+    "http://boardgamegeek.com/boardgame/",
+    "http://boardgamegeek.com/",
+    "http://boardgamegeek.com/"
+  ],
+  "headers": {
+    "Accept-Language": "en-UK,en",
+    "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.113 Safari/537.36"
+  },
+  "autocomplete_steps": [
+    {
+      "command": "load",
+      "url": "https://www.boardgamegeek.com/search/boardgame?q=$INPUT&showcount=20",
+      "description": "Searches boards game by title"
+    },
+    {
+      "command": "store_text",
+      "locator": "#results_objectname1",
+      "output": {
+        "name": "TITLE1"
+      }
+    },
+    {
+      "command": "store_text",
+      "locator": "#results_objectname2",
+      "output": {
+        "name": "TITLE2"
+      }
+    },
+    {
+      "command": "store_text",
+      "locator": "#results_objectname3",
+      "output": {
+        "name": "TITLE3"
+      }
+    },
+    {
+      "command": "store_text",
+      "locator": "#results_objectname4",
+      "output": {
+        "name": "TITLE4"
+      }
+    },
+    {
+      "command": "store_text",
+      "locator": "#results_objectname5",
+      "output": {
+        "name": "TITLE5"
+      }
+    },
+    {
+      "command": "store_text",
+      "locator": "#results_objectname6",
+      "output": {
+        "name": "TITLE6"
+      }
+    },
+    {
+      "command": "store_attribute",
+      "locator": "#results_objectname1 > a",
+      "attribute_name": "href",
+      "output": {
+        "name": "URL1"
+      }
+    },
+    {
+      "command": "store",
+      "input": "https://www.boardgamegeek.com$URL1",
+      "output": {
+        "name": "URL1"
+      }
+    },
+    {
+      "command": "store_attribute",
+      "locator": "#results_objectname2 > a",
+      "attribute_name": "href",
+      "output": {
+        "name": "URL2"
+      }
+    },
+    {
+      "command": "store",
+      "input": "https://www.boardgamegeek.com$URL2",
+      "output": {
+        "name": "URL2"
+      }
+    },
+    {
+      "command": "store_attribute",
+      "locator": "#results_objectname3 > a",
+      "attribute_name": "href",
+      "output": {
+        "name": "URL3"
+      }
+    },
+    {
+      "command": "store",
+      "input": "https://www.boardgamegeek.com$URL3",
+      "output": {
+        "name": "URL3"
+      }
+    },
+    {
+      "command": "store_attribute",
+      "locator": "#results_objectname4 > a",
+      "attribute_name": "href",
+      "output": {
+        "name": "URL4"
+      }
+    },
+    {
+      "command": "store",
+      "input": "https://www.boardgamegeek.com$URL4",
+      "output": {
+        "name": "URL4"
+      }
+    },
+    {
+      "command": "store_attribute",
+      "locator": "#results_objectname5 > a",
+      "attribute_name": "href",
+      "output": {
+        "name": "URL5"
+      }
+    },
+    {
+      "command": "store",
+      "input": "https://www.boardgamegeek.com$URL5",
+      "output": {
+        "name": "URL5"
+      }
+    },
+    {
+      "command": "store_attribute",
+      "locator": "#results_objectname6 > a",
+      "attribute_name": "href",
+      "output": {
+        "name": "URL6"
+      }
+    },
+    {
+      "command": "store",
+      "input": "https://www.boardgamegeek.com$URL6",
+      "output": {
+        "name": "URL6"
+      }
+    }
+  ],
+  "url_steps": [
+    {
+      "command": "load",
+      "url": "$INPUT",
+      "config": {
+        "js": true
+      },
+      "description": "Load the url of the movie"
+    },
+    {
+      "command": "store_url",
+      "output": {
+        "name": "URL"
+      },
+      "description": "Saves the URL of the detail"
+    },
+    {
+      "command": "store_attribute",
+      "locator": "meta[name='title']",
+      "attribute_name": "content",
+      "output": {
+        "name": "TITLE"
+      },
+      "description": "Takes the title of the game"
+    },
+    {
+      "command": "store_attribute",
+      "locator": "meta[property='og:description']",
+      "attribute_name": "content",
+      "output": {
+        "name": "DESCRIPTION"
+      },
+      "description": "Takes the title of the game"
+    },
+    {
+      "command": "regex",
+      "input": "$DESCRIPTION",
+      "expression": "(?<=BoardgameNews).+",
+      "output": {
+        "name": "DESCRIPTION"
+      },
+      "description": "Applies a regular expression to get part of the description"
+    },
+    {
+      "command": "store_attribute",
+      "locator": "meta[property='og:image']",
+      "attribute_name": "content",
+      "output": {
+        "name": "COVER"
+      },
+      "description": "Takes the cover of the game"
+    },
+    {
+      "command": "url_encode",
+      "input": "$TITLE",
+      "output": {
+        "name": "AUX_TITLE"
+      },
+      "description": "Url encode of the title"
+    },
+    {
+      "command": "store_text",
+      "locator": "#mainbody > div > div.global-body-content.pending.ready > div.content.ng-isolate-scope > div:nth-child(2) > ng-include > div > ng-include > div > div.game-header > div.game-header-body > div.game-header-title-container > div > div.game-header-title-rating > overall-rating > div > div > a > span.ng-binding",
+      "output": {
+        "name": "RATING",
+        "type": "float"
+      },
+      "description": "Saves the rating of the game"
+    },
+    {
+      "command": "store_text",
+      "locator": "#mainbody > div > div.global-body-content.pending.ready > div.content.ng-isolate-scope > div:nth-child(2) > ng-include > div > ng-include > div > div.game-header > div.game-header-body > div.game-header-title-container > div > div.game-header-title-info > h1 > span",
+      "output": {
+        "name": "DATE"
+      },
+      "description": "Saves the date of the game"
+    },
+    {
+      "command": "regex",
+      "input": "$DATE",
+      "expression": "(?<=\\()\\d\\d\\d\\d(?=\\))",
+      "output": {
+        "name": "DATE"
+      },
+      "description": "Saves the date of the game"
+    },
+    {
+      "command": "store_text",
+      "locator": "#mainbody > div > div.global-body-content.pending.ready > div.content.ng-isolate-scope > div:nth-child(2) > ng-include > div > ng-include > div > div.game-header > div.game-header-body > div.game-header-gameplay.hidden-game-header-collapsed > gameplay-module > div > div > ul > li:nth-child(2) > div.gameplay-item-primary > span",
+      "output": {
+        "name": "TIME"
+      },
+      "description": "Saves the duration of the game"
+    },
+    {
+      "command": "store_text",
+      "locator": "#mainbody > div > div.global-body-content.pending.ready > div.content.ng-isolate-scope > div:nth-child(2) > ng-include > div > ng-include > div > div.game-header > div.game-header-body > div.game-header-gameplay.hidden-game-header-collapsed > gameplay-module > div > div > ul > li:nth-child(1) > div.gameplay-item-primary",
+      "output": {
+        "name": "PLAYERS"
+      },
+      "description": "Saves the number of players of the game"
+    },
+    {
+      "command": "store_text",
+      "attribute_name": "title",
+      "locator": "#mainbody > div > div.global-body-content.pending.ready > div.content.ng-isolate-scope > div:nth-child(2) > ng-include > div > div > ui-view > ui-view > div > overview-module > description-module > div > div.panel-body > div > div.game-description-classification.well.ng-scope > classifications-module > div > div.panel-body > ul > li:nth-child(1) > div.feature-description > span > a",
+      "output": {
+        "name": "CATEGORY"
+      },
+      "description": "Saves the category of the game"
+    },
+    {
+      "command": "store",
+      "input": "https://www.amazon.com/s?&rh=n%3A166225011&dc&language=es&ref=sr_nr_n_1&k=$AUX_TITLE",
+      "output": {
+        "name": "URL_SALE"
+      },
+      "description": "Saves the url to sale the product"
+    }
+  ]
+}

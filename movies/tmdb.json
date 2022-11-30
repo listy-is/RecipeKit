@@ -1,0 +1,445 @@
+{
+  "type": "Movies",
+  "uuid": "210514a66c",
+  "shortcut": "tmdb_movies",
+  "version": 5,
+  "engine_version": 6,
+  "title": "TMDB Movies",
+  "description": "A recipe to get a list of movies",
+  "urls": [
+    "https://www.themoviedb.org/movie/"
+  ],
+  "headers": {
+    "Accept-Language": "es-ES",
+    "User-Agent": "Mozilla/5.0 (Linux; Android 10; Pixel 4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Mobile Safari/537.36"
+  },
+  "autocomplete_steps": [
+    {
+      "command": "load",
+      "url": "https://www.themoviedb.org/search/movie?language=es-ES&query=$INPUT",
+      "description": "Searches movies by title"
+    },
+    {
+      "command": "store_text",
+      "locator": "div.results > div:nth-child(1) div.title h2",
+      "output": {
+        "name": "TITLE1"
+      }
+    },
+    {
+      "command": "store_text",
+      "locator": "div.results > div:nth-child(1) div.title > span.release_date",
+      "output": {
+        "name": "YEAR1"
+      }
+    },
+    {
+      "command": "regex",
+      "input": "$YEAR1",
+      "expression": "(\\s\\d\\d\\d\\d)",
+      "output": {
+        "name": "YEAR1"
+      }
+    },
+    {
+      "command": "store",
+      "input": "$TITLE1$YEAR1",
+      "output": {
+        "name": "TITLE1"
+      }
+    },
+    {
+      "command": "store_attribute",
+      "locator": "div.results > div:nth-child(1) div.title a",
+      "attribute_name": "href",
+      "output": {
+        "name": "URL1"
+      }
+    },
+    {
+      "command": "store",
+      "input": "https://www.themoviedb.org$URL1",
+      "output": {
+        "name": "URL1"
+      }
+    },
+    {
+      "command": "store_text",
+      "locator": "div.results > div:nth-child(2) div.title h2",
+      "output": {
+        "name": "TITLE2"
+      }
+    },
+    {
+      "command": "store_text",
+      "locator": "div.results > div:nth-child(2) div.title > span.release_date",
+      "output": {
+        "name": "YEAR2"
+      }
+    },
+    {
+      "command": "regex",
+      "input": "$YEAR2",
+      "expression": "(\\s\\d\\d\\d\\d)",
+      "output": {
+        "name": "YEAR2"
+      }
+    },
+    {
+      "command": "store",
+      "input": "$TITLE2$YEAR2",
+      "output": {
+        "name": "TITLE2"
+      }
+    },
+    {
+      "command": "store_attribute",
+      "locator": "div.results > div:nth-child(2) div.title a",
+      "attribute_name": "href",
+      "output": {
+        "name": "URL2"
+      }
+    },
+    {
+      "command": "store",
+      "input": "https://www.themoviedb.org$URL2",
+      "output": {
+        "name": "URL2"
+      }
+    },
+    {
+      "command": "store_text",
+      "locator": "div.results > div:nth-child(3) div.title h2",
+      "output": {
+        "name": "TITLE3"
+      }
+    },
+    {
+      "command": "store_text",
+      "locator": "div.results > div:nth-child(3) div.title > span.release_date",
+      "output": {
+        "name": "YEAR3"
+      }
+    },
+    {
+      "command": "regex",
+      "input": "$YEAR3",
+      "expression": "(\\s\\d\\d\\d\\d)",
+      "output": {
+        "name": "YEAR3"
+      }
+    },
+    {
+      "command": "store",
+      "input": "$TITLE3$YEAR3",
+      "output": {
+        "name": "TITLE3"
+      }
+    },
+    {
+      "command": "store_attribute",
+      "locator": "div.results > div:nth-child(3) div.title a",
+      "attribute_name": "href",
+      "output": {
+        "name": "URL3"
+      }
+    },
+    {
+      "command": "store",
+      "input": "https://www.themoviedb.org$URL3",
+      "output": {
+        "name": "URL3"
+      }
+    },
+    {
+      "command": "store_text",
+      "locator": "div.results > div:nth-child(4) div.title h2",
+      "output": {
+        "name": "TITLE4"
+      }
+    },
+    {
+      "command": "store_text",
+      "locator": "div.results > div:nth-child(4) div.title > span.release_date",
+      "output": {
+        "name": "YEAR4"
+      }
+    },
+    {
+      "command": "regex",
+      "input": "$YEAR4",
+      "expression": "(\\s\\d\\d\\d\\d)",
+      "output": {
+        "name": "YEAR4"
+      }
+    },
+    {
+      "command": "store",
+      "input": "$TITLE4$YEAR4",
+      "output": {
+        "name": "TITLE4"
+      }
+    },
+    {
+      "command": "store_attribute",
+      "locator": "div.results > div:nth-child(4) div.title a",
+      "attribute_name": "href",
+      "output": {
+        "name": "URL4"
+      }
+    },
+    {
+      "command": "store",
+      "input": "https://www.themoviedb.org$URL4",
+      "output": {
+        "name": "URL4"
+      }
+    },
+    {
+      "command": "store_text",
+      "locator": "div.results > div:nth-child(5) div.title h2",
+      "output": {
+        "name": "TITLE5"
+      }
+    },
+    {
+      "command": "store_text",
+      "locator": "div.results > div:nth-child(5) div.title > span.release_date",
+      "output": {
+        "name": "YEAR5"
+      }
+    },
+    {
+      "command": "regex",
+      "input": "$YEAR5",
+      "expression": "(\\s\\d\\d\\d\\d)",
+      "output": {
+        "name": "YEAR5"
+      }
+    },
+    {
+      "command": "store",
+      "input": "$TITLE5$YEAR5",
+      "output": {
+        "name": "TITLE5"
+      }
+    },
+    {
+      "command": "store_attribute",
+      "locator": "div.results > div:nth-child(5) div.title a",
+      "attribute_name": "href",
+      "output": {
+        "name": "URL5"
+      }
+    },
+    {
+      "command": "store",
+      "input": "https://www.themoviedb.org$URL5",
+      "output": {
+        "name": "URL5"
+      }
+    },
+    {
+      "command": "store_text",
+      "locator": "div.results > div:nth-child(6) div.title h2",
+      "output": {
+        "name": "TITLE6"
+      }
+    },
+    {
+      "command": "store_text",
+      "locator": "div.results > div:nth-child(6) div.title > span.release_date",
+      "output": {
+        "name": "YEAR6"
+      }
+    },
+    {
+      "command": "regex",
+      "input": "$YEAR6",
+      "expression": "(\\s\\d\\d\\d\\d)",
+      "output": {
+        "name": "YEAR6"
+      }
+    },
+    {
+      "command": "store",
+      "input": "$TITLE6$YEAR6",
+      "output": {
+        "name": "TITLE6"
+      }
+    },
+    {
+      "command": "store_attribute",
+      "locator": "div.results > div:nth-child(6) div.title a",
+      "attribute_name": "href",
+      "output": {
+        "name": "URL6"
+      }
+    },
+    {
+      "command": "store",
+      "input": "https://www.themoviedb.org$URL6",
+      "output": {
+        "name": "URL6"
+      }
+    }
+  ],
+  "url_steps": [
+    {
+      "command": "load",
+      "url": "$INPUT",
+      "headers": {
+        "User-Agent": "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.113 Mobile Safari/537.36"
+      },
+      "description": "Load the url of the movie"
+    },
+    {
+      "command": "store_url",
+      "output": {
+        "name": "URL"
+      },
+      "description": "Saves the URL of the detail"
+    },
+    {
+      "command": "store_text",
+      "locator": "div.title h2",
+      "output": {
+        "name": "TITLE"
+      },
+      "description": "Takes the title of the movie including the year"
+    },
+    {
+      "command": "regex",
+      "input": "$TITLE",
+      "expression": "(?<=\\()\\d\\d\\d\\d(?=\\))",
+      "output": {
+        "name": "DATE",
+        "type": "date",
+        "format": "YYYY"
+      },
+      "description": "Applies a regular expression to get just the year of the date"
+    },
+    {
+      "command": "regex",
+      "input": "$TITLE",
+      "expression": "[^\\(]*",
+      "output": {
+        "name": "TITLE"
+      },
+      "description": "Applies a regular expression to get just the title of the movie before the year"
+    },
+    {
+      "command": "store_text",
+      "locator": "#original_header .header_info .overview  p",
+      "output": {
+        "name": "DESCRIPTION"
+      },
+      "description": "Saves the description"
+    },
+    {
+      "command": "store_attribute",
+      "locator": "div.provider img",
+      "attribute_name": "alt",
+      "output": {
+        "name": "AUX_PROVIDER"
+      },
+      "description": "Saves the provider"
+    },
+    {
+      "command": "regex",
+      "input": "$AUX_PROVIDER",
+      "expression": "(?<=Ahora\\en\\sstreaming\\sen\\s).+",
+      "output": {
+        "name": "AUX_PROVIDER"
+      },
+      "description": "Saves the provider"
+    },
+    {
+      "command": "store",
+      "input": "$AUX_PROVIDER",
+      "output": {
+        "name": "TAGS"
+      },
+      "description": "Saves the platform"
+    },
+    {
+      "command": "store_attribute",
+      "locator": "div.user_score_chart",
+      "attribute_name": "data-percent",
+      "output": {
+        "name": "AUX_RATING_PERCENT"
+      },
+      "description": "Saves the rating of the movie"
+    },
+    {
+      "command": "regex",
+      "input": "$AUX_RATING_PERCENT",
+      "expression": "\\d",
+      "output": {
+        "name": "AUX_RATING_UNITS"
+      },
+      "description": "Applies a regular expression to get the units"
+    },
+    {
+      "command": "regex",
+      "input": "$AUX_RATING_PERCENT",
+      "expression": "(?<=\\d)\\d",
+      "output": {
+        "name": "AUX_RATING_DEC"
+      },
+      "description": "Applies a regular expression to get the dec"
+    },
+    {
+      "command": "store",
+      "input": "$AUX_RATING_UNITS.$AUX_RATING_DEC",
+      "output": {
+        "name": "RATING",
+        "type": "float"
+      },
+      "description": "Join the units with dec"
+    },
+    {
+      "command": "store_text",
+      "locator": "ol.people > li:nth-child(1) > p > a",
+      "output": {
+        "name": "AUTHOR"
+      },
+      "description": "Saves the director of the movie"
+    },
+    {
+      "command": "store_attribute",
+      "locator": "img.poster",
+      "attribute_name": "src",
+      "output": {
+        "name": "COVER"
+      },
+      "description": "Saves the image"
+    },
+    {
+      "command": "regex",
+      "input": "$COVER",
+      "expression": "(?<=p\\/).+",
+      "output": {
+        "name": "COVER"
+      },
+      "description": "Applies a regular expression to get part of the cover"
+    },
+    {
+      "command": "regex",
+      "input": "$COVER",
+      "expression": "(?<=\\/).+",
+      "output": {
+        "name": "COVER"
+      },
+      "description": "Applies a regular expression to get part of the cover"
+    },
+    {
+      "command": "store",
+      "input": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/$COVER",
+      "output": {
+        "name": "COVER"
+      },
+      "description": "Add high res param to the cover"
+    }
+  ]
+}

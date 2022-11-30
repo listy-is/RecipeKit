@@ -1,0 +1,272 @@
+{
+  "type": "Artists",
+  "uuid": "c9a7e68fa2",
+  "shortcut": "apple_artists",
+  "version": 1,
+  "engine_version": 11,
+  "title": "Apple Artists",
+  "description": "Load artists from Apple",
+  "urls": [
+    "https://itunes.apple.com/search?media=music&entity=musicArtist",
+    "itunes.apple.com"
+  ],
+  "headers": {
+    "Accept-Language": "en-UK,en",
+    "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.113 Safari/537.36"
+  },
+  "autocomplete_steps": [
+    {
+      "command": "api_request",
+      "output": {
+        "name": "JSON"
+      },
+      "url": "https://itunes.apple.com/search?media=music&limit=6&entity=musicArtist&explicit=YES&term=$INPUT",
+      "config": {
+        "method": "GET"
+      },
+      "description": "Retreives a JSON with output of apple"
+    },
+    {
+      "command": "json_store_text",
+      "locator": "results.[0].artistName",
+      "input": "$JSON",
+      "output": {
+        "name": "TITLE1"
+      },
+      "description": "Saves the first artist."
+    },
+    {
+      "command": "json_store_text",
+      "locator": "results.[1].artistName",
+      "input": "$JSON",
+      "output": {
+        "name": "TITLE2"
+      },
+      "description": "Saves the first artist."
+    },
+    {
+      "command": "json_store_text",
+      "locator": "results.[2].artistName",
+      "input": "$JSON",
+      "output": {
+        "name": "TITLE3"
+      },
+      "description": "Saves the first artist."
+    },
+    {
+      "command": "json_store_text",
+      "locator": "results.[3].artistName",
+      "input": "$JSON",
+      "output": {
+        "name": "TITLE4"
+      },
+      "description": "Saves the first artist."
+    },
+    {
+      "command": "json_store_text",
+      "locator": "results.[4].artistName",
+      "input": "$JSON",
+      "output": {
+        "name": "TITLE5"
+      },
+      "description": "Saves the first artist."
+    },
+    {
+      "command": "json_store_text",
+      "locator": "results.[5].artistName",
+      "input": "$JSON",
+      "output": {
+        "name": "TITLE6"
+      },
+      "description": "Saves the first artist."
+    },
+    {
+      "command": "json_store_text",
+      "locator": "results.[0].artistId",
+      "input": "$JSON",
+      "output": {
+        "name": "ID1"
+      },
+      "description": "Saves the first id."
+    },
+    {
+      "command": "json_store_text",
+      "locator": "results.[1].artistId",
+      "input": "$JSON",
+      "output": {
+        "name": "ID2"
+      },
+      "description": "Saves the first id."
+    },
+    {
+      "command": "json_store_text",
+      "locator": "results.[2].artistId",
+      "input": "$JSON",
+      "output": {
+        "name": "ID3"
+      },
+      "description": "Saves the first id."
+    },
+    {
+      "command": "json_store_text",
+      "locator": "results.[3].artistId",
+      "input": "$JSON",
+      "output": {
+        "name": "ID4"
+      },
+      "description": "Saves the first id."
+    },
+    {
+      "command": "json_store_text",
+      "locator": "results.[4].artistId",
+      "input": "$JSON",
+      "output": {
+        "name": "ID5"
+      },
+      "description": "Saves the first id."
+    },
+    {
+      "command": "json_store_text",
+      "locator": "results.[5].artistId",
+      "input": "$JSON",
+      "output": {
+        "name": "ID6"
+      },
+      "description": "Saves the first id."
+    },
+    {
+      "command": "store",
+      "input": "https://itunes.apple.com/search?media=music&entity=musicArtist&limit=1&explicit=YES&term=$ID1",
+      "output": {
+        "name": "URL1"
+      }
+    },
+    {
+      "command": "store",
+      "input": "https://itunes.apple.com/search?media=music&entity=musicArtist&limit=1&explicit=YES&term=$ID2",
+      "output": {
+        "name": "URL2"
+      }
+    },
+    {
+      "command": "store",
+      "input": "https://itunes.apple.com/search?media=music&entity=musicArtist&limit=1&explicit=YES&term=$ID3",
+      "output": {
+        "name": "URL3"
+      }
+    },
+    {
+      "command": "store",
+      "input": "https://itunes.apple.com/search?media=music&entity=musicArtist&limit=1&explicit=YES&term=$ID4",
+      "output": {
+        "name": "URL4"
+      }
+    },
+    {
+      "command": "store",
+      "input": "https://itunes.apple.com/search?media=music&entity=musicArtist&limit=1&explicit=YES&term=$ID5",
+      "output": {
+        "name": "URL5"
+      }
+    },
+    {
+      "command": "store",
+      "input": "https://itunes.apple.com/search?media=music&entity=musicArtist&limit=1&explicit=YES&term=$ID6",
+      "output": {
+        "name": "URL6"
+      }
+    }
+  ],
+  "url_steps": [
+    {
+      "command": "api_request",
+      "output": {
+        "name": "JSON"
+      },
+      "url": "$INPUT",
+      "config": {
+        "method": "GET"
+      },
+      "description": "Retreives a JSON with output of apple"
+    },
+    {
+      "command": "json_store_text",
+      "locator": "results.[0].artistName",
+      "input": "$JSON",
+      "output": {
+        "name": "AUTHOR"
+      },
+      "description": "Saves the first artist."
+    },
+    {
+      "command": "json_store_text",
+      "locator": "results.[0].artistLinkUrl",
+      "input": "$JSON",
+      "output": {
+        "name": "URL"
+      },
+      "description": "Saves the url."
+    },
+    {
+      "command": "json_store_text",
+      "locator": "results.[0].primaryGenreName",
+      "input": "$JSON",
+      "output": {
+        "name": "GENRE"
+      },
+      "description": "Saves the genre"
+    },
+    {
+      "command": "url_encode",
+      "input": "$AUTHOR",
+      "output": {
+        "name": "AUX_AUTHOR"
+      },
+      "description": "Url encode of the title"
+    },
+    {
+      "command": "store",
+      "input": "https://itunes.apple.com/search?media=music&entity=album&limit=1&explicit=YES&term=$AUX_AUTHOR",
+      "output": {
+        "name": "AURL"
+      }
+    },
+    {
+      "command": "api_request",
+      "output": {
+        "name": "JSON"
+      },
+      "url": "$AURL",
+      "config": {
+        "method": "GET"
+      },
+      "description": "Retreives a JSON with output of apple"
+    },
+    {
+      "command": "json_store_text",
+      "locator": "results.[0].artworkUrl100",
+      "input": "$JSON",
+      "output": {
+        "name": "COVER"
+      },
+      "description": "Saves the cover"
+    },
+    {
+      "command": "regex",
+      "input": "$COVER",
+      "expression": "[\\S]*\\/",
+      "output": {
+        "name": "COVER"
+      },
+      "description": "Applies a regular expression to get part of the cover"
+    },
+    {
+      "command": "store",
+      "input": "$COVER300x300bb.jpg",
+      "output": {
+        "name": "COVER"
+      },
+      "description": "Add high res param to the cover"
+    }
+  ]
+}

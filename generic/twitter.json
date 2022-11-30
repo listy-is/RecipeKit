@@ -1,0 +1,211 @@
+{
+  "type": "Generic",
+  "uuid": "28d1a4d6dd",
+  "shortcut": "twitter_generic",
+  "version": 2,
+  "engine_version": 10,
+  "title": "Twitter Generic",
+  "description": "Load a twitter url correctly in generic lists",
+  "urls": [
+    "https://mobile.twitter.com",
+    "https://twitter.com",
+    "twitter.com"
+  ],
+  "headers": null,
+  "autocomplete_steps": null,
+  "url_steps": [
+    {
+      "command": "regex",
+      "input": "$INPUT",
+      "expression": "[0-9]{10,}",
+      "output": {
+        "name": "TWEETID"
+      },
+      "description": "Extracts tweet id from a twitter URL."
+    },
+    {
+      "command": "api_request",
+      "output": {
+        "name": "JSON"
+      },
+      "url": "https://api.twitter.com/1.1/guest/activate.json",
+      "config": {
+        "method": "POST",
+        "headers": {
+          "Authorization": "Bearer AAAAAAAAAAAAAAAAAAAAANRILgAAAAAAnNwIzUejRCOuH5E6I8xnZz4puTs%3D1Zv7ttfk8LF81IUq16cHjhLTvJu4FA33AGWWjCpTnA",
+          "X-Twitter-Active-User": "yes",
+          "X-Twitter-Client-Language": "en"
+        }
+      },
+      "description": "Retreives a JSON with guest token from twitter API"
+    },
+    {
+      "command": "json_store_text",
+      "locator": "guest_token",
+      "input": "$JSON",
+      "output": {
+        "name": "TOKEN"
+      },
+      "description": "Saves the token to do requests."
+    },
+    {
+      "command": "api_request",
+      "output": {
+        "name": "JSON"
+      },
+      "url": "https://twitter.com/i/api/2/timeline/conversation/$TWEETID.json?include_profile_interstitial_type=1&include_blocking=1&include_blocked_by=1&include_followed_by=1&include_want_retweets=1&include_mute_edge=1&include_can_dm=1&include_can_media_tag=1&skip_status=1&cards_platform=Web-12&include_cards=1&include_ext_alt_text=true&include_quote_count=true&include_reply_count=1&tweet_mode=extended&include_entities=true&include_user_entities=true&include_ext_media_color=true&include_ext_media_availability=true&send_error_codes=true&simple_quoted_tweet=true&count=20&include_ext_has_birdwatch_notes=false&ext=mediaStats%2ChighlightedLabel",
+      "config": {
+        "method": "GET",
+        "headers": {
+          "Authorization": "Bearer AAAAAAAAAAAAAAAAAAAAANRILgAAAAAAnNwIzUejRCOuH5E6I8xnZz4puTs%3D1Zv7ttfk8LF81IUq16cHjhLTvJu4FA33AGWWjCpTnA",
+          "X-Twitter-Active-User": "yes",
+          "X-Guest-Token": "$TOKEN",
+          "X-Twitter-Client-Language": "en"
+        }
+      },
+      "description": "Retreives a JSON with tweet data."
+    },
+    {
+      "command": "json_store_text",
+      "locator": "globalObjects.tweets.$TWEETID.full_text",
+      "input": "$JSON",
+      "output": {
+        "name": "DESCRIPTION"
+      },
+      "description": "Saves the text of the tweet."
+    },
+    {
+      "command": "regex",
+      "input": "$DESCRIPTION",
+      "expression": ".{45}",
+      "output": {
+        "name": "SUMMARY"
+      },
+      "description": "Creates a summary of the tweet"
+    },
+    {
+      "command": "json_store_text",
+      "locator": "globalObjects.tweets.$TWEETID.user_id_str",
+      "input": "$JSON",
+      "output": {
+        "name": "USERID"
+      },
+      "description": "Saves the user id of the tweet."
+    },
+    {
+      "command": "json_store_text",
+      "locator": "globalObjects.users.$USERID.name",
+      "input": "$JSON",
+      "output": {
+        "name": "AUTHOR"
+      },
+      "description": "Saves the author user name of the tweet."
+    },
+    {
+      "command": "json_store_text",
+      "locator": "globalObjects.users.$USERID.screen_name",
+      "input": "$JSON",
+      "output": {
+        "name": "USERNAME"
+      },
+      "description": "Saves the author user name of the tweet."
+    },
+    {
+      "command": "store",
+      "input": "$AUTHOR",
+      "output": {
+        "name": "TITLE"
+      },
+      "description": "Set the title with the username."
+    },
+    {
+      "command": "json_store_text",
+      "locator": "globalObjects.tweets.$TWEETID.created_at",
+      "input": "$JSON",
+      "output": {
+        "name": "FULLDATE"
+      },
+      "description": "Saves the created date."
+    },
+    {
+      "command": "regex",
+      "input": "$FULLDATE",
+      "expression": "(\\w{3} \\w{3} \\d+)",
+      "output": {
+        "name": "DATE"
+      },
+      "description": "Extract the date from date."
+    },
+    {
+      "command": "regex",
+      "input": "$FULLDATE",
+      "expression": "(\\d{4}$)",
+      "output": {
+        "name": "YEAR"
+      },
+      "description": "Extract the year from date."
+    },
+    {
+      "command": "store",
+      "input": "$DATE $YEAR",
+      "output": {
+        "name": "DATE"
+      },
+      "description": "Set the date with the year."
+    },
+    {
+      "command": "json_store_text",
+      "locator": "globalObjects.tweets.$TWEETID.entities.urls.[0].expanded_url",
+      "input": "$JSON",
+      "output": {
+        "name": "EXPANDED_URL"
+      },
+      "description": "Saves the link to the tweet."
+    },
+    {
+      "command": "json_store_text",
+      "locator": "globalObjects.tweets.$TWEETID.retweet_count",
+      "input": "$JSON",
+      "output": {
+        "name": "RETWEETS"
+      },
+      "description": "Saves the number of retweets of the tweet."
+    },
+    {
+      "command": "json_store_text",
+      "locator": "globalObjects.tweets.$TWEETID.favorite_count",
+      "input": "$JSON",
+      "output": {
+        "name": "FAVS"
+      },
+      "description": "Saves the number of favs of the tweet."
+    },
+    {
+      "command": "json_store_text",
+      "locator": "globalObjects.tweets.$TWEETID.entities.media.[0].media_url_https",
+      "input": "$JSON",
+      "output": {
+        "name": "COVER"
+      },
+      "description": "Saves the picture uploaded to the tweet."
+    },
+    {
+      "command": "json_store_text",
+      "locator": "globalObjects.tweets.$TWEETID.card.binding_values.thumbnail_image_large.image_value.url",
+      "input": "$JSON",
+      "output": {
+        "name": "COVER"
+      },
+      "description": "Saves the link related picture on the tweet."
+    },
+    {
+      "command": "json_store_text",
+      "locator": "globalObjects.users.$USERID.profile_image_url_https",
+      "input": "$JSON",
+      "output": {
+        "name": "AVATAR"
+      },
+      "description": "Saves the avatar of the tweet."
+    }
+  ]
+}

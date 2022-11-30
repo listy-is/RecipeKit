@@ -1,0 +1,285 @@
+{
+  "type": "Software",
+  "uuid": "0242ac1200",
+  "shortcut": "apple_software",
+  "version": 1,
+  "engine_version": 12,
+  "title": "Apple Software",
+  "description": "Load software from Apple",
+  "urls": [
+    "https://itunes.apple.com/search?media=software",
+    "itunes.apple.com"
+  ],
+  "headers": {
+    "Accept-Language": "en-UK,en",
+    "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.113 Safari/537.36"
+  },
+  "autocomplete_steps": [
+    {
+      "command": "api_request",
+      "output": {
+        "name": "JSON"
+      },
+      "url": "https://itunes.apple.com/search?media=software&limit=6&explicit=YES&term=$INPUT",
+      "config": {
+        "method": "GET"
+      },
+      "description": "Retreives a JSON with output of apple"
+    },
+    {
+      "command": "json_store_text",
+      "locator": "results.[0].trackName",
+      "input": "$JSON",
+      "output": {
+        "name": "TITLE1"
+      },
+      "description": "Saves the app name."
+    },
+    {
+      "command": "json_store_text",
+      "locator": "results.[1].trackName",
+      "input": "$JSON",
+      "output": {
+        "name": "TITLE2"
+      },
+      "description": "Saves the app name."
+    },
+    {
+      "command": "json_store_text",
+      "locator": "results.[2].trackName",
+      "input": "$JSON",
+      "output": {
+        "name": "TITLE3"
+      },
+      "description": "Saves the app name."
+    },
+    {
+      "command": "json_store_text",
+      "locator": "results.[3].trackName",
+      "input": "$JSON",
+      "output": {
+        "name": "TITLE4"
+      },
+      "description": "Saves the app name."
+    },
+    {
+      "command": "json_store_text",
+      "locator": "results.[4].trackName",
+      "input": "$JSON",
+      "output": {
+        "name": "TITLE5"
+      },
+      "description": "Saves the app name."
+    },
+    {
+      "command": "json_store_text",
+      "locator": "results.[5].trackName",
+      "input": "$JSON",
+      "output": {
+        "name": "TITLE6"
+      },
+      "description": "Saves the app name."
+    },
+    {
+      "command": "json_store_text",
+      "locator": "results.[0].trackId",
+      "input": "$JSON",
+      "output": {
+        "name": "ID1"
+      },
+      "description": "Saves the first id."
+    },
+    {
+      "command": "json_store_text",
+      "locator": "results.[1].trackId",
+      "input": "$JSON",
+      "output": {
+        "name": "ID2"
+      },
+      "description": "Saves the first id."
+    },
+    {
+      "command": "json_store_text",
+      "locator": "results.[2].trackId",
+      "input": "$JSON",
+      "output": {
+        "name": "ID3"
+      },
+      "description": "Saves the first id."
+    },
+    {
+      "command": "json_store_text",
+      "locator": "results.[3].trackId",
+      "input": "$JSON",
+      "output": {
+        "name": "ID4"
+      },
+      "description": "Saves the first id."
+    },
+    {
+      "command": "json_store_text",
+      "locator": "results.[4].trackId",
+      "input": "$JSON",
+      "output": {
+        "name": "ID5"
+      },
+      "description": "Saves the first id."
+    },
+    {
+      "command": "json_store_text",
+      "locator": "results.[5].trackId",
+      "input": "$JSON",
+      "output": {
+        "name": "ID6"
+      },
+      "description": "Saves the first id."
+    },
+    {
+      "command": "store",
+      "input": "https://itunes.apple.com/search?media=software&entity=software&limit=1&explicit=YES&term=$ID1",
+      "output": {
+        "name": "URL1"
+      }
+    },
+    {
+      "command": "store",
+      "input": "https://itunes.apple.com/search?media=software&entity=software&limit=1&explicit=YES&term=$ID2",
+      "output": {
+        "name": "URL2"
+      }
+    },
+    {
+      "command": "store",
+      "input": "https://itunes.apple.com/search?media=software&entity=software&limit=1&explicit=YES&term=$ID3",
+      "output": {
+        "name": "URL3"
+      }
+    },
+    {
+      "command": "store",
+      "input": "https://itunes.apple.com/search?media=software&entity=software&limit=1&explicit=YES&term=$ID4",
+      "output": {
+        "name": "URL4"
+      }
+    },
+    {
+      "command": "store",
+      "input": "https://itunes.apple.com/search?media=software&entity=software&limit=1&explicit=YES&term=$ID5",
+      "output": {
+        "name": "URL5"
+      }
+    },
+    {
+      "command": "store",
+      "input": "https://itunes.apple.com/search?media=software&entity=software&limit=1&explicit=YES&term=$ID6",
+      "output": {
+        "name": "URL6"
+      }
+    }
+  ],
+  "url_steps": [
+    {
+      "command": "api_request",
+      "output": {
+        "name": "JSON"
+      },
+      "url": "$INPUT",
+      "config": {
+        "method": "GET"
+      },
+      "description": "Retreives a JSON with output of apple"
+    },
+    {
+      "command": "json_store_text",
+      "locator": "results.[0].artistName",
+      "input": "$JSON",
+      "output": {
+        "name": "AUTHOR"
+      },
+      "description": "Saves the first artist."
+    },
+    {
+      "command": "json_store_text",
+      "locator": "results.[0].trackName",
+      "input": "$JSON",
+      "output": {
+        "name": "TITLE"
+      },
+      "description": "Saves the first song."
+    },
+    {
+      "command": "json_store_text",
+      "locator": "results.[0].trackViewUrl",
+      "input": "$JSON",
+      "output": {
+        "name": "URL"
+      },
+      "description": "Saves the url."
+    },
+    {
+      "command": "json_store_text",
+      "locator": "results.[0].artworkUrl512",
+      "input": "$JSON",
+      "output": {
+        "name": "COVER"
+      },
+      "description": "Saves the cover"
+    },
+    {
+      "command": "json_store_text",
+      "locator": "results.[0].formattedPrice",
+      "input": "$JSON",
+      "output": {
+        "name": "PRICE"
+      },
+      "description": "Saves the price"
+    },
+    {
+      "command": "json_store_text",
+      "locator": "results.[0].releaseDate",
+      "input": "$JSON",
+      "output": {
+        "name": "DATE"
+      },
+      "description": "Saves the price"
+    },
+    {
+      "command": "json_store_text",
+      "locator": "results.[0].primaryGenreName",
+      "input": "$JSON",
+      "output": {
+        "name": "GENRE"
+      },
+      "description": "Saves the genre"
+    },
+    {
+      "command": "regex",
+      "input": "$DATE",
+      "expression": "\\d\\d\\d\\d",
+      "output": {
+        "name": "DATE",
+        "type": "date",
+        "format": "YYYY"
+      },
+      "description": "Applies a regular expression to get just the year of the date"
+    },
+    {
+      "command": "json_store_text",
+      "locator": "results.[0].averageUserRating",
+      "input": "$JSON",
+      "output": {
+        "name": "RATING"
+      },
+      "description": "Saves the genre"
+    },
+    {
+      "command": "json_store_text",
+      "locator": "results.[0].description",
+      "input": "$JSON",
+      "output": {
+        "name": "DESCRIPTION"
+      },
+      "description": "Saves the description"
+    }
+  ]
+}
