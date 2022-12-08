@@ -1,7 +1,5 @@
 {
-  "type": "Boardgames",
-  "uuid": "a1b960a204",
-  "shortcut": "boardgamegeek_boardgames",
+  "recipe_id": 19,
   "version": 1,
   "engine_version": 7,
   "title": "Boardgames Geek Boardgames",
@@ -179,7 +177,9 @@
       "locator": "meta[name='title']",
       "attribute_name": "content",
       "output": {
-        "name": "TITLE"
+        "name": "TITLE",
+        "type": "string",
+        "show": true
       },
       "description": "Takes the title of the game"
     },
@@ -197,7 +197,9 @@
       "input": "$DESCRIPTION",
       "expression": "(?<=BoardgameNews).+",
       "output": {
-        "name": "DESCRIPTION"
+        "name": "DESCRIPTION",
+        "type": "string",
+        "show": true
       },
       "description": "Applies a regular expression to get part of the description"
     },
@@ -206,24 +208,19 @@
       "locator": "meta[property='og:image']",
       "attribute_name": "content",
       "output": {
-        "name": "COVER"
+        "name": "COVER",
+        "type": "string",
+        "show": true
       },
       "description": "Takes the cover of the game"
-    },
-    {
-      "command": "url_encode",
-      "input": "$TITLE",
-      "output": {
-        "name": "AUX_TITLE"
-      },
-      "description": "Url encode of the title"
     },
     {
       "command": "store_text",
       "locator": "#mainbody > div > div.global-body-content.pending.ready > div.content.ng-isolate-scope > div:nth-child(2) > ng-include > div > ng-include > div > div.game-header > div.game-header-body > div.game-header-title-container > div > div.game-header-title-rating > overall-rating > div > div > a > span.ng-binding",
       "output": {
         "name": "RATING",
-        "type": "float"
+        "type": "float",
+        "show": true
       },
       "description": "Saves the rating of the game"
     },
@@ -240,7 +237,10 @@
       "input": "$DATE",
       "expression": "(?<=\\()\\d\\d\\d\\d(?=\\))",
       "output": {
-        "name": "DATE"
+        "name": "DATE",
+        "type": "date",
+        "format": "YYYY",
+        "show": true
       },
       "description": "Saves the date of the game"
     },
@@ -248,7 +248,9 @@
       "command": "store_text",
       "locator": "#mainbody > div > div.global-body-content.pending.ready > div.content.ng-isolate-scope > div:nth-child(2) > ng-include > div > ng-include > div > div.game-header > div.game-header-body > div.game-header-gameplay.hidden-game-header-collapsed > gameplay-module > div > div > ul > li:nth-child(2) > div.gameplay-item-primary > span",
       "output": {
-        "name": "TIME"
+        "name": "TIME",
+        "type": "string",
+        "show": true
       },
       "description": "Saves the duration of the game"
     },
@@ -256,7 +258,9 @@
       "command": "store_text",
       "locator": "#mainbody > div > div.global-body-content.pending.ready > div.content.ng-isolate-scope > div:nth-child(2) > ng-include > div > ng-include > div > div.game-header > div.game-header-body > div.game-header-gameplay.hidden-game-header-collapsed > gameplay-module > div > div > ul > li:nth-child(1) > div.gameplay-item-primary",
       "output": {
-        "name": "PLAYERS"
+        "name": "PLAYERS",
+        "type": "string",
+        "show": true
       },
       "description": "Saves the number of players of the game"
     },
@@ -265,17 +269,11 @@
       "attribute_name": "title",
       "locator": "#mainbody > div > div.global-body-content.pending.ready > div.content.ng-isolate-scope > div:nth-child(2) > ng-include > div > div > ui-view > ui-view > div > overview-module > description-module > div > div.panel-body > div > div.game-description-classification.well.ng-scope > classifications-module > div > div.panel-body > ul > li:nth-child(1) > div.feature-description > span > a",
       "output": {
-        "name": "CATEGORY"
+        "name": "CATEGORY",
+        "type": "string",
+        "show": true
       },
       "description": "Saves the category of the game"
-    },
-    {
-      "command": "store",
-      "input": "https://www.amazon.com/s?&rh=n%3A166225011&dc&language=es&ref=sr_nr_n_1&k=$AUX_TITLE",
-      "output": {
-        "name": "URL_SALE"
-      },
-      "description": "Saves the url to sale the product"
     }
   ]
 }
