@@ -1,7 +1,5 @@
 {
-  "type": "Anime",
-  "uuid": "a242bd1200",
-  "shortcut": "anime_anidb",
+  "recipe_id": 29,
   "version": 1,
   "engine_version": 13,
   "title": "Anidb",
@@ -317,7 +315,9 @@
       "command": "store_text",
       "locator": "div.g_definitionlist span[itemprop=name]",
       "output": {
-        "name": "TITLE"
+        "name": "TITLE",
+        "type": "string",
+        "show": true
       },
       "description": "Takes the title of the anime"
     },
@@ -344,7 +344,9 @@
       "command": "store_text",
       "locator": "div[itemprop=description]",
       "output": {
-        "name": "DESCRIPTION"
+        "name": "DESCRIPTION",
+        "type": "string",
+        "show": true
       },
       "description": "Saves the description"
     },
@@ -353,7 +355,8 @@
       "locator": "span[itemprop=ratingValue]",
       "output": {
         "name": "RATING",
-        "type": "float"
+        "type": "float",
+        "show": true
       },
       "description": "Takes the rating"
     },
@@ -361,7 +364,9 @@
       "command": "store_text",
       "locator": "table.stafflist td.name.creator a",
       "output": {
-        "name": "AUTHOR"
+        "name": "AUTHOR",
+        "type": "string",
+        "show": true
       },
       "description": "Saves the director of the movie"
     },
@@ -370,7 +375,9 @@
       "locator": "img[itemprop=image]",
       "attribute_name": "src",
       "output": {
-        "name": "COVER"
+        "name": "COVER",
+        "type": "string",
+        "show": true
       },
       "description": "Saves the image"
     },
@@ -378,7 +385,9 @@
       "command": "store_text",
       "locator": "span[itemprop=numberOfEpisodes]",
       "output": {
-        "name": "EPISODES"
+        "name": "EPISODES",
+        "type": "integer",
+        "show": true
       },
       "description": "Saves the episodes"
     }
