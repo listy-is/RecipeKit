@@ -1,7 +1,5 @@
 {
-  "type": "Videogames",
-  "uuid": "72849e7ef1",
-  "shortcut": "imdb_videogames",
+  "recipe_id": 12,
   "version": 2,
   "engine_version": 6,
   "title": "IMDB Videogames",
@@ -235,7 +233,8 @@
       "output": {
         "name": "DATE",
         "type": "date",
-        "format": "YYYY"
+        "format": "YYYY",
+        "show": true
       },
       "description": "Applies a regular expression to get just the year of the date"
     },
@@ -244,7 +243,9 @@
       "input": "$TITLE",
       "expression": "[^\\(]*",
       "output": {
-        "name": "TITLE"
+        "name": "TITLE",
+        "type": "string",
+        "show": true
       },
       "description": "Applies a regular expression to get just the title of the movie before the year"
     },
@@ -253,7 +254,9 @@
       "locator": "meta[name='description']",
       "attribute_name": "content",
       "output": {
-        "name": "DESCRIPTION"
+        "name": "DESCRIPTION",
+        "type": "string",
+        "show": true
       },
       "description": "Saves temporary the actors, director and description"
     },
@@ -272,7 +275,8 @@
       "expression": "([0-9,\\.]+)",
       "output": {
         "name": "RATING",
-        "type": "float"
+        "type": "float",
+        "show": true
       },
       "description": "Applies a regular expression to get part of the rating"
     },
@@ -298,25 +302,11 @@
       "command": "store",
       "input": "$COVER._V1_.jpg",
       "output": {
-        "name": "COVER"
+        "name": "COVER",
+        "type": "string",
+        "show": true
       },
       "description": "Add high res param to the cover"
-    },
-    {
-      "command": "url_encode",
-      "input": "$TITLE",
-      "output": {
-        "name": "AUX_TITLE"
-      },
-      "description": "Url encode of the title"
-    },
-    {
-      "command": "store",
-      "input": "https://www.amazon.com/s?&rh=n%3A468642&dc&language=es&ref=sr_nr_n_1&k=$AUX_TITLE",
-      "output": {
-        "name": "URL_SALE"
-      },
-      "description": "Saves the url to sale the product"
     },
     {
       "command": "regex",
@@ -353,7 +343,9 @@
       "command": "store_array",
       "locator": "td[data-item-keyword='playstation'] div.sodatext",
       "output": {
-        "name": "TAGS"
+        "name": "TAGS",
+        "type": "string",
+        "show": true
       },
       "description": "List of platforms"
     },
@@ -361,7 +353,9 @@
       "command": "store_array",
       "locator": "td[data-item-keyword='playstation 1'] div.sodatext",
       "output": {
-        "name": "TAGS"
+        "name": "TAGS",
+        "type": "string",
+        "show": true
       },
       "description": "List of platforms"
     },
@@ -369,7 +363,9 @@
       "command": "store_array",
       "locator": "td[data-item-keyword='playstation 2'] div.sodatext",
       "output": {
-        "name": "TAGS"
+        "name": "TAGS",
+        "type": "string",
+        "show": true
       },
       "description": "List of platforms"
     },
@@ -377,7 +373,9 @@
       "command": "store_array",
       "locator": "td[data-item-keyword='playstation 3'] div.sodatext",
       "output": {
-        "name": "TAGS"
+        "name": "TAGS",
+        "type": "string",
+        "show": true
       },
       "description": "List of platforms"
     },
@@ -385,7 +383,9 @@
       "command": "store_array",
       "locator": "td[data-item-keyword='playstation 4'] div.sodatext",
       "output": {
-        "name": "TAGS"
+        "name": "TAGS",
+        "type": "string",
+        "show": true
       },
       "description": "List of platforms"
     },
@@ -393,7 +393,9 @@
       "command": "store_array",
       "locator": "td[data-item-keyword='gameboy'] div.sodatext",
       "output": {
-        "name": "TAGS"
+        "name": "TAGS",
+        "type": "string",
+        "show": true
       },
       "description": "List of platforms"
     },
@@ -401,7 +403,9 @@
       "command": "store_array",
       "locator": "td[data-item-keyword='game boy'] div.sodatext",
       "output": {
-        "name": "TAGS"
+        "name": "TAGS",
+        "type": "string",
+        "show": true
       },
       "description": "List of platforms"
     },
@@ -409,7 +413,9 @@
       "command": "store_array",
       "locator": "td[data-item-keyword='game boy advance'] div.sodatext",
       "output": {
-        "name": "TAGS"
+        "name": "TAGS",
+        "type": "string",
+        "show": true
       },
       "description": "List of platforms"
     },
@@ -417,7 +423,9 @@
       "command": "store_array",
       "locator": "td[data-item-keyword='nintendo ds'] div.sodatext",
       "output": {
-        "name": "TAGS"
+        "name": "TAGS",
+        "type": "string",
+        "show": true
       },
       "description": "List of platforms"
     },
@@ -425,7 +433,9 @@
       "command": "store_array",
       "locator": "td[data-item-keyword='xbox'] div.sodatext",
       "output": {
-        "name": "TAGS"
+        "name": "TAGS",
+        "type": "string",
+        "show": true
       },
       "description": "List of platforms"
     },
@@ -433,7 +443,9 @@
       "command": "store_array",
       "locator": "td[data-item-keyword='megadrive'] div.sodatext",
       "output": {
-        "name": "TAGS"
+        "name": "TAGS",
+        "type": "string",
+        "show": true
       },
       "description": "List of platforms"
     },
@@ -441,7 +453,9 @@
       "command": "store_array",
       "locator": "td[data-item-keyword='sega genesis'] div.sodatext",
       "output": {
-        "name": "TAGS"
+        "name": "TAGS",
+        "type": "string",
+        "show": true
       },
       "description": "List of platforms"
     },
@@ -449,7 +463,9 @@
       "command": "store_array",
       "locator": "td[data-item-keyword='sega master system'] div.sodatext",
       "output": {
-        "name": "TAGS"
+        "name": "TAGS",
+        "type": "string",
+        "show": true
       },
       "description": "List of platforms"
     },
@@ -457,7 +473,9 @@
       "command": "store_array",
       "locator": "td[data-item-keyword='sega game gear'] div.sodatext",
       "output": {
-        "name": "TAGS"
+        "name": "TAGS",
+        "type": "string",
+        "show": true
       },
       "description": "List of platforms"
     },
@@ -465,7 +483,9 @@
       "command": "store_array",
       "locator": "td[data-item-keyword='nintendo 3ds'] div.sodatext",
       "output": {
-        "name": "TAGS"
+        "name": "TAGS",
+        "type": "string",
+        "show": true
       },
       "description": "List of platforms"
     },
@@ -473,7 +493,9 @@
       "command": "store_array",
       "locator": "td[data-item-keyword='nintendo switch'] div.sodatext",
       "output": {
-        "name": "TAGS"
+        "name": "TAGS",
+        "type": "string",
+        "show": true
       },
       "description": "List of platforms"
     },
@@ -481,7 +503,9 @@
       "command": "store_array",
       "locator": "td[data-item-keyword='nintendo 64'] div.sodatext",
       "output": {
-        "name": "TAGS"
+        "name": "TAGS",
+        "type": "string",
+        "show": true
       },
       "description": "List of platforms"
     },
@@ -489,7 +513,9 @@
       "command": "store_array",
       "locator": "td[data-item-keyword='nintendo gamecube'] div.sodatext",
       "output": {
-        "name": "TAGS"
+        "name": "TAGS",
+        "type": "string",
+        "show": true
       },
       "description": "List of platforms"
     },
@@ -497,7 +523,9 @@
       "command": "store_array",
       "locator": "td[data-item-keyword='nintendo wii”'] div.sodatext",
       "output": {
-        "name": "TAGS"
+        "name": "TAGS",
+        "type": "string",
+        "show": true
       },
       "description": "List of platforms"
     },
@@ -505,7 +533,9 @@
       "command": "store_array",
       "locator": "td[data-item-keyword='xbox one'] div.sodatext",
       "output": {
-        "name": "TAGS"
+        "name": "TAGS",
+        "type": "string",
+        "show": true
       },
       "description": "List of platforms"
     },
@@ -513,7 +543,9 @@
       "command": "store_array",
       "locator": "td[data-item-keyword='sega dreamcast'] div.sodatext",
       "output": {
-        "name": "TAGS"
+        "name": "TAGS",
+        "type": "string",
+        "show": true
       },
       "description": "List of platforms"
     },
@@ -521,7 +553,9 @@
       "command": "store_array",
       "locator": "td[data-item-keyword='xbox 360'] div.sodatext",
       "output": {
-        "name": "TAGS"
+        "name": "TAGS",
+        "type": "string",
+        "show": true
       },
       "description": "List of platforms"
     },
@@ -529,7 +563,9 @@
       "command": "store_array",
       "locator": "td[data-item-keyword='microsoft windows'] div.sodatext",
       "output": {
-        "name": "TAGS"
+        "name": "TAGS",
+        "type": "string",
+        "show": true
       },
       "description": "List of platforms"
     },
@@ -537,7 +573,9 @@
       "command": "store_array",
       "locator": "td[data-item-keyword='super nintendo'] div.sodatext",
       "output": {
-        "name": "TAGS"
+        "name": "TAGS",
+        "type": "string",
+        "show": true
       },
       "description": "List of platforms"
     },
@@ -545,7 +583,9 @@
       "command": "store_array",
       "locator": "td[data-item-keyword='nintendo wii u'] div.sodatext",
       "output": {
-        "name": "TAGS"
+        "name": "TAGS",
+        "type": "string",
+        "show": true
       },
       "description": "List of platforms"
     },
@@ -553,7 +593,9 @@
       "command": "store_array",
       "locator": "td[data-item-keyword='playstation 5'] div.sodatext",
       "output": {
-        "name": "TAGS"
+        "name": "TAGS",
+        "type": "string",
+        "show": true
       },
       "description": "List of platforms"
     }
