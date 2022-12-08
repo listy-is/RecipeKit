@@ -1,6 +1,6 @@
 {
   "recipe_id": 2,
-  "version": 1,
+  "version": 2,
   "engine_version": 9,
   "title": "Ratebeer Beers",
   "description": "Retrieve the beers from page ratebeer",

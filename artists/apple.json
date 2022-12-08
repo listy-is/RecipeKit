@@ -1,6 +1,6 @@
 {
   "recipe_id": 25,
-  "version": 1,
+  "version": 2,
   "engine_version": 11,
   "title": "Apple Artists",
   "description": "Load artists from Apple",

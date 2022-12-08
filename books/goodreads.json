@@ -1,8 +1,6 @@
 {
-  "type": "Books",
-  "uuid": "50d0284fd6",
-  "shortcut": "gr_books",
-  "version": 7,
+  "recipe_id": 9,
+  "version": 8,
   "engine_version": 13,
   "title": "Goodreads",
   "description": "A recipe to get a list of books from Goodreads",
@@ -197,7 +195,9 @@
       "locator": "meta[property='og:title']",
       "attribute_name": "content",
       "output": {
-        "name": "TITLE"
+        "name": "TITLE",
+        "type": "string",
+        "show": true
       },
       "description": "Saves the title"
     },
@@ -206,7 +206,9 @@
       "locator": "h1.bookTitle span[itemprop*=name] ",
       "attribute_name": "content",
       "output": {
-        "name": "TITLE"
+        "name": "TITLE",
+        "type": "string",
+        "show": true
       },
       "description": "Saves the title"
     },
@@ -214,7 +216,9 @@
       "command": "store_text",
       "locator": ".BookPageMetadataSection__description .TruncatedContent__text.TruncatedContent__text--large span",
       "output": {
-        "name": "DESCRIPTION"
+        "name": "DESCRIPTION",
+        "type": "string",
+        "show": true
       },
       "description": "Saves the description"
     },
@@ -222,7 +226,9 @@
       "command": "store_text",
       "locator": "div.bookDescription span.fullContent",
       "output": {
-        "name": "DESCRIPTION"
+        "name": "DESCRIPTION",
+        "type": "string",
+        "show": true
       },
       "description": "Saves the description"
     },
@@ -230,7 +236,9 @@
       "command": "store_text",
       "locator": "#description",
       "output": {
-        "name": "DESCRIPTION"
+        "name": "DESCRIPTION",
+        "type": "string",
+        "show": true
       },
       "description": "Saves the description"
     },
@@ -238,7 +246,9 @@
       "command": "store_text",
       "locator": ".BookPageMetadataSection__genres .Button__labelItem",
       "output": {
-        "name": "STYLE"
+        "name": "STYLE",
+        "type": "string",
+        "show": true
       },
       "description": "Saves the style"
     },
@@ -255,7 +265,10 @@
       "input": "$AYEAR",
       "expression": "\\d\\d\\d\\d(?!.*\\d\\d\\d\\d)",
       "output": {
-        "name": "YEAR"
+        "name": "YEAR",
+        "type": "date",
+        "format": "YYYY",
+        "show": true
       },
       "description": "Applies a regular expression to get part of the year"
     },
@@ -263,7 +276,9 @@
       "command": "store_text",
       "locator": ".BookPageMetadataSection__contributor .ContributorLink__name",
       "output": {
-        "name": "AUTHOR"
+        "name": "AUTHOR",
+        "type": "string",
+        "show": true
       },
       "description": "Saves the author"
     },
@@ -271,7 +286,9 @@
       "command": "store_text",
       "locator": "a.authorName",
       "output": {
-        "name": "AUTHOR"
+        "name": "AUTHOR",
+        "type": "string",
+        "show": true
       },
       "description": "Saves the author"
     },
@@ -280,7 +297,8 @@
       "locator": ".BookPageMetadataSection__ratingStats .RatingStatistics__rating",
       "output": {
         "name": "RATING",
-        "type": "float"
+        "type": "float",
+        "show": true
       },
       "description": "Saves the rating"
     },
@@ -290,7 +308,8 @@
       "attribute_name": "content",
       "output": {
         "name": "RATING",
-        "type": "float"
+        "type": "float",
+        "show": true
       },
       "description": "Saves the rating"
     },
@@ -299,7 +318,9 @@
       "locator": ".BookPage__bookCover img",
       "attribute_name": "src",
       "output": {
-        "name": "COVER"
+        "name": "COVER",
+        "type": "string",
+        "show": true
       },
       "description": "Saves the image"
     },
@@ -308,7 +329,9 @@
       "locator": "meta[property='og:image']",
       "attribute_name": "content",
       "output": {
-        "name": "COVER"
+        "name": "COVER",
+        "type": "string",
+        "show": true
       },
       "description": "Saves the image"
     },
@@ -317,7 +340,9 @@
       "locator": "div[class*=BookCover__image] img",
       "attribute_name": "src",
       "output": {
-        "name": "COVER"
+        "name": "COVER",
+        "type": "string",
+        "show": true
       },
       "description": "Saves the image"
     }
