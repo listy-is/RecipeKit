@@ -1,8 +1,6 @@
 {
-  "type": "TV Shows",
-  "uuid": "c5a56fa085",
-  "shortcut": "tmdb_tv_shows",
-  "version": 3,
+  "recipe_id": 16,
+  "version": 4,
   "engine_version": 6,
   "title": "TMDB TV Shows",
   "description": "A recipe to get a list of tv shows",
@@ -315,7 +313,8 @@
       "output": {
         "name": "DATE",
         "type": "date",
-        "format": "YYYY"
+        "format": "YYYY",
+        "show": true
       },
       "description": "Applies a regular expression to get just the year of the date"
     },
@@ -324,7 +323,9 @@
       "input": "$TITLE",
       "expression": "[^\\(]*",
       "output": {
-        "name": "TITLE"
+        "name": "TITLE",
+        "type": "string",
+        "show": true
       },
       "description": "Applies a regular expression to get just the title of the movie before the year"
     },
@@ -332,7 +333,9 @@
       "command": "store_text",
       "locator": "#original_header .header_info .overview  p",
       "output": {
-        "name": "DESCRIPTION"
+        "name": "DESCRIPTION",
+        "type": "string",
+        "show": true
       },
       "description": "Saves the description"
     },
@@ -358,7 +361,9 @@
       "command": "store",
       "input": "$AUX_PROVIDER",
       "output": {
-        "name": "TAGS"
+        "name": "TAGS",
+        "type": "string",
+        "show": true
       },
       "description": "Saves the platform"
     },
@@ -394,7 +399,8 @@
       "input": "$AUX_RATING_UNITS.$AUX_RATING_DEC",
       "output": {
         "name": "RATING",
-        "type": "float"
+        "type": "float",
+        "show": true
       },
       "description": "Join the units with dec"
     },
@@ -402,7 +408,9 @@
       "command": "store_text",
       "locator": "ol.people > li:nth-child(1) > p > a",
       "output": {
-        "name": "AUTHOR"
+        "name": "AUTHOR",
+        "type": "string",
+        "show": true
       },
       "description": "Saves the director of the movie"
     },
@@ -437,7 +445,9 @@
       "command": "store",
       "input": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/$COVER",
       "output": {
-        "name": "COVER"
+        "name": "COVER",
+        "type": "string",
+        "show": true
       },
       "description": "Add high res param to the cover"
     }
