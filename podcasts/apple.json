@@ -2,7 +2,7 @@
   "type": "Podcasts",
   "uuid": "d0d4e68fa2",
   "shortcut": "apple_podcasts",
-  "version": 1,
+  "version": 2,
   "engine_version": 11,
   "title": "Apple Podcasts",
   "description": "Load podcasts from Apple",
@@ -292,32 +292,38 @@
       "config": {
         "method": "GET"
       },
-      "description": "Retreives a JSON with output of apple"
+      "description": "Retrieves a JSON with output of apple"
     },
     {
       "command": "json_store_text",
       "locator": "results.[0].artistName",
       "input": "$JSON",
       "output": {
-        "name": "AUTHOR"
+        "name": "AUTHOR",
+        "type": "string",
+        "show": true
       },
-      "description": "Saves the first artist."
+      "description": "Saves the artist name"
     },
     {
       "command": "json_store_text",
       "locator": "results.[0].trackName",
       "input": "$JSON",
       "output": {
-        "name": "TITLE"
+        "name": "TITLE",
+        "type": "string",
+        "show": true
       },
-      "description": "Saves the first song."
+      "description": "Saves the title first song"
     },
     {
       "command": "json_store_text",
       "locator": "results.[0].trackViewUrl",
       "input": "$JSON",
       "output": {
-        "name": "URL"
+        "name": "URL",
+        "type": "string",
+        "show": true
       },
       "description": "Saves the url."
     },
@@ -326,16 +332,9 @@
       "locator": "results.[0].collectionName",
       "input": "$JSON",
       "output": {
-        "name": "ALBUM"
-      },
-      "description": "Saves the album"
-    },
-    {
-      "command": "json_store_text",
-      "locator": "results.[0].collectionName",
-      "input": "$JSON",
-      "output": {
-        "name": "ALBUM"
+        "name": "ALBUM",
+        "type": "string",
+        "show": true
       },
       "description": "Saves the album"
     },
@@ -344,7 +343,9 @@
       "locator": "results.[0].artworkUrl600",
       "input": "$JSON",
       "output": {
-        "name": "COVER"
+        "name": "COVER",
+        "type": "string",
+        "show": true
       },
       "description": "Saves the cover"
     },
@@ -353,7 +354,9 @@
       "locator": "results.[0].trackPrice",
       "input": "$JSON",
       "output": {
-        "name": "PRICE"
+        "name": "PRICE",
+        "type": "string",
+        "show": true
       },
       "description": "Saves the price"
     },
@@ -364,14 +367,16 @@
       "output": {
         "name": "DATE"
       },
-      "description": "Saves the price"
+      "description": "Saves the release date"
     },
     {
       "command": "json_store_text",
       "locator": "results.[0].primaryGenreName",
       "input": "$JSON",
       "output": {
-        "name": "GENRE"
+        "name": "GENRE",
+        "type": "string",
+        "show": true
       },
       "description": "Saves the genre"
     },
@@ -382,7 +387,8 @@
       "output": {
         "name": "DATE",
         "type": "date",
-        "format": "YYYY"
+        "format": "YYYY",
+        "show": true
       },
       "description": "Applies a regular expression to get just the year of the date"
     }
