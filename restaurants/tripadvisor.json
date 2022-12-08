@@ -1,8 +1,6 @@
 {
-  "type": "Restaurants",
-  "uuid": "abcd60a201",
-  "shortcut": "tripadvisor_restaurants",
-  "version": 1,
+  "recipe_id": 18,
+  "version": 2,
   "engine_version": 13,
   "title": "Tripadvisor restaurants",
   "description": "A recipe to get a list of restaurants",
@@ -191,7 +189,9 @@
       "command": "store_text",
       "locator": "div[data-test-target*=restaurant-detail-info] > div:nth-child(3) > span:nth-child(1) > span:nth-child(1) > a",
       "output": {
-        "name": "ADDRESS"
+        "name": "ADDRESS",
+        "type": "string",
+        "show": true
       },
       "description": "Saves the address."
     },
@@ -199,7 +199,9 @@
       "command": "store_text",
       "locator": "div[data-test-target*=restaurant-detail-info] > div:nth-child(2) > span:nth-child(3) > a:nth-child(1)",
       "output": {
-        "name": "ORIENTATIVE_PRICE"
+        "name": "ORIENTATIVE_PRICE",
+        "type": "string",
+        "show": true
       },
       "description": "Saves the style"
     },
@@ -207,7 +209,9 @@
       "command": "store_text",
       "locator": "div[data-test-target*=restaurant-detail-info] > div:nth-child(1) > h1",
       "output": {
-        "name": "TITLE"
+        "name": "TITLE",
+        "type": "string",
+        "show": true
       },
       "description": "Saves the name"
     },
@@ -215,7 +219,9 @@
       "command": "store_text",
       "locator": "div[data-test-target*=restaurant-detail-info] > div:nth-child(3) > span:nth-child(2) > span:nth-child(1) > span:nth-child(2)",
       "output": {
-        "name": "PHONE"
+        "name": "PHONE",
+        "type": "string",
+        "show": true
       },
       "description": "Saves the style"
     },
@@ -233,7 +239,9 @@
       "input": "$ARATING",
       "expression": "\\d\\.\\d",
       "output": {
-        "name": "RATING"
+        "name": "RATING",
+        "type": "float",
+        "show": true
       },
       "description": "Applies a regular expression to get part of the rating"
     },
@@ -241,7 +249,9 @@
       "command": "store_text",
       "locator": "div[data-test-target*=restaurant-detail-info] div:nth-child(2) span:nth-child(3) a:nth-child(2)",
       "output": {
-        "name": "STYLE"
+        "name": "STYLE",
+        "type": "string",
+        "show": true
       },
       "description": "Saves the style"
     },
@@ -250,7 +260,9 @@
       "locator": "meta[property='og:image']",
       "attribute_name": "content",
       "output": {
-        "name": "COVER"
+        "name": "COVER",
+        "type": "string",
+        "show": true
       },
       "description": "Saves the image"
     },
@@ -259,7 +271,9 @@
       "locator": "div[data-test-target*=restaurant-detail-info] > div:nth-child(3) > span:nth-child(3) > span:nth-child(1) > a ",
       "attribute_name": "href",
       "output": {
-        "name": "WEBSITE"
+        "name": "WEBSITE",
+        "type": "string",
+        "show": true
       },
       "description": "Saves the website"
     },
@@ -287,7 +301,9 @@
       "locator": "results.[0].coords",
       "input": "$JSON",
       "output": {
-        "name": "COORDS"
+        "name": "COORDS",
+        "type": "string",
+        "show": true
       },
       "description": "Saves the coords."
     },
@@ -305,7 +321,9 @@
       "input": "$ACOORDS",
       "expression": "\\d+\\.\\d+\\,\\-?\\d+\\.\\d+",
       "output": {
-        "name": "COORDS"
+        "name": "COORDS",
+        "type": "string",
+        "show": true
       },
       "description": "Applies a regular expression to get part of the rating"
     }
