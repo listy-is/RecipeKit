@@ -1,8 +1,6 @@
 {
-  "type": "Artists",
-  "uuid": "c9a7e68fa2",
-  "shortcut": "apple_artists",
-  "version": 1,
+  "recipe_id": 25,
+  "version": 2,
   "engine_version": 11,
   "title": "Apple Artists",
   "description": "Load artists from Apple",
@@ -194,7 +192,9 @@
       "locator": "results.[0].artistName",
       "input": "$JSON",
       "output": {
-        "name": "AUTHOR"
+        "name": "AUTHOR",
+        "type": "string",
+        "show": true
       },
       "description": "Saves the first artist."
     },
@@ -212,7 +212,9 @@
       "locator": "results.[0].primaryGenreName",
       "input": "$JSON",
       "output": {
-        "name": "GENRE"
+        "name": "GENRE",
+        "type": "string",
+        "show": true
       },
       "description": "Saves the genre"
     },
@@ -264,7 +266,9 @@
       "command": "store",
       "input": "$COVER300x300bb.jpg",
       "output": {
-        "name": "COVER"
+        "name": "COVER",
+        "type": "string",
+        "show": true
       },
       "description": "Add high res param to the cover"
     }

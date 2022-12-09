@@ -1,8 +1,6 @@
 {
-  "type": "Generic",
-  "uuid": "45d1a4d6dd",
-  "shortcut": "amazon_generic",
-  "version": 1,
+  "recipe_id": 21,
+  "version": 2,
   "engine_version": 8,
   "title": "Amazon Generic",
   "description": "Load a amazon url correctly in generic lists",
@@ -65,7 +63,9 @@
       "input": "$TITLE",
       "expression": "(?<=Amazon\\.com\\:\\s).+",
       "output": {
-        "name": "TITLE"
+        "name": "TITLE",
+        "type": "string",
+        "show": true
       },
       "description": "Applies a regular expression to get just title"
     },
@@ -74,7 +74,9 @@
       "locator": "div.imgTagWrapper img",
       "attribute_name": "data-old-hires",
       "output": {
-        "name": "COVER"
+        "name": "COVER",
+        "type": "string",
+        "show": true
       },
       "description": "Saves the image"
     },
@@ -83,7 +85,9 @@
       "locator": "meta[name='description']",
       "attribute_name": "content",
       "output": {
-        "name": "DESCRIPTION"
+        "name": "DESCRIPTION",
+        "type": "string",
+        "show": true
       },
       "description": "Saves the description"
     }

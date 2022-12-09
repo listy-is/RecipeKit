@@ -1,8 +1,6 @@
 {
-  "type": "Wines",
-  "uuid": "c8820e8890",
-  "shortcut": "vivino_wines",
-  "version": 1,
+  "recipe_id": 20,
+  "version": 2,
   "engine_version": 8,
   "title": "Vivino Wines",
   "description": "Retrieve the wines from page vivino",
@@ -181,7 +179,9 @@
       "command": "store_text",
       "locator": "title",
       "output": {
-        "name": "WINERY"
+        "name": "WINERY",
+        "type": "string",
+        "show": true
       },
       "description": "Saves the winery of the wine"
     },
@@ -190,7 +190,9 @@
       "input": "$WINERY",
       "expression": "[^\\|]*",
       "output": {
-        "name": "TITLE"
+        "name": "TITLE",
+        "type": "string",
+        "show": true
       },
       "description": "Applies a regular expression to get just the title"
     },
@@ -198,7 +200,9 @@
       "command": "store",
       "input": "$TITLE",
       "output": {
-        "name": "WINERY"
+        "name": "WINERY",
+        "type": "string",
+        "show": true
       },
       "description": ""
     },
@@ -206,7 +210,9 @@
       "command": "store_text",
       "locator": "span.vintage",
       "output": {
-        "name": "VINTAGE"
+        "name": "VINTAGE",
+        "type": "string",
+        "show": true
       },
       "description": "Saves the vintage of the wine"
     },
@@ -215,7 +221,8 @@
       "locator": "div.rating > div > a > div > div:nth-child(1)",
       "output": {
         "name": "RATING",
-        "type": "float"
+        "type": "float",
+        "show": true
       },
       "description": "Field: Get the rating"
     },
@@ -223,7 +230,9 @@
       "command": "store_text",
       "locator": "#purchase-availability span",
       "output": {
-        "name": "PRICE"
+        "name": "PRICE",
+        "type": "float",
+        "show": true
       },
       "description": "Get the price"
     },
@@ -231,7 +240,9 @@
       "command": "store_text",
       "locator": "a[href*='/grapes/']",
       "output": {
-        "name": "GRAPES"
+        "name": "GRAPES",
+        "type": "string",
+        "show": true
       },
       "description": "Field: Type of grape"
     },
@@ -239,7 +250,9 @@
       "command": "store_text",
       "locator": "a[href*='/wine-styles/']",
       "output": {
-        "name": "STYLE"
+        "name": "STYLE",
+        "type": "string",
+        "show": true
       },
       "description": "Field: Saves the style"
     },
@@ -247,7 +260,9 @@
       "command": "store_text",
       "locator": "a[href*='/wine-countries/']",
       "output": {
-        "name": "COUNTRY"
+        "name": "COUNTRY",
+        "type": "string",
+        "show": true
       },
       "description": "Saves the description"
     },
@@ -255,7 +270,9 @@
       "command": "store_text",
       "locator": "a[href*='/wine-regions/']",
       "output": {
-        "name": "PLACE"
+        "name": "PLACE",
+        "type": "string",
+        "show": true
       },
       "description": "Saves the description"
     },
@@ -263,7 +280,9 @@
       "command": "store",
       "input": "$COUNTRY $REGION",
       "output": {
-        "name": "REGION"
+        "name": "REGION",
+        "type": "string",
+        "show": true
       },
       "description": "Field: Saves the region"
     },
@@ -280,7 +299,9 @@
       "command": "store",
       "input": "https:$COVER",
       "output": {
-        "name": "COVER"
+        "name": "COVER",
+        "type": "string",
+        "show": true
       },
       "description": "Field: Add url param to the cover"
     },
@@ -288,7 +309,9 @@
       "command": "store_text",
       "locator": "div[class*=wineLocationHeader__text]",
       "output": {
-        "name": "DESCRIPTION"
+        "name": "DESCRIPTION",
+        "type": "string",
+        "show": true
       },
       "description": "Saves the description"
     },

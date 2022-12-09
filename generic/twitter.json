@@ -1,8 +1,6 @@
 {
-  "type": "Generic",
-  "uuid": "28d1a4d6dd",
-  "shortcut": "twitter_generic",
-  "version": 2,
+  "recipe_id": 14,
+  "version": 3,
   "engine_version": 10,
   "title": "Twitter Generic",
   "description": "Load a twitter url correctly in generic lists",
@@ -63,14 +61,16 @@
           "X-Twitter-Client-Language": "en"
         }
       },
-      "description": "Retreives a JSON with tweet data."
+      "description": "Retrieves a JSON with tweet data."
     },
     {
       "command": "json_store_text",
       "locator": "globalObjects.tweets.$TWEETID.full_text",
       "input": "$JSON",
       "output": {
-        "name": "DESCRIPTION"
+        "name": "DESCRIPTION",
+        "type": "string",
+        "show": true
       },
       "description": "Saves the text of the tweet."
     },
@@ -79,7 +79,9 @@
       "input": "$DESCRIPTION",
       "expression": ".{45}",
       "output": {
-        "name": "SUMMARY"
+        "name": "SUMMARY",
+        "type": "string",
+        "show": true
       },
       "description": "Creates a summary of the tweet"
     },
@@ -88,7 +90,9 @@
       "locator": "globalObjects.tweets.$TWEETID.user_id_str",
       "input": "$JSON",
       "output": {
-        "name": "USERID"
+        "name": "USERID",
+        "type": "string",
+        "show": true
       },
       "description": "Saves the user id of the tweet."
     },
@@ -97,7 +101,9 @@
       "locator": "globalObjects.users.$USERID.name",
       "input": "$JSON",
       "output": {
-        "name": "AUTHOR"
+        "name": "AUTHOR",
+        "type": "string",
+        "show": true
       },
       "description": "Saves the author user name of the tweet."
     },
@@ -106,7 +112,9 @@
       "locator": "globalObjects.users.$USERID.screen_name",
       "input": "$JSON",
       "output": {
-        "name": "USERNAME"
+        "name": "USERNAME",
+        "type": "string",
+        "show": true
       },
       "description": "Saves the author user name of the tweet."
     },
@@ -114,7 +122,9 @@
       "command": "store",
       "input": "$AUTHOR",
       "output": {
-        "name": "TITLE"
+        "name": "TITLE",
+        "type": "string",
+        "show": true
       },
       "description": "Set the title with the username."
     },
@@ -149,7 +159,9 @@
       "command": "store",
       "input": "$DATE $YEAR",
       "output": {
-        "name": "DATE"
+        "name": "DATE",
+        "type": "string",
+        "show": true
       },
       "description": "Set the date with the year."
     },
@@ -158,7 +170,9 @@
       "locator": "globalObjects.tweets.$TWEETID.entities.urls.[0].expanded_url",
       "input": "$JSON",
       "output": {
-        "name": "EXPANDED_URL"
+        "name": "EXPANDED_URL",
+        "type": "string",
+        "show": true
       },
       "description": "Saves the link to the tweet."
     },
@@ -167,7 +181,9 @@
       "locator": "globalObjects.tweets.$TWEETID.retweet_count",
       "input": "$JSON",
       "output": {
-        "name": "RETWEETS"
+        "name": "RETWEETS",
+        "type": "string",
+        "show": true
       },
       "description": "Saves the number of retweets of the tweet."
     },
@@ -176,7 +192,9 @@
       "locator": "globalObjects.tweets.$TWEETID.favorite_count",
       "input": "$JSON",
       "output": {
-        "name": "FAVS"
+        "name": "FAVS",
+        "type": "string",
+        "show": true
       },
       "description": "Saves the number of favs of the tweet."
     },
@@ -185,7 +203,9 @@
       "locator": "globalObjects.tweets.$TWEETID.entities.media.[0].media_url_https",
       "input": "$JSON",
       "output": {
-        "name": "COVER"
+        "name": "COVER",
+        "type": "string",
+        "show": true
       },
       "description": "Saves the picture uploaded to the tweet."
     },
@@ -194,7 +214,9 @@
       "locator": "globalObjects.tweets.$TWEETID.card.binding_values.thumbnail_image_large.image_value.url",
       "input": "$JSON",
       "output": {
-        "name": "COVER"
+        "name": "COVER",
+        "type": "string",
+        "show": true
       },
       "description": "Saves the link related picture on the tweet."
     },
@@ -203,7 +225,9 @@
       "locator": "globalObjects.users.$USERID.profile_image_url_https",
       "input": "$JSON",
       "output": {
-        "name": "AVATAR"
+        "name": "AVATAR",
+        "type": "string",
+        "show": true
       },
       "description": "Saves the avatar of the tweet."
     }

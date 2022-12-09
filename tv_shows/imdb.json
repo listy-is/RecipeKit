@@ -1,8 +1,6 @@
 {
-  "type": "TV Shows",
-  "uuid": "58d0a82ce0",
-  "shortcut": "imdb_tv_shows",
-  "version": 3,
+  "recipe_id": 10,
+  "version": 4,
   "engine_version": 5,
   "title": "IMDB TV Shows",
   "description": "A recipe to get a list of tv shows",
@@ -235,7 +233,8 @@
       "output": {
         "name": "DATE",
         "type": "date",
-        "format": "YYYY"
+        "format": "YYYY",
+        "show": true
       },
       "description": "Applies a regular expression to get just the year of the date"
     },
@@ -244,7 +243,9 @@
       "input": "$TITLE",
       "expression": "[^\\(]*",
       "output": {
-        "name": "TITLE"
+        "name": "TITLE",
+        "type": "string",
+        "show": true
       },
       "description": "Applies a regular expression to get just the title of the movie before the year"
     },
@@ -253,7 +254,9 @@
       "locator": "meta[name='description']",
       "attribute_name": "content",
       "output": {
-        "name": "DESCRIPTION"
+        "name": "DESCRIPTION",
+        "type": "string",
+        "show": true
       },
       "description": "Saves temporary the actors, director and description"
     },
@@ -272,7 +275,8 @@
       "expression": "([0-9,\\.]+)",
       "output": {
         "name": "RATING",
-        "type": "float"
+        "type": "float",
+        "show": true
       },
       "description": "Applies a regular expression to get part of the rating"
     },
@@ -280,7 +284,9 @@
       "command": "store_text",
       "locator": "li[data-testid*=title-pc-principal-credit] > div > ul >li",
       "output": {
-        "name": "AUTHOR"
+        "name": "AUTHOR",
+        "type": "string",
+        "show": true
       },
       "description": "Saves the director of the movie"
     },
@@ -306,7 +312,9 @@
       "command": "store",
       "input": "$COVER._V1_.jpg",
       "output": {
-        "name": "COVER"
+        "name": "COVER",
+        "type": "string",
+        "show": true
       },
       "description": "Add high res param to the cover"
     }

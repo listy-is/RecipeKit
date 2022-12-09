@@ -353,7 +353,7 @@
       "input": "$JSON",
       "output": {
         "name": "PRICE",
-        "type": "string",
+        "type": "float",
         "show": true
       },
       "description": "Saves the price"

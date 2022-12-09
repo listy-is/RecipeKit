@@ -1,8 +1,6 @@
 {
-  "type": "Songs",
-  "uuid": "c9a7e68fa1",
-  "shortcut": "apple_songs",
-  "version": 1,
+  "recipe_id": 23,
+  "version": 2,
   "engine_version": 11,
   "title": "Apple Songs",
   "description": "Load songs from Apple",
@@ -290,7 +288,9 @@
       "locator": "results.[0].artistName",
       "input": "$JSON",
       "output": {
-        "name": "AUTHOR"
+        "name": "AUTHOR",
+        "type": "string",
+        "show": true
       },
       "description": "Saves the first artist."
     },
@@ -299,7 +299,9 @@
       "locator": "results.[0].trackName",
       "input": "$JSON",
       "output": {
-        "name": "TITLE"
+        "name": "TITLE",
+        "type": "string",
+        "show": true
       },
       "description": "Saves the first song."
     },
@@ -334,7 +336,9 @@
       "command": "store",
       "input": "$COVER300x300bb.jpg",
       "output": {
-        "name": "COVER"
+        "name": "COVER",
+        "type": "string",
+        "show": true
       },
       "description": "Add high res param to the cover"
     },
@@ -343,7 +347,9 @@
       "locator": "results.[0].trackPrice",
       "input": "$JSON",
       "output": {
-        "name": "PRICE"
+        "name": "PRICE",
+        "type": "float",
+        "show": true
       },
       "description": "Saves the price"
     },
@@ -361,7 +367,9 @@
       "locator": "results.[0].primaryGenreName",
       "input": "$JSON",
       "output": {
-        "name": "GENRE"
+        "name": "GENRE",
+        "type": "string",
+        "show": true
       },
       "description": "Saves the genre"
     },
@@ -372,7 +380,8 @@
       "output": {
         "name": "DATE",
         "type": "date",
-        "format": "YYYY"
+        "format": "YYYY",
+        "show": true
       },
       "description": "Applies a regular expression to get just the year of the date"
     }

@@ -1,8 +1,6 @@
 {
-  "type": "Beers",
-  "uuid": "7d17dccc83",
-  "shortcut": "ratebeer_beers",
-  "version": 1,
+  "recipe_id": 2,
+  "version": 2,
   "engine_version": 9,
   "title": "Ratebeer Beers",
   "description": "Retrieve the beers from page ratebeer",
@@ -185,7 +183,9 @@
       "command": "store_text",
       "locator": "div[class*=BeerCard___StyledPaper] div.px-4 > div > div > div > div > a",
       "output": {
-        "name": "AUTHOR"
+        "name": "AUTHOR",
+        "type": "string",
+        "show": true
       },
       "description": "Field: Saves the beerhouse of the beer"
     },
@@ -193,7 +193,9 @@
       "command": "store_text",
       "locator": "div[class*=BeerCard___StyledPaper] div.px-4 > div > div > div > div > div",
       "output": {
-        "name": "TITLE"
+        "name": "TITLE",
+        "type": "string",
+        "show": true
       },
       "description": "Field: Saves the title of the beer"
     },
@@ -202,7 +204,8 @@
       "locator": "[class*=BeerCard___StyledDiv] > div > div",
       "output": {
         "name": "RATING",
-        "type": "float"
+        "type": "float",
+        "show": true
       },
       "description": "Field: Get the rating"
     },
@@ -210,7 +213,9 @@
       "command": "store_text",
       "locator": "div[class*=BeerCard___StyledDiv2] > div:nth-child(2) > div:nth-child(3)",
       "output": {
-        "name": "ALCOHOL"
+        "name": "ALCOHOL",
+        "type": "string",
+        "show": true
       },
       "description": "Field: Get the alcohol"
     },
@@ -218,7 +223,9 @@
       "command": "store_text",
       "locator": "div[class*=BeerCard___StyledDiv2] > div:nth-child(2) > a",
       "output": {
-        "name": "STYLE"
+        "name": "STYLE",
+        "type": "string",
+        "show": true
       },
       "description": "Field: Saves the style"
     },
@@ -226,7 +233,9 @@
       "command": "store_text",
       "locator": "div[class*=BeerCard___StyledDiv2] > div",
       "output": {
-        "name": "REGION"
+        "name": "REGION",
+        "type": "string",
+        "show": true
       },
       "description": "Field: Saves the region"
     },
@@ -235,7 +244,9 @@
       "locator": "img[class*=BeerCard___StyledImg]",
       "attribute_name": "src",
       "output": {
-        "name": "COVER"
+        "name": "COVER",
+        "type": "string",
+        "show": true
       },
       "description": "Field: Saves the image"
     }

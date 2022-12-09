@@ -1,8 +1,6 @@
 {
-  "type": "Software",
-  "uuid": "0242ac1200",
-  "shortcut": "apple_software",
-  "version": 1,
+  "recipe_id": 27,
+  "version": 2,
   "engine_version": 12,
   "title": "Apple Software",
   "description": "Load software from Apple",
@@ -194,7 +192,9 @@
       "locator": "results.[0].artistName",
       "input": "$JSON",
       "output": {
-        "name": "AUTHOR"
+        "name": "AUTHOR",
+        "type": "string",
+        "show": true
       },
       "description": "Saves the first artist."
     },
@@ -203,7 +203,9 @@
       "locator": "results.[0].trackName",
       "input": "$JSON",
       "output": {
-        "name": "TITLE"
+        "name": "TITLE",
+        "type": "string",
+        "show": true
       },
       "description": "Saves the first song."
     },
@@ -221,7 +223,9 @@
       "locator": "results.[0].artworkUrl512",
       "input": "$JSON",
       "output": {
-        "name": "COVER"
+        "name": "COVER",
+        "type": "string",
+        "show": true
       },
       "description": "Saves the cover"
     },
@@ -230,7 +234,9 @@
       "locator": "results.[0].formattedPrice",
       "input": "$JSON",
       "output": {
-        "name": "PRICE"
+        "name": "PRICE",
+        "type": "float",
+        "show": true
       },
       "description": "Saves the price"
     },
@@ -248,7 +254,9 @@
       "locator": "results.[0].primaryGenreName",
       "input": "$JSON",
       "output": {
-        "name": "GENRE"
+        "name": "GENRE",
+        "type": "string",
+        "show": true
       },
       "description": "Saves the genre"
     },
@@ -259,7 +267,8 @@
       "output": {
         "name": "DATE",
         "type": "date",
-        "format": "YYYY"
+        "format": "YYYY",
+        "show": true
       },
       "description": "Applies a regular expression to get just the year of the date"
     },
@@ -268,7 +277,9 @@
       "locator": "results.[0].averageUserRating",
       "input": "$JSON",
       "output": {
-        "name": "RATING"
+        "name": "RATING",
+        "type": "float",
+        "show": true
       },
       "description": "Saves the genre"
     },
@@ -277,7 +288,9 @@
       "locator": "results.[0].description",
       "input": "$JSON",
       "output": {
-        "name": "DESCRIPTION"
+        "name": "DESCRIPTION",
+        "type": "string",
+        "show": true
       },
       "description": "Saves the description"
     }
