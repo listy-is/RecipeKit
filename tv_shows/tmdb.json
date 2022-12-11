@@ -1,6 +1,6 @@
 {
   "recipe_id": 16,
-  "version": 4,
+  "version": 5,
   "engine_version": 6,
   "title": "TMDB TV Shows",
   "description": "A recipe to get a list of tv shows",
@@ -8,7 +8,7 @@
     "https://www.themoviedb.org/tv/"
   ],
   "headers": {
-    "Accept-Language": "es-ES",
+    "Accept-Language": "en-UK,en",
     "User-Agent": "Mozilla/5.0 (Linux; Android 10; Pixel 4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Mobile Safari/537.36"
   },
   "autocomplete_steps": [
