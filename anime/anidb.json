@@ -1,6 +1,6 @@
 {
   "recipe_id": 29,
-  "version": 3,
+  "version": 4,
   "engine_version": 13,
   "title": "Anidb",
   "description": "A recipe to get a list of animes from Anidb",
@@ -15,7 +15,7 @@
   "autocomplete_steps": [
     {
       "command": "load",
-      "url": "https://anidb.net/search/fulltext/?adb.search=$INPUT&do.search=1&entity.animetb=1&field.titles=1",
+      "url": "https://anidb.net/anime/?adb.search=$INPUT",
       "config": {
         "js": true
       },
@@ -23,49 +23,187 @@
     },
     {
       "command": "store_text",
-      "locator": "table.search_results tr:nth-child(1) td.relid a",
+      "locator": "table.animelist tr:nth-child(1) td.anime.name a",
       "output": {
         "name": "TITLE1"
       }
     },
     {
       "command": "store_text",
-      "locator": "table.search_results tr:nth-child(2) td.relid a",
+      "locator": "table.animelist tr:nth-child(1) td.airdate.date",
+      "output": {
+        "name": "DATE1"
+      }
+    },
+    {
+      "command": "regex",
+      "input": "$DATE1",
+      "expression": "\\d\\d\\d\\d",
+      "output": {
+        "name": "DATE1"
+      }
+    },
+    {
+      "command": "store",
+      "input": "$TITLE1 $DATE1",
+      "expression": "\\d\\d\\d\\d",
+      "output": {
+        "name": "TITLE1"
+      }
+    },
+    {
+      "command": "store_text",
+      "locator": "table.animelist tr:nth-child(2) td.anime.name a",
       "output": {
         "name": "TITLE2"
       }
     },
     {
       "command": "store_text",
-      "locator": "table.search_results tr:nth-child(3) td.relid a",
+      "locator": "table.animelist tr:nth-child(2) td.airdate.date",
+      "output": {
+        "name": "DATE2"
+      }
+    },
+    {
+      "command": "regex",
+      "input": "$DATE2",
+      "expression": "\\d\\d\\d\\d",
+      "output": {
+        "name": "DATE2"
+      }
+    },
+    {
+      "command": "store",
+      "input": "$TITLE2 $DATE2",
+      "expression": "\\d\\d\\d\\d",
+      "output": {
+        "name": "TITLE2"
+      }
+    },
+    {
+      "command": "store_text",
+      "locator": "table.animelist tr:nth-child(3) td.anime.name a",
       "output": {
         "name": "TITLE3"
       }
     },
     {
       "command": "store_text",
-      "locator": "table.search_results tr:nth-child(4) td.relid a",
+      "locator": "table.animelist tr:nth-child(3) td.airdate.date",
+      "output": {
+        "name": "DATE3"
+      }
+    },
+    {
+      "command": "regex",
+      "input": "$DATE3",
+      "expression": "\\d\\d\\d\\d",
+      "output": {
+        "name": "DATE3"
+      }
+    },
+    {
+      "command": "store",
+      "input": "$TITLE3 $DATE3",
+      "expression": "\\d\\d\\d\\d",
+      "output": {
+        "name": "TITLE3"
+      }
+    },
+    {
+      "command": "store_text",
+      "locator": "table.animelist tr:nth-child(4) td.anime.name a",
       "output": {
         "name": "TITLE4"
       }
     },
     {
       "command": "store_text",
-      "locator": "table.search_results tr:nth-child(5) td.relid a",
+      "locator": "table.animelist tr:nth-child(4) td.airdate.date",
+      "output": {
+        "name": "DATE4"
+      }
+    },
+    {
+      "command": "regex",
+      "input": "$DATE4",
+      "expression": "\\d\\d\\d\\d",
+      "output": {
+        "name": "DATE4"
+      }
+    },
+    {
+      "command": "store",
+      "input": "$TITLE4 $DATE4",
+      "expression": "\\d\\d\\d\\d",
+      "output": {
+        "name": "TITLE4"
+      }
+    },
+    {
+      "command": "store_text",
+      "locator": "table.animelist tr:nth-child(5) td.anime.name a",
       "output": {
         "name": "TITLE5"
       }
     },
     {
       "command": "store_text",
-      "locator": "table.search_results tr:nth-child(6) td.relid a",
+      "locator": "table.animelist tr:nth-child(5) td.airdate.date",
+      "output": {
+        "name": "DATE5"
+      }
+    },
+    {
+      "command": "regex",
+      "input": "$DATE5",
+      "expression": "\\d\\d\\d\\d",
+      "output": {
+        "name": "DATE5"
+      }
+    },
+    {
+      "command": "store",
+      "input": "$TITLE5 $DATE5",
+      "expression": "\\d\\d\\d\\d",
+      "output": {
+        "name": "TITLE5"
+      }
+    },
+    {
+      "command": "store_text",
+      "locator": "table.animelist tr:nth-child(6) td.anime.name a",
+      "output": {
+        "name": "TITLE6"
+      }
+    },
+    {
+      "command": "store_text",
+      "locator": "table.animelist tr:nth-child(6) td.airdate.date",
+      "output": {
+        "name": "DATE6"
+      }
+    },
+    {
+      "command": "regex",
+      "input": "$DATE6",
+      "expression": "\\d\\d\\d\\d",
+      "output": {
+        "name": "DATE6"
+      }
+    },
+    {
+      "command": "store",
+      "input": "$TITLE6 $DATE6",
+      "expression": "\\d\\d\\d\\d",
       "output": {
         "name": "TITLE6"
       }
     },
     {
       "command": "store_attribute",
-      "locator": "table.search_results tr:nth-child(1) td.relid a",
+      "locator": "table.animelist tr:nth-child(1) td.anime.name a",
       "attribute_name": "href",
       "output": {
         "name": "URL1"
@@ -80,7 +218,7 @@
     },
     {
       "command": "store_attribute",
-      "locator": "table.search_results tr:nth-child(2) td.relid a",
+      "locator": "table.animelist tr:nth-child(2) td.anime.name a",
       "attribute_name": "href",
       "output": {
         "name": "URL2"
@@ -95,7 +233,7 @@
     },
     {
       "command": "store_attribute",
-      "locator": "table.search_results tr:nth-child(3) td.relid a",
+      "locator": "table.animelist tr:nth-child(3) td.anime.name a",
       "attribute_name": "href",
       "output": {
         "name": "URL3"
@@ -110,7 +248,7 @@
     },
     {
       "command": "store_attribute",
-      "locator": "table.search_results tr:nth-child(4) td.relid a",
+      "locator": "table.animelist tr:nth-child(4) td.anime.name a",
       "attribute_name": "href",
       "output": {
         "name": "URL4"
@@ -125,7 +263,7 @@
     },
     {
       "command": "store_attribute",
-      "locator": "table.search_results tr:nth-child(5) td.relid a",
+      "locator": "table.animelist tr:nth-child(5) td.anime.name a",
       "attribute_name": "href",
       "output": {
         "name": "URL5"
@@ -140,7 +278,7 @@
     },
     {
       "command": "store_attribute",
-      "locator": "table.search_results tr:nth-child(6) td.relid a",
+      "locator": "table.animelist tr:nth-child(6) td.anime.name a",
       "attribute_name": "href",
       "output": {
         "name": "URL6"
@@ -182,16 +320,6 @@
         "show": true
       },
       "description": "Takes the title of the anime"
-    },
-    {
-      "command": "store_text",
-      "locator": "div.g_definitionlist span[itemprop=alternateName]",
-      "output": {
-        "name": "OFFICIAL_TITLE",
-        "type": "string",
-        "show": true
-      },
-      "description": "Takes the official title of the anime"
     },
     {
       "command": "store_text",
