@@ -185,6 +185,16 @@
     },
     {
       "command": "store_text",
+      "locator": "div.g_definitionlist span[itemprop=alternateName]",
+      "output": {
+        "name": "OFFICIAL_TITLE",
+        "type": "string",
+        "show": true
+      },
+      "description": "Takes the official title of the anime"
+    },
+    {
+      "command": "store_text",
       "locator": "span[itemprop=startDate]",
       "output": {
         "name": "DATE"
