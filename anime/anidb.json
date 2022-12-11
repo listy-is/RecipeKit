@@ -1,6 +1,6 @@
 {
   "recipe_id": 29,
-  "version": 4,
+  "version": 5,
   "engine_version": 13,
   "title": "Anidb",
   "description": "A recipe to get a list of animes from Anidb",
@@ -20,6 +20,21 @@
         "js": true
       },
       "description": "Searches anime movies"
+    },
+    {
+      "command": "store_text",
+      "locator": "div.g_definitionlist span[itemprop=name]",
+      "output": {
+        "name": "TITLE1"
+      }
+    },
+    {
+      "command": "store_attribute",
+      "locator": "div.g_definitionlist tr:nth-child(1) td a",
+      "attribute_name": "href",
+      "output": {
+        "name": "URL1"
+      }
     },
     {
       "command": "store_text",
