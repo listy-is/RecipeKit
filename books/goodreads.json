@@ -315,8 +315,8 @@
     },
     {
       "command": "store_attribute",
-      "locator": ".BookPage__bookCover img",
-      "attribute_name": "src",
+      "locator": "meta[property='og:image']",
+      "attribute_name": "content",
       "output": {
         "name": "COVER",
         "type": "string",
@@ -325,9 +325,19 @@
       "description": "Saves the image"
     },
     {
+      "command": "regex",
+      "input": "$COVER",
+      "expression": ".+(?=\\._)",
+      "output": {
+        "name": "COVER",
+        "type": "string",
+        "show": true
+      }
+    },
+    {
       "command": "store_attribute",
-      "locator": "meta[property='og:image']",
-      "attribute_name": "content",
+      "locator": ".BookPage__bookCover img",
+      "attribute_name": "src",
       "output": {
         "name": "COVER",
         "type": "string",
@@ -345,6 +355,25 @@
         "show": true
       },
       "description": "Saves the image"
+    },
+    {
+      "command": "regex",
+      "input": "$COVER",
+      "expression": ".+(?=\\.jpg)",
+      "output": {
+        "name": "COVER",
+        "type": "string",
+        "show": true
+      }
+    },
+    {
+      "command": "store",
+      "input": "$COVER.jpg",
+      "output": {
+        "name": "COVER",
+        "type": "string",
+        "show": true
+      }
     }
   ]
 }
