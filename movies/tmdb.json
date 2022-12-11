@@ -358,6 +358,15 @@
       "description": "Saves the provider"
     },
     {
+      "command": "regex",
+      "input": "$AUX_PROVIDER",
+      "expression": "(?<=Now\\sStreaming\\son\\s).+",
+      "output": {
+        "name": "AUX_PROVIDER"
+      },
+      "description": "Saves the provider"
+    },
+    {
       "command": "store",
       "input": "$AUX_PROVIDER",
       "output": {
