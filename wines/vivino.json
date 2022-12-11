@@ -164,7 +164,7 @@
       "url": "$INPUT",
       "config": {
         "js": true,
-        "timeout": 1
+        "timeout": 5
       },
       "description": "Load the url of the wine"
     },
