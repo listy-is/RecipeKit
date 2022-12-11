@@ -1,6 +1,6 @@
 {
   "recipe_id": 9,
-  "version": 8,
+  "version": 9,
   "engine_version": 13,
   "title": "Goodreads",
   "description": "A recipe to get a list of books from Goodreads",
