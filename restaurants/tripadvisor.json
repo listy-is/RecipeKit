@@ -1,6 +1,6 @@
 {
   "recipe_id": 18,
-  "version": 3,
+  "version": 4,
   "engine_version": 13,
   "title": "Tripadvisor restaurants",
   "description": "A recipe to get a list of restaurants",
@@ -181,7 +181,7 @@
       "url": "$INPUT",
       "config": {
         "js": true,
-        "timeout": 5
+        "timeout": 10
       },
       "description": "Load the url of the restaurant"
     },
@@ -240,7 +240,6 @@
       "expression": "\\d\\.\\d",
       "output": {
         "name": "RATING",
-        "type": "float",
         "show": true
       },
       "description": "Applies a regular expression to get part of the rating"
@@ -302,7 +301,6 @@
       "input": "$JSON",
       "output": {
         "name": "COORDS",
-        "type": "string",
         "show": true
       },
       "description": "Saves the coords."
@@ -322,7 +320,6 @@
       "expression": "\\d+\\.\\d+\\,\\-?\\d+\\.\\d+",
       "output": {
         "name": "COORDS",
-        "type": "string",
         "show": true
       },
       "description": "Applies a regular expression to get part of the rating"
