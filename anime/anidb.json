@@ -37,6 +37,14 @@
       }
     },
     {
+      "command": "regex",
+      "input": "$URL1",
+      "expression": "(?<=https\\:\\/\\/anidb\\.net).+",
+      "output": {
+        "name": "URL1"
+      }
+    },
+    {
       "command": "store_text",
       "locator": "table.animelist tr:nth-child(1) td.anime.name a",
       "output": {
