@@ -179,7 +179,7 @@
       "url": "$INPUT",
       "config": {
         "js": true,
-        "timeout": 1
+        "timeout": 3000
       },
       "description": "Load the url of the book"
     },
