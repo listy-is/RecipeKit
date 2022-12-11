@@ -1,6 +1,6 @@
 {
   "recipe_id": 15,
-  "version": 6,
+  "version": 7,
   "engine_version": 6,
   "title": "TMDB Movies",
   "description": "A recipe to get a list of movies",
