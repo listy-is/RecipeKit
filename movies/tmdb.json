@@ -351,7 +351,7 @@
     {
       "command": "regex",
       "input": "$AUX_PROVIDER",
-      "expression": "(?<=Ahora\\en\\sstreaming\\sen\\s).+",
+      "expression": "(?<=Ahora\\sen\\sstreaming\\sen\\s).+",
       "output": {
         "name": "AUX_PROVIDER"
       },
