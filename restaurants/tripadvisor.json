@@ -190,7 +190,6 @@
       "locator": "div[data-test-target*=restaurant-detail-info] > div:nth-child(3) > span:nth-child(1) > span:nth-child(1) > a",
       "output": {
         "name": "ADDRESS",
-        "type": "string",
         "show": true
       },
       "description": "Saves the address."
@@ -200,7 +199,6 @@
       "locator": "div[data-test-target*=restaurant-detail-info] > div:nth-child(2) > span:nth-child(3) > a:nth-child(1)",
       "output": {
         "name": "ORIENTATIVE_PRICE",
-        "type": "string",
         "show": true
       },
       "description": "Saves the style"
@@ -210,7 +208,6 @@
       "locator": "div[data-test-target*=restaurant-detail-info] > div:nth-child(1) > h1",
       "output": {
         "name": "TITLE",
-        "type": "string",
         "show": true
       },
       "description": "Saves the name"
@@ -220,7 +217,6 @@
       "locator": "div[data-test-target*=restaurant-detail-info] > div:nth-child(3) > span:nth-child(2) > span:nth-child(1) > span:nth-child(2)",
       "output": {
         "name": "PHONE",
-        "type": "string",
         "show": true
       },
       "description": "Saves the style"
@@ -249,7 +245,6 @@
       "locator": "div[data-test-target*=restaurant-detail-info] div:nth-child(2) span:nth-child(3) a:nth-child(2)",
       "output": {
         "name": "STYLE",
-        "type": "string",
         "show": true
       },
       "description": "Saves the style"
@@ -260,7 +255,6 @@
       "attribute_name": "content",
       "output": {
         "name": "COVER",
-        "type": "string",
         "show": true
       },
       "description": "Saves the image"
@@ -271,7 +265,6 @@
       "attribute_name": "href",
       "output": {
         "name": "WEBSITE",
-        "type": "string",
         "show": true
       },
       "description": "Saves the website"
