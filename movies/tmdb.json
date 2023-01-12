@@ -1,7 +1,7 @@
 {
   "recipe_id": 15,
-  "version": 8,
-  "engine_version": 6,
+  "version": 9,
+  "engine_version": 14,
   "title": "TMDB Movies",
   "description": "A recipe to get a list of movies",
   "urls": [
@@ -16,6 +16,21 @@
       "command": "load",
       "url": "https://www.themoviedb.org/search/movie?query=$INPUT",
       "description": "Searches movies by title"
+    },
+    {
+      "command": "store_attribute",
+      "locator": "div.results > div:nth-child(1) div.image img",
+      "attribute_name": "src",
+      "output": {
+        "name": "COVER1"
+      }
+    },
+    {
+      "command": "store",
+      "input": "https://www.themoviedb.orgCOVER1",
+      "output": {
+        "name": "COVER1"
+      }
     },
     {
       "command": "store_text",
@@ -59,6 +74,21 @@
       "input": "https://www.themoviedb.org$URL1",
       "output": {
         "name": "URL1"
+      }
+    },
+    {
+      "command": "store_attribute",
+      "locator": "div.results > div:nth-child(2) div.image img",
+      "attribute_name": "src",
+      "output": {
+        "name": "COVER2"
+      }
+    },
+    {
+      "command": "store",
+      "input": "https://www.themoviedb.orgCOVER2",
+      "output": {
+        "name": "COVER2"
       }
     },
     {
@@ -106,6 +136,21 @@
       }
     },
     {
+      "command": "store_attribute",
+      "locator": "div.results > div:nth-child(3) div.image img",
+      "attribute_name": "src",
+      "output": {
+        "name": "COVER3"
+      }
+    },
+    {
+      "command": "store",
+      "input": "https://www.themoviedb.orgCOVER3",
+      "output": {
+        "name": "COVER3"
+      }
+    },
+    {
       "command": "store_text",
       "locator": "div.results > div:nth-child(3) div.title h2",
       "output": {
@@ -147,6 +192,21 @@
       "input": "https://www.themoviedb.org$URL3",
       "output": {
         "name": "URL3"
+      }
+    },
+    {
+      "command": "store_attribute",
+      "locator": "div.results > div:nth-child(4) div.image img",
+      "attribute_name": "src",
+      "output": {
+        "name": "COVER4"
+      }
+    },
+    {
+      "command": "store",
+      "input": "https://www.themoviedb.orgCOVER4",
+      "output": {
+        "name": "COVER4"
       }
     },
     {
@@ -194,6 +254,21 @@
       }
     },
     {
+      "command": "store_attribute",
+      "locator": "div.results > div:nth-child(5) div.image img",
+      "attribute_name": "src",
+      "output": {
+        "name": "COVER5"
+      }
+    },
+    {
+      "command": "store",
+      "input": "https://www.themoviedb.orgCOVER5",
+      "output": {
+        "name": "COVER5"
+      }
+    },
+    {
       "command": "store_text",
       "locator": "div.results > div:nth-child(5) div.title h2",
       "output": {
@@ -235,6 +310,21 @@
       "input": "https://www.themoviedb.org$URL5",
       "output": {
         "name": "URL5"
+      }
+    },
+    {
+      "command": "store_attribute",
+      "locator": "div.results > div:nth-child(6) div.image img",
+      "attribute_name": "src",
+      "output": {
+        "name": "COVER6"
+      }
+    },
+    {
+      "command": "store",
+      "input": "https://www.themoviedb.orgCOVER6",
+      "output": {
+        "name": "COVER6"
       }
     },
     {
