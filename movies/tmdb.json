@@ -399,7 +399,7 @@
     },
     {
       "command": "store_text",
-      "locator": "#original_header .duration",
+      "locator": "#original_header .runtime",
       "output": {
         "name": "DURATION",
         "type": "string",
