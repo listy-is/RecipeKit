@@ -51,14 +51,7 @@
       "input": "$YEAR1",
       "expression": "(\\s\\d\\d\\d\\d)",
       "output": {
-        "name": "YEAR1"
-      }
-    },
-    {
-      "command": "store",
-      "input": "$TITLE1$YEAR1",
-      "output": {
-        "name": "TITLE1"
+        "name": "SUBTITLE1"
       }
     },
     {
@@ -110,14 +103,7 @@
       "input": "$YEAR2",
       "expression": "(\\s\\d\\d\\d\\d)",
       "output": {
-        "name": "YEAR2"
-      }
-    },
-    {
-      "command": "store",
-      "input": "$TITLE2$YEAR2",
-      "output": {
-        "name": "TITLE2"
+        "name": "SUBTITLE2"
       }
     },
     {
@@ -169,14 +155,7 @@
       "input": "$YEAR3",
       "expression": "(\\s\\d\\d\\d\\d)",
       "output": {
-        "name": "YEAR3"
-      }
-    },
-    {
-      "command": "store",
-      "input": "$TITLE3$YEAR3",
-      "output": {
-        "name": "TITLE3"
+        "name": "SUBTITLE3"
       }
     },
     {
@@ -228,14 +207,7 @@
       "input": "$YEAR4",
       "expression": "(\\s\\d\\d\\d\\d)",
       "output": {
-        "name": "YEAR4"
-      }
-    },
-    {
-      "command": "store",
-      "input": "$TITLE4$YEAR4",
-      "output": {
-        "name": "TITLE4"
+        "name": "SUBTITLE4"
       }
     },
     {
@@ -287,14 +259,7 @@
       "input": "$YEAR5",
       "expression": "(\\s\\d\\d\\d\\d)",
       "output": {
-        "name": "YEAR5"
-      }
-    },
-    {
-      "command": "store",
-      "input": "$TITLE5$YEAR5",
-      "output": {
-        "name": "TITLE5"
+        "name": "SUBTITLE5"
       }
     },
     {
@@ -346,14 +311,7 @@
       "input": "$YEAR6",
       "expression": "(\\s\\d\\d\\d\\d)",
       "output": {
-        "name": "YEAR6"
-      }
-    },
-    {
-      "command": "store",
-      "input": "$TITLE6$YEAR6",
-      "output": {
-        "name": "TITLE6"
+        "name": "SUBTITLE6"
       }
     },
     {
