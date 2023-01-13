@@ -430,6 +430,26 @@
       "description": "Saves the description"
     },
     {
+      "command": "store_text",
+      "locator": "#original_header .genres a",
+      "output": {
+        "name": "GENRE",
+        "type": "string",
+        "show": true
+      },
+      "description": "Saves the genre of the movie"
+    },
+    {
+      "command": "store_text",
+      "locator": "#original_header .duration",
+      "output": {
+        "name": "DURATION",
+        "type": "string",
+        "show": true
+      },
+      "description": "Saves the duration of the movie"
+    },
+    {
       "command": "store_attribute",
       "locator": "div.provider img",
       "attribute_name": "alt",
