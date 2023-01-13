@@ -27,7 +27,7 @@
     },
     {
       "command": "store",
-      "input": "https://www.themoviedb.orgCOVER1",
+      "input": "https://www.themoviedb.org$COVER1",
       "output": {
         "name": "COVER1"
       }
@@ -86,7 +86,7 @@
     },
     {
       "command": "store",
-      "input": "https://www.themoviedb.orgCOVER2",
+      "input": "https://www.themoviedb.org$COVER2",
       "output": {
         "name": "COVER2"
       }
@@ -145,7 +145,7 @@
     },
     {
       "command": "store",
-      "input": "https://www.themoviedb.orgCOVER3",
+      "input": "https://www.themoviedb.org$COVER3",
       "output": {
         "name": "COVER3"
       }
@@ -204,7 +204,7 @@
     },
     {
       "command": "store",
-      "input": "https://www.themoviedb.orgCOVER4",
+      "input": "https://www.themoviedb.org$COVER4",
       "output": {
         "name": "COVER4"
       }
@@ -263,7 +263,7 @@
     },
     {
       "command": "store",
-      "input": "https://www.themoviedb.orgCOVER5",
+      "input": "https://www.themoviedb.org$COVER5",
       "output": {
         "name": "COVER5"
       }
@@ -322,7 +322,7 @@
     },
     {
       "command": "store",
-      "input": "https://www.themoviedb.orgCOVER6",
+      "input": "https://www.themoviedb.org$COVER6",
       "output": {
         "name": "COVER6"
       }
