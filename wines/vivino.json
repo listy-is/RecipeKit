@@ -36,6 +36,13 @@
       }
     },
     {
+      "command": "store",
+      "input": "https://$COVER1",
+      "output": {
+        "name": "COVER1"
+      }
+    },
+    {
       "command": "store_text",
       "locator": "div.search-results-list > div:nth-child(1) span.wine-card__name",
       "output": {
@@ -63,6 +70,13 @@
       "command": "regex",
       "input": "$COVER2",
       "expression": "(?<=\\/\\/).+?(?=\\)|$)",
+      "output": {
+        "name": "COVER2"
+      }
+    },
+    {
+      "command": "store",
+      "input": "https://$COVER2",
       "output": {
         "name": "COVER2"
       }
@@ -100,6 +114,13 @@
       }
     },
     {
+      "command": "store",
+      "input": "https://$COVER3",
+      "output": {
+        "name": "COVER3"
+      }
+    },
+    {
       "command": "store_text",
       "locator": "div.search-results-list > div:nth-child(3) span.wine-card__name",
       "output": {
@@ -127,6 +148,13 @@
       "command": "regex",
       "input": "$COVER4",
       "expression": "(?<=\\/\\/).+?(?=\\)|$)",
+      "output": {
+        "name": "COVER4"
+      }
+    },
+    {
+      "command": "store",
+      "input": "https://$COVER4",
       "output": {
         "name": "COVER4"
       }
@@ -164,6 +192,13 @@
       }
     },
     {
+      "command": "store",
+      "input": "https://$COVER5",
+      "output": {
+        "name": "COVER5"
+      }
+    },
+    {
       "command": "store_text",
       "locator": "div.search-results-list > div:nth-child(5) span.wine-card__name",
       "output": {
@@ -191,6 +226,13 @@
       "command": "regex",
       "input": "$COVER6",
       "expression": "(?<=\\/\\/).+?(?=\\)|$)",
+      "output": {
+        "name": "COVER6"
+      }
+    },
+    {
+      "command": "store",
+      "input": "https://$COVER6",
       "output": {
         "name": "COVER6"
       }
