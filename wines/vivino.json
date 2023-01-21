@@ -1,7 +1,7 @@
 {
   "recipe_id": 20,
-  "version": 3,
-  "engine_version": 8,
+  "version": 4,
+  "engine_version": 14,
   "title": "Vivino Wines",
   "description": "Retrieve the wines from page vivino",
   "urls": [
@@ -20,12 +20,52 @@
       "description": "Load the url of the wine"
     },
     {
+      "command": "store_attribute",
+      "locator": "div.search-results-list > div:nth-child(1) figure",
+      "attribute_name": "style",
+      "output": {
+        "name": "COVER1"
+      }
+    },
+    {
+      "command": "regex",
+      "input": "$COVER1",
+      "expression": "(?<=\\/\\/).+",
+      "output": {
+        "name": "COVER1"
+      }
+    },
+    {
       "command": "store_text",
       "locator": "div.search-results-list > div:nth-child(1) span.wine-card__name",
       "output": {
         "name": "TITLE1"
       },
       "description": "Saves the title of the wine"
+    },
+    {
+      "command": "store_text",
+      "locator": "div.search-results-list > div:nth-child(1) span.wine-card__region",
+      "output": {
+        "name": "SUBTITLE1"
+      },
+      "description": "Saves the region of the wine"
+    },
+    {
+      "command": "store_attribute",
+      "locator": "div.search-results-list > div:nth-child(2) figure",
+      "attribute_name": "style",
+      "output": {
+        "name": "COVER2"
+      }
+    },
+    {
+      "command": "regex",
+      "input": "$COVER2",
+      "expression": "(?<=\\/\\/).+",
+      "output": {
+        "name": "COVER2"
+      }
     },
     {
       "command": "store_text",
@@ -37,11 +77,59 @@
     },
     {
       "command": "store_text",
+      "locator": "div.search-results-list > div:nth-child(2) span.wine-card__region",
+      "output": {
+        "name": "SUBTITLE2"
+      },
+      "description": "Saves the region of the wine"
+    },
+    {
+      "command": "store_attribute",
+      "locator": "div.search-results-list > div:nth-child(3) figure",
+      "attribute_name": "style",
+      "output": {
+        "name": "COVER3"
+      }
+    },
+    {
+      "command": "regex",
+      "input": "$COVER3",
+      "expression": "(?<=\\/\\/).+",
+      "output": {
+        "name": "COVER3"
+      }
+    },
+    {
+      "command": "store_text",
       "locator": "div.search-results-list > div:nth-child(3) span.wine-card__name",
       "output": {
         "name": "TITLE3"
       },
       "description": "Saves the title of the wine"
+    },
+    {
+      "command": "store_text",
+      "locator": "div.search-results-list > div:nth-child(3) span.wine-card__region",
+      "output": {
+        "name": "SUBTITLE3"
+      },
+      "description": "Saves the region of the wine"
+    },
+    {
+      "command": "store_attribute",
+      "locator": "div.search-results-list > div:nth-child(4) figure",
+      "attribute_name": "style",
+      "output": {
+        "name": "COVER4"
+      }
+    },
+    {
+      "command": "regex",
+      "input": "$COVER4",
+      "expression": "(?<=\\/\\/).+",
+      "output": {
+        "name": "COVER4"
+      }
     },
     {
       "command": "store_text",
@@ -53,6 +141,30 @@
     },
     {
       "command": "store_text",
+      "locator": "div.search-results-list > div:nth-child(4) span.wine-card__region",
+      "output": {
+        "name": "SUBTITLE4"
+      },
+      "description": "Saves the region of the wine"
+    },
+    {
+      "command": "store_attribute",
+      "locator": "div.search-results-list > div:nth-child(5) figure",
+      "attribute_name": "style",
+      "output": {
+        "name": "COVER5"
+      }
+    },
+    {
+      "command": "regex",
+      "input": "$COVER5",
+      "expression": "(?<=\\/\\/).+",
+      "output": {
+        "name": "COVER5"
+      }
+    },
+    {
+      "command": "store_text",
       "locator": "div.search-results-list > div:nth-child(5) span.wine-card__name",
       "output": {
         "name": "TITLE5"
@@ -61,11 +173,43 @@
     },
     {
       "command": "store_text",
+      "locator": "div.search-results-list > div:nth-child(5) span.wine-card__region",
+      "output": {
+        "name": "SUBTITLE5"
+      },
+      "description": "Saves the region of the wine"
+    },
+    {
+      "command": "store_attribute",
+      "locator": "div.search-results-list > div:nth-child(6) figure",
+      "attribute_name": "style",
+      "output": {
+        "name": "COVER6"
+      }
+    },
+    {
+      "command": "regex",
+      "input": "$COVER6",
+      "expression": "(?<=\\/\\/).+",
+      "output": {
+        "name": "COVER6"
+      }
+    },
+    {
+      "command": "store_text",
       "locator": "div.search-results-list > div:nth-child(6) span.wine-card__name",
       "output": {
         "name": "TITLE6"
       },
       "description": "Saves the title of the wine"
+    },
+    {
+      "command": "store_text",
+      "locator": "div.search-results-list > div:nth-child(6) span.wine-card__region",
+      "output": {
+        "name": "SUBTITLE6"
+      },
+      "description": "Saves the region of the wine"
     },
     {
       "command": "store_attribute",
