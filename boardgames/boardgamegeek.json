@@ -1,6 +1,6 @@
 {
   "recipe_id": 19,
-  "version": 3,
+  "version": 4,
   "engine_version": 14,
   "title": "Boardgames Geek Boardgames",
   "description": "A recipe to get a list of boardgames",
@@ -25,7 +25,7 @@
     },
     {
       "command": "store_attribute",
-      "locator": "table.collection_table img:nth-child(1)",
+      "locator": "table.collection_table tr:nth-child(2) img",
       "attribute_name": "src",
       "output": {
         "name": "COVER1"
@@ -33,7 +33,7 @@
     },
     {
       "command": "store_attribute",
-      "locator": "table.collection_table img:nth-child(2)",
+      "locator": "table.collection_table tr:nth-child(3) img",
       "attribute_name": "src",
       "output": {
         "name": "COVER2"
@@ -41,7 +41,7 @@
     },
     {
       "command": "store_attribute",
-      "locator": "table.collection_table img:nth-child(3)",
+      "locator": "table.collection_table tr:nth-child(4) img",
       "attribute_name": "src",
       "output": {
         "name": "COVER3"
@@ -49,7 +49,7 @@
     },
     {
       "command": "store_attribute",
-      "locator": "table.collection_table img:nth-child(4)",
+      "locator": "table.collection_table tr:nth-child(5) img",
       "attribute_name": "src",
       "output": {
         "name": "COVER4"
@@ -57,7 +57,7 @@
     },
     {
       "command": "store_attribute",
-      "locator": "table.collection_table img:nth-child(5)",
+      "locator": "table.collection_table tr:nth-child(6) img",
       "attribute_name": "src",
       "output": {
         "name": "COVER5"
@@ -65,7 +65,7 @@
     },
     {
       "command": "store_attribute",
-      "locator": "table.collection_table img:nth-child(6)",
+      "locator": "table.collection_table tr:nth-child(7) img",
       "attribute_name": "src",
       "output": {
         "name": "COVER6"
@@ -121,8 +121,24 @@
       }
     },
     {
+      "command": "regex",
+      "input": "$SUBTITLE1",
+      "expression": "(\\d\\d\\d\\d)",
+      "output": {
+        "name": "SUBTITLE1"
+      }
+    },
+    {
       "command": "store_text",
       "locator": "#results_objectname2 span",
+      "output": {
+        "name": "SUBTITLE2"
+      }
+    },
+    {
+      "command": "regex",
+      "input": "$SUBTITLE2",
+      "expression": "(\\d\\d\\d\\d)",
       "output": {
         "name": "SUBTITLE2"
       }
@@ -135,8 +151,24 @@
       }
     },
     {
+      "command": "regex",
+      "input": "$SUBTITLE3",
+      "expression": "(\\d\\d\\d\\d)",
+      "output": {
+        "name": "SUBTITLE3"
+      }
+    },
+    {
       "command": "store_text",
       "locator": "#results_objectname4 span",
+      "output": {
+        "name": "SUBTITLE4"
+      }
+    },
+    {
+      "command": "regex",
+      "input": "$SUBTITLE4",
+      "expression": "(\\d\\d\\d\\d)",
       "output": {
         "name": "SUBTITLE4"
       }
@@ -149,10 +181,26 @@
       }
     },
     {
+      "command": "regex",
+      "input": "$SUBTITLE5",
+      "expression": "(\\d\\d\\d\\d)",
+      "output": {
+        "name": "SUBTITLE5"
+      }
+    },
+    {
       "command": "store_text",
       "locator": "#results_objectname6 span",
       "output": {
         "name": "SUBTITLE6"
+      }
+    },
+    {
+      "command": "regex",
+      "input": "$SUBTITLE1",
+      "expression": "(\\d\\d\\d\\d)",
+      "output": {
+        "name": "SUBTITLE1"
       }
     },
     {
