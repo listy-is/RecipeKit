@@ -1,7 +1,7 @@
 {
   "recipe_id": 27,
-  "version": 2,
-  "engine_version": 12,
+  "version": 3,
+  "engine_version": 14,
   "title": "Apple Software",
   "description": "Load software from Apple",
   "urls": [
@@ -23,6 +23,69 @@
         "method": "GET"
       },
       "description": "Retreives a JSON with output of apple"
+    },
+    {
+      "command": "json_store_text",
+      "locator": "results.[0].artworkUrl512",
+      "input": "$JSON",
+      "output": {
+        "name": "COVER1"
+      },
+      "description": "Saves the first cover."
+    },
+    {
+      "command": "json_store_text",
+      "locator": "results.[0].artworkUrl512",
+      "input": "$JSON",
+      "output": {
+        "name": "COVER1"
+      },
+      "description": "Saves the first cover."
+    },
+    {
+      "command": "json_store_text",
+      "locator": "results.[1].artworkUrl512",
+      "input": "$JSON",
+      "output": {
+        "name": "COVER2"
+      },
+      "description": "Saves the first cover."
+    },
+    {
+      "command": "json_store_text",
+      "locator": "results.[2].artworkUrl512",
+      "input": "$JSON",
+      "output": {
+        "name": "COVER3"
+      },
+      "description": "Saves the first cover."
+    },
+    {
+      "command": "json_store_text",
+      "locator": "results.[3].artworkUrl512",
+      "input": "$JSON",
+      "output": {
+        "name": "COVER4"
+      },
+      "description": "Saves the first cover."
+    },
+    {
+      "command": "json_store_text",
+      "locator": "results.[4].artworkUrl512",
+      "input": "$JSON",
+      "output": {
+        "name": "COVER5"
+      },
+      "description": "Saves the first cover."
+    },
+    {
+      "command": "json_store_text",
+      "locator": "results.[5].artworkUrl512",
+      "input": "$JSON",
+      "output": {
+        "name": "COVER6"
+      },
+      "description": "Saves the first cover."
     },
     {
       "command": "json_store_text",
