@@ -41,7 +41,7 @@
     },
     {
       "command": "regex",
-      "input": "TITLE1",
+      "input": "$TITLE1",
       "expression": ".+?(?=\\,|$)",
       "output": {
         "name": "TITLE1"
@@ -74,7 +74,7 @@
     },
     {
       "command": "regex",
-      "input": "TITLE2",
+      "input": "$TITLE2",
       "expression": ".+?(?=\\,|$)",
       "output": {
         "name": "TITLE2"
@@ -107,7 +107,7 @@
     },
     {
       "command": "regex",
-      "input": "TITLE3",
+      "input": "$TITLE3",
       "expression": ".+?(?=\\,|$)",
       "output": {
         "name": "TITLE3"
@@ -140,7 +140,7 @@
     },
     {
       "command": "regex",
-      "input": "TITLE4",
+      "input": "$TITLE4",
       "expression": ".+?(?=\\,|$)",
       "output": {
         "name": "TITLE4"
@@ -173,7 +173,7 @@
     },
     {
       "command": "regex",
-      "input": "TITLE5",
+      "input": "$TITLE5",
       "expression": ".+?(?=\\,|$)",
       "output": {
         "name": "TITLE5"
@@ -206,7 +206,7 @@
     },
     {
       "command": "regex",
-      "input": "TITLE6",
+      "input": "$TITLE6",
       "expression": ".+?(?=\\,|$)",
       "output": {
         "name": "TITLE6"
