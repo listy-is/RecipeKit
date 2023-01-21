@@ -17,7 +17,7 @@
       "url": "https://www.imdb.com/search/title/?title=$INPUT&title_type=video_game",
       "config": {
         "js": true,
-        "timeout": 10
+        "timeout": 5
       },
       "description": "Searches videogames by title"
     },
