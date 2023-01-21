@@ -47,7 +47,7 @@
     {
       "command": "regex",
       "input": "$TITLE1",
-      "expression": "(?<=\\.\\s).+",
+      "expression": "(?<=\\.\\s).+?(?=\\s\\(|$)",
       "output": {
         "name": "TITLE1"
       },
@@ -79,7 +79,7 @@
     {
       "command": "regex",
       "input": "$TITLE2",
-      "expression": "(?<=\\.\\s).+",
+      "expression": "(?<=\\.\\s).+?(?=\\s\\(|$)",
       "output": {
         "name": "TITLE2"
       },
@@ -111,7 +111,7 @@
     {
       "command": "regex",
       "input": "$TITLE3",
-      "expression": "(?<=\\.\\s).+",
+      "expression": "(?<=\\.\\s).+?(?=\\s\\(|$)",
       "output": {
         "name": "TITLE3"
       },
@@ -143,7 +143,7 @@
     {
       "command": "regex",
       "input": "$TITLE4",
-      "expression": "(?<=\\.\\s).+",
+      "expression": "(?<=\\.\\s).+?(?=\\s\\(|$)",
       "output": {
         "name": "TITLE4"
       },
@@ -175,7 +175,7 @@
     {
       "command": "regex",
       "input": "$TITLE5",
-      "expression": "(?<=\\.\\s).+",
+      "expression": "(?<=\\.\\s).+?(?=\\s\\(|$)",
       "output": {
         "name": "TITLE5"
       },
@@ -207,7 +207,7 @@
     {
       "command": "regex",
       "input": "$TITLE6",
-      "expression": "(?<=\\.\\s).+",
+      "expression": "(?<=\\.\\s).+?(?=\\s\\(|$)",
       "output": {
         "name": "TITLE6"
       },
