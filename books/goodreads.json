@@ -1,6 +1,6 @@
 {
   "recipe_id": 9,
-  "version": 10,
+  "version": 11,
   "engine_version": 14,
   "title": "Goodreads",
   "description": "A recipe to get a list of books from Goodreads",
@@ -34,15 +34,31 @@
       "command": "store_text",
       "locator": "body > ul > li:nth-child(1) .title",
       "output": {
+        "name": "LINE1"
+      }
+    },
+    {
+      "command": "regex",
+      "input": "$LINE1",
+      "expression": ".+?(?=\\,\\sby|$)",
+      "output": {
         "name": "TITLE1"
       }
     },
     {
       "command": "regex",
-      "input": "$TITLE1",
+      "input": "$LINE1",
+      "expression": "(?<=\\,\\sby).+",
+      "output": {
+        "name": "SUBTITLE1"
+      }
+    },
+    {
+      "command": "regex",
+      "input": "$SUBTITLE1",
       "expression": ".+?(?=ISBN|$)",
       "output": {
-        "name": "TITLE1"
+        "name": "SUBTITLE1"
       }
     },
     {
@@ -57,15 +73,31 @@
       "command": "store_text",
       "locator": "body > ul > li:nth-child(2) .title",
       "output": {
+        "name": "LINE2"
+      }
+    },
+    {
+      "command": "regex",
+      "input": "$LINE2",
+      "expression": ".+?(?=\\,\\sby|$)",
+      "output": {
         "name": "TITLE2"
       }
     },
     {
       "command": "regex",
-      "input": "$TITLE2",
+      "input": "$LINE2",
+      "expression": "(?<=\\,\\sby).+",
+      "output": {
+        "name": "SUBTITLE2"
+      }
+    },
+    {
+      "command": "regex",
+      "input": "$SUBTITLE2",
       "expression": ".+?(?=ISBN|$)",
       "output": {
-        "name": "TITLE2"
+        "name": "SUBTITLE2"
       }
     },
     {
@@ -80,15 +112,31 @@
       "command": "store_text",
       "locator": "body > ul > li:nth-child(3) .title",
       "output": {
+        "name": "LINE3"
+      }
+    },
+    {
+      "command": "regex",
+      "input": "$LINE3",
+      "expression": ".+?(?=\\,\\sby|$)",
+      "output": {
         "name": "TITLE3"
       }
     },
     {
       "command": "regex",
-      "input": "$TITLE3",
+      "input": "$LINE3",
+      "expression": "(?<=\\,\\sby).+",
+      "output": {
+        "name": "SUBTITLE3"
+      }
+    },
+    {
+      "command": "regex",
+      "input": "$SUBTITLE3",
       "expression": ".+?(?=ISBN|$)",
       "output": {
-        "name": "TITLE3"
+        "name": "SUBTITLE3"
       }
     },
     {
@@ -103,15 +151,31 @@
       "command": "store_text",
       "locator": "body > ul > li:nth-child(4) .title",
       "output": {
+        "name": "LINE4"
+      }
+    },
+    {
+      "command": "regex",
+      "input": "$LINE4",
+      "expression": ".+?(?=\\,\\sby|$)",
+      "output": {
         "name": "TITLE4"
       }
     },
     {
       "command": "regex",
-      "input": "$TITLE4",
+      "input": "$LINE4",
+      "expression": "(?<=\\,\\sby).+",
+      "output": {
+        "name": "SUBTITLE4"
+      }
+    },
+    {
+      "command": "regex",
+      "input": "$SUBTITLE4",
       "expression": ".+?(?=ISBN|$)",
       "output": {
-        "name": "TITLE4"
+        "name": "SUBTITLE4"
       }
     },
     {
@@ -126,15 +190,31 @@
       "command": "store_text",
       "locator": "body > ul > li:nth-child(5) .title",
       "output": {
+        "name": "LINE5"
+      }
+    },
+    {
+      "command": "regex",
+      "input": "$LINE5",
+      "expression": ".+?(?=\\,\\sby|$)",
+      "output": {
         "name": "TITLE5"
       }
     },
     {
       "command": "regex",
-      "input": "$TITLE5",
+      "input": "$LINE5",
+      "expression": "(?<=\\,\\sby).+",
+      "output": {
+        "name": "SUBTITLE5"
+      }
+    },
+    {
+      "command": "regex",
+      "input": "$SUBTITLE5",
       "expression": ".+?(?=ISBN|$)",
       "output": {
-        "name": "TITLE5"
+        "name": "SUBTITLE5"
       }
     },
     {
