@@ -1,7 +1,7 @@
 {
   "recipe_id": 29,
-  "version": 5,
-  "engine_version": 13,
+  "version": 6,
+  "engine_version": 14,
   "title": "Anidb",
   "description": "A recipe to get a list of animes from Anidb",
   "urls": [
@@ -22,26 +22,11 @@
       "description": "Searches anime movies"
     },
     {
-      "command": "store_text",
-      "locator": "div.g_definitionlist span[itemprop=name]",
-      "output": {
-        "name": "TITLE1"
-      }
-    },
-    {
       "command": "store_attribute",
-      "locator": "div.g_definitionlist tr:nth-child(1) td a",
-      "attribute_name": "href",
+      "locator": "table.animelist tr:nth-child(1) td.anime.thumb img",
+      "attribute_name": "src",
       "output": {
-        "name": "URL1"
-      }
-    },
-    {
-      "command": "regex",
-      "input": "$URL1",
-      "expression": "(?<=https\\:\\/\\/anidb\\.net).+",
-      "output": {
-        "name": "URL1"
+        "name": "COVER1"
       }
     },
     {
@@ -55,23 +40,23 @@
       "command": "store_text",
       "locator": "table.animelist tr:nth-child(1) td.airdate.date",
       "output": {
-        "name": "DATE1"
+        "name": "SUBTITLE1"
       }
     },
     {
       "command": "regex",
-      "input": "$DATE1",
+      "input": "$SUBTITLE1",
       "expression": "\\d\\d\\d\\d",
       "output": {
-        "name": "DATE1"
+        "name": "SUBTITLE1"
       }
     },
     {
-      "command": "store",
-      "input": "$TITLE1 $DATE1",
-      "expression": "\\d\\d\\d\\d",
+      "command": "store_attribute",
+      "locator": "table.animelist tr:nth-child(2) td.anime.thumb img",
+      "attribute_name": "src",
       "output": {
-        "name": "TITLE1"
+        "name": "COVER2"
       }
     },
     {
@@ -85,23 +70,23 @@
       "command": "store_text",
       "locator": "table.animelist tr:nth-child(2) td.airdate.date",
       "output": {
-        "name": "DATE2"
+        "name": "SUBTITLE2"
       }
     },
     {
       "command": "regex",
-      "input": "$DATE2",
+      "input": "$SUBTITLE2",
       "expression": "\\d\\d\\d\\d",
       "output": {
-        "name": "DATE2"
+        "name": "SUBTITLE2"
       }
     },
     {
-      "command": "store",
-      "input": "$TITLE2 $DATE2",
-      "expression": "\\d\\d\\d\\d",
+      "command": "store_attribute",
+      "locator": "table.animelist tr:nth-child(3) td.anime.thumb img",
+      "attribute_name": "src",
       "output": {
-        "name": "TITLE2"
+        "name": "COVER3"
       }
     },
     {
@@ -115,23 +100,23 @@
       "command": "store_text",
       "locator": "table.animelist tr:nth-child(3) td.airdate.date",
       "output": {
-        "name": "DATE3"
+        "name": "SUBTITLE3"
       }
     },
     {
       "command": "regex",
-      "input": "$DATE3",
+      "input": "$SUBTITLE3",
       "expression": "\\d\\d\\d\\d",
       "output": {
-        "name": "DATE3"
+        "name": "SUBTITLE3"
       }
     },
     {
-      "command": "store",
-      "input": "$TITLE3 $DATE3",
-      "expression": "\\d\\d\\d\\d",
+      "command": "store_attribute",
+      "locator": "table.animelist tr:nth-child(4) td.anime.thumb img",
+      "attribute_name": "src",
       "output": {
-        "name": "TITLE3"
+        "name": "COVER4"
       }
     },
     {
@@ -145,23 +130,23 @@
       "command": "store_text",
       "locator": "table.animelist tr:nth-child(4) td.airdate.date",
       "output": {
-        "name": "DATE4"
+        "name": "SUBTITLE4"
       }
     },
     {
       "command": "regex",
-      "input": "$DATE4",
+      "input": "$SUBTITLE4",
       "expression": "\\d\\d\\d\\d",
       "output": {
-        "name": "DATE4"
+        "name": "SUBTITLE4"
       }
     },
     {
-      "command": "store",
-      "input": "$TITLE4 $DATE4",
-      "expression": "\\d\\d\\d\\d",
+      "command": "store_attribute",
+      "locator": "table.animelist tr:nth-child(5) td.anime.thumb img",
+      "attribute_name": "src",
       "output": {
-        "name": "TITLE4"
+        "name": "COVER5"
       }
     },
     {
@@ -175,23 +160,23 @@
       "command": "store_text",
       "locator": "table.animelist tr:nth-child(5) td.airdate.date",
       "output": {
-        "name": "DATE5"
+        "name": "SUBTITLE5"
       }
     },
     {
       "command": "regex",
-      "input": "$DATE5",
+      "input": "$SUBTITLE5",
       "expression": "\\d\\d\\d\\d",
       "output": {
-        "name": "DATE5"
+        "name": "SUBTITLE5"
       }
     },
     {
-      "command": "store",
-      "input": "$TITLE5 $DATE5",
-      "expression": "\\d\\d\\d\\d",
+      "command": "store_attribute",
+      "locator": "table.animelist tr:nth-child(6) td.anime.thumb img",
+      "attribute_name": "src",
       "output": {
-        "name": "TITLE5"
+        "name": "COVER6"
       }
     },
     {
@@ -205,23 +190,15 @@
       "command": "store_text",
       "locator": "table.animelist tr:nth-child(6) td.airdate.date",
       "output": {
-        "name": "DATE6"
+        "name": "SUBTITLE6"
       }
     },
     {
       "command": "regex",
-      "input": "$DATE6",
+      "input": "$SUBTITLE6",
       "expression": "\\d\\d\\d\\d",
       "output": {
-        "name": "DATE6"
-      }
-    },
-    {
-      "command": "store",
-      "input": "$TITLE6 $DATE6",
-      "expression": "\\d\\d\\d\\d",
-      "output": {
-        "name": "TITLE6"
+        "name": "SUBTITLE6"
       }
     },
     {
