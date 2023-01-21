@@ -58,7 +58,7 @@
     },
     {
       "command": "store_attribute",
-      "locator": "[class^=BeerTab]:nth-child(2) img",
+      "locator": "[class^=BeerTab]:nth-child(3) img",
       "attribute_name": "src",
       "output": {
         "name": "COVER2"
@@ -83,7 +83,7 @@
     },
     {
       "command": "store_text",
-      "locator": "[class^=BeerTab]:nth-child(2) div.fg-1 div.fd-r:nth-child(1)",
+      "locator": "[class^=BeerTab]:nth-child(3) div.fg-1 div.fd-r:nth-child(1)",
       "output": {
         "name": "SUBTITLE2"
       },
@@ -91,7 +91,7 @@
     },
     {
       "command": "store_attribute",
-      "locator": "[class^=BeerTab]:nth-child(3) img",
+      "locator": "[class^=BeerTab]:nth-child(5) img",
       "attribute_name": "src",
       "output": {
         "name": "COVER3"
@@ -116,7 +116,7 @@
     },
     {
       "command": "store_text",
-      "locator": "[class^=BeerTab]:nth-child(3) div.fg-1 div.fd-r:nth-child(1)",
+      "locator": "[class^=BeerTab]:nth-child(5) div.fg-1 div.fd-r:nth-child(1)",
       "output": {
         "name": "SUBTITLE3"
       },
@@ -124,7 +124,7 @@
     },
     {
       "command": "store_attribute",
-      "locator": "[class^=BeerTab]:nth-child(4) img",
+      "locator": "[class^=BeerTab]:nth-child(7) img",
       "attribute_name": "src",
       "output": {
         "name": "COVER4"
@@ -149,7 +149,7 @@
     },
     {
       "command": "store_text",
-      "locator": "[class^=BeerTab]:nth-child(4) div.fg-1 div.fd-r:nth-child(1)",
+      "locator": "[class^=BeerTab]:nth-child(7) div.fg-1 div.fd-r:nth-child(1)",
       "output": {
         "name": "SUBTITLE4"
       },
@@ -157,7 +157,7 @@
     },
     {
       "command": "store_attribute",
-      "locator": "[class^=BeerTab]:nth-child(5) img",
+      "locator": "[class^=BeerTab]:nth-child(9) img",
       "attribute_name": "src",
       "output": {
         "name": "COVER5"
@@ -182,7 +182,7 @@
     },
     {
       "command": "store_text",
-      "locator": "[class^=BeerTab]:nth-child(5) div.fg-1 div.fd-r:nth-child(1)",
+      "locator": "[class^=BeerTab]:nth-child(9) div.fg-1 div.fd-r:nth-child(1)",
       "output": {
         "name": "SUBTITLE5"
       },
@@ -190,7 +190,7 @@
     },
     {
       "command": "store_attribute",
-      "locator": "[class^=BeerTab]:nth-child(6) img",
+      "locator": "[class^=BeerTab]:nth-child(11) img",
       "attribute_name": "src",
       "output": {
         "name": "COVER6"
@@ -215,7 +215,7 @@
     },
     {
       "command": "store_text",
-      "locator": "[class^=BeerTab]:nth-child(6) div.fg-1 div.fd-r:nth-child(1)",
+      "locator": "[class^=BeerTab]:nth-child(11) div.fg-1 div.fd-r:nth-child(1)",
       "output": {
         "name": "SUBTITLE6"
       },
