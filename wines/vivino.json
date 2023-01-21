@@ -30,7 +30,7 @@
     {
       "command": "regex",
       "input": "$COVER1",
-      "expression": "(?<=\\/\\/).+",
+      "expression": "(?<=\\/\\/).+?(?=\\)|$)",
       "output": {
         "name": "COVER1"
       }
@@ -62,7 +62,7 @@
     {
       "command": "regex",
       "input": "$COVER2",
-      "expression": "(?<=\\/\\/).+",
+      "expression": "(?<=\\/\\/).+?(?=\\)|$)",
       "output": {
         "name": "COVER2"
       }
@@ -94,7 +94,7 @@
     {
       "command": "regex",
       "input": "$COVER3",
-      "expression": "(?<=\\/\\/).+",
+      "expression": "(?<=\\/\\/).+?(?=\\)|$)",
       "output": {
         "name": "COVER3"
       }
@@ -126,7 +126,7 @@
     {
       "command": "regex",
       "input": "$COVER4",
-      "expression": "(?<=\\/\\/).+",
+      "expression": "(?<=\\/\\/).+?(?=\\)|$)",
       "output": {
         "name": "COVER4"
       }
@@ -158,7 +158,7 @@
     {
       "command": "regex",
       "input": "$COVER5",
-      "expression": "(?<=\\/\\/).+",
+      "expression": "(?<=\\/\\/).+?(?=\\)|$)",
       "output": {
         "name": "COVER5"
       }
@@ -190,7 +190,7 @@
     {
       "command": "regex",
       "input": "$COVER6",
-      "expression": "(?<=\\/\\/).+",
+      "expression": "(?<=\\/\\/).+?(?=\\)|$)",
       "output": {
         "name": "COVER6"
       }
