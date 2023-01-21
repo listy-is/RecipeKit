@@ -1,7 +1,7 @@
 {
   "recipe_id": 12,
-  "version": 3,
-  "engine_version": 6,
+  "version": 4,
+  "engine_version": 14,
   "title": "IMDB Videogames",
   "description": "A recipe to get a list of videogames",
   "urls": [
@@ -18,10 +18,26 @@
       "description": "Searches videogames by title"
     },
     {
+      "command": "store_attribute",
+      "locator": "#main > div > div.lister.list.detail.sub-list > div > div:nth-child(1) > div.lister-item-image img",
+      "attribute_name": "src",
+      "output": {
+        "name": "COVER1"
+      }
+    },
+    {
       "command": "store_text",
       "locator": "#main > div > div.lister.list.detail.sub-list > div > div:nth-child(1) > div.lister-item-content > h3",
       "output": {
         "name": "TITLE1"
+      }
+    },
+    {
+      "command": "regex",
+      "input": "$TITLE1",
+      "expression": "(\\d\\d\\d\\d)",
+      "output": {
+        "name": "SUBTITLE1"
       }
     },
     {
@@ -34,10 +50,26 @@
       "description": "Applies a regular expression to get just the title without the ennum"
     },
     {
+      "command": "store_attribute",
+      "locator": "#main > div > div.lister.list.detail.sub-list > div > div:nth-child(2) > div.lister-item-image img",
+      "attribute_name": "src",
+      "output": {
+        "name": "COVER2"
+      }
+    },
+    {
       "command": "store_text",
       "locator": "#main > div > div.lister.list.detail.sub-list > div > div:nth-child(2) > div.lister-item-content > h3",
       "output": {
         "name": "TITLE2"
+      }
+    },
+    {
+      "command": "regex",
+      "input": "$TITLE2",
+      "expression": "(\\d\\d\\d\\d)",
+      "output": {
+        "name": "SUBTITLE2"
       }
     },
     {
@@ -50,10 +82,26 @@
       "description": "Applies a regular expression to get just the title without the ennum"
     },
     {
+      "command": "store_attribute",
+      "locator": "#main > div > div.lister.list.detail.sub-list > div > div:nth-child(3) > div.lister-item-image img",
+      "attribute_name": "src",
+      "output": {
+        "name": "COVER3"
+      }
+    },
+    {
       "command": "store_text",
       "locator": "#main > div > div.lister.list.detail.sub-list > div > div:nth-child(3) > div.lister-item-content > h3",
       "output": {
         "name": "TITLE3"
+      }
+    },
+    {
+      "command": "regex",
+      "input": "$TITLE3",
+      "expression": "(\\d\\d\\d\\d)",
+      "output": {
+        "name": "SUBTITLE3"
       }
     },
     {
@@ -66,10 +114,26 @@
       "description": "Applies a regular expression to get just the title without the ennum"
     },
     {
+      "command": "store_attribute",
+      "locator": "#main > div > div.lister.list.detail.sub-list > div > div:nth-child(4) > div.lister-item-image img",
+      "attribute_name": "src",
+      "output": {
+        "name": "COVER4"
+      }
+    },
+    {
       "command": "store_text",
       "locator": "#main > div > div.lister.list.detail.sub-list > div > div:nth-child(4) > div.lister-item-content > h3",
       "output": {
         "name": "TITLE4"
+      }
+    },
+    {
+      "command": "regex",
+      "input": "$TITLE4",
+      "expression": "(\\d\\d\\d\\d)",
+      "output": {
+        "name": "SUBTITLE4"
       }
     },
     {
@@ -82,10 +146,26 @@
       "description": "Applies a regular expression to get just the title without the ennum"
     },
     {
+      "command": "store_attribute",
+      "locator": "#main > div > div.lister.list.detail.sub-list > div > div:nth-child(5) > div.lister-item-image img",
+      "attribute_name": "src",
+      "output": {
+        "name": "COVER5"
+      }
+    },
+    {
       "command": "store_text",
       "locator": "#main > div > div.lister.list.detail.sub-list > div > div:nth-child(5) > div.lister-item-content > h3",
       "output": {
         "name": "TITLE5"
+      }
+    },
+    {
+      "command": "regex",
+      "input": "$TITLE5",
+      "expression": "(\\d\\d\\d\\d)",
+      "output": {
+        "name": "SUBTITLE5"
       }
     },
     {
@@ -98,10 +178,26 @@
       "description": "Applies a regular expression to get just the title without the ennum"
     },
     {
+      "command": "store_attribute",
+      "locator": "#main > div > div.lister.list.detail.sub-list > div > div:nth-child(6) > div.lister-item-image img",
+      "attribute_name": "src",
+      "output": {
+        "name": "COVER6"
+      }
+    },
+    {
       "command": "store_text",
       "locator": "#main > div > div.lister.list.detail.sub-list > div > div:nth-child(6) > div.lister-item-content > h3",
       "output": {
         "name": "TITLE6"
+      }
+    },
+    {
+      "command": "regex",
+      "input": "$TITLE6",
+      "expression": "(\\d\\d\\d\\d)",
+      "output": {
+        "name": "SUBTITLE6"
       }
     },
     {
