@@ -1,7 +1,7 @@
 {
   "recipe_id": 9,
-  "version": 9,
-  "engine_version": 13,
+  "version": 10,
+  "engine_version": 14,
   "title": "Goodreads",
   "description": "A recipe to get a list of books from Goodreads",
   "urls": [
@@ -23,6 +23,14 @@
       "description": "Searches books by title"
     },
     {
+      "command": "store_attribute",
+      "locator": "body > ul > li:nth-child(1) img",
+      "attribute_name": "src",
+      "output": {
+        "name": "COVER1"
+      }
+    },
+    {
       "command": "store_text",
       "locator": "body > ul > li:nth-child(1) .title",
       "output": {
@@ -35,6 +43,14 @@
       "expression": ".+?(?=ISBN|$)",
       "output": {
         "name": "TITLE1"
+      }
+    },
+    {
+      "command": "store_attribute",
+      "locator": "body > ul > li:nth-child(2) img",
+      "attribute_name": "src",
+      "output": {
+        "name": "COVER2"
       }
     },
     {
@@ -53,6 +69,14 @@
       }
     },
     {
+      "command": "store_attribute",
+      "locator": "body > ul > li:nth-child(3) img",
+      "attribute_name": "src",
+      "output": {
+        "name": "COVER3"
+      }
+    },
+    {
       "command": "store_text",
       "locator": "body > ul > li:nth-child(3) .title",
       "output": {
@@ -68,6 +92,14 @@
       }
     },
     {
+      "command": "store_attribute",
+      "locator": "body > ul > li:nth-child(4) img",
+      "attribute_name": "src",
+      "output": {
+        "name": "COVER4"
+      }
+    },
+    {
       "command": "store_text",
       "locator": "body > ul > li:nth-child(4) .title",
       "output": {
@@ -80,6 +112,14 @@
       "expression": ".+?(?=ISBN|$)",
       "output": {
         "name": "TITLE4"
+      }
+    },
+    {
+      "command": "store_attribute",
+      "locator": "body > ul > li:nth-child(5) img",
+      "attribute_name": "src",
+      "output": {
+        "name": "COVER5"
       }
     },
     {
