@@ -1,7 +1,7 @@
 {
   "recipe_id": 22,
-  "version": 3,
-  "engine_version": 9,
+  "version": 4,
+  "engine_version": 14,
   "title": "Ratebeer Beers",
   "description": "Retrieve the beers from page ratebeer",
   "urls": [
@@ -24,12 +24,45 @@
       }
     },
     {
+      "command": "store_attribute",
+      "locator": "[class^=BeerTab]:nth-child(1) img",
+      "attribute_name": "src",
+      "output": {
+        "name": "COVER1"
+      }
+    },
+    {
       "command": "store_text",
       "locator": "[class^=BeerTab]:nth-child(1) div.fg-1 div.fd-r:nth-child(2)",
       "output": {
         "name": "TITLE1"
       },
       "description": "Saves the title of the beer"
+    },
+    {
+      "command": "regex",
+      "input": "TITLE1",
+      "expression": ".+?(?=\\,|$)",
+      "output": {
+        "name": "TITLE1"
+      },
+      "description": "Saves the provider"
+    },
+    {
+      "command": "store_text",
+      "locator": "[class^=BeerTab]:nth-child(1) div.fg-1 div.fd-r:nth-child(1)",
+      "output": {
+        "name": "SUBTITLE1"
+      },
+      "description": "Saves the factory of the beer"
+    },
+    {
+      "command": "store_attribute",
+      "locator": "[class^=BeerTab]:nth-child(2) img",
+      "attribute_name": "src",
+      "output": {
+        "name": "COVER2"
+      }
     },
     {
       "command": "store_text",
@@ -40,12 +73,62 @@
       "description": "Saves the title of the beer"
     },
     {
+      "command": "regex",
+      "input": "TITLE2",
+      "expression": ".+?(?=\\,|$)",
+      "output": {
+        "name": "TITLE2"
+      },
+      "description": "Saves the provider"
+    },
+    {
+      "command": "store_text",
+      "locator": "[class^=BeerTab]:nth-child(2) div.fg-1 div.fd-r:nth-child(1)",
+      "output": {
+        "name": "SUBTITLE2"
+      },
+      "description": "Saves the factory of the beer"
+    },
+    {
+      "command": "store_attribute",
+      "locator": "[class^=BeerTab]:nth-child(3) img",
+      "attribute_name": "src",
+      "output": {
+        "name": "COVER3"
+      }
+    },
+    {
       "command": "store_text",
       "locator": "[class^=BeerTab]:nth-child(5) div.fg-1 div.fd-r:nth-child(2)",
       "output": {
         "name": "TITLE3"
       },
       "description": "Saves the title of the beer"
+    },
+    {
+      "command": "regex",
+      "input": "TITLE3",
+      "expression": ".+?(?=\\,|$)",
+      "output": {
+        "name": "TITLE3"
+      },
+      "description": "Saves the provider"
+    },
+    {
+      "command": "store_text",
+      "locator": "[class^=BeerTab]:nth-child(3) div.fg-1 div.fd-r:nth-child(1)",
+      "output": {
+        "name": "SUBTITLE3"
+      },
+      "description": "Saves the factory of the beer"
+    },
+    {
+      "command": "store_attribute",
+      "locator": "[class^=BeerTab]:nth-child(4) img",
+      "attribute_name": "src",
+      "output": {
+        "name": "COVER4"
+      }
     },
     {
       "command": "store_text",
@@ -56,6 +139,31 @@
       "description": "Saves the title of the beer"
     },
     {
+      "command": "regex",
+      "input": "TITLE4",
+      "expression": ".+?(?=\\,|$)",
+      "output": {
+        "name": "TITLE4"
+      },
+      "description": "Saves the provider"
+    },
+    {
+      "command": "store_text",
+      "locator": "[class^=BeerTab]:nth-child(4) div.fg-1 div.fd-r:nth-child(1)",
+      "output": {
+        "name": "SUBTITLE4"
+      },
+      "description": "Saves the factory of the beer"
+    },
+    {
+      "command": "store_attribute",
+      "locator": "[class^=BeerTab]:nth-child(5) img",
+      "attribute_name": "src",
+      "output": {
+        "name": "COVER5"
+      }
+    },
+    {
       "command": "store_text",
       "locator": "[class^=BeerTab]:nth-child(9) div.fg-1 div.fd-r:nth-child(2)",
       "output": {
@@ -64,12 +172,54 @@
       "description": "Saves the title of the beer"
     },
     {
+      "command": "regex",
+      "input": "TITLE5",
+      "expression": ".+?(?=\\,|$)",
+      "output": {
+        "name": "TITLE5"
+      },
+      "description": "Saves the provider"
+    },
+    {
+      "command": "store_text",
+      "locator": "[class^=BeerTab]:nth-child(5) div.fg-1 div.fd-r:nth-child(1)",
+      "output": {
+        "name": "SUBTITLE5"
+      },
+      "description": "Saves the factory of the beer"
+    },
+    {
+      "command": "store_attribute",
+      "locator": "[class^=BeerTab]:nth-child(6) img",
+      "attribute_name": "src",
+      "output": {
+        "name": "COVER6"
+      }
+    },
+    {
       "command": "store_text",
       "locator": "[class^=BeerTab]:nth-child(11) div.fg-1 div.fd-r:nth-child(2)",
       "output": {
         "name": "TITLE6"
       },
       "description": "Saves the title of the beer"
+    },
+    {
+      "command": "regex",
+      "input": "TITLE6",
+      "expression": ".+?(?=\\,|$)",
+      "output": {
+        "name": "TITLE6"
+      },
+      "description": "Saves the provider"
+    },
+    {
+      "command": "store_text",
+      "locator": "[class^=BeerTab]:nth-child(6) div.fg-1 div.fd-r:nth-child(1)",
+      "output": {
+        "name": "SUBTITLE6"
+      },
+      "description": "Saves the factory of the beer"
     },
     {
       "command": "store_attribute",
