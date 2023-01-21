@@ -1,6 +1,6 @@
 {
   "recipe_id": 16,
-  "version": 6,
+  "version": 7,
   "engine_version": 14,
   "title": "TMDB TV Shows",
   "description": "A recipe to get a list of tv shows",
@@ -27,7 +27,7 @@
     },
     {
       "command": "store",
-      "input": "https://www.themoviedb.orgCOVER1",
+      "input": "https://www.themoviedb.org$COVER1",
       "output": {
         "name": "COVER1"
       }
@@ -51,14 +51,7 @@
       "input": "$YEAR1",
       "expression": "(\\s\\d\\d\\d\\d)",
       "output": {
-        "name": "YEAR1"
-      }
-    },
-    {
-      "command": "store",
-      "input": "$TITLE1$YEAR1",
-      "output": {
-        "name": "TITLE1"
+        "name": "SUBTITLE1"
       }
     },
     {
@@ -86,7 +79,7 @@
     },
     {
       "command": "store",
-      "input": "https://www.themoviedb.orgCOVER2",
+      "input": "https://www.themoviedb.org$COVER2",
       "output": {
         "name": "COVER2"
       }
@@ -110,14 +103,7 @@
       "input": "$YEAR2",
       "expression": "(\\s\\d\\d\\d\\d)",
       "output": {
-        "name": "YEAR2"
-      }
-    },
-    {
-      "command": "store",
-      "input": "$TITLE2$YEAR2",
-      "output": {
-        "name": "TITLE2"
+        "name": "SUBTITLE2"
       }
     },
     {
@@ -145,7 +131,7 @@
     },
     {
       "command": "store",
-      "input": "https://www.themoviedb.orgCOVER3",
+      "input": "https://www.themoviedb.org$COVER3",
       "output": {
         "name": "COVER3"
       }
@@ -169,14 +155,7 @@
       "input": "$YEAR3",
       "expression": "(\\s\\d\\d\\d\\d)",
       "output": {
-        "name": "YEAR3"
-      }
-    },
-    {
-      "command": "store",
-      "input": "$TITLE3$YEAR3",
-      "output": {
-        "name": "TITLE3"
+        "name": "SUBTITLE3"
       }
     },
     {
@@ -204,7 +183,7 @@
     },
     {
       "command": "store",
-      "input": "https://www.themoviedb.orgCOVER4",
+      "input": "https://www.themoviedb.org$COVER4",
       "output": {
         "name": "COVER4"
       }
@@ -228,14 +207,7 @@
       "input": "$YEAR4",
       "expression": "(\\s\\d\\d\\d\\d)",
       "output": {
-        "name": "YEAR4"
-      }
-    },
-    {
-      "command": "store",
-      "input": "$TITLE4$YEAR4",
-      "output": {
-        "name": "TITLE4"
+        "name": "SUBTITLE4"
       }
     },
     {
@@ -263,7 +235,7 @@
     },
     {
       "command": "store",
-      "input": "https://www.themoviedb.orgCOVER5",
+      "input": "https://www.themoviedb.org$COVER5",
       "output": {
         "name": "COVER5"
       }
@@ -287,14 +259,7 @@
       "input": "$YEAR5",
       "expression": "(\\s\\d\\d\\d\\d)",
       "output": {
-        "name": "YEAR5"
-      }
-    },
-    {
-      "command": "store",
-      "input": "$TITLE5$YEAR5",
-      "output": {
-        "name": "TITLE5"
+        "name": "SUBTITLE5"
       }
     },
     {
@@ -322,7 +287,7 @@
     },
     {
       "command": "store",
-      "input": "https://www.themoviedb.orgCOVER6",
+      "input": "https://www.themoviedb.org$COVER6",
       "output": {
         "name": "COVER6"
       }
@@ -346,14 +311,7 @@
       "input": "$YEAR6",
       "expression": "(\\s\\d\\d\\d\\d)",
       "output": {
-        "name": "YEAR6"
-      }
-    },
-    {
-      "command": "store",
-      "input": "$TITLE6$YEAR6",
-      "output": {
-        "name": "TITLE6"
+        "name": "SUBTITLE6"
       }
     },
     {
