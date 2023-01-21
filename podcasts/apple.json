@@ -1,7 +1,7 @@
 {
   "recipe_id": 24,
-  "version": 2,
-  "engine_version": 11,
+  "version": 3,
+  "engine_version": 14,
   "title": "Apple Podcasts",
   "description": "Load podcasts from Apple",
   "urls": [
@@ -26,10 +26,64 @@
     },
     {
       "command": "json_store_text",
+      "locator": "results.[0].artworkUrl100",
+      "input": "$JSON",
+      "output": {
+        "name": "COVER1"
+      },
+      "description": "Saves the first cover."
+    },
+    {
+      "command": "json_store_text",
+      "locator": "results.[1].artworkUrl100",
+      "input": "$JSON",
+      "output": {
+        "name": "COVER2"
+      },
+      "description": "Saves the first cover."
+    },
+    {
+      "command": "json_store_text",
+      "locator": "results.[2].artworkUrl100",
+      "input": "$JSON",
+      "output": {
+        "name": "COVER3"
+      },
+      "description": "Saves the first cover."
+    },
+    {
+      "command": "json_store_text",
+      "locator": "results.[3].artworkUrl100",
+      "input": "$JSON",
+      "output": {
+        "name": "COVER4"
+      },
+      "description": "Saves the first cover."
+    },
+    {
+      "command": "json_store_text",
+      "locator": "results.[4].artworkUrl100",
+      "input": "$JSON",
+      "output": {
+        "name": "COVER5"
+      },
+      "description": "Saves the first cover."
+    },
+    {
+      "command": "json_store_text",
+      "locator": "results.[5].artworkUrl100",
+      "input": "$JSON",
+      "output": {
+        "name": "COVER6"
+      },
+      "description": "Saves the first cover."
+    },
+    {
+      "command": "json_store_text",
       "locator": "results.[0].artistName",
       "input": "$JSON",
       "output": {
-        "name": "ARTIST1"
+        "name": "SUBTITLE1"
       },
       "description": "Saves the first artist."
     },
@@ -38,7 +92,7 @@
       "locator": "results.[1].artistName",
       "input": "$JSON",
       "output": {
-        "name": "ARTIST2"
+        "name": "SUBTITLE2"
       },
       "description": "Saves the first artist."
     },
@@ -47,7 +101,7 @@
       "locator": "results.[2].artistName",
       "input": "$JSON",
       "output": {
-        "name": "ARTIST3"
+        "name": "SUBTITLE3"
       },
       "description": "Saves the first artist."
     },
@@ -56,7 +110,7 @@
       "locator": "results.[3].artistName",
       "input": "$JSON",
       "output": {
-        "name": "ARTIST4"
+        "name": "SUBTITLE4"
       },
       "description": "Saves the first artist."
     },
@@ -65,7 +119,7 @@
       "locator": "results.[4].artistName",
       "input": "$JSON",
       "output": {
-        "name": "ARTIST5"
+        "name": "SUBTITLE5"
       },
       "description": "Saves the first artist."
     },
@@ -74,7 +128,7 @@
       "locator": "results.[5].artistName",
       "input": "$JSON",
       "output": {
-        "name": "ARTIST6"
+        "name": "SUBTITLE6"
       },
       "description": "Saves the first artist."
     },
@@ -83,105 +137,54 @@
       "locator": "results.[0].trackName",
       "input": "$JSON",
       "output": {
-        "name": "SONG1"
+        "name": "TITLE1"
       },
-      "description": "Saves the first song."
+      "description": "Saves the first podcast."
     },
     {
       "command": "json_store_text",
       "locator": "results.[1].trackName",
       "input": "$JSON",
       "output": {
-        "name": "SONG2"
+        "name": "TITLE2"
       },
-      "description": "Saves the first song."
+      "description": "Saves the first podcast."
     },
     {
       "command": "json_store_text",
       "locator": "results.[2].trackName",
       "input": "$JSON",
       "output": {
-        "name": "SONG3"
+        "name": "TITLE3"
       },
-      "description": "Saves the first song."
+      "description": "Saves the first podcast."
     },
     {
       "command": "json_store_text",
       "locator": "results.[3].trackName",
       "input": "$JSON",
       "output": {
-        "name": "SONG4"
+        "name": "TITLE4"
       },
-      "description": "Saves the first song."
+      "description": "Saves the first podcast."
     },
     {
       "command": "json_store_text",
       "locator": "results.[4].trackName",
       "input": "$JSON",
       "output": {
-        "name": "SONG5"
+        "name": "TITLE5"
       },
-      "description": "Saves the first song."
+      "description": "Saves the first podcast."
     },
     {
       "command": "json_store_text",
       "locator": "results.[5].trackName",
       "input": "$JSON",
       "output": {
-        "name": "SONG6"
-      },
-      "description": "Saves the first song."
-    },
-    {
-      "command": "json_store_text",
-      "locator": "results.[0].trackName",
-      "input": "$JSON",
-      "output": {
-        "name": "SONG1"
-      },
-      "description": "Saves the first song."
-    },
-    {
-      "command": "store",
-      "input": "$ARTIST1 - $SONG1",
-      "output": {
-        "name": "TITLE1"
-      }
-    },
-    {
-      "command": "store",
-      "input": "$ARTIST2 - $SONG2",
-      "output": {
-        "name": "TITLE2"
-      }
-    },
-    {
-      "command": "store",
-      "input": "$ARTIST3 - $SONG3",
-      "output": {
-        "name": "TITLE3"
-      }
-    },
-    {
-      "command": "store",
-      "input": "$ARTIST4 - $SONG4",
-      "output": {
-        "name": "TITLE4"
-      }
-    },
-    {
-      "command": "store",
-      "input": "$ARTIST5 - $SONG5",
-      "output": {
-        "name": "TITLE5"
-      }
-    },
-    {
-      "command": "store",
-      "input": "$ARTIST6 - $SONG6",
-      "output": {
         "name": "TITLE6"
-      }
+      },
+      "description": "Saves the first podcast."
     },
     {
       "command": "json_store_text",
