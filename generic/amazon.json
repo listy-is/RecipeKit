@@ -1,5 +1,6 @@
 {
   "recipe_shortcut": "amazon_generic",
+  "list_type": "generic",
   "engine_version": 8,
   "title": "Amazon Generic",
   "description": "Load a amazon url correctly in generic lists",

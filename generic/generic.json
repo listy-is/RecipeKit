@@ -1,5 +1,6 @@
 {
   "recipe_shortcut": "generic",
+  "list_type": "generic",
   "engine_version": 5,
   "title": "Url generic",
   "description": "Takes the og tags of the url",

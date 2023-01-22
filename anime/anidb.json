@@ -1,5 +1,6 @@
 {
   "recipe_shortcut": "anime_anidb",
+  "list_type": "anime",
   "engine_version": 14,
   "title": "Anidb",
   "description": "A recipe to get a list of animes from Anidb",

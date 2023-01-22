@@ -1,5 +1,6 @@
 {
   "recipe_shortcut": "tmdb_movies",
+  "list_type": "movies",
   "engine_version": 14,
   "title": "TMDB Movies",
   "description": "A recipe to get a list of movies",

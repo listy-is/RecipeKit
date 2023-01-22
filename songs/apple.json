@@ -1,5 +1,6 @@
 {
   "recipe_shortcut": "apple_songs",
+  "list_type": "songs",
   "engine_version": 14,
   "title": "Apple Songs",
   "description": "Load songs from Apple",

@@ -1,5 +1,6 @@
 {
   "recipe_shortcut": "twitter_generic",
+  "list_type": "generic",
   "engine_version": 10,
   "title": "Twitter Generic",
   "description": "Load a twitter url correctly in generic lists",

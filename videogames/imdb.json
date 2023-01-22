@@ -1,5 +1,6 @@
 {
   "recipe_shortcut": "imdb_videogames",
+  "list_type": "videogames",
   "engine_version": 14,
   "title": "IMDB Videogames",
   "description": "A recipe to get a list of videogames",

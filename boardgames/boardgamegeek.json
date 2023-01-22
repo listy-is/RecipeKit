@@ -1,5 +1,6 @@
 {
   "recipe_shortcut": "boardgamegeek_boardgames",
+  "list_type": "boardgames",
   "engine_version": 14,
   "title": "Boardgames Geek Boardgames",
   "description": "A recipe to get a list of boardgames",

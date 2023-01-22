@@ -1,5 +1,6 @@
 {
   "recipe_shortcut": "apple_artists",
+  "list_type": "artists",
   "engine_version": 11,
   "title": "Apple Artists",
   "description": "Load artists from Apple",

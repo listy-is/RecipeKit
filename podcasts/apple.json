@@ -1,5 +1,6 @@
 {
   "recipe_shortcut": "apple_podcasts",
+  "list_type": "podcasts",
   "engine_version": 14,
   "title": "Apple Podcasts",
   "description": "Load podcasts from Apple",

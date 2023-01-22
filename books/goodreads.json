@@ -1,5 +1,6 @@
 {
   "recipe_shortcut": "gr_books",
+  "list_type": "books",
   "engine_version": 14,
   "title": "Goodreads",
   "description": "A recipe to get a list of books from Goodreads",

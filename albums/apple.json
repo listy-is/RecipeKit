@@ -1,5 +1,6 @@
 {
   "recipe_shortcut": "apple_albums",
+  "list_type": "albums",
   "engine_version": 14,
   "title": "Apple Albums",
   "description": "Load albums from Apple",

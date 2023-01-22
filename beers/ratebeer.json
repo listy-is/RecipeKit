@@ -1,5 +1,6 @@
 {
   "recipe_shortcut": "ratebeer_beers",
+  "list_type": "beers",
   "engine_version": 14,
   "title": "Ratebeer Beers",
   "description": "Retrieve the beers from page ratebeer",
