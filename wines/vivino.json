@@ -1,6 +1,5 @@
 {
-  "recipe_id": 20,
-  "version": 4,
+  "recipe_shortcut": "vivino_wines",
   "engine_version": 14,
   "title": "Vivino Wines",
   "description": "Retrieve the wines from page vivino",

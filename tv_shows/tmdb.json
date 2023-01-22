@@ -1,6 +1,5 @@
 {
-  "recipe_id": 16,
-  "version": 7,
+  "recipe_shortcut": "tmdb_tv_shows",
   "engine_version": 14,
   "title": "TMDB TV Shows",
   "description": "A recipe to get a list of tv shows",

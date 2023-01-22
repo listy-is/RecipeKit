@@ -1,6 +1,5 @@
 {
-  "recipe_id": 30,
-  "version": 1,
+  "recipe_shortcut": "apple_software_sharing",
   "engine_version": 14,
   "title": "Apple AppStore",
   "description": "Load content of a link introduced in the app directly from the AppStore",

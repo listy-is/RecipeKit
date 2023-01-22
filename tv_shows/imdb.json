@@ -1,6 +1,5 @@
 {
-  "recipe_id": 10,
-  "version": 4,
+  "recipe_shortcut": "imdb_tv_shows",
   "engine_version": 5,
   "title": "IMDB TV Shows",
   "description": "A recipe to get a list of tv shows",

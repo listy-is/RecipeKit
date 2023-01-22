@@ -1,6 +1,5 @@
 {
-  "recipe_id": 18,
-  "version": 4,
+  "recipe_shortcut": "tripadvisor_restaurants",
   "engine_version": 13,
   "title": "Tripadvisor restaurants",
   "description": "A recipe to get a list of restaurants",

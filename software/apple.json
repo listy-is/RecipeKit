@@ -1,6 +1,5 @@
 {
-  "recipe_id": 27,
-  "version": 3,
+  "recipe_shortcut": "apple_software",
   "engine_version": 14,
   "title": "Apple Software",
   "description": "Load software from Apple",
