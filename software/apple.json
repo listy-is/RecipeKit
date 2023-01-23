@@ -143,6 +143,60 @@
     },
     {
       "command": "json_store_text",
+      "locator": "results.[0].primaryGenreName",
+      "input": "$JSON",
+      "output": {
+        "name":"SUBTITLE1"
+      },
+      "description": "Saves the genre"
+    },
+    {
+      "command": "json_store_text",
+      "locator": "results.[1].primaryGenreName",
+      "input": "$JSON",
+      "output": {
+        "name":"SUBTITLE2"
+      },
+      "description": "Saves the genre"
+    },
+    {
+      "command": "json_store_text",
+      "locator": "results.[2].primaryGenreName",
+      "input": "$JSON",
+      "output": {
+        "name":"SUBTITLE3"
+      },
+      "description": "Saves the genre"
+    },
+    {
+      "command": "json_store_text",
+      "locator": "results.[3].primaryGenreName",
+      "input": "$JSON",
+      "output": {
+        "name":"SUBTITLE4"
+      },
+      "description": "Saves the genre"
+    },
+    {
+      "command": "json_store_text",
+      "locator": "results.[4].primaryGenreName",
+      "input": "$JSON",
+      "output": {
+        "name":"SUBTITLE5"
+      },
+      "description": "Saves the genre"
+    },
+    {
+      "command": "json_store_text",
+      "locator": "results.[5].primaryGenreName",
+      "input": "$JSON",
+      "output": {
+        "name":"SUBTITLE6"
+      },
+      "description": "Saves the genre"
+    },
+    {
+      "command": "json_store_text",
       "locator": "results.[0].trackId",
       "input": "$JSON",
       "output": {

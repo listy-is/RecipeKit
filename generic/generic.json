@@ -30,6 +30,17 @@
     },
     {
       "command": "store_attribute",
+      "locator": "meta[name='og:title']",
+      "attribute_name": "content",
+      "output": {
+        "name": "TITLE",
+        "type": "string",
+        "show": true
+      },
+      "description": "Saves the title"
+    },
+    {
+      "command": "store_attribute",
       "locator": "meta[property='og:title']",
       "attribute_name": "content",
       "output": {
@@ -41,6 +52,17 @@
     },
     {
       "command": "store_attribute",
+      "locator": "meta[name='og:image']",
+      "attribute_name": "content",
+      "output": {
+        "name": "COVER",
+        "type": "string",
+        "show": true
+      },
+      "description": "Saves the image"
+    },
+    {
+      "command": "store_attribute",
       "locator": "meta[property='og:image']",
       "attribute_name": "content",
       "output": {
@@ -49,6 +71,17 @@
         "show": true
       },
       "description": "Saves the image"
+    },
+    {
+      "command": "store_attribute",
+      "locator": "meta[name='og:description']",
+      "attribute_name": "content",
+      "output": {
+        "name": "DESCRIPTION",
+        "type": "string",
+        "show": true
+      },
+      "description": "Saves the description"
     },
     {
       "command": "store_attribute",
