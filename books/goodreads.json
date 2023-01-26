@@ -245,38 +245,7 @@
     },
     {
       "command": "store_text",
-      "locator": "h1.bookTitle span[itemprop*=name] ",
-      "attribute_name": "content",
-      "output": {
-        "name": "TITLE",
-        "type": "string",
-        "show": true
-      },
-      "description": "Saves the title"
-    },
-    {
-      "command": "store_text",
       "locator": ".BookPageMetadataSection__description .TruncatedContent__text.TruncatedContent__text--large span",
-      "output": {
-        "name": "DESCRIPTION",
-        "type": "string",
-        "show": true
-      },
-      "description": "Saves the description"
-    },
-    {
-      "command": "store_text",
-      "locator": "div.bookDescription span.fullContent",
-      "output": {
-        "name": "DESCRIPTION",
-        "type": "string",
-        "show": true
-      },
-      "description": "Saves the description"
-    },
-    {
-      "command": "store_text",
-      "locator": "#description",
       "output": {
         "name": "DESCRIPTION",
         "type": "string",
@@ -326,28 +295,7 @@
     },
     {
       "command": "store_text",
-      "locator": "a.authorName",
-      "output": {
-        "name": "AUTHOR",
-        "type": "string",
-        "show": true
-      },
-      "description": "Saves the author"
-    },
-    {
-      "command": "store_text",
       "locator": ".BookPageMetadataSection__ratingStats .RatingStatistics__rating",
-      "output": {
-        "name": "RATING",
-        "type": "float",
-        "show": true
-      },
-      "description": "Saves the rating"
-    },
-    {
-      "command": "store_text",
-      "locator": "span[itemprop*=ratingValue]",
-      "attribute_name": "content",
       "output": {
         "name": "RATING",
         "type": "float",
@@ -365,57 +313,6 @@
         "show": true
       },
       "description": "Saves the image"
-    },
-    {
-      "command": "regex",
-      "input": "$COVER",
-      "expression": ".+(?=\\._)",
-      "output": {
-        "name": "COVER",
-        "type": "string",
-        "show": true
-      }
-    },
-    {
-      "command": "store_attribute",
-      "locator": ".BookPage__bookCover img",
-      "attribute_name": "src",
-      "output": {
-        "name": "COVER",
-        "type": "string",
-        "show": true
-      },
-      "description": "Saves the image"
-    },
-    {
-      "command": "store_attribute",
-      "locator": "div[class*=BookCover__image] img",
-      "attribute_name": "src",
-      "output": {
-        "name": "COVER",
-        "type": "string",
-        "show": true
-      },
-      "description": "Saves the image"
-    },
-    {
-      "command": "regex",
-      "input": "$COVER",
-      "expression": ".+(?=\\.jpg)",
-      "output": {
-        "name": "COVER",
-        "type": "string",
-        "show": true
-      }
-    },
-    {
-      "command": "store",
-      "input": "$COVER.jpg",
-      "output": {
-        "name": "COVER",
-        "type": "string",
-        "show": true
-      }
     }
   ]
 }
