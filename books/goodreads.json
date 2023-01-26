@@ -27,7 +27,7 @@
     },
     {
       "command": "json_store_text",
-      "locator": "results.[0].imageUrl",
+      "locator": "[0].imageUrl",
       "input": "$JSON",
       "output": {
         "name": "COVER1"
@@ -36,7 +36,7 @@
     },
     {
       "command": "json_store_text",
-      "locator": "results.[1].imageUrl",
+      "locator": "[1].imageUrl",
       "input": "$JSON",
       "output": {
         "name": "COVER2"
@@ -45,7 +45,7 @@
     },
     {
       "command": "json_store_text",
-      "locator": "results.[2].imageUrl",
+      "locator": "[2].imageUrl",
       "input": "$JSON",
       "output": {
         "name": "COVER3"
@@ -54,7 +54,7 @@
     },
     {
       "command": "json_store_text",
-      "locator": "results.[3].imageUrl",
+      "locator": "[3].imageUrl",
       "input": "$JSON",
       "output": {
         "name": "COVER4"
@@ -63,7 +63,7 @@
     },
     {
       "command": "json_store_text",
-      "locator": "results.[4].imageUrl",
+      "locator": "[4].imageUrl",
       "input": "$JSON",
       "output": {
         "name": "COVER5"
@@ -72,7 +72,7 @@
     },
     {
       "command": "json_store_text",
-      "locator": "results.[0].title",
+      "locator": "[0].title",
       "input": "$JSON",
       "output": {
         "name": "TITLE1"
@@ -81,7 +81,7 @@
     },
     {
       "command": "json_store_text",
-      "locator": "results.[1].title",
+      "locator": "[1].title",
       "input": "$JSON",
       "output": {
         "name": "TITLE2"
@@ -90,7 +90,7 @@
     },
     {
       "command": "json_store_text",
-      "locator": "results.[2].title",
+      "locator": "[2].title",
       "input": "$JSON",
       "output": {
         "name": "TITLE3"
@@ -99,7 +99,7 @@
     },
     {
       "command": "json_store_text",
-      "locator": "results.[3].title",
+      "locator": "[3].title",
       "input": "$JSON",
       "output": {
         "name": "TITLE4"
@@ -108,7 +108,7 @@
     },
     {
       "command": "json_store_text",
-      "locator": "results.[4].title",
+      "locator": "[4].title",
       "input": "$JSON",
       "output": {
         "name": "TITLE5"
@@ -117,7 +117,7 @@
     },
     {
       "command": "json_store_text",
-      "locator": "results.[0].author.name",
+      "locator": "[0].author.name",
       "input": "$JSON",
       "output": {
         "name": "SUBTITLE1"
@@ -126,7 +126,7 @@
     },
     {
       "command": "json_store_text",
-      "locator": "results.[1].author.name",
+      "locator": "[1].author.name",
       "input": "$JSON",
       "output": {
         "name": "SUBTITLE2"
@@ -135,7 +135,7 @@
     },
     {
       "command": "json_store_text",
-      "locator": "results.[2].author.name",
+      "locator": "[2].author.name",
       "input": "$JSON",
       "output": {
         "name": "SUBTITLE3"
@@ -144,7 +144,7 @@
     },
     {
       "command": "json_store_text",
-      "locator": "results.[3].author.name",
+      "locator": "[3].author.name",
       "input": "$JSON",
       "output": {
         "name": "SUBTITLE4"
@@ -153,7 +153,7 @@
     },
     {
       "command": "json_store_text",
-      "locator": "results.[4].author.name",
+      "locator": "[4].author.name",
       "input": "$JSON",
       "output": {
         "name": "SUBTITLE5"
@@ -162,7 +162,7 @@
     },
     {
       "command": "json_store_text",
-      "locator": "results.[5].author.name",
+      "locator": "[5].author.name",
       "input": "$JSON",
       "output": {
         "name": "SUBTITLE6"
@@ -171,7 +171,7 @@
     },
     {
       "command": "json_store_text",
-      "locator": "results.[0].description.fullContentUrl",
+      "locator": "[0].description.fullContentUrl",
       "input": "$JSON",
       "output": {
         "name": "URL1"
@@ -180,7 +180,7 @@
     },
     {
       "command": "json_store_text",
-      "locator": "results.[1].description.fullContentUrl",
+      "locator": "[1].description.fullContentUrl",
       "input": "$JSON",
       "output": {
         "name": "URL2"
@@ -189,7 +189,7 @@
     },
     {
       "command": "json_store_text",
-      "locator": "results.[2].description.fullContentUrl",
+      "locator": "[2].description.fullContentUrl",
       "input": "$JSON",
       "output": {
         "name": "URL3"
@@ -198,7 +198,7 @@
     },
     {
       "command": "json_store_text",
-      "locator": "results.[3].description.fullContentUrl",
+      "locator": "[3].description.fullContentUrl",
       "input": "$JSON",
       "output": {
         "name": "URL4"
@@ -207,7 +207,7 @@
     },
     {
       "command": "json_store_text",
-      "locator": "results.[4].description.fullContentUrl",
+      "locator": "[4].description.fullContentUrl",
       "input": "$JSON",
       "output": {
         "name": "URL5"
