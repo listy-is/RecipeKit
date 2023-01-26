@@ -380,6 +380,25 @@
         "show": true
       },
       "description": "Saves the number pages."
+    },
+    {
+      "command": "regex",
+      "input": "$COVER",
+      "expression": ".+(?=\\._)",
+      "output": {
+        "name": "COVER",
+        "type": "string",
+        "show": true
+      }
+    },
+    {
+      "command": "store",
+      "input": "$COVER.jpg",
+      "output": {
+        "name": "COVER",
+        "type": "string",
+        "show": true
+      }
     }
   ]
 }
