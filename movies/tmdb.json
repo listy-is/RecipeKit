@@ -1,7 +1,7 @@
 {
   "recipe_shortcut": "tmdb_movies",
   "list_type": "movies",
-  "engine_version": 14,
+  "engine_version": 15,
   "title": "TMDB Movies",
   "description": "A recipe to get a list of movies",
   "urls": [
@@ -14,7 +14,7 @@
   "autocomplete_steps": [
     {
       "command": "load",
-      "url": "https://www.themoviedb.org/search/movie?query=$INPUT",
+      "url": "https://www.themoviedb.org/search/movie?language=$LOCALE&query=$INPUT",
       "description": "Searches movies by title"
     },
     {
