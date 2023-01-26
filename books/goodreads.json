@@ -311,7 +311,8 @@
       "input": "$JSON",
       "output": {
         "name": "URL",
-        "type": "string"
+        "type": "string",
+        "show": true
       },
       "description": "Saves the first description."
     },
