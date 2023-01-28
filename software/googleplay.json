@@ -210,7 +210,7 @@
       "headers": {
         "User-Agent": "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.113 Mobile Safari/537.36"
       },
-      "description": "Load the url of the movie"
+      "description": "Load the url of the app"
     },
     {
       "command": "store_url",
@@ -221,38 +221,15 @@
     },
     {
       "command": "store_text",
-      "locator": "div.title h2",
+      "locator": "h1[itemprop=name] span",
       "output": {
         "name": "TITLE"
       },
-      "description": "Takes the title of the movie including the year"
-    },
-    {
-      "command": "regex",
-      "input": "$TITLE",
-      "expression": "(?<=\\()\\d\\d\\d\\d(?=\\))",
-      "output": {
-        "name": "DATE",
-        "type": "date",
-        "format": "YYYY",
-        "show": true
-      },
-      "description": "Applies a regular expression to get just the year of the date"
-    },
-    {
-      "command": "regex",
-      "input": "$TITLE",
-      "expression": "[^\\(]*",
-      "output": {
-        "name": "TITLE",
-        "type": "string",
-        "show": true
-      },
-      "description": "Applies a regular expression to get just the title of the movie before the year"
+      "description": "Stores the name of the app"
     },
     {
       "command": "store_text",
-      "locator": "#original_header .header_info .overview  p",
+      "locator": "[data-g-id=description",
       "output": {
         "name": "DESCRIPTION",
         "type": "string",
@@ -262,144 +239,20 @@
     },
     {
       "command": "store_text",
-      "locator": "#original_header .genres a",
+      "locator": "[itemprop=starRating] [aria-label]",
       "output": {
-        "name": "GENRE",
-        "type": "string",
-        "show": true
+        "name": "RATING"
       },
-      "description": "Saves the genre of the movie"
-    },
-    {
-      "command": "store_text",
-      "locator": "#original_header .runtime",
-      "output": {
-        "name": "DURATION",
-        "type": "string",
-        "show": true
-      },
-      "description": "Saves the duration of the movie"
+      "description": "Saves the rating of the app"
     },
     {
       "command": "store_attribute",
-      "locator": "div.provider img",
-      "attribute_name": "alt",
-      "output": {
-        "name": "AUX_PROVIDER"
-      },
-      "description": "Saves the provider"
-    },
-    {
-      "command": "regex",
-      "input": "$AUX_PROVIDER",
-      "expression": "(?<=Ahora\\sen\\sstreaming\\sen\\s).+",
-      "output": {
-        "name": "AUX_PROVIDER"
-      },
-      "description": "Saves the provider"
-    },
-    {
-      "command": "regex",
-      "input": "$AUX_PROVIDER",
-      "expression": "(?<=Now\\sStreaming\\son\\s).+",
-      "output": {
-        "name": "AUX_PROVIDER"
-      },
-      "description": "Saves the provider"
-    },
-    {
-      "command": "store",
-      "input": "$AUX_PROVIDER",
-      "output": {
-        "name": "TAGS",
-        "type": "string",
-        "show": true
-      },
-      "description": "Saves the platform"
-    },
-    {
-      "command": "store_attribute",
-      "locator": "div.user_score_chart",
-      "attribute_name": "data-percent",
-      "output": {
-        "name": "AUX_RATING_PERCENT"
-      },
-      "description": "Saves the rating of the movie"
-    },
-    {
-      "command": "regex",
-      "input": "$AUX_RATING_PERCENT",
-      "expression": "\\d",
-      "output": {
-        "name": "AUX_RATING_UNITS"
-      },
-      "description": "Applies a regular expression to get the units"
-    },
-    {
-      "command": "regex",
-      "input": "$AUX_RATING_PERCENT",
-      "expression": "(?<=\\d)\\d",
-      "output": {
-        "name": "AUX_RATING_DEC"
-      },
-      "description": "Applies a regular expression to get the dec"
-    },
-    {
-      "command": "store",
-      "input": "$AUX_RATING_UNITS.$AUX_RATING_DEC",
-      "output": {
-        "name": "RATING",
-        "type": "float",
-        "show": true
-      },
-      "description": "Join the units with dec"
-    },
-    {
-      "command": "store_text",
-      "locator": "ol.people > li:nth-child(1) > p > a",
-      "output": {
-        "name": "AUTHOR",
-        "type": "string",
-        "show": true
-      },
-      "description": "Saves the director of the movie"
-    },
-    {
-      "command": "store_attribute",
-      "locator": "img.poster",
+      "locator": "[itemprop=image]",
       "attribute_name": "src",
       "output": {
         "name": "COVER"
       },
       "description": "Saves the image"
-    },
-    {
-      "command": "regex",
-      "input": "$COVER",
-      "expression": "(?<=p\\/).+",
-      "output": {
-        "name": "COVER"
-      },
-      "description": "Applies a regular expression to get part of the cover"
-    },
-    {
-      "command": "regex",
-      "input": "$COVER",
-      "expression": "(?<=\\/).+",
-      "output": {
-        "name": "COVER"
-      },
-      "description": "Applies a regular expression to get part of the cover"
-    },
-    {
-      "command": "store",
-      "input": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/$COVER",
-      "output": {
-        "name": "COVER",
-        "type": "string",
-        "show": true
-      },
-      "description": "Add high res param to the cover"
     }
   ]
 }
