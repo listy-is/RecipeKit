@@ -34,7 +34,7 @@
     },
     {
       "command": "store_attribute",
-      "locator": "[data-p*=$INPUT] [role=listitem]:nth-child(1) a",
+      "locator": "[data-p*=listy] [role=listitem]:nth-child(1) a[href*='/store/apps']",
       "attribute_name": "href",
       "output": {
         "name": "URL1"
@@ -47,46 +47,25 @@
         "name": "URL1"
       }
     },
+    
     {
       "command": "store_attribute",
-      "locator": "div.results > div:nth-child(2) div.image img",
+      "locator": "[data-p*=$INPUT] [role=listitem]:nth-child(2) a div:nth-child(2) img",
       "attribute_name": "src",
       "output": {
         "name": "COVER2"
       }
     },
     {
-      "command": "store",
-      "input": "https://www.themoviedb.org$COVER2",
-      "output": {
-        "name": "COVER2"
-      }
-    },
-    {
       "command": "store_text",
-      "locator": "div.results > div:nth-child(2) div.title h2",
+      "locator": "[data-p*=$INPUT] [role=listitem]:nth-child(2) a div:nth-child(2) > div:nth-child(1) > span",
       "output": {
         "name": "TITLE2"
       }
     },
     {
-      "command": "store_text",
-      "locator": "div.results > div:nth-child(2) div.title > span.release_date",
-      "output": {
-        "name": "YEAR2"
-      }
-    },
-    {
-      "command": "regex",
-      "input": "$YEAR2",
-      "expression": "(\\s\\d\\d\\d\\d)",
-      "output": {
-        "name": "SUBTITLE2"
-      }
-    },
-    {
       "command": "store_attribute",
-      "locator": "div.results > div:nth-child(2) div.title a",
+      "locator": "[data-p*=listy] [role=listitem]:nth-child(2) a[href*='/store/apps']",
       "attribute_name": "href",
       "output": {
         "name": "URL2"
@@ -94,51 +73,30 @@
     },
     {
       "command": "store",
-      "input": "https://www.themoviedb.org$URL2",
+      "input": "https://play.google.com$URL2",
       "output": {
         "name": "URL2"
       }
     },
+    
     {
       "command": "store_attribute",
-      "locator": "div.results > div:nth-child(3) div.image img",
+      "locator": "[data-p*=$INPUT] [role=listitem]:nth-child(3) a div:nth-child(2) img",
       "attribute_name": "src",
       "output": {
         "name": "COVER3"
       }
     },
     {
-      "command": "store",
-      "input": "https://www.themoviedb.org$COVER3",
-      "output": {
-        "name": "COVER3"
-      }
-    },
-    {
       "command": "store_text",
-      "locator": "div.results > div:nth-child(3) div.title h2",
+      "locator": "[data-p*=$INPUT] [role=listitem]:nth-child(3) a div:nth-child(2) > div:nth-child(1) > span",
       "output": {
         "name": "TITLE3"
       }
     },
     {
-      "command": "store_text",
-      "locator": "div.results > div:nth-child(3) div.title > span.release_date",
-      "output": {
-        "name": "YEAR3"
-      }
-    },
-    {
-      "command": "regex",
-      "input": "$YEAR3",
-      "expression": "(\\s\\d\\d\\d\\d)",
-      "output": {
-        "name": "SUBTITLE3"
-      }
-    },
-    {
       "command": "store_attribute",
-      "locator": "div.results > div:nth-child(3) div.title a",
+      "locator": "[data-p*=listy] [role=listitem]:nth-child(3) a[href*='/store/apps']",
       "attribute_name": "href",
       "output": {
         "name": "URL3"
@@ -146,51 +104,30 @@
     },
     {
       "command": "store",
-      "input": "https://www.themoviedb.org$URL3",
+      "input": "https://play.google.com$URL3",
       "output": {
         "name": "URL3"
       }
     },
+    
     {
       "command": "store_attribute",
-      "locator": "div.results > div:nth-child(4) div.image img",
+      "locator": "[data-p*=$INPUT] [role=listitem]:nth-child(4) a div:nth-child(2) img",
       "attribute_name": "src",
       "output": {
         "name": "COVER4"
       }
     },
     {
-      "command": "store",
-      "input": "https://www.themoviedb.org$COVER4",
-      "output": {
-        "name": "COVER4"
-      }
-    },
-    {
       "command": "store_text",
-      "locator": "div.results > div:nth-child(4) div.title h2",
+      "locator": "[data-p*=$INPUT] [role=listitem]:nth-child(4) a div:nth-child(2) > div:nth-child(1) > span",
       "output": {
         "name": "TITLE4"
       }
     },
     {
-      "command": "store_text",
-      "locator": "div.results > div:nth-child(4) div.title > span.release_date",
-      "output": {
-        "name": "YEAR4"
-      }
-    },
-    {
-      "command": "regex",
-      "input": "$YEAR4",
-      "expression": "(\\s\\d\\d\\d\\d)",
-      "output": {
-        "name": "SUBTITLE4"
-      }
-    },
-    {
       "command": "store_attribute",
-      "locator": "div.results > div:nth-child(4) div.title a",
+      "locator": "[data-p*=listy] [role=listitem]:nth-child(4) a[href*='/store/apps']",
       "attribute_name": "href",
       "output": {
         "name": "URL4"
@@ -198,51 +135,30 @@
     },
     {
       "command": "store",
-      "input": "https://www.themoviedb.org$URL4",
+      "input": "https://play.google.com$URL4",
       "output": {
         "name": "URL4"
       }
     },
+    
     {
       "command": "store_attribute",
-      "locator": "div.results > div:nth-child(5) div.image img",
+      "locator": "[data-p*=$INPUT] [role=listitem]:nth-child(5) a div:nth-child(2) img",
       "attribute_name": "src",
       "output": {
         "name": "COVER5"
       }
     },
     {
-      "command": "store",
-      "input": "https://www.themoviedb.org$COVER5",
-      "output": {
-        "name": "COVER5"
-      }
-    },
-    {
       "command": "store_text",
-      "locator": "div.results > div:nth-child(5) div.title h2",
+      "locator": "[data-p*=$INPUT] [role=listitem]:nth-child(5) a div:nth-child(2) > div:nth-child(1) > span",
       "output": {
         "name": "TITLE5"
       }
     },
     {
-      "command": "store_text",
-      "locator": "div.results > div:nth-child(5) div.title > span.release_date",
-      "output": {
-        "name": "YEAR5"
-      }
-    },
-    {
-      "command": "regex",
-      "input": "$YEAR5",
-      "expression": "(\\s\\d\\d\\d\\d)",
-      "output": {
-        "name": "SUBTITLE5"
-      }
-    },
-    {
       "command": "store_attribute",
-      "locator": "div.results > div:nth-child(5) div.title a",
+      "locator": "[data-p*=listy] [role=listitem]:nth-child(5) a[href*='/store/apps']",
       "attribute_name": "href",
       "output": {
         "name": "URL5"
@@ -250,51 +166,30 @@
     },
     {
       "command": "store",
-      "input": "https://www.themoviedb.org$URL5",
+      "input": "https://play.google.com$URL5",
       "output": {
         "name": "URL5"
       }
     },
+    
     {
       "command": "store_attribute",
-      "locator": "div.results > div:nth-child(6) div.image img",
+      "locator": "[data-p*=$INPUT] [role=listitem]:nth-child(6) a div:nth-child(2) img",
       "attribute_name": "src",
       "output": {
         "name": "COVER6"
       }
     },
     {
-      "command": "store",
-      "input": "https://www.themoviedb.org$COVER6",
-      "output": {
-        "name": "COVER6"
-      }
-    },
-    {
       "command": "store_text",
-      "locator": "div.results > div:nth-child(6) div.title h2",
+      "locator": "[data-p*=$INPUT] [role=listitem]:nth-child(6) a div:nth-child(2) > div:nth-child(1) > span",
       "output": {
-        "name": "TITLE6"
-      }
-    },
-    {
-      "command": "store_text",
-      "locator": "div.results > div:nth-child(6) div.title > span.release_date",
-      "output": {
-        "name": "YEAR6"
-      }
-    },
-    {
-      "command": "regex",
-      "input": "$YEAR6",
-      "expression": "(\\s\\d\\d\\d\\d)",
-      "output": {
-        "name": "SUBTITLE6"
+        "name": "TITLE1"
       }
     },
     {
       "command": "store_attribute",
-      "locator": "div.results > div:nth-child(6) div.title a",
+      "locator": "[data-p*=listy] [role=listitem]:nth-child(6) a[href*='/store/apps']",
       "attribute_name": "href",
       "output": {
         "name": "URL6"
@@ -302,7 +197,7 @@
     },
     {
       "command": "store",
-      "input": "https://www.themoviedb.org$URL6",
+      "input": "https://play.google.com$URL6",
       "output": {
         "name": "URL6"
       }
