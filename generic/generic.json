@@ -29,6 +29,27 @@
       "description": "Saves the URL of the detail"
     },
     {
+      "command": "store_text",
+      "locator": "head > title"",
+      "output": {
+        "name": "TITLE",
+        "type": "string",
+        "show": true
+      },
+      "description": "Saves the title"
+    },
+    {
+      "command": "store_attribute",
+      "locator": "meta[property='twitter:title']",
+      "attribute_name": "content",
+      "output": {
+        "name": "TITLE",
+        "type": "string",
+        "show": true
+      },
+      "description": "Saves the title from the twitter card metas."
+    },
+    {
       "command": "store_attribute",
       "locator": "meta[name='og:title']",
       "attribute_name": "content",
@@ -49,6 +70,50 @@
         "show": true
       },
       "description": "Saves the title"
+    },
+    {
+      "command": "store_attribute",
+      "locator": "link[rel^=icon]",
+      "attribute_name": "href",
+      "output": {
+        "name": "ICON",
+        "type": "string",
+        "show": true
+      },
+      "description": "Saves the icon, in case no image."
+    },
+    {
+      "command": "store_attribute",
+      "locator": "link[rel='apple-touch-icon-precomposed'][sizes='180x180']",
+      "attribute_name": "href",
+      "output": {
+        "name": "ICON",
+        "type": "string",
+        "show": true
+      },
+      "description": "Saves the icon, in case no image."
+    },
+    {
+      "command": "store_attribute",
+      "locator": "link[rel='apple-touch-icon'][sizes='180x180']",
+      "attribute_name": "href",
+      "output": {
+        "name": "ICON",
+        "type": "string",
+        "show": true
+      },
+      "description": "Saves the icon, in case no image."
+    },
+    {
+      "command": "store_attribute",
+      "locator": "meta[name='twitter:image']",
+      "attribute_name": "content",
+      "output": {
+        "name": "COVER",
+        "type": "string",
+        "show": true
+      },
+      "description": "Saves the image"
     },
     {
       "command": "store_attribute",
@@ -74,6 +139,17 @@
     },
     {
       "command": "store_attribute",
+      "locator": "meta[name='description']",
+      "attribute_name": "content",
+      "output": {
+        "name": "DESCRIPTION",
+        "type": "string",
+        "show": true
+      },
+      "description": "Saves the description"
+    },
+    {
+      "command": "store_attribute",
       "locator": "meta[name='og:description']",
       "attribute_name": "content",
       "output": {
@@ -93,6 +169,17 @@
         "show": true
       },
       "description": "Saves the description"
+    },
+    {
+      "command": "store_attribute",
+      "locator": "meta[name='author']",
+      "attribute_name": "content",
+      "output": {
+        "name": "AUTHOR",
+        "type": "string",
+        "show": true
+      },
+      "description": "Saves the autho of the article."
     }
   ]
 }
