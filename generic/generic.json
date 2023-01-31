@@ -30,7 +30,7 @@
     },
     {
       "command": "store_text",
-      "locator": "head > title"",
+      "locator": "head > title",
       "output": {
         "name": "TITLE",
         "type": "string",
