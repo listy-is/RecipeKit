@@ -16,7 +16,7 @@
   "autocomplete_steps": [
     {
       "command": "load",
-      "url": "https://www.goodreads.com/book/auto_complete?format=html&q=$INPUT",
+      "url": "https://www.goodreads.com/search?q=$INPUT",
       "config": {
         "js": true
       },
@@ -24,273 +24,45 @@
     },
     {
       "command": "store_attribute",
-      "locator": "body > ul > li:nth-child(1) img",
+      "locator": "[itemtype='http://schema.org/Book']:eq(0) [itemprop=image]",
       "attribute_name": "src",
       "output": {
         "name": "COVER1"
-      }
+      },
+      "description": "Saves the book cover"
     },
     {
       "command": "store_text",
-      "locator": "body > ul > li:nth-child(1) .title",
-      "output": {
-        "name": "LINE1"
-      }
-    },
-    {
-      "command": "regex",
-      "input": "$LINE1",
-      "expression": ".+?(?=\\,\\sby|$)",
+      "locator": "[itemtype='http://schema.org/Book']:eq(0) [itemprop=name][role=heading]",
       "output": {
         "name": "TITLE1"
-      }
+      },
+      "description": "Saves the title"
     },
     {
-      "command": "regex",
-      "input": "$LINE1",
-      "expression": "(?<=\\,\\sby).+",
+      "command": "store_text",
+      "locator": "[itemtype='http://schema.org/Book']:eq(0) [itemprop=name]:eq(1)",
       "output": {
         "name": "SUBTITLE1"
-      }
-    },
-    {
-      "command": "regex",
-      "input": "$SUBTITLE1",
-      "expression": ".+?(?=ISBN|$)",
-      "output": {
-        "name": "SUBTITLE1"
-      }
+      },
+      "description": "Saves the author"
     },
     {
       "command": "store_attribute",
-      "locator": "body > ul > li:nth-child(2) img",
-      "attribute_name": "src",
-      "output": {
-        "name": "COVER2"
-      }
-    },
-    {
-      "command": "store_text",
-      "locator": "body > ul > li:nth-child(2) .title",
-      "output": {
-        "name": "LINE2"
-      }
-    },
-    {
-      "command": "regex",
-      "input": "$LINE2",
-      "expression": ".+?(?=\\,\\sby|$)",
-      "output": {
-        "name": "TITLE2"
-      }
-    },
-    {
-      "command": "regex",
-      "input": "$LINE2",
-      "expression": "(?<=\\,\\sby).+",
-      "output": {
-        "name": "SUBTITLE2"
-      }
-    },
-    {
-      "command": "regex",
-      "input": "$SUBTITLE2",
-      "expression": ".+?(?=ISBN|$)",
-      "output": {
-        "name": "SUBTITLE2"
-      }
-    },
-    {
-      "command": "store_attribute",
-      "locator": "body > ul > li:nth-child(3) img",
-      "attribute_name": "src",
-      "output": {
-        "name": "COVER3"
-      }
-    },
-    {
-      "command": "store_text",
-      "locator": "body > ul > li:nth-child(3) .title",
-      "output": {
-        "name": "LINE3"
-      }
-    },
-    {
-      "command": "regex",
-      "input": "$LINE3",
-      "expression": ".+?(?=\\,\\sby|$)",
-      "output": {
-        "name": "TITLE3"
-      }
-    },
-    {
-      "command": "regex",
-      "input": "$LINE3",
-      "expression": "(?<=\\,\\sby).+",
-      "output": {
-        "name": "SUBTITLE3"
-      }
-    },
-    {
-      "command": "regex",
-      "input": "$SUBTITLE3",
-      "expression": ".+?(?=ISBN|$)",
-      "output": {
-        "name": "SUBTITLE3"
-      }
-    },
-    {
-      "command": "store_attribute",
-      "locator": "body > ul > li:nth-child(4) img",
-      "attribute_name": "src",
-      "output": {
-        "name": "COVER4"
-      }
-    },
-    {
-      "command": "store_text",
-      "locator": "body > ul > li:nth-child(4) .title",
-      "output": {
-        "name": "LINE4"
-      }
-    },
-    {
-      "command": "regex",
-      "input": "$LINE4",
-      "expression": ".+?(?=\\,\\sby|$)",
-      "output": {
-        "name": "TITLE4"
-      }
-    },
-    {
-      "command": "regex",
-      "input": "$LINE4",
-      "expression": "(?<=\\,\\sby).+",
-      "output": {
-        "name": "SUBTITLE4"
-      }
-    },
-    {
-      "command": "regex",
-      "input": "$SUBTITLE4",
-      "expression": ".+?(?=ISBN|$)",
-      "output": {
-        "name": "SUBTITLE4"
-      }
-    },
-    {
-      "command": "store_attribute",
-      "locator": "body > ul > li:nth-child(5) img",
-      "attribute_name": "src",
-      "output": {
-        "name": "COVER5"
-      }
-    },
-    {
-      "command": "store_text",
-      "locator": "body > ul > li:nth-child(5) .title",
-      "output": {
-        "name": "LINE5"
-      }
-    },
-    {
-      "command": "regex",
-      "input": "$LINE5",
-      "expression": ".+?(?=\\,\\sby|$)",
-      "output": {
-        "name": "TITLE5"
-      }
-    },
-    {
-      "command": "regex",
-      "input": "$LINE5",
-      "expression": "(?<=\\,\\sby).+",
-      "output": {
-        "name": "SUBTITLE5"
-      }
-    },
-    {
-      "command": "regex",
-      "input": "$SUBTITLE5",
-      "expression": ".+?(?=ISBN|$)",
-      "output": {
-        "name": "SUBTITLE5"
-      }
-    },
-    {
-      "command": "regex",
-      "input": "$LINE1",
-      "expression": "(?<=ISBN\\s).+",
-      "output": {
-        "name": "ISBN1"
-      }
-    },
-    {
-      "command": "store",
-      "input": "https://www.goodreads.com/book/auto_complete?format=json&q=$ISBN1",
+      "locator": "[itemtype='http://schema.org/Book']:eq(0) .bookTitle[itemprop=url]",
+      "attribute_name": "href",
       "output": {
         "name": "URL1"
-      }
-    },
-    {
-      "command": "regex",
-      "input": "$LINE2",
-      "expression": "(?<=ISBN\\s).+",
-      "output": {
-        "name": "ISBN2"
-      }
+      },
+      "description": "Saves the absolute book url"
     },
     {
       "command": "store",
-      "input": "https://www.goodreads.com/book/auto_complete?format=json&q=$ISBN2",
+      "input": "https://www.goodreads.com$URL1",
       "output": {
-        "name": "URL2"
-      }
-    },
-    {
-      "command": "regex",
-      "input": "$LINE3",
-      "expression": "(?<=ISBN\\s).+",
-      "output": {
-        "name": "ISBN3"
-      }
-    },
-    {
-      "command": "store",
-      "input": "https://www.goodreads.com/book/auto_complete?format=json&q=$ISBN3",
-      "output": {
-        "name": "URL3"
-      }
-    },
-    {
-      "command": "regex",
-      "input": "$LINE4",
-      "expression": "(?<=ISBN\\s).+",
-      "output": {
-        "name": "ISBN4"
-      }
-    },
-    {
-      "command": "store",
-      "input": "https://www.goodreads.com/book/auto_complete?format=json&q=$ISBN4",
-      "output": {
-        "name": "URL4"
-      }
-    },
-    {
-      "command": "regex",
-      "input": "$LINE5",
-      "expression": "(?<=ISBN\\s).+",
-      "output": {
-        "name": "ISBN5"
-      }
-    },
-    {
-      "command": "store",
-      "input": "https://www.goodreads.com/book/auto_complete?format=json&q=$ISBN5",
-      "output": {
-        "name": "URL5"
-      }
+        "name": "URL1"
+      },
+      "description": "Adds domain to url"
     }
   ],
   "url_steps": [
