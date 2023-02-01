@@ -15,50 +15,24 @@
   },
   "autocomplete_steps": [
     {
-      "command": "load",
-      "url": "https://www.goodreads.com/search?q=$INPUT",
-      "config": {
-        "js": true
-      },
-      "description": "Searches books by title"
-    },
-    {
-      "command": "store_attribute",
-      "locator": "[itemtype='http://schema.org/Book']:eq($i) .bookTitle[itemprop=url]",
-      "attribute_name": "href",
-      "config": {
-        "loop": {
-          "index": "i",
-          "from": 0,
-          "to": 5,
-          "step": 1
-        }
-      },
+      "command": "api_request",
       "output": {
-        "name": "URL$i"
+        "name": "JSON"
       },
-      "description": "Saves the absolute book url"
+      "url": "https://www.goodreads.com/book/auto_complete?format=json&q=$INPUT",
+      "config": {
+        "method": "GET"
+      },
+      "description": "Retreives a JSON with output of apple"
     },
     {
-      "command": "store_attribute",
-      "locator": "[itemtype='http://schema.org/Book']:eq($i) [itemprop=image]",
-      "attribute_name": "src",
-      "config": {
-        "loop": {
-          "index": "i",
-          "from": 0,
-          "to": 5,
-          "step": 1
-        }
-      },
+      "command": "json_store_text",
+      "locator": "[$i].imageUrl",
+      "input": "$JSON",
       "output": {
         "name": "COVER$i"
       },
-      "description": "Saves the book cover"
-    },
-    {
-      "command": "store_text",
-      "locator": "[itemtype='http://schema.org/Book']:eq($i) [itemprop='name'][role=heading]",
+      "description": "Saves the cover.",
       "config": {
         "loop": {
           "index": "i",
@@ -66,15 +40,16 @@
           "to": 5,
           "step": 1
         }
-      },
+      }
+    },
+    {
+      "command": "json_store_text",
+      "locator": "[$i].title",
+      "input": "$JSON",
       "output": {
         "name": "TITLE$i"
       },
-      "description": "Saves the title"
-    },
-    {
-      "command": "store_text",
-      "locator": "[itemtype='http://schema.org/Book']:eq($i) [itemtype='http://schema.org/Person'] span[itemprop='name']",
+      "description": "Saves the title.",
       "config": {
         "loop": {
           "index": "i",
@@ -82,15 +57,16 @@
           "to": 5,
           "step": 1
         }
-      },
+      }
+    },
+    {
+      "command": "json_store_text",
+      "locator": "[$i].author.name",
+      "input": "$JSON",
       "output": {
         "name": "SUBTITLE$i"
       },
-      "description": "Saves the author"
-    },
-    {
-      "command": "store",
-      "input": "https://www.goodreads.com$URL$i",
+      "description": "Saves the subtitle.",
       "config": {
         "loop": {
           "index": "i",
@@ -98,11 +74,41 @@
           "to": 5,
           "step": 1
         }
+      }
+    },
+    {
+      "command": "json_store_text",
+      "locator": "[$i].author.name",
+      "input": "$JSON",
+      "output": {
+        "name": "SUBTITLE$i"
       },
+      "description": "Saves the subtitle.",
+      "config": {
+        "loop": {
+          "index": "i",
+          "from": 0,
+          "to": 5,
+          "step": 1
+        }
+      }
+    },
+    {
+      "command": "json_store_text",
+      "locator": "[$i].description.fullContentUrl",
+      "input": "$JSON",
       "output": {
         "name": "URL$i"
       },
-      "description": "Adds domain to url"
+      "description": "Saves the url.",
+      "config": {
+        "loop": {
+          "index": "i",
+          "from": 0,
+          "to": 5,
+          "step": 1
+        }
+      }
     }
   ],
   "url_steps": [
@@ -110,7 +116,8 @@
       "command": "load",
       "url": "$INPUT",
       "config": {
-        "js": true
+        "js": true,
+        "timeout": 1000
       },
       "description": "Loads the book detail"
     },
