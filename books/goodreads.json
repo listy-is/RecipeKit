@@ -110,8 +110,7 @@
       "command": "load",
       "url": "$INPUT",
       "config": {
-        "js": true,
-        "timeout": 100
+        "js": true
       },
       "description": "Loads the book detail"
     },
@@ -148,7 +147,7 @@
     },
     {
       "command": "store_text",
-      "locator": ".BookPageMetadataSection .ContributorLink__name",
+      "locator": ".BookPageMetadataSection .BookPageMetadataSection__contributor .ContributorLink__name",
       "output": {
         "name": "AUTHOR",
         "type": "string",
