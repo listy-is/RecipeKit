@@ -67,42 +67,27 @@
   ],
   "url_steps": [
     {
-      "command": "api_request",
-      "output": {
-        "name": "JSON"
-      },
+      "command": "load",
       "url": "$INPUT",
       "config": {
-        "method": "GET"
+        "js": true
       },
-      "description": "Retreives a JSON with output of book"
+      "description": "Loads the book detail"
     },
     {
-      "command": "json_store_text",
-      "locator": "[0].description.fullContentUrl",
-      "input": "$JSON",
-      "output": {
-        "name": "URL",
-        "type": "string",
-        "show": true
-      },
-      "description": "Saves the first description."
-    },
-    {
-      "command": "json_store_text",
-      "locator": "[0].imageUrl",
-      "input": "$JSON",
+      "command": "store_attribute",
+      "locator": ".BookPage__bookCover img",
+      "attribute_name": "src",
       "output": {
         "name": "COVER",
         "type": "string",
         "show": true
       },
-      "description": "Saves the first cover."
+      "description": "Saves the cover."
     },
     {
-      "command": "json_store_text",
-      "locator": "[0].title",
-      "input": "$JSON",
+      "command": "store_text",
+      "locator": ".BookPageTitleSection__title h1",
       "output": {
         "name": "TITLE",
         "type": "string",
@@ -111,9 +96,8 @@
       "description": "Saves the title."
     },
     {
-      "command": "json_store_text",
-      "locator": "[0].description.html",
-      "input": "$JSON",
+      "command": "store_text",
+      "locator": ".BookPageMetadataSection .BookPageMetadataSection__description span",
       "output": {
         "name": "DESCRIPTION",
         "type": "string",
@@ -122,9 +106,8 @@
       "description": "Saves the description."
     },
     {
-      "command": "json_store_text",
-      "locator": "[0].author.name",
-      "input": "$JSON",
+      "command": "store_text",
+      "locator": ".BookPageMetadataSection .ContributorLink__name",
       "output": {
         "name": "AUTHOR",
         "type": "string",
@@ -133,45 +116,14 @@
       "description": "Saves the author."
     },
     {
-      "command": "json_store_text",
-      "locator": "[0].avgRating",
-      "input": "$JSON",
+      "command": "store_text",
+      "locator": ".BookPageMetadataSection .RatingStatistics__rating",
       "output": {
         "name": "RATING",
         "type": "float",
         "show": true
       },
       "description": "Saves the rating."
-    },
-    {
-      "command": "json_store_text",
-      "locator": "[0].numPages",
-      "input": "$JSON",
-      "output": {
-        "name": "PAGES",
-        "type": "float",
-        "show": true
-      },
-      "description": "Saves the number pages."
-    },
-    {
-      "command": "regex",
-      "input": "$COVER",
-      "expression": ".+(?=\\._)",
-      "output": {
-        "name": "COVER",
-        "type": "string",
-        "show": true
-      }
-    },
-    {
-      "command": "store",
-      "input": "$COVER.jpg",
-      "output": {
-        "name": "COVER",
-        "type": "string",
-        "show": true
-      }
     }
   ]
 }
