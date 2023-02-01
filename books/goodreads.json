@@ -1,13 +1,13 @@
 {
   "recipe_shortcut": "gr_books",
   "list_type": "books",
-  "engine_version": 14,
+  "engine_version": 16,
   "title": "Goodreads",
   "description": "A recipe to get a list of books from Goodreads",
   "urls": [
-    "https://www.goodreads.com",
+    "https://www.goodreads.com/book/show/",
     "www.goodreads.com",
-    "http://www.goodreads.com"
+    "http://www.goodreads.com/book/show/"
   ],
   "headers": {
     "Accept-Language": "en-UK,en",
@@ -24,43 +24,83 @@
     },
     {
       "command": "store_attribute",
-      "locator": "[itemtype='http://schema.org/Book']:eq(0) [itemprop=image]",
-      "attribute_name": "src",
+      "locator": "[itemtype='http://schema.org/Book']:eq($i) .bookTitle[itemprop=url]",
+      "attribute_name": "href",
+      "config": {
+        "loop": {
+          "index": "i",
+          "from": 0,
+          "to": 5,
+          "step": 1
+        }
+      },
       "output": {
-        "name": "COVER1"
+        "name": "URL$i"
+      },
+      "description": "Saves the absolute book url"
+    },
+    {
+      "command": "store_attribute",
+      "locator": "[itemtype='http://schema.org/Book']:eq($i) [itemprop=image]",
+      "attribute_name": "src",
+      "config": {
+        "loop": {
+          "index": "i",
+          "from": 0,
+          "to": 5,
+          "step": 1
+        }
+      },
+      "output": {
+        "name": "COVER$i"
       },
       "description": "Saves the book cover"
     },
     {
       "command": "store_text",
-      "locator": "[itemtype='http://schema.org/Book']:eq(0) [itemprop=name][role=heading]",
+      "locator": "[itemtype='http://schema.org/Book']:eq($i) [itemprop='name'][role=heading]",
+      "config": {
+        "loop": {
+          "index": "i",
+          "from": 0,
+          "to": 5,
+          "step": 1
+        }
+      },
       "output": {
-        "name": "TITLE1"
+        "name": "TITLE$i"
       },
       "description": "Saves the title"
     },
     {
       "command": "store_text",
-      "locator": "[itemtype='http://schema.org/Book']:eq(0) [itemprop=name]:eq(1)",
+      "locator": "[itemtype='http://schema.org/Book']:eq($i) [itemtype='http://schema.org/Person'] span[itemprop='name']",
+      "config": {
+        "loop": {
+          "index": "i",
+          "from": 0,
+          "to": 5,
+          "step": 1
+        }
+      },
       "output": {
-        "name": "SUBTITLE1"
+        "name": "SUBTITLE$i"
       },
       "description": "Saves the author"
     },
     {
-      "command": "store_attribute",
-      "locator": "[itemtype='http://schema.org/Book']:eq(0) .bookTitle[itemprop=url]",
-      "attribute_name": "href",
-      "output": {
-        "name": "URL1"
-      },
-      "description": "Saves the absolute book url"
-    },
-    {
       "command": "store",
-      "input": "https://www.goodreads.com$URL1",
+      "input": "https://www.goodreads.com$URL$i",
+      "config": {
+        "loop": {
+          "index": "i",
+          "from": 0,
+          "to": 5,
+          "step": 1
+        }
+      },
       "output": {
-        "name": "URL1"
+        "name": "URL$i"
       },
       "description": "Adds domain to url"
     }
@@ -70,13 +110,14 @@
       "command": "load",
       "url": "$INPUT",
       "config": {
-        "js": true
+        "js": true,
+        "timeout": 100
       },
       "description": "Loads the book detail"
     },
     {
       "command": "store_attribute",
-      "locator": ".BookPage__bookCover img",
+      "locator": ".BookCover__image img",
       "attribute_name": "src",
       "output": {
         "name": "COVER",
@@ -124,6 +165,44 @@
         "show": true
       },
       "description": "Saves the rating."
+    },
+    {
+      "command": "store_text",
+      "locator": ".FeaturedDetails [data-testid='pagesFormat']",
+      "output": {
+        "name": "PAGES",
+        "type": "string"
+      },
+      "description": "Saves the number pages."
+    },
+    {
+      "command": "regex",
+      "input": "$PAGES",
+      "expression": "(\\d+)",
+      "output": {
+        "name": "PAGES",
+        "show": true
+      },
+      "description": "Remove letters from pages."
+    },
+    {
+      "command": "store_text",
+      "locator": ".FeaturedDetails [data-testid='publicationInfo']",
+      "output": {
+        "name": "YEAR",
+        "type": "string"
+      },
+      "description": "Saves the number pages."
+    },
+    {
+      "command": "regex",
+      "input": "$YEAR",
+      "expression": "(\\d+)$",
+      "output": {
+        "name": "YEAR",
+        "show": true
+      },
+      "description": "Remove letters from year."
     }
   ]
 }
