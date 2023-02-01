@@ -78,23 +78,6 @@
     },
     {
       "command": "json_store_text",
-      "locator": "[$i].author.name",
-      "input": "$JSON",
-      "output": {
-        "name": "SUBTITLE$i"
-      },
-      "description": "Saves the subtitle.",
-      "config": {
-        "loop": {
-          "index": "i",
-          "from": 0,
-          "to": 5,
-          "step": 1
-        }
-      }
-    },
-    {
-      "command": "json_store_text",
       "locator": "[$i].description.fullContentUrl",
       "input": "$JSON",
       "output": {
