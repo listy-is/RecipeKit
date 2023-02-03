@@ -1,7 +1,7 @@
 {
   "recipe_shortcut": "tripadvisor_restaurants",
   "list_type": "restaurants",
-  "engine_version": 13,
+  "engine_version": 16,
   "title": "Tripadvisor restaurants",
   "description": "A recipe to get a list of restaurants",
   "urls": [
@@ -26,152 +26,51 @@
     },
     {
       "command": "json_store_text",
-      "locator": "results.[0].name",
+      "locator": "results.[$i].name",
       "input": "$JSON",
       "output": {
-        "name": "TITLE1"
+        "name": "TITLE$i"
+      },
+      "config": {
+        "loop": {
+          "index": "i",
+          "from": 0,
+          "to": 5,
+          "step": 1
+        }
       },
       "description": "Saves the restaurant."
     },
     {
       "command": "json_store_text",
-      "locator": "results.[1].name",
+      "locator": "results.[$i].url",
       "input": "$JSON",
       "output": {
-        "name": "TITLE2"
+        "name": "ID$i"
       },
-      "description": "Saves the restaurant."
-    },
-    {
-      "command": "json_store_text",
-      "locator": "results.[2].name",
-      "input": "$JSON",
-      "output": {
-        "name": "TITLE3"
-      },
-      "description": "Saves the restaurant."
-    },
-    {
-      "command": "json_store_text",
-      "locator": "results.[3].name",
-      "input": "$JSON",
-      "output": {
-        "name": "TITLE4"
-      },
-      "description": "Saves the restaurant."
-    },
-    {
-      "command": "json_store_text",
-      "locator": "results.[4].name",
-      "input": "$JSON",
-      "output": {
-        "name": "TITLE5"
-      },
-      "description": "Saves the restaurant."
-    },
-    {
-      "command": "json_store_text",
-      "locator": "results.[5].name",
-      "input": "$JSON",
-      "output": {
-        "name": "TITLE6"
-      },
-      "description": "Saves the restaurant."
-    },
-    {
-      "command": "json_store_text",
-      "locator": "results.[0].url",
-      "input": "$JSON",
-      "output": {
-        "name": "ID1"
-      },
-      "description": "Saves the url."
-    },
-    {
-      "command": "json_store_text",
-      "locator": "results.[1].url",
-      "input": "$JSON",
-      "output": {
-        "name": "ID2"
-      },
-      "description": "Saves the url."
-    },
-    {
-      "command": "json_store_text",
-      "locator": "results.[2].url",
-      "input": "$JSON",
-      "output": {
-        "name": "ID3"
-      },
-      "description": "Saves the url."
-    },
-    {
-      "command": "json_store_text",
-      "locator": "results.[3].url",
-      "input": "$JSON",
-      "output": {
-        "name": "ID4"
-      },
-      "description": "Saves the url."
-    },
-    {
-      "command": "json_store_text",
-      "locator": "results.[4].url",
-      "input": "$JSON",
-      "output": {
-        "name": "ID5"
-      },
-      "description": "Saves the url."
-    },
-    {
-      "command": "json_store_text",
-      "locator": "results.[5].url",
-      "input": "$JSON",
-      "output": {
-        "name": "ID6"
+      "config": {
+        "loop": {
+          "index": "i",
+          "from": 0,
+          "to": 5,
+          "step": 1
+        }
       },
       "description": "Saves the url."
     },
     {
       "command": "store",
-      "input": "https://www.tripadvisor.com$ID1",
+      "input": "https://www.tripadvisor.com$ID$i",
       "output": {
-        "name": "URL1"
-      }
-    },
-    {
-      "command": "store",
-      "input": "https://www.tripadvisor.com$ID2",
-      "output": {
-        "name": "URL2"
-      }
-    },
-    {
-      "command": "store",
-      "input": "https://www.tripadvisor.com$ID3",
-      "output": {
-        "name": "URL3"
-      }
-    },
-    {
-      "command": "store",
-      "input": "https://www.tripadvisor.com$ID4",
-      "output": {
-        "name": "URL4"
-      }
-    },
-    {
-      "command": "store",
-      "input": "https://www.tripadvisor.com$ID5",
-      "output": {
-        "name": "URL5"
-      }
-    },
-    {
-      "command": "store",
-      "input": "https://www.tripadvisor.com$ID6",
-      "output": {
-        "name": "URL6"
+        "name": "URL$i"
+      },
+      "config": {
+        "loop": {
+          "index": "i",
+          "from": 0,
+          "to": 5,
+          "step": 1
+        }
       }
     }
   ],
