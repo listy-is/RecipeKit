@@ -1,7 +1,7 @@
 {
   "recipe_shortcut": "apple_podcasts",
   "list_type": "podcasts",
-  "engine_version": 14,
+  "engine_version": 16,
   "title": "Apple Podcasts",
   "description": "Load podcasts from Apple",
   "urls": [
@@ -26,260 +26,86 @@
     },
     {
       "command": "json_store_text",
-      "locator": "results.[0].artworkUrl100",
+      "locator": "results.[$i].artworkUrl100",
       "input": "$JSON",
       "output": {
-        "name": "COVER1"
+        "name": "COVER$i"
       },
-      "description": "Saves the first cover."
+      "description": "Saves the cover.",
+      "config": {
+        "loop": {
+          "index": "i",
+          "from": 0,
+          "to": 5,
+          "step": 1
+        }
+      }
     },
     {
       "command": "json_store_text",
-      "locator": "results.[1].artworkUrl100",
+      "locator": "results.[$i].artistName",
       "input": "$JSON",
       "output": {
-        "name": "COVER2"
+        "name": "SUBTITLE$i"
       },
-      "description": "Saves the first cover."
+      "description": "Saves the artist.",
+      "config": {
+        "loop": {
+          "index": "i",
+          "from": 0,
+          "to": 5,
+          "step": 1
+        }
+      }
     },
     {
       "command": "json_store_text",
-      "locator": "results.[2].artworkUrl100",
+      "locator": "results.[$i].trackName",
       "input": "$JSON",
       "output": {
-        "name": "COVER3"
+        "name": "TITLE$i"
       },
-      "description": "Saves the first cover."
+      "description": "Saves the title.",
+      "config": {
+        "loop": {
+          "index": "i",
+          "from": 0,
+          "to": 5,
+          "step": 1
+        }
+      }
     },
     {
       "command": "json_store_text",
-      "locator": "results.[3].artworkUrl100",
+      "locator": "results.[$i].trackId",
       "input": "$JSON",
       "output": {
-        "name": "COVER4"
+        "name": "ID$i"
       },
-      "description": "Saves the first cover."
-    },
-    {
-      "command": "json_store_text",
-      "locator": "results.[4].artworkUrl100",
-      "input": "$JSON",
-      "output": {
-        "name": "COVER5"
-      },
-      "description": "Saves the first cover."
-    },
-    {
-      "command": "json_store_text",
-      "locator": "results.[5].artworkUrl100",
-      "input": "$JSON",
-      "output": {
-        "name": "COVER6"
-      },
-      "description": "Saves the first cover."
-    },
-    {
-      "command": "json_store_text",
-      "locator": "results.[0].artistName",
-      "input": "$JSON",
-      "output": {
-        "name": "SUBTITLE1"
-      },
-      "description": "Saves the first artist."
-    },
-    {
-      "command": "json_store_text",
-      "locator": "results.[1].artistName",
-      "input": "$JSON",
-      "output": {
-        "name": "SUBTITLE2"
-      },
-      "description": "Saves the first artist."
-    },
-    {
-      "command": "json_store_text",
-      "locator": "results.[2].artistName",
-      "input": "$JSON",
-      "output": {
-        "name": "SUBTITLE3"
-      },
-      "description": "Saves the first artist."
-    },
-    {
-      "command": "json_store_text",
-      "locator": "results.[3].artistName",
-      "input": "$JSON",
-      "output": {
-        "name": "SUBTITLE4"
-      },
-      "description": "Saves the first artist."
-    },
-    {
-      "command": "json_store_text",
-      "locator": "results.[4].artistName",
-      "input": "$JSON",
-      "output": {
-        "name": "SUBTITLE5"
-      },
-      "description": "Saves the first artist."
-    },
-    {
-      "command": "json_store_text",
-      "locator": "results.[5].artistName",
-      "input": "$JSON",
-      "output": {
-        "name": "SUBTITLE6"
-      },
-      "description": "Saves the first artist."
-    },
-    {
-      "command": "json_store_text",
-      "locator": "results.[0].trackName",
-      "input": "$JSON",
-      "output": {
-        "name": "TITLE1"
-      },
-      "description": "Saves the first podcast."
-    },
-    {
-      "command": "json_store_text",
-      "locator": "results.[1].trackName",
-      "input": "$JSON",
-      "output": {
-        "name": "TITLE2"
-      },
-      "description": "Saves the first podcast."
-    },
-    {
-      "command": "json_store_text",
-      "locator": "results.[2].trackName",
-      "input": "$JSON",
-      "output": {
-        "name": "TITLE3"
-      },
-      "description": "Saves the first podcast."
-    },
-    {
-      "command": "json_store_text",
-      "locator": "results.[3].trackName",
-      "input": "$JSON",
-      "output": {
-        "name": "TITLE4"
-      },
-      "description": "Saves the first podcast."
-    },
-    {
-      "command": "json_store_text",
-      "locator": "results.[4].trackName",
-      "input": "$JSON",
-      "output": {
-        "name": "TITLE5"
-      },
-      "description": "Saves the first podcast."
-    },
-    {
-      "command": "json_store_text",
-      "locator": "results.[5].trackName",
-      "input": "$JSON",
-      "output": {
-        "name": "TITLE6"
-      },
-      "description": "Saves the first podcast."
-    },
-    {
-      "command": "json_store_text",
-      "locator": "results.[0].trackId",
-      "input": "$JSON",
-      "output": {
-        "name": "ID1"
-      },
-      "description": "Saves the first id."
-    },
-    {
-      "command": "json_store_text",
-      "locator": "results.[1].trackId",
-      "input": "$JSON",
-      "output": {
-        "name": "ID2"
-      },
-      "description": "Saves the first id."
-    },
-    {
-      "command": "json_store_text",
-      "locator": "results.[2].trackId",
-      "input": "$JSON",
-      "output": {
-        "name": "ID3"
-      },
-      "description": "Saves the first id."
-    },
-    {
-      "command": "json_store_text",
-      "locator": "results.[3].trackId",
-      "input": "$JSON",
-      "output": {
-        "name": "ID4"
-      },
-      "description": "Saves the first id."
-    },
-    {
-      "command": "json_store_text",
-      "locator": "results.[4].trackId",
-      "input": "$JSON",
-      "output": {
-        "name": "ID5"
-      },
-      "description": "Saves the first id."
-    },
-    {
-      "command": "json_store_text",
-      "locator": "results.[5].trackId",
-      "input": "$JSON",
-      "output": {
-        "name": "ID6"
-      },
-      "description": "Saves the first id."
-    },
-    {
-      "command": "store",
-      "input": "https://itunes.apple.com/search?media=podcast&limit=1&explicit=YES&term=$ID1",
-      "output": {
-        "name": "URL1"
+      "description": "Saves the id.",
+      "config": {
+        "loop": {
+          "index": "i",
+          "from": 0,
+          "to": 5,
+          "step": 1
+        }
       }
     },
     {
       "command": "store",
-      "input": "https://itunes.apple.com/search?media=podcast&limit=1&explicit=YES&term=$ID2",
+      "input": "https://itunes.apple.com/search?media=podcast&limit=1&explicit=YES&term=$ID$i",
       "output": {
-        "name": "URL2"
-      }
-    },
-    {
-      "command": "store",
-      "input": "https://itunes.apple.com/search?media=podcast&limit=1&explicit=YES&term=$ID3",
-      "output": {
-        "name": "URL3"
-      }
-    },
-    {
-      "command": "store",
-      "input": "https://itunes.apple.com/search?media=podcast&limit=1&explicit=YES&term=$ID4",
-      "output": {
-        "name": "URL4"
-      }
-    },
-    {
-      "command": "store",
-      "input": "https://itunes.apple.com/search?media=podcast&limit=1&explicit=YES&term=$ID5",
-      "output": {
-        "name": "URL5"
-      }
-    },
-    {
-      "command": "store",
-      "input": "https://itunes.apple.com/search?media=podcast&limit=1&explicit=YES&term=$ID6",
-      "output": {
-        "name": "URL6"
+        "name": "ID$i"
+      },
+      "description": "Saves the url.",
+      "config": {
+        "loop": {
+          "index": "i",
+          "from": 0,
+          "to": 5,
+          "step": 1
+        }
       }
     }
   ],

@@ -1,7 +1,7 @@
 {
   "recipe_shortcut": "apple_artists",
   "list_type": "artists",
-  "engine_version": 11,
+  "engine_version": 16,
   "title": "Apple Artists",
   "description": "Load artists from Apple",
   "urls": [
@@ -26,152 +26,52 @@
     },
     {
       "command": "json_store_text",
-      "locator": "results.[0].artistName",
+      "locator": "results.[$i].artistName",
       "input": "$JSON",
       "output": {
-        "name": "TITLE1"
+        "name": "TITLE$i"
       },
-      "description": "Saves the first artist."
+      "description": "Saves the title.",
+      "config": {
+        "loop": {
+          "index": "i",
+          "from": 0,
+          "to": 5,
+          "step": 1
+        }
+      }
     },
     {
       "command": "json_store_text",
-      "locator": "results.[1].artistName",
+      "locator": "results.[$i].artistId",
       "input": "$JSON",
       "output": {
-        "name": "TITLE2"
+        "name": "ID$i"
       },
-      "description": "Saves the first artist."
-    },
-    {
-      "command": "json_store_text",
-      "locator": "results.[2].artistName",
-      "input": "$JSON",
-      "output": {
-        "name": "TITLE3"
-      },
-      "description": "Saves the first artist."
-    },
-    {
-      "command": "json_store_text",
-      "locator": "results.[3].artistName",
-      "input": "$JSON",
-      "output": {
-        "name": "TITLE4"
-      },
-      "description": "Saves the first artist."
-    },
-    {
-      "command": "json_store_text",
-      "locator": "results.[4].artistName",
-      "input": "$JSON",
-      "output": {
-        "name": "TITLE5"
-      },
-      "description": "Saves the first artist."
-    },
-    {
-      "command": "json_store_text",
-      "locator": "results.[5].artistName",
-      "input": "$JSON",
-      "output": {
-        "name": "TITLE6"
-      },
-      "description": "Saves the first artist."
-    },
-    {
-      "command": "json_store_text",
-      "locator": "results.[0].artistId",
-      "input": "$JSON",
-      "output": {
-        "name": "ID1"
-      },
-      "description": "Saves the first id."
-    },
-    {
-      "command": "json_store_text",
-      "locator": "results.[1].artistId",
-      "input": "$JSON",
-      "output": {
-        "name": "ID2"
-      },
-      "description": "Saves the first id."
-    },
-    {
-      "command": "json_store_text",
-      "locator": "results.[2].artistId",
-      "input": "$JSON",
-      "output": {
-        "name": "ID3"
-      },
-      "description": "Saves the first id."
-    },
-    {
-      "command": "json_store_text",
-      "locator": "results.[3].artistId",
-      "input": "$JSON",
-      "output": {
-        "name": "ID4"
-      },
-      "description": "Saves the first id."
-    },
-    {
-      "command": "json_store_text",
-      "locator": "results.[4].artistId",
-      "input": "$JSON",
-      "output": {
-        "name": "ID5"
-      },
-      "description": "Saves the first id."
-    },
-    {
-      "command": "json_store_text",
-      "locator": "results.[5].artistId",
-      "input": "$JSON",
-      "output": {
-        "name": "ID6"
-      },
-      "description": "Saves the first id."
-    },
-    {
-      "command": "store",
-      "input": "https://itunes.apple.com/search?media=music&entity=musicArtist&limit=1&explicit=YES&term=$ID1",
-      "output": {
-        "name": "URL1"
+      "description": "Saves the id.",
+      "config": {
+        "loop": {
+          "index": "i",
+          "from": 0,
+          "to": 5,
+          "step": 1
+        }
       }
     },
     {
       "command": "store",
-      "input": "https://itunes.apple.com/search?media=music&entity=musicArtist&limit=1&explicit=YES&term=$ID2",
+      "input": "https://itunes.apple.com/search?media=music&entity=musicArtist&limit=1&explicit=YES&term=$ID$i",
       "output": {
-        "name": "URL2"
-      }
-    },
-    {
-      "command": "store",
-      "input": "https://itunes.apple.com/search?media=music&entity=musicArtist&limit=1&explicit=YES&term=$ID3",
-      "output": {
-        "name": "URL3"
-      }
-    },
-    {
-      "command": "store",
-      "input": "https://itunes.apple.com/search?media=music&entity=musicArtist&limit=1&explicit=YES&term=$ID4",
-      "output": {
-        "name": "URL4"
-      }
-    },
-    {
-      "command": "store",
-      "input": "https://itunes.apple.com/search?media=music&entity=musicArtist&limit=1&explicit=YES&term=$ID5",
-      "output": {
-        "name": "URL5"
-      }
-    },
-    {
-      "command": "store",
-      "input": "https://itunes.apple.com/search?media=music&entity=musicArtist&limit=1&explicit=YES&term=$ID6",
-      "output": {
-        "name": "URL6"
+        "name": "ID$i"
+      },
+      "description": "Saves the url.",
+      "config": {
+        "loop": {
+          "index": "i",
+          "from": 0,
+          "to": 5,
+          "step": 1
+        }
       }
     }
   ],
