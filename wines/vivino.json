@@ -21,326 +21,112 @@
     },
     {
       "command": "store_attribute",
-      "locator": "div.search-results-list > div:nth-child(1) figure",
+      "locator": "div.search-results-list > div:nth-child($i) figure",
       "attribute_name": "style",
       "output": {
-        "name": "COVER1"
+        "name": "COVER$i"
+      },
+      "config": {
+        "loop": {
+          "index": "i",
+          "from": 1,
+          "to": 6,
+          "step": 1
+        }
       }
     },
     {
       "command": "regex",
-      "input": "$COVER1",
+      "input": "$COVER$i",
       "expression": "(?<=\\/\\/).+?(?=\\)|$)",
       "output": {
-        "name": "COVER1"
+        "name": "COVER$i"
+      },
+      "config": {
+        "loop": {
+          "index": "i",
+          "from": 1,
+          "to": 6,
+          "step": 1
+        }
       }
     },
     {
       "command": "store",
-      "input": "https://$COVER1",
+      "input": "https://$COVER$i",
       "output": {
-        "name": "COVER1"
+        "name": "COVER$i"
+      },
+      "config": {
+        "loop": {
+          "index": "i",
+          "from": 1,
+          "to": 6,
+          "step": 1
+        }
       }
     },
     {
       "command": "store_text",
-      "locator": "div.search-results-list > div:nth-child(1) span.wine-card__name",
+      "locator": "div.search-results-list > div:nth-child($i) span.wine-card__name",
       "output": {
-        "name": "TITLE1"
+        "name": "TITLE$i"
+      },
+      "config": {
+        "loop": {
+          "index": "i",
+          "from": 1,
+          "to": 6,
+          "step": 1
+        }
       },
       "description": "Saves the title of the wine"
     },
     {
       "command": "store_text",
-      "locator": "div.search-results-list > div:nth-child(1) span.wine-card__region",
+      "locator": "div.search-results-list > div:nth-child($i) span.wine-card__region",
       "output": {
-        "name": "SUBTITLE1"
+        "name": "SUBTITLE$i"
+      },
+      "config": {
+        "loop": {
+          "index": "i",
+          "from": 1,
+          "to": 6,
+          "step": 1
+        }
       },
       "description": "Saves the region of the wine"
     },
     {
       "command": "store_attribute",
-      "locator": "div.search-results-list > div:nth-child(2) figure",
-      "attribute_name": "style",
-      "output": {
-        "name": "COVER2"
-      }
-    },
-    {
-      "command": "regex",
-      "input": "$COVER2",
-      "expression": "(?<=\\/\\/).+?(?=\\)|$)",
-      "output": {
-        "name": "COVER2"
-      }
-    },
-    {
-      "command": "store",
-      "input": "https://$COVER2",
-      "output": {
-        "name": "COVER2"
-      }
-    },
-    {
-      "command": "store_text",
-      "locator": "div.search-results-list > div:nth-child(2) span.wine-card__name",
-      "output": {
-        "name": "TITLE2"
-      },
-      "description": "Saves the title of the wine"
-    },
-    {
-      "command": "store_text",
-      "locator": "div.search-results-list > div:nth-child(2) span.wine-card__region",
-      "output": {
-        "name": "SUBTITLE2"
-      },
-      "description": "Saves the region of the wine"
-    },
-    {
-      "command": "store_attribute",
-      "locator": "div.search-results-list > div:nth-child(3) figure",
-      "attribute_name": "style",
-      "output": {
-        "name": "COVER3"
-      }
-    },
-    {
-      "command": "regex",
-      "input": "$COVER3",
-      "expression": "(?<=\\/\\/).+?(?=\\)|$)",
-      "output": {
-        "name": "COVER3"
-      }
-    },
-    {
-      "command": "store",
-      "input": "https://$COVER3",
-      "output": {
-        "name": "COVER3"
-      }
-    },
-    {
-      "command": "store_text",
-      "locator": "div.search-results-list > div:nth-child(3) span.wine-card__name",
-      "output": {
-        "name": "TITLE3"
-      },
-      "description": "Saves the title of the wine"
-    },
-    {
-      "command": "store_text",
-      "locator": "div.search-results-list > div:nth-child(3) span.wine-card__region",
-      "output": {
-        "name": "SUBTITLE3"
-      },
-      "description": "Saves the region of the wine"
-    },
-    {
-      "command": "store_attribute",
-      "locator": "div.search-results-list > div:nth-child(4) figure",
-      "attribute_name": "style",
-      "output": {
-        "name": "COVER4"
-      }
-    },
-    {
-      "command": "regex",
-      "input": "$COVER4",
-      "expression": "(?<=\\/\\/).+?(?=\\)|$)",
-      "output": {
-        "name": "COVER4"
-      }
-    },
-    {
-      "command": "store",
-      "input": "https://$COVER4",
-      "output": {
-        "name": "COVER4"
-      }
-    },
-    {
-      "command": "store_text",
-      "locator": "div.search-results-list > div:nth-child(4) span.wine-card__name",
-      "output": {
-        "name": "TITLE4"
-      },
-      "description": "Saves the title of the wine"
-    },
-    {
-      "command": "store_text",
-      "locator": "div.search-results-list > div:nth-child(4) span.wine-card__region",
-      "output": {
-        "name": "SUBTITLE4"
-      },
-      "description": "Saves the region of the wine"
-    },
-    {
-      "command": "store_attribute",
-      "locator": "div.search-results-list > div:nth-child(5) figure",
-      "attribute_name": "style",
-      "output": {
-        "name": "COVER5"
-      }
-    },
-    {
-      "command": "regex",
-      "input": "$COVER5",
-      "expression": "(?<=\\/\\/).+?(?=\\)|$)",
-      "output": {
-        "name": "COVER5"
-      }
-    },
-    {
-      "command": "store",
-      "input": "https://$COVER5",
-      "output": {
-        "name": "COVER5"
-      }
-    },
-    {
-      "command": "store_text",
-      "locator": "div.search-results-list > div:nth-child(5) span.wine-card__name",
-      "output": {
-        "name": "TITLE5"
-      },
-      "description": "Saves the title of the wine"
-    },
-    {
-      "command": "store_text",
-      "locator": "div.search-results-list > div:nth-child(5) span.wine-card__region",
-      "output": {
-        "name": "SUBTITLE5"
-      },
-      "description": "Saves the region of the wine"
-    },
-    {
-      "command": "store_attribute",
-      "locator": "div.search-results-list > div:nth-child(6) figure",
-      "attribute_name": "style",
-      "output": {
-        "name": "COVER6"
-      }
-    },
-    {
-      "command": "regex",
-      "input": "$COVER6",
-      "expression": "(?<=\\/\\/).+?(?=\\)|$)",
-      "output": {
-        "name": "COVER6"
-      }
-    },
-    {
-      "command": "store",
-      "input": "https://$COVER6",
-      "output": {
-        "name": "COVER6"
-      }
-    },
-    {
-      "command": "store_text",
-      "locator": "div.search-results-list > div:nth-child(6) span.wine-card__name",
-      "output": {
-        "name": "TITLE6"
-      },
-      "description": "Saves the title of the wine"
-    },
-    {
-      "command": "store_text",
-      "locator": "div.search-results-list > div:nth-child(6) span.wine-card__region",
-      "output": {
-        "name": "SUBTITLE6"
-      },
-      "description": "Saves the region of the wine"
-    },
-    {
-      "command": "store_attribute",
-      "locator": "body > div.wrap > section.search-page.section-alt > div > div > div > div.search-page__content > div > div:nth-child(1) > div > div.wine-card__content > div.wine-card__header-wrapper > span.header-smaller.text-block.wine-card__name > a",
+      "locator": "body > div.wrap > section.search-page.section-alt > div > div > div > div.search-page__content > div > div:nth-child($i) > div > div.wine-card__content > div.wine-card__header-wrapper > span.header-smaller.text-block.wine-card__name > a",
       "attribute_name": "href",
       "output": {
-        "name": "URL1"
+        "name": "URL$i"
+      },
+      "config": {
+        "loop": {
+          "index": "i",
+          "from": 1,
+          "to": 6,
+          "step": 1
+        }
       }
     },
     {
       "command": "store",
-      "input": "https://www.vivino.com$URL1",
+      "input": "https://www.vivino.com$URL$i",
       "output": {
-        "name": "URL1"
-      }
-    },
-    {
-      "command": "store_attribute",
-      "locator": "body > div.wrap > section.search-page.section-alt > div > div > div > div.search-page__content > div > div:nth-child(2) > div > div.wine-card__content > div.wine-card__header-wrapper > span.header-smaller.text-block.wine-card__name > a",
-      "attribute_name": "href",
-      "output": {
-        "name": "URL2"
-      }
-    },
-    {
-      "command": "store",
-      "input": "https://www.vivino.com$URL2",
-      "output": {
-        "name": "URL2"
-      }
-    },
-    {
-      "command": "store_attribute",
-      "locator": "body > div.wrap > section.search-page.section-alt > div > div > div > div.search-page__content > div > div:nth-child(3) > div > div.wine-card__content > div.wine-card__header-wrapper > span.header-smaller.text-block.wine-card__name > a",
-      "attribute_name": "href",
-      "output": {
-        "name": "URL3"
-      }
-    },
-    {
-      "command": "store",
-      "input": "https://www.vivino.com$URL3",
-      "output": {
-        "name": "URL3"
-      }
-    },
-    {
-      "command": "store_attribute",
-      "locator": "body > div.wrap > section.search-page.section-alt > div > div > div > div.search-page__content > div > div:nth-child(4) > div > div.wine-card__content > div.wine-card__header-wrapper > span.header-smaller.text-block.wine-card__name > a",
-      "attribute_name": "href",
-      "output": {
-        "name": "URL4"
-      }
-    },
-    {
-      "command": "store",
-      "input": "https://www.vivino.com$URL4",
-      "output": {
-        "name": "URL4"
-      }
-    },
-    {
-      "command": "store_attribute",
-      "locator": "body > div.wrap > section.search-page.section-alt > div > div > div > div.search-page__content > div > div:nth-child(5) > div > div.wine-card__content > div.wine-card__header-wrapper > span.header-smaller.text-block.wine-card__name > a",
-      "attribute_name": "href",
-      "output": {
-        "name": "URL5"
-      }
-    },
-    {
-      "command": "store",
-      "input": "https://www.vivino.com$URL5",
-      "output": {
-        "name": "URL5"
-      }
-    },
-    {
-      "command": "store_attribute",
-      "locator": "body > div.wrap > section.search-page.section-alt > div > div > div > div.search-page__content > div > div:nth-child(6) > div > div.wine-card__content > div.wine-card__header-wrapper > span.header-smaller.text-block.wine-card__name > a",
-      "attribute_name": "href",
-      "output": {
-        "name": "URL6"
-      }
-    },
-    {
-      "command": "store",
-      "input": "https://www.vivino.com$URL6",
-      "output": {
-        "name": "URL6"
+        "name": "URL$i"
+      },
+      "config": {
+        "loop": {
+          "index": "i",
+          "from": 1,
+          "to": 6,
+          "step": 1
+        }
       }
     }
   ],
