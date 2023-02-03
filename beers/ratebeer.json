@@ -1,7 +1,7 @@
 {
   "recipe_shortcut": "ratebeer_beers",
   "list_type": "beers",
-  "engine_version": 14,
+  "engine_version": 16,
   "title": "Ratebeer Beers",
   "description": "Retrieve the beers from page ratebeer",
   "urls": [
@@ -25,290 +25,98 @@
     },
     {
       "command": "store_attribute",
-      "locator": "[class^=BeerTab]:nth-child(1) img",
+      "locator": "[class^=BeerTab]:nth-child($i) img",
       "attribute_name": "src",
       "output": {
-        "name": "COVER1"
+        "name": "COVER$i"
+      },
+      "config": {
+        "loop": {
+          "index": "i",
+          "from": 1,
+          "to": 11,
+          "step": 2
+        }
       }
     },
     {
       "command": "store_text",
-      "locator": "[class^=BeerTab]:nth-child(1) div.fg-1 div.fd-r:nth-child(2)",
+      "locator": "[class^=BeerTab]:nth-child($i) div.fg-1 div.fd-r:nth-child(2)",
       "output": {
-        "name": "TITLE1"
+        "name": "TITLE$i"
+      },
+      "config": {
+        "loop": {
+          "index": "i",
+          "from": 1,
+          "to": 11,
+          "step": 2
+        }
       },
       "description": "Saves the title of the beer"
     },
     {
       "command": "regex",
-      "input": "$TITLE1",
+      "input": "$TITLE$i",
       "expression": ".+?(?=\\,|$)",
       "output": {
-        "name": "TITLE1"
+        "name": "TITLE$i"
+      },
+      "config": {
+        "loop": {
+          "index": "i",
+          "from": 1,
+          "to": 11,
+          "step": 2
+        }
       },
       "description": "Saves the provider"
     },
     {
       "command": "store_text",
-      "locator": "[class^=BeerTab]:nth-child(1) div.fg-1 div.fd-r:nth-child(1)",
+      "locator": "[class^=BeerTab]:nth-child($i) div.fg-1 div.fd-r:nth-child(1)",
       "output": {
-        "name": "SUBTITLE1"
+        "name": "SUBTITLE$i"
+      },
+      "config": {
+        "loop": {
+          "index": "i",
+          "from": 1,
+          "to": 11,
+          "step": 2
+        }
       },
       "description": "Saves the factory of the beer"
     },
     {
       "command": "store_attribute",
-      "locator": "[class^=BeerTab]:nth-child(3) img",
-      "attribute_name": "src",
-      "output": {
-        "name": "COVER2"
-      }
-    },
-    {
-      "command": "store_text",
-      "locator": "[class^=BeerTab]:nth-child(3) div.fg-1 div.fd-r:nth-child(2)",
-      "output": {
-        "name": "TITLE2"
-      },
-      "description": "Saves the title of the beer"
-    },
-    {
-      "command": "regex",
-      "input": "$TITLE2",
-      "expression": ".+?(?=\\,|$)",
-      "output": {
-        "name": "TITLE2"
-      },
-      "description": "Saves the provider"
-    },
-    {
-      "command": "store_text",
-      "locator": "[class^=BeerTab]:nth-child(3) div.fg-1 div.fd-r:nth-child(1)",
-      "output": {
-        "name": "SUBTITLE2"
-      },
-      "description": "Saves the factory of the beer"
-    },
-    {
-      "command": "store_attribute",
-      "locator": "[class^=BeerTab]:nth-child(5) img",
-      "attribute_name": "src",
-      "output": {
-        "name": "COVER3"
-      }
-    },
-    {
-      "command": "store_text",
-      "locator": "[class^=BeerTab]:nth-child(5) div.fg-1 div.fd-r:nth-child(2)",
-      "output": {
-        "name": "TITLE3"
-      },
-      "description": "Saves the title of the beer"
-    },
-    {
-      "command": "regex",
-      "input": "$TITLE3",
-      "expression": ".+?(?=\\,|$)",
-      "output": {
-        "name": "TITLE3"
-      },
-      "description": "Saves the provider"
-    },
-    {
-      "command": "store_text",
-      "locator": "[class^=BeerTab]:nth-child(5) div.fg-1 div.fd-r:nth-child(1)",
-      "output": {
-        "name": "SUBTITLE3"
-      },
-      "description": "Saves the factory of the beer"
-    },
-    {
-      "command": "store_attribute",
-      "locator": "[class^=BeerTab]:nth-child(7) img",
-      "attribute_name": "src",
-      "output": {
-        "name": "COVER4"
-      }
-    },
-    {
-      "command": "store_text",
-      "locator": "[class^=BeerTab]:nth-child(7) div.fg-1 div.fd-r:nth-child(2)",
-      "output": {
-        "name": "TITLE4"
-      },
-      "description": "Saves the title of the beer"
-    },
-    {
-      "command": "regex",
-      "input": "$TITLE4",
-      "expression": ".+?(?=\\,|$)",
-      "output": {
-        "name": "TITLE4"
-      },
-      "description": "Saves the provider"
-    },
-    {
-      "command": "store_text",
-      "locator": "[class^=BeerTab]:nth-child(7) div.fg-1 div.fd-r:nth-child(1)",
-      "output": {
-        "name": "SUBTITLE4"
-      },
-      "description": "Saves the factory of the beer"
-    },
-    {
-      "command": "store_attribute",
-      "locator": "[class^=BeerTab]:nth-child(9) img",
-      "attribute_name": "src",
-      "output": {
-        "name": "COVER5"
-      }
-    },
-    {
-      "command": "store_text",
-      "locator": "[class^=BeerTab]:nth-child(9) div.fg-1 div.fd-r:nth-child(2)",
-      "output": {
-        "name": "TITLE5"
-      },
-      "description": "Saves the title of the beer"
-    },
-    {
-      "command": "regex",
-      "input": "$TITLE5",
-      "expression": ".+?(?=\\,|$)",
-      "output": {
-        "name": "TITLE5"
-      },
-      "description": "Saves the provider"
-    },
-    {
-      "command": "store_text",
-      "locator": "[class^=BeerTab]:nth-child(9) div.fg-1 div.fd-r:nth-child(1)",
-      "output": {
-        "name": "SUBTITLE5"
-      },
-      "description": "Saves the factory of the beer"
-    },
-    {
-      "command": "store_attribute",
-      "locator": "[class^=BeerTab]:nth-child(11) img",
-      "attribute_name": "src",
-      "output": {
-        "name": "COVER6"
-      }
-    },
-    {
-      "command": "store_text",
-      "locator": "[class^=BeerTab]:nth-child(11) div.fg-1 div.fd-r:nth-child(2)",
-      "output": {
-        "name": "TITLE6"
-      },
-      "description": "Saves the title of the beer"
-    },
-    {
-      "command": "regex",
-      "input": "$TITLE6",
-      "expression": ".+?(?=\\,|$)",
-      "output": {
-        "name": "TITLE6"
-      },
-      "description": "Saves the provider"
-    },
-    {
-      "command": "store_text",
-      "locator": "[class^=BeerTab]:nth-child(11) div.fg-1 div.fd-r:nth-child(1)",
-      "output": {
-        "name": "SUBTITLE6"
-      },
-      "description": "Saves the factory of the beer"
-    },
-    {
-      "command": "store_attribute",
-      "locator": "[class^=BeerTab]:nth-child(1) a",
+      "locator": "[class^=BeerTab]:nth-child($i) a",
       "attribute_name": "href",
       "output": {
-        "name": "URL1"
+        "name": "URL$i"
+      },
+      "config": {
+        "loop": {
+          "index": "i",
+          "from": 1,
+          "to": 11,
+          "step": 2
+        }
       }
     },
     {
       "command": "store",
-      "input": "https://www.ratebeer.com$URL1",
+      "input": "https://www.ratebeer.com$URL$i",
       "output": {
-        "name": "URL1"
-      }
-    },
-    {
-      "command": "store_attribute",
-      "locator": "[class^=BeerTab]:nth-child(3) a",
-      "attribute_name": "href",
-      "output": {
-        "name": "URL2"
-      }
-    },
-    {
-      "command": "store",
-      "input": "https://www.ratebeer.com$URL2",
-      "output": {
-        "name": "URL2"
-      }
-    },
-    {
-      "command": "store_attribute",
-      "locator": "[class^=BeerTab]:nth-child(5) a",
-      "attribute_name": "href",
-      "output": {
-        "name": "URL3"
-      }
-    },
-    {
-      "command": "store",
-      "input": "https://www.ratebeer.com$URL3",
-      "output": {
-        "name": "URL3"
-      }
-    },
-    {
-      "command": "store_attribute",
-      "locator": "[class^=BeerTab]:nth-child(7) a",
-      "attribute_name": "href",
-      "output": {
-        "name": "URL4"
-      }
-    },
-    {
-      "command": "store",
-      "input": "https://www.ratebeer.com$URL4",
-      "output": {
-        "name": "URL4"
-      }
-    },
-    {
-      "command": "store_attribute",
-      "locator": "[class^=BeerTab]:nth-child(9) a",
-      "attribute_name": "href",
-      "output": {
-        "name": "URL5"
-      }
-    },
-    {
-      "command": "store",
-      "input": "https://www.ratebeer.com$URL5",
-      "output": {
-        "name": "URL5"
-      }
-    },
-    {
-      "command": "store_attribute",
-      "locator": "[class^=BeerTab]:nth-child(11) a",
-      "attribute_name": "href",
-      "output": {
-        "name": "URL6"
-      }
-    },
-    {
-      "command": "store",
-      "input": "https://www.ratebeer.com$URL6",
-      "output": {
-        "name": "URL6"
+        "name": "URL$i"
+      },
+      "config": {
+        "loop": {
+          "index": "i",
+          "from": 1,
+          "to": 11,
+          "step": 2
+        }
       }
     }
   ],
