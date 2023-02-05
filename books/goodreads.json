@@ -78,8 +78,24 @@
     },
     {
       "command": "json_store_text",
-      "locator": "[$i].description.fullContentUrl",
+      "locator": "[$i].bookUrl",
       "input": "$JSON",
+      "output": {
+        "name": "URL$i"
+      },
+      "description": "Saves the url.",
+      "config": {
+        "loop": {
+          "index": "i",
+          "from": 0,
+          "to": 5,
+          "step": 1
+        }
+      }
+    },
+    {
+      "command": "store",
+      "input": "https://www.goodreads.comURL$i",
       "output": {
         "name": "URL$i"
       },
