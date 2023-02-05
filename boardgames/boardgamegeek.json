@@ -1,7 +1,7 @@
 {
   "recipe_shortcut": "boardgamegeek_boardgames",
   "list_type": "boardgames",
-  "engine_version": 14,
+  "engine_version": 16,
   "title": "Boardgames Geek Boardgames",
   "description": "A recipe to get a list of boardgames",
   "urls": [
@@ -25,272 +25,95 @@
     },
     {
       "command": "store_attribute",
-      "locator": "table.collection_table tr:nth-child(2) img",
+      "locator": "table.collection_table tr:nth-child($i) img",
       "attribute_name": "src",
       "output": {
         "name": "COVER1"
-      }
-    },
-    {
-      "command": "store_attribute",
-      "locator": "table.collection_table tr:nth-child(3) img",
-      "attribute_name": "src",
-      "output": {
-        "name": "COVER2"
-      }
-    },
-    {
-      "command": "store_attribute",
-      "locator": "table.collection_table tr:nth-child(4) img",
-      "attribute_name": "src",
-      "output": {
-        "name": "COVER3"
-      }
-    },
-    {
-      "command": "store_attribute",
-      "locator": "table.collection_table tr:nth-child(5) img",
-      "attribute_name": "src",
-      "output": {
-        "name": "COVER4"
-      }
-    },
-    {
-      "command": "store_attribute",
-      "locator": "table.collection_table tr:nth-child(6) img",
-      "attribute_name": "src",
-      "output": {
-        "name": "COVER5"
-      }
-    },
-    {
-      "command": "store_attribute",
-      "locator": "table.collection_table tr:nth-child(7) img",
-      "attribute_name": "src",
-      "output": {
-        "name": "COVER6"
+      },
+      "config": {
+        "loop": {
+          "index": "i",
+          "from": 2,
+          "to": 7,
+          "step": 1
+        }
       }
     },
     {
       "command": "store_text",
-      "locator": "#results_objectname1 a",
+      "locator": "table.collection_table tr:nth-child($i) td.collection_objectname a",
       "output": {
-        "name": "TITLE1"
+        "name": "TITLE$i"
+      },
+      "config": {
+        "loop": {
+          "index": "i",
+          "from": 2,
+          "to": 7,
+          "step": 1
+        }
       }
     },
     {
       "command": "store_text",
-      "locator": "#results_objectname2 a",
+      "locator": "table.collection_table tr:nth-child($i) td.collection_objectname span",
       "output": {
-        "name": "TITLE2"
-      }
-    },
-    {
-      "command": "store_text",
-      "locator": "#results_objectname3 a",
-      "output": {
-        "name": "TITLE3"
-      }
-    },
-    {
-      "command": "store_text",
-      "locator": "#results_objectname4 a",
-      "output": {
-        "name": "TITLE4"
-      }
-    },
-    {
-      "command": "store_text",
-      "locator": "#results_objectname5 a",
-      "output": {
-        "name": "TITLE5"
-      }
-    },
-    {
-      "command": "store_text",
-      "locator": "#results_objectname6 a",
-      "output": {
-        "name": "TITLE6"
-      }
-    },
-    {
-      "command": "store_text",
-      "locator": "#results_objectname1 span",
-      "output": {
-        "name": "SUBTITLE1"
+        "name": "SUBTITLE$i"
+      },
+      "config": {
+        "loop": {
+          "index": "i",
+          "from": 2,
+          "to": 7,
+          "step": 1
+        }
       }
     },
     {
       "command": "regex",
-      "input": "$SUBTITLE1",
+      "input": "$SUBTITLE$i",
       "expression": "(\\d\\d\\d\\d)",
       "output": {
-        "name": "SUBTITLE1"
-      }
-    },
-    {
-      "command": "store_text",
-      "locator": "#results_objectname2 span",
-      "output": {
-        "name": "SUBTITLE2"
-      }
-    },
-    {
-      "command": "regex",
-      "input": "$SUBTITLE2",
-      "expression": "(\\d\\d\\d\\d)",
-      "output": {
-        "name": "SUBTITLE2"
-      }
-    },
-    {
-      "command": "store_text",
-      "locator": "#results_objectname3 span",
-      "output": {
-        "name": "SUBTITLE3"
-      }
-    },
-    {
-      "command": "regex",
-      "input": "$SUBTITLE3",
-      "expression": "(\\d\\d\\d\\d)",
-      "output": {
-        "name": "SUBTITLE3"
-      }
-    },
-    {
-      "command": "store_text",
-      "locator": "#results_objectname4 span",
-      "output": {
-        "name": "SUBTITLE4"
-      }
-    },
-    {
-      "command": "regex",
-      "input": "$SUBTITLE4",
-      "expression": "(\\d\\d\\d\\d)",
-      "output": {
-        "name": "SUBTITLE4"
-      }
-    },
-    {
-      "command": "store_text",
-      "locator": "#results_objectname5 span",
-      "output": {
-        "name": "SUBTITLE5"
-      }
-    },
-    {
-      "command": "regex",
-      "input": "$SUBTITLE5",
-      "expression": "(\\d\\d\\d\\d)",
-      "output": {
-        "name": "SUBTITLE5"
-      }
-    },
-    {
-      "command": "store_text",
-      "locator": "#results_objectname6 span",
-      "output": {
-        "name": "SUBTITLE6"
-      }
-    },
-    {
-      "command": "regex",
-      "input": "$SUBTITLE1",
-      "expression": "(\\d\\d\\d\\d)",
-      "output": {
-        "name": "SUBTITLE1"
+        "name": "SUBTITLE$i"
+      },
+      "config": {
+        "loop": {
+          "index": "i",
+          "from": 2,
+          "to": 7,
+          "step": 1
+        }
       }
     },
     {
       "command": "store_attribute",
-      "locator": "#results_objectname1 > a",
+      "locator": "table.collection_table tr:nth-child($i) td.collection_objectname a",
       "attribute_name": "href",
       "output": {
-        "name": "URL1"
+        "name": "URL$i"
+      },
+      "config": {
+        "loop": {
+          "index": "i",
+          "from": 2,
+          "to": 7,
+          "step": 1
+        }
       }
     },
     {
       "command": "store",
-      "input": "https://www.boardgamegeek.com$URL1",
+      "input": "https://www.boardgamegeek.com$URL$i",
       "output": {
-        "name": "URL1"
-      }
-    },
-    {
-      "command": "store_attribute",
-      "locator": "#results_objectname2 > a",
-      "attribute_name": "href",
-      "output": {
-        "name": "URL2"
-      }
-    },
-    {
-      "command": "store",
-      "input": "https://www.boardgamegeek.com$URL2",
-      "output": {
-        "name": "URL2"
-      }
-    },
-    {
-      "command": "store_attribute",
-      "locator": "#results_objectname3 > a",
-      "attribute_name": "href",
-      "output": {
-        "name": "URL3"
-      }
-    },
-    {
-      "command": "store",
-      "input": "https://www.boardgamegeek.com$URL3",
-      "output": {
-        "name": "URL3"
-      }
-    },
-    {
-      "command": "store_attribute",
-      "locator": "#results_objectname4 > a",
-      "attribute_name": "href",
-      "output": {
-        "name": "URL4"
-      }
-    },
-    {
-      "command": "store",
-      "input": "https://www.boardgamegeek.com$URL4",
-      "output": {
-        "name": "URL4"
-      }
-    },
-    {
-      "command": "store_attribute",
-      "locator": "#results_objectname5 > a",
-      "attribute_name": "href",
-      "output": {
-        "name": "URL5"
-      }
-    },
-    {
-      "command": "store",
-      "input": "https://www.boardgamegeek.com$URL5",
-      "output": {
-        "name": "URL5"
-      }
-    },
-    {
-      "command": "store_attribute",
-      "locator": "#results_objectname6 > a",
-      "attribute_name": "href",
-      "output": {
-        "name": "URL6"
-      }
-    },
-    {
-      "command": "store",
-      "input": "https://www.boardgamegeek.com$URL6",
-      "output": {
-        "name": "URL6"
+        "name": "URL$i"
+      },
+      "config": {
+        "loop": {
+          "index": "i",
+          "from": 2,
+          "to": 7,
+          "step": 1
+        }
       }
     }
   ],

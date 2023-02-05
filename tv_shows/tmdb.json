@@ -19,314 +19,110 @@
     },
     {
       "command": "store_attribute",
-      "locator": "div.results > div:nth-child(1) div.image img",
+      "locator": "div.results > div:nth-child($i) div.image img",
       "attribute_name": "src",
       "output": {
-        "name": "COVER1"
+        "name": "COVER$i"
+      },
+      "config": {
+        "loop": {
+          "index": "i",
+          "from": 1,
+          "to": 6,
+          "step": 1
+        }
       }
     },
     {
       "command": "store",
-      "input": "https://www.themoviedb.org$COVER1",
+      "input": "https://www.themoviedb.org$COVER$i",
       "output": {
-        "name": "COVER1"
+        "name": "COVER$i"
+      },
+      "config": {
+        "loop": {
+          "index": "i",
+          "from": 1,
+          "to": 6,
+          "step": 1
+        }
       }
     },
     {
       "command": "store_text",
-      "locator": "div.results > div:nth-child(1) div.title h2",
+      "locator": "div.results > div:nth-child($i) div.title h2",
       "output": {
-        "name": "TITLE1"
+        "name": "TITLE$i"
+      },
+      "config": {
+        "loop": {
+          "index": "i",
+          "from": 1,
+          "to": 6,
+          "step": 1
+        }
       }
     },
     {
       "command": "store_text",
-      "locator": "div.results > div:nth-child(1) div.title > span.release_date",
+      "locator": "div.results > div:nth-child($i) div.title > span.release_date",
       "output": {
-        "name": "YEAR1"
+        "name": "YEAR$i"
+      },
+      "config": {
+        "loop": {
+          "index": "i",
+          "from": 1,
+          "to": 6,
+          "step": 1
+        }
       }
     },
     {
       "command": "regex",
-      "input": "$YEAR1",
+      "input": "$YEAR$i",
       "expression": "(\\s\\d\\d\\d\\d)",
       "output": {
-        "name": "SUBTITLE1"
+        "name": "SUBTITLE$i"
+      },
+      "config": {
+        "loop": {
+          "index": "i",
+          "from": 1,
+          "to": 6,
+          "step": 1
+        }
       }
     },
     {
       "command": "store_attribute",
-      "locator": "div.results > div:nth-child(1) div.title a",
+      "locator": "div.results > div:nth-child($i) div.title a",
       "attribute_name": "href",
       "output": {
-        "name": "URL1"
+        "name": "URL$i"
+      },
+      "config": {
+        "loop": {
+          "index": "i",
+          "from": 1,
+          "to": 6,
+          "step": 1
+        }
       }
     },
     {
       "command": "store",
-      "input": "https://www.themoviedb.org$URL1",
+      "input": "https://www.themoviedb.org$URL$i",
       "output": {
-        "name": "URL1"
-      }
-    },
-    {
-      "command": "store_attribute",
-      "locator": "div.results > div:nth-child(2) div.image img",
-      "attribute_name": "src",
-      "output": {
-        "name": "COVER2"
-      }
-    },
-    {
-      "command": "store",
-      "input": "https://www.themoviedb.org$COVER2",
-      "output": {
-        "name": "COVER2"
-      }
-    },
-    {
-      "command": "store_text",
-      "locator": "div.results > div:nth-child(2) div.title h2",
-      "output": {
-        "name": "TITLE2"
-      }
-    },
-    {
-      "command": "store_text",
-      "locator": "div.results > div:nth-child(2) div.title > span.release_date",
-      "output": {
-        "name": "YEAR2"
-      }
-    },
-    {
-      "command": "regex",
-      "input": "$YEAR2",
-      "expression": "(\\s\\d\\d\\d\\d)",
-      "output": {
-        "name": "SUBTITLE2"
-      }
-    },
-    {
-      "command": "store_attribute",
-      "locator": "div.results > div:nth-child(2) div.title a",
-      "attribute_name": "href",
-      "output": {
-        "name": "URL2"
-      }
-    },
-    {
-      "command": "store",
-      "input": "https://www.themoviedb.org$URL2",
-      "output": {
-        "name": "URL2"
-      }
-    },
-    {
-      "command": "store_attribute",
-      "locator": "div.results > div:nth-child(3) div.image img",
-      "attribute_name": "src",
-      "output": {
-        "name": "COVER3"
-      }
-    },
-    {
-      "command": "store",
-      "input": "https://www.themoviedb.org$COVER3",
-      "output": {
-        "name": "COVER3"
-      }
-    },
-    {
-      "command": "store_text",
-      "locator": "div.results > div:nth-child(3) div.title h2",
-      "output": {
-        "name": "TITLE3"
-      }
-    },
-    {
-      "command": "store_text",
-      "locator": "div.results > div:nth-child(3) div.title > span.release_date",
-      "output": {
-        "name": "YEAR3"
-      }
-    },
-    {
-      "command": "regex",
-      "input": "$YEAR3",
-      "expression": "(\\s\\d\\d\\d\\d)",
-      "output": {
-        "name": "SUBTITLE3"
-      }
-    },
-    {
-      "command": "store_attribute",
-      "locator": "div.results > div:nth-child(3) div.title a",
-      "attribute_name": "href",
-      "output": {
-        "name": "URL3"
-      }
-    },
-    {
-      "command": "store",
-      "input": "https://www.themoviedb.org$URL3",
-      "output": {
-        "name": "URL3"
-      }
-    },
-    {
-      "command": "store_attribute",
-      "locator": "div.results > div:nth-child(4) div.image img",
-      "attribute_name": "src",
-      "output": {
-        "name": "COVER4"
-      }
-    },
-    {
-      "command": "store",
-      "input": "https://www.themoviedb.org$COVER4",
-      "output": {
-        "name": "COVER4"
-      }
-    },
-    {
-      "command": "store_text",
-      "locator": "div.results > div:nth-child(4) div.title h2",
-      "output": {
-        "name": "TITLE4"
-      }
-    },
-    {
-      "command": "store_text",
-      "locator": "div.results > div:nth-child(4) div.title > span.release_date",
-      "output": {
-        "name": "YEAR4"
-      }
-    },
-    {
-      "command": "regex",
-      "input": "$YEAR4",
-      "expression": "(\\s\\d\\d\\d\\d)",
-      "output": {
-        "name": "SUBTITLE4"
-      }
-    },
-    {
-      "command": "store_attribute",
-      "locator": "div.results > div:nth-child(4) div.title a",
-      "attribute_name": "href",
-      "output": {
-        "name": "URL4"
-      }
-    },
-    {
-      "command": "store",
-      "input": "https://www.themoviedb.org$URL4",
-      "output": {
-        "name": "URL4"
-      }
-    },
-    {
-      "command": "store_attribute",
-      "locator": "div.results > div:nth-child(5) div.image img",
-      "attribute_name": "src",
-      "output": {
-        "name": "COVER5"
-      }
-    },
-    {
-      "command": "store",
-      "input": "https://www.themoviedb.org$COVER5",
-      "output": {
-        "name": "COVER5"
-      }
-    },
-    {
-      "command": "store_text",
-      "locator": "div.results > div:nth-child(5) div.title h2",
-      "output": {
-        "name": "TITLE5"
-      }
-    },
-    {
-      "command": "store_text",
-      "locator": "div.results > div:nth-child(5) div.title > span.release_date",
-      "output": {
-        "name": "YEAR5"
-      }
-    },
-    {
-      "command": "regex",
-      "input": "$YEAR5",
-      "expression": "(\\s\\d\\d\\d\\d)",
-      "output": {
-        "name": "SUBTITLE5"
-      }
-    },
-    {
-      "command": "store_attribute",
-      "locator": "div.results > div:nth-child(5) div.title a",
-      "attribute_name": "href",
-      "output": {
-        "name": "URL5"
-      }
-    },
-    {
-      "command": "store",
-      "input": "https://www.themoviedb.org$URL5",
-      "output": {
-        "name": "URL5"
-      }
-    },
-    {
-      "command": "store_attribute",
-      "locator": "div.results > div:nth-child(6) div.image img",
-      "attribute_name": "src",
-      "output": {
-        "name": "COVER6"
-      }
-    },
-    {
-      "command": "store",
-      "input": "https://www.themoviedb.org$COVER6",
-      "output": {
-        "name": "COVER6"
-      }
-    },
-    {
-      "command": "store_text",
-      "locator": "div.results > div:nth-child(6) div.title h2",
-      "output": {
-        "name": "TITLE6"
-      }
-    },
-    {
-      "command": "store_text",
-      "locator": "div.results > div:nth-child(6) div.title > span.release_date",
-      "output": {
-        "name": "YEAR6"
-      }
-    },
-    {
-      "command": "regex",
-      "input": "$YEAR6",
-      "expression": "(\\s\\d\\d\\d\\d)",
-      "output": {
-        "name": "SUBTITLE6"
-      }
-    },
-    {
-      "command": "store_attribute",
-      "locator": "div.results > div:nth-child(6) div.title a",
-      "attribute_name": "href",
-      "output": {
-        "name": "URL6"
-      }
-    },
-    {
-      "command": "store",
-      "input": "https://www.themoviedb.org$URL6",
-      "output": {
-        "name": "URL6"
+        "name": "URL$i"
+      },
+      "config": {
+        "loop": {
+          "index": "i",
+          "from": 1,
+          "to": 6,
+          "step": 1
+        }
       }
     }
   ],

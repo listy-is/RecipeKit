@@ -1,7 +1,7 @@
 {
   "recipe_shortcut": "imdb_videogames",
   "list_type": "videogames",
-  "engine_version": 14,
+  "engine_version": 16,
   "title": "IMDB Videogames",
   "description": "A recipe to get a list of videogames",
   "urls": [
@@ -23,284 +23,89 @@
     },
     {
       "command": "store_attribute",
-      "locator": "#main > div > div.lister.list.detail.sub-list > div > div:nth-child(1) > div.lister-item-image img",
+      "locator": "#main > div > div.lister.list.detail.sub-list > div > div:nth-child($i) > div.lister-item-image img",
       "attribute_name": "src",
       "output": {
-        "name": "COVER1"
+        "name": "COVER$i"
+      },
+      "config": {
+        "loop": {
+          "index": "i",
+          "from": 1,
+          "to": 6,
+          "step": 1
+        }
       }
     },
     {
       "command": "store_text",
-      "locator": "#main > div > div.lister.list.detail.sub-list > div > div:nth-child(1) > div.lister-item-content > h3",
+      "locator": "#main > div > div.lister.list.detail.sub-list > div > div:nth-child($i) > div.lister-item-content > h3",
       "output": {
-        "name": "TITLE1"
+        "name": "TITLE$i"
+      },
+      "config": {
+        "loop": {
+          "index": "i",
+          "from": 1,
+          "to": 6,
+          "step": 1
+        }
       }
     },
     {
       "command": "regex",
-      "input": "$TITLE1",
+      "input": "$TITLE$i",
       "expression": "(\\d\\d\\d\\d)",
       "output": {
-        "name": "SUBTITLE1"
+        "name": "SUBTITLE$i"
+      },
+      "config": {
+        "loop": {
+          "index": "i",
+          "from": 1,
+          "to": 6,
+          "step": 1
+        }
       }
     },
     {
       "command": "regex",
-      "input": "$TITLE1",
+      "input": "$TITLE$i",
       "expression": "(?<=\\.\\s).+?(?=\\s\\(|$)",
       "output": {
-        "name": "TITLE1"
+        "name": "TITLE$i"
+      },
+      "config": {
+        "loop": {
+          "index": "i",
+          "from": 1,
+          "to": 6,
+          "step": 1
+        }
       },
       "description": "Applies a regular expression to get just the title without the ennum"
     },
     {
       "command": "store_attribute",
-      "locator": "#main > div > div.lister.list.detail.sub-list > div > div:nth-child(2) > div.lister-item-image img",
-      "attribute_name": "src",
+      "locator": "#main > div > div.lister.list.detail.sub-list > div > div:nth-child($i) > div.lister-item-content > h3 > a",
+      "attribute_name": "href",
       "output": {
-        "name": "COVER2"
-      }
-    },
-    {
-      "command": "store_text",
-      "locator": "#main > div > div.lister.list.detail.sub-list > div > div:nth-child(2) > div.lister-item-content > h3",
-      "output": {
-        "name": "TITLE2"
-      }
-    },
-    {
-      "command": "regex",
-      "input": "$TITLE2",
-      "expression": "(\\d\\d\\d\\d)",
-      "output": {
-        "name": "SUBTITLE2"
-      }
-    },
-    {
-      "command": "regex",
-      "input": "$TITLE2",
-      "expression": "(?<=\\.\\s).+?(?=\\s\\(|$)",
-      "output": {
-        "name": "TITLE2"
+        "name": "URL$i"
       },
-      "description": "Applies a regular expression to get just the title without the ennum"
-    },
-    {
-      "command": "store_attribute",
-      "locator": "#main > div > div.lister.list.detail.sub-list > div > div:nth-child(3) > div.lister-item-image img",
-      "attribute_name": "src",
-      "output": {
-        "name": "COVER3"
-      }
-    },
-    {
-      "command": "store_text",
-      "locator": "#main > div > div.lister.list.detail.sub-list > div > div:nth-child(3) > div.lister-item-content > h3",
-      "output": {
-        "name": "TITLE3"
-      }
-    },
-    {
-      "command": "regex",
-      "input": "$TITLE3",
-      "expression": "(\\d\\d\\d\\d)",
-      "output": {
-        "name": "SUBTITLE3"
-      }
-    },
-    {
-      "command": "regex",
-      "input": "$TITLE3",
-      "expression": "(?<=\\.\\s).+?(?=\\s\\(|$)",
-      "output": {
-        "name": "TITLE3"
-      },
-      "description": "Applies a regular expression to get just the title without the ennum"
-    },
-    {
-      "command": "store_attribute",
-      "locator": "#main > div > div.lister.list.detail.sub-list > div > div:nth-child(4) > div.lister-item-image img",
-      "attribute_name": "src",
-      "output": {
-        "name": "COVER4"
-      }
-    },
-    {
-      "command": "store_text",
-      "locator": "#main > div > div.lister.list.detail.sub-list > div > div:nth-child(4) > div.lister-item-content > h3",
-      "output": {
-        "name": "TITLE4"
-      }
-    },
-    {
-      "command": "regex",
-      "input": "$TITLE4",
-      "expression": "(\\d\\d\\d\\d)",
-      "output": {
-        "name": "SUBTITLE4"
-      }
-    },
-    {
-      "command": "regex",
-      "input": "$TITLE4",
-      "expression": "(?<=\\.\\s).+?(?=\\s\\(|$)",
-      "output": {
-        "name": "TITLE4"
-      },
-      "description": "Applies a regular expression to get just the title without the ennum"
-    },
-    {
-      "command": "store_attribute",
-      "locator": "#main > div > div.lister.list.detail.sub-list > div > div:nth-child(5) > div.lister-item-image img",
-      "attribute_name": "src",
-      "output": {
-        "name": "COVER5"
-      }
-    },
-    {
-      "command": "store_text",
-      "locator": "#main > div > div.lister.list.detail.sub-list > div > div:nth-child(5) > div.lister-item-content > h3",
-      "output": {
-        "name": "TITLE5"
-      }
-    },
-    {
-      "command": "regex",
-      "input": "$TITLE5",
-      "expression": "(\\d\\d\\d\\d)",
-      "output": {
-        "name": "SUBTITLE5"
-      }
-    },
-    {
-      "command": "regex",
-      "input": "$TITLE5",
-      "expression": "(?<=\\.\\s).+?(?=\\s\\(|$)",
-      "output": {
-        "name": "TITLE5"
-      },
-      "description": "Applies a regular expression to get just the title without the ennum"
-    },
-    {
-      "command": "store_attribute",
-      "locator": "#main > div > div.lister.list.detail.sub-list > div > div:nth-child(6) > div.lister-item-image img",
-      "attribute_name": "src",
-      "output": {
-        "name": "COVER6"
-      }
-    },
-    {
-      "command": "store_text",
-      "locator": "#main > div > div.lister.list.detail.sub-list > div > div:nth-child(6) > div.lister-item-content > h3",
-      "output": {
-        "name": "TITLE6"
-      }
-    },
-    {
-      "command": "regex",
-      "input": "$TITLE6",
-      "expression": "(\\d\\d\\d\\d)",
-      "output": {
-        "name": "SUBTITLE6"
-      }
-    },
-    {
-      "command": "regex",
-      "input": "$TITLE6",
-      "expression": "(?<=\\.\\s).+?(?=\\s\\(|$)",
-      "output": {
-        "name": "TITLE6"
-      },
-      "description": "Applies a regular expression to get just the title without the ennum"
-    },
-    {
-      "command": "store_attribute",
-      "locator": "#main > div > div.lister.list.detail.sub-list > div > div:nth-child(1) > div.lister-item-content > h3 > a",
-      "attribute_name": "href",
-      "output": {
-        "name": "URL1"
+      "config": {
+        "loop": {
+          "index": "i",
+          "from": 1,
+          "to": 6,
+          "step": 1
+        }
       }
     },
     {
       "command": "store",
-      "input": "https://m.imdb.com$URL1",
+      "input": "https://m.imdb.com$URL$i",
       "output": {
-        "name": "URL1"
-      }
-    },
-    {
-      "command": "store_attribute",
-      "locator": "#main > div > div.lister.list.detail.sub-list > div > div:nth-child(2) > div.lister-item-content > h3 > a",
-      "attribute_name": "href",
-      "output": {
-        "name": "URL2"
-      }
-    },
-    {
-      "command": "store",
-      "input": "https://m.imdb.com$URL2",
-      "output": {
-        "name": "URL2"
-      }
-    },
-    {
-      "command": "store_attribute",
-      "locator": "#main > div > div.lister.list.detail.sub-list > div > div:nth-child(3) > div.lister-item-content > h3 > a",
-      "attribute_name": "href",
-      "output": {
-        "name": "URL3"
-      }
-    },
-    {
-      "command": "store",
-      "input": "https://m.imdb.com$URL3",
-      "output": {
-        "name": "URL3"
-      }
-    },
-    {
-      "command": "store_attribute",
-      "locator": "#main > div > div.lister.list.detail.sub-list > div > div:nth-child(4) > div.lister-item-content > h3 > a",
-      "attribute_name": "href",
-      "output": {
-        "name": "URL4"
-      }
-    },
-    {
-      "command": "store",
-      "input": "https://m.imdb.com$URL4",
-      "output": {
-        "name": "URL4"
-      }
-    },
-    {
-      "command": "store_attribute",
-      "locator": "#main > div > div.lister.list.detail.sub-list > div > div:nth-child(5) > div.lister-item-content > h3 > a",
-      "attribute_name": "href",
-      "output": {
-        "name": "URL5"
-      }
-    },
-    {
-      "command": "store",
-      "input": "https://m.imdb.com$URL5",
-      "output": {
-        "name": "URL5"
-      }
-    },
-    {
-      "command": "store_attribute",
-      "locator": "#main > div > div.lister.list.detail.sub-list > div > div:nth-child(6) > div.lister-item-content > h3 > a",
-      "attribute_name": "href",
-      "output": {
-        "name": "URL6"
-      }
-    },
-    {
-      "command": "store",
-      "input": "https://m.imdb.com$URL6",
-      "output": {
-        "name": "URL6"
+        "name": "URL$i"
       }
     }
   ],
