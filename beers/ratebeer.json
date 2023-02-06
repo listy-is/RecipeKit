@@ -20,7 +20,7 @@
       "description": "Load the url of the beer",
       "config": {
         "js": true,
-        "timeout": 1500
+        "timeout": 3000
       }
     },
     {
