@@ -95,7 +95,7 @@
     },
     {
       "command": "store",
-      "input": "https://www.goodreads.comURL$i",
+      "input": "https://www.goodreads.com$URL$i",
       "output": {
         "name": "URL$i"
       },
