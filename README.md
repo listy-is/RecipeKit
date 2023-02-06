@@ -10,23 +10,23 @@ Listy is a mobile app that allows you to keep track of your favorite things in a
 <a href="https://listy.is/download/android"><img src="https://listy.is/index/badge-googleplay.png"  height="48"></a>
 </p>
 
-This public GitHub repository contains the list of recipes manages by the app and allows you to collaborate and integrate new content providers for Lisy using our guides and tools.
+This public GitHub repository contains the recipes that enable the app to load information from different internet sources, this code is **open** and allows you to collaborate and integrate new content providers for Lisy using our guides and tools.
 
 ## About
 
-This RecipeKit is a step based system for dynamic scrapping that guides the clients in the process of extracting information from different webpages in order to obtain information to enrich your content in Listy.
+This RecipeKit is a step based system for dynamic scrapping that guides the App in the process of extracting information from different webpages to enrich your content in Listy.
 
-This proposal is based on Selenium IDE, the web testing tool, and uses some of its [commands](https://docs.seleniumhq.org/selenium-ide/docs/en/api/commands/).
+This proposal is based on *Selenium IDE*, the web testing tool, and uses some of its commands.
 
 ### Understanding Recipes in Listy
 
-In Listy, a recipe is a step-by-step process that enables the app to extract relevant information of a particular type from various websites or online sources. These recipes guide the app to obtain the desired data and seamlessly add it to your lists, making the process automated and effortless.
+In Listy, a recipe is a step-by-step process that enables the app to extract relevant information of a particular type from any websites. These recipes guide the app to obtain the desired data and seamlessly add it to your lists, making the process automated and effortless.
 
-This GitHub repository contains folders that categorize different types of content, such as movies, anime, books, beers, and more. Within each folder, you'll find JSON files, which represent individual recipes for extracting information of the corresponding type from a specific online source or webpage. For instance, the "Movies" folder may include recipes for popular websites like IMDb, TMDb, and Filmaffinity.
+This GitHub repository contains folders that categorize different types of content, such as movies, anime, books, beers, and more. Within each folder, you'll find JSON files, which represent individual recipes for extracting information of the corresponding type from a specific online resource. For instance, the "Movies" folder may include recipes for popular websites like IMDb, TMDb, and Filmaffinity.
 
 ### How do Recipes work?
 
-Recipes in Listy are comprised of a series of commands that allow the app to extract information from specific websites or internet sources. These instructions guide the app in navigating to a website, identifying and clicking specific elements, and extracting relevant text to add to your lists. With these recipes in place, adding new items to your list is a simple and streamlined process, as the app automatically gathers the necessary information without you having to manually search multiple websites.
+Recipes in Listy are comprised of a series of commands that allow the app to extract the information. These instructions guide the app in navigating to a website, identifying and clicking specific elements, and extracting relevant text to add to your lists. With these recipes in place, adding new items to your list is a simple and streamlined process, as the app automatically gathers the necessary information without you having to manually search multiple websites.
 
 ## Contributing
 
@@ -40,21 +40,72 @@ Don't be afraid to reach out to us if you have any questions or suggestions. We'
 
 # Implementation details
 
-A recipe in the app is a set of instructions that have single responsibility for extracting information from specific websites or internet sources. It helps the app gather the right data and add it to your lists in an automated way.
+Each recipe contains a set of instructions that have single responsibility for extracting information from specific websites or internet sources. his allows for automated data gathering and addition to lists.
 
 ## Recipe Properties
 
-- `list_type`: Specifies the relationship between the recipe and the content type (e.g. movie).
+- `list_type`: Defines the relationship between the recipe and the content type (e.g. movie)
 - `title`: The title of the recipe.
 - `description`: Describes the purpose and details of the recipe.
 - `engine_version`: Ensures compatibility with different iterations, not all the engines support all the commands and all the content types.
 - `url_available`: An array of URLs where the recipe is able to extract data.
-- `autocomplete_steps`: Steps used to list related content. It should enumerate content that match the user input.
-- `url_steps`: Steps to retrieve all the specific information and hydrate the item, starting from a URL.
+- `autocomplete_steps`: a.k.a search commands. The array of `commands` used to list related content. It should enumerate content that match the user input.
+- `url_steps`: The array of `commands` used to retrieve all the specific information and hydrate an speciffic item, starting from a URL.
 
-## Steps of a recipe
+### autocomplete_steps
+The commands in this array returns to the app a list of resiuls (usually from 5 to 10) that represent content related with the `INPUT` query which is a `string`. This steps are used by the app in the add item screen of each list. And the list of properties needed are:
 
-A recipe in Listy consists of a series of `commands` that are executed in a specific order. The steps of a recipe can range from navigating to a website, to finding and clicking specific elements, or extracting text from a page. These steps work together to automate the process of gathering information.
+- `URLn`: **mandatory** The URL that will trigger the `url_steps` to fetch the content.
+- `TITLEn`: **mandatory** The distinct name/title of the content.
+- `SUBTITLEn`: **optional** A piece of additional info, could be a year on a movie, the author of the book, whatever short information you consider relevant to disambiguate the list of results.
+- `COVERn`: **optional** An URL to a image representing the content.
+
+*Being index the enumerator of the result: URL1, URL2, URL3 will be related to TITLE1, TITLE2 and TITLE3.**
+It is very usefull to avoid repetition and copy paseing command to include loop instruction in the `config` of each command. 
+
+```json
+    {
+      "command": "store_attribute",
+      "locator": "[itemtype='http://schema.org/Book']:eq($i)",
+      "attribute_name": "href",
+      "config": {
+        "loop": {
+          "index": "i",
+          "from": 0,
+          "to": 5,
+          "step": 1
+        }
+      },
+      "output": {
+        "name": "URL$i"
+      },
+      "description": "Saves the absolute book url"
+    },
+```
+
+This JSON structure is for a `store_attribute` command that retrieves the href attribute from a book element (itemtype='http://schema.org/Book') in a list and stores it as a variable. The command is executed in a loop, from 0 to 4, using the index i to replace the $i placeholder in the locator and output.name fields. The result is five variables named URL0, URL1, URL2, URL3, and URL4 that store the URLs of five books in the list.
+
+### url_steps
+The commands in this array fetch all the information realted to a speciffic piece of content, the `INPUT` of the recipe is an `URL` containing the info related to the content. This URL must match the pattern specified on the attribute `url_available` of the recipe. The list of attributes that this stpes should gather may include:
+
+- `TITLE`: The title of a content item.
+- `DESCRIPTION`: A description of a content item.
+- `COVER`: An image URL representing a content item.
+- `RATING`: A rating of a content item.
+- `TIME`: The duration or time of a content item.
+- `AUTHOR`: The author of a content item.
+- `DATE`: The date of a content item.
+- `URL_SALE`: The URL to purchase a content item.
+- `TAGS`: The tags or keywords associated with a content item.
+- `PRICE`: The price of a content item.
+- `LATITUDE`: The latitude coordinate of a content item's location.
+- `LONGITUDE`: The longitude coordinate of a content item's location.
+
+If you want to inclode more attributes you can, those special attributes will be mapped to a speciffic detail view on the app.
+
+## Commands
+
+A recipe in Listy consists of a series of `commands` (aka steps) that are executed in a specific order. Can range from navigating to a website, to finding and clicking specific elements, or extracting text from a page. These steps work together to automate the process of gathering information.
 
 Each command has its name and an optional description to document the step. The `store` actions have a field called `output` to save the field into the dictionary of variables. If an `output` name already exists, it will be overwritten.
 
@@ -233,6 +284,8 @@ The json_store_text command allows to extract data from a JSON and store it in a
   "description": "Saves the first artist."
 }
 ```
+</p>
+</details>
 
 ### Transform information:
 
