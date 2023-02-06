@@ -28,7 +28,7 @@
       "locator": "table.collection_table tr:nth-child($i) img",
       "attribute_name": "src",
       "output": {
-        "name": "COVER1"
+        "name": "COVER$i"
       },
       "config": {
         "loop": {
