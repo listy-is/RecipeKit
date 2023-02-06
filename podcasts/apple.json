@@ -96,7 +96,7 @@
       "command": "store",
       "input": "https://itunes.apple.com/search?media=podcast&limit=1&explicit=YES&term=$ID$i",
       "output": {
-        "name": "ID$i"
+        "name": "URL$i"
       },
       "description": "Saves the url.",
       "config": {
