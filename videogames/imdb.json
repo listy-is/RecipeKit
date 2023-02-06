@@ -106,6 +106,14 @@
       "input": "https://m.imdb.com$URL$i",
       "output": {
         "name": "URL$i"
+      },
+      "config": {
+        "loop": {
+          "index": "i",
+          "from": 1,
+          "to": 6,
+          "step": 1
+        }
       }
     }
   ],
