@@ -60,7 +60,7 @@
     },
     {
       "command": "store",
-      "input": "https://itunes.apple.com/search?media=music&entity=musicArtist&limit=1&explicit=YES&term=$ID$i",
+      "input": "https://itunes.apple.com/search?media=music&country=$LOCALE&entity=musicArtist&limit=1&explicit=YES&term=$ID$i",
       "output": {
         "name": "URL$i"
       },
