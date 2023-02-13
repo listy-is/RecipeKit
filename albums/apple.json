@@ -220,7 +220,8 @@
       "output": {
         "name": "DATE",
         "type": "date",
-        "format": "YYYY"
+        "format": "YYYY",
+        "show": true
       },
       "description": "Applies a regular expression to get just the year of the date"
     }
