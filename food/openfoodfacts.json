@@ -14,7 +14,7 @@
   "autocomplete_steps": [
     {
       "command": "load",
-      "url": "https://$LOCALE.openfoodfacts.org/cgi/search.pl?action=process&search_terms=$INPUT&sort_by=unique_scans_n&page_size=6?sort_by=popularity",
+      "url": "https://$REGION.openfoodfacts.org/cgi/search.pl?action=process&search_terms=$INPUT&sort_by=unique_scans_n&page_size=6?sort_by=popularity",
       "description": "Search food by name and sort by popularity.",
       "config": {
         "js": true,
@@ -130,7 +130,7 @@
     },
     {
       "command": "store",
-      "input": "https://$REGION-$LOCALE.openfoodfacts.org/api/v0/product/$BARCODE.json",
+      "input": "https://$REGION.openfoodfacts.org/api/v0/product/$BARCODE.json",
       "output": {
         "name": "APIURL"
       },
@@ -138,7 +138,7 @@
     },
     {
       "command": "store",
-      "input": "https://$REGION-$LOCALE.openfoodfacts.org/product/$BARCODE/",
+      "input": "https://$REGION.openfoodfacts.org/product/$BARCODE/",
       "output": {
         "name": "URL",
         "show": true
