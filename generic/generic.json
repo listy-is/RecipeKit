@@ -180,6 +180,27 @@
         "show": true
       },
       "description": "Saves the autho of the article."
+    },
+    {
+      "command": "regex",
+      "input": "$URL",
+      "expression": "(?:https?:\\/\\/)?(?:[^@\\/\\n]+@)?(?:www\\.)?([^:\\/?\\n]+)",
+      "output": {
+        "name": "FAVICON",
+        "type": "string",
+        "show": true
+      },
+      "description": "Saves the favicon from the twitter card metas."
+    },
+    {
+      "command": "store",
+      "input": "$FAVICON/favicon.ico",
+      "output": {
+        "name": "FAVICON",
+        "type": "string",
+        "show": true
+      },
+      "description": "Saves the favicon"
     }
   ]
 }
