@@ -6,7 +6,8 @@
   "description": "Load albums from Apple",
   "urls": [
     "https://itunes.apple.com/search?media=music&entity=album",
-    "itunes.apple.com"
+    "itunes.apple.com",
+    "music.apple.com"
   ],
   "headers": {
     "Accept-Language": "en-UK,en",
