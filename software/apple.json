@@ -6,7 +6,8 @@
   "description": "Load software from Apple",
   "urls": [
     "https://itunes.apple.com/search?media=software",
-    "itunes.apple.com"
+    "itunes.apple.com",
+    "apps.apple.com"
   ],
   "headers": {
     "Accept-Language": "en-UK,en",

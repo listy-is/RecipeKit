@@ -18,7 +18,7 @@
       "output": {
         "name": "JSON"
       },
-      "url": "https://itunes.apple.com/search?media=music&limit=6&entity=album&explicit=YES&entity=song&term=$INPUT",
+      "url": "https://itunes.apple.com/search?media=music&limit=6&entity=album&explicit=YES&term=$INPUT",
       "config": {
         "method": "GET"
       },
@@ -77,24 +77,8 @@
     },
     {
       "command": "json_store_text",
-      "locator": "results.[$i].collectionId",
+      "locator": "results.[$i].collectionViewUrl",
       "input": "$JSON",
-      "output": {
-        "name": "ID$i"
-      },
-      "description": "Saves the id.",
-      "config": {
-        "loop": {
-          "index": "i",
-          "from": 0,
-          "to": 5,
-          "step": 1
-        }
-      }
-    },
-    {
-      "command": "store",
-      "input": "https://itunes.apple.com/search?media=music&entity=album&limit=1&explicit=YES&term=$ID$i",
       "output": {
         "name": "URL$i"
       },
@@ -111,11 +95,28 @@
   ],
   "url_steps": [
     {
+      "command": "regex",
+      "input": "$INPUT",
+      "expression": "([0-9]+)(?=\\?)",
+      "output": {
+        "name": "ID"
+      },
+      "description": "Extract the app id from the URL."
+    },
+    {
+      "command": "store",
+      "input": "https://itunes.apple.com/search?media=music&entity=album&limit=1&explicit=YES&term=$ID",
+      "output":
+      {
+        "name": "APIURL"
+      }
+    },
+    {
       "command": "api_request",
       "output": {
         "name": "JSON"
       },
-      "url": "$INPUT",
+      "url": "$APIURL",
       "config": {
         "method": "GET"
       },
