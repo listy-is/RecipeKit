@@ -100,7 +100,7 @@
     },
     {
       "command": "store",
-      "input": "https://itunes.apple.com/search?media=music&limit=6&explicit=YES&entity=musicTrack&term=$ID",
+      "input": "https://itunes.apple.com/search?media=music&limit=6&explicit=YES&term=$ID",
       "output":
       {
         "name": "APIURL"
