@@ -92,7 +92,7 @@
     {
       "command": "regex",
       "input": "$INPUT",
-      "expression": "(id([0-9a-zA-Z]+))",
+      "expression": "([0-9a-zA-Z]+)\\?",
       "output": {
         "name": "ID"
       },
