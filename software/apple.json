@@ -30,7 +30,7 @@
       "input": "$JSON",
       "output": {
         "name": "COVER$i"
-      }
+      },
       "config": {
         "loop": {
           "index": "i",

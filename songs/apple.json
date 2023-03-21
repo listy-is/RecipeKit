@@ -22,8 +22,7 @@
       "url": "https://itunes.apple.com/search?media=music&limit=6&explicit=YES&entity=musicTrack&term=$INPUT",
       "config": {
         "method": "GET"
-      },
-      "description": "Retreives a JSON with output of apple"
+      }
     },
     {
       "command": "json_store_text",
@@ -32,7 +31,6 @@
       "output": {
         "name": "COVER$i"
       },
-      "description": "Saves the cover.",
       "config": {
         "loop": {
           "index": "i",
@@ -49,7 +47,6 @@
       "output": {
         "name": "SUBTITLE$i"
       },
-      "description": "Saves the artist.",
       "config": {
         "loop": {
           "index": "i",
@@ -66,7 +63,6 @@
       "output": {
         "name": "TITLE$i"
       },
-      "description": "Saves the title.",
       "config": {
         "loop": {
           "index": "i",
@@ -83,7 +79,6 @@
       "output": {
         "name": "ID$i"
       },
-      "description": "Saves the url.",
       "config": {
         "loop": {
           "index": "i",
@@ -101,8 +96,7 @@
       "expression": "([0-9]+)(?=\\?)",
       "output": {
         "name": "ID"
-      },
-      "description": "Extract the app id from the URL."
+      }
     },
     {
       "command": "store",
@@ -120,8 +114,7 @@
       "url": "$APIURL",
       "config": {
         "method": "GET"
-      },
-      "description": "Retreives a JSON with output of apple"
+      }
     },
     {
       "command": "json_store_text",
@@ -131,8 +124,7 @@
         "name": "AUTHOR",
         "type": "string",
         "show": true
-      },
-      "description": "Saves the first artist."
+      }
     },
     {
       "command": "json_store_text",
@@ -142,8 +134,7 @@
         "name": "TITLE",
         "type": "string",
         "show": true
-      },
-      "description": "Saves the first song."
+      }
     },
     {
       "command": "json_store_text",
@@ -151,8 +142,7 @@
       "input": "$JSON",
       "output": {
         "name": "URL"
-      },
-      "description": "Saves the url."
+      }
     },
     {
       "command": "json_store_text",
@@ -160,8 +150,7 @@
       "input": "$JSON",
       "output": {
         "name": "COVER"
-      },
-      "description": "Saves the cover"
+      }
     },
     {
       "command": "regex",
@@ -169,8 +158,7 @@
       "expression": "[\\S]*\\/",
       "output": {
         "name": "COVER"
-      },
-      "description": "Applies a regular expression to get part of the cover"
+      }
     },
     {
       "command": "store",
@@ -179,8 +167,7 @@
         "name": "COVER",
         "type": "string",
         "show": true
-      },
-      "description": "Add high res param to the cover"
+      }
     },
     {
       "command": "json_store_text",
@@ -190,8 +177,7 @@
         "name": "PRICE",
         "type": "float",
         "show": true
-      },
-      "description": "Saves the price"
+      }
     },
     {
       "command": "json_store_text",
@@ -199,8 +185,7 @@
       "input": "$JSON",
       "output": {
         "name": "DATE"
-      },
-      "description": "Saves the price"
+      }
     },
     {
       "command": "json_store_text",
@@ -210,8 +195,7 @@
         "name": "GENRE",
         "type": "string",
         "show": true
-      },
-      "description": "Saves the genre"
+      }
     },
     {
       "command": "regex",
@@ -222,8 +206,7 @@
         "type": "date",
         "format": "YYYY",
         "show": true
-      },
-      "description": "Applies a regular expression to get just the year of the date"
+      }
     }
   ]
 }

@@ -32,7 +32,6 @@
       "output": {
         "name": "TITLE$i"
       },
-      "description": "Saves the title.",
       "config": {
         "loop": {
           "index": "i",
@@ -49,7 +48,6 @@
       "output": {
         "name": "URL$i"
       },
-      "description": "Saves the url.",
       "config": {
         "loop": {
           "index": "i",
@@ -86,8 +84,7 @@
       "url": "$APIURL",
       "config": {
         "method": "GET"
-      },
-      "description": "Retreives a JSON with output of apple"
+      }
     },
     {
       "command": "json_store_text",
@@ -97,8 +94,7 @@
         "name": "AUTHOR",
         "type": "string",
         "show": true
-      },
-      "description": "Saves the first artist."
+      }
     },
     {
       "command": "json_store_text",
@@ -106,8 +102,7 @@
       "input": "$JSON",
       "output": {
         "name": "URL"
-      },
-      "description": "Saves the url."
+      }
     },
     {
       "command": "json_store_text",
@@ -117,16 +112,14 @@
         "name": "GENRE",
         "type": "string",
         "show": true
-      },
-      "description": "Saves the genre"
+      }
     },
     {
       "command": "url_encode",
       "input": "$AUTHOR",
       "output": {
         "name": "AUX_AUTHOR"
-      },
-      "description": "Url encode of the title"
+      }
     },
     {
       "command": "store",
@@ -143,8 +136,7 @@
       "url": "$AURL",
       "config": {
         "method": "GET"
-      },
-      "description": "Retreives a JSON with output of apple"
+      }
     },
     {
       "command": "json_store_text",
@@ -152,8 +144,7 @@
       "input": "$JSON",
       "output": {
         "name": "COVER"
-      },
-      "description": "Saves the cover"
+      }
     },
     {
       "command": "regex",
@@ -161,8 +152,7 @@
       "expression": "[\\S]*\\/",
       "output": {
         "name": "COVER"
-      },
-      "description": "Applies a regular expression to get part of the cover"
+      }
     },
     {
       "command": "store",
