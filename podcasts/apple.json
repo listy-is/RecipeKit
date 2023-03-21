@@ -1,12 +1,13 @@
 {
   "recipe_shortcut": "apple_podcasts",
   "list_type": "podcasts",
-  "engine_version": 16,
+  "engine_version": 17,
   "title": "Apple Podcasts",
   "description": "Load podcasts from Apple",
   "urls": [
     "https://itunes.apple.com/search?media=podcast",
-    "itunes.apple.com"
+    "itunes.apple.com",
+    "music.apple.com"
   ],
   "headers": {
     "Accept-Language": "en-UK,en",
@@ -21,8 +22,7 @@
       "url": "https://itunes.apple.com/search?media=podcast&limit=6&explicit=YES&term=$INPUT",
       "config": {
         "method": "GET"
-      },
-      "description": "Retreives a JSON with output of apple"
+      }
     },
     {
       "command": "json_store_text",
@@ -31,7 +31,6 @@
       "output": {
         "name": "COVER$i"
       },
-      "description": "Saves the cover.",
       "config": {
         "loop": {
           "index": "i",
@@ -48,7 +47,6 @@
       "output": {
         "name": "SUBTITLE$i"
       },
-      "description": "Saves the artist.",
       "config": {
         "loop": {
           "index": "i",
@@ -65,7 +63,6 @@
       "output": {
         "name": "TITLE$i"
       },
-      "description": "Saves the title.",
       "config": {
         "loop": {
           "index": "i",
@@ -77,28 +74,11 @@
     },
     {
       "command": "json_store_text",
-      "locator": "results.[$i].trackId",
+      "locator": "results.[$i].trackViewUrl",
       "input": "$JSON",
-      "output": {
-        "name": "ID$i"
-      },
-      "description": "Saves the id.",
-      "config": {
-        "loop": {
-          "index": "i",
-          "from": 0,
-          "to": 5,
-          "step": 1
-        }
-      }
-    },
-    {
-      "command": "store",
-      "input": "https://itunes.apple.com/search?media=podcast&limit=1&explicit=YES&term=$ID$i",
       "output": {
         "name": "URL$i"
       },
-      "description": "Saves the url.",
       "config": {
         "loop": {
           "index": "i",
@@ -111,15 +91,31 @@
   ],
   "url_steps": [
     {
+      "command": "regex",
+      "input": "$INPUT",
+      "expression": "([0-9]+)(?=\\?)",
+      "output": {
+        "name": "ID"
+      },
+      "description": "Extract the app id from the URL."
+    },
+    {
+      "command": "store",
+      "input": "https://itunes.apple.com/search?media=podcast&limit=6&explicit=YES&term=$ID",
+      "output":
+      {
+        "name": "APIURL"
+      }
+    },
+    {
       "command": "api_request",
       "output": {
         "name": "JSON"
       },
-      "url": "$INPUT",
+      "url": "$APIURL",
       "config": {
         "method": "GET"
-      },
-      "description": "Retrieves a JSON with output of apple"
+      }
     },
     {
       "command": "json_store_text",
@@ -129,8 +125,7 @@
         "name": "AUTHOR",
         "type": "string",
         "show": true
-      },
-      "description": "Saves the artist name"
+      }
     },
     {
       "command": "json_store_text",
@@ -140,8 +135,7 @@
         "name": "TITLE",
         "type": "string",
         "show": true
-      },
-      "description": "Saves the title first song"
+      }
     },
     {
       "command": "json_store_text",
@@ -151,8 +145,7 @@
         "name": "URL",
         "type": "string",
         "show": true
-      },
-      "description": "Saves the url."
+      }
     },
     {
       "command": "json_store_text",
@@ -162,8 +155,7 @@
         "name": "ALBUM",
         "type": "string",
         "show": true
-      },
-      "description": "Saves the album"
+      }
     },
     {
       "command": "json_store_text",
@@ -173,8 +165,7 @@
         "name": "COVER",
         "type": "string",
         "show": true
-      },
-      "description": "Saves the cover"
+      }
     },
     {
       "command": "json_store_text",
@@ -184,8 +175,7 @@
         "name": "PRICE",
         "type": "float",
         "show": true
-      },
-      "description": "Saves the price"
+      }
     },
     {
       "command": "json_store_text",
@@ -193,8 +183,7 @@
       "input": "$JSON",
       "output": {
         "name": "DATE"
-      },
-      "description": "Saves the release date"
+      }
     },
     {
       "command": "json_store_text",
@@ -204,8 +193,7 @@
         "name": "GENRE",
         "type": "string",
         "show": true
-      },
-      "description": "Saves the genre"
+      }
     },
     {
       "command": "regex",
