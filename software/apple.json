@@ -77,7 +77,7 @@
       "locator": "results.[$i].trackViewUrl",
       "input": "$JSON",
       "output": {
-        "name": "ID$i"
+        "name": "URL$i"
       },
       "config": {
         "loop": {
