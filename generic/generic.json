@@ -194,7 +194,7 @@
     },
     {
       "command": "store",
-      "input": "$FAVICON/favicon.ico",
+      "input": "https://www.google.com/s2/favicons?sz=32&domain=$FAVICON",
       "output": {
         "name": "FAVICON",
         "type": "string",
