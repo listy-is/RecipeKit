@@ -1,7 +1,7 @@
 {
   "recipe_shortcut": "apple_artists",
   "list_type": "artists",
-  "engine_version": 16,
+  "engine_version": 17,
   "title": "Apple Artists",
   "description": "Load artists from Apple",
   "urls": [
@@ -19,7 +19,7 @@
       "output": {
         "name": "JSON"
       },
-      "url": "https://itunes.apple.com/search?media=music&limit=6&entity=musicArtist&explicit=YES&term=$INPUT",
+      "url": "https://itunes.apple.com/search?media=music&limit=6&entity=musicArtist&explicit=YES&country=$REGION&term=$INPUT",
       "config": {
         "method": "GET"
       },

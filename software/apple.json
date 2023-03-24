@@ -1,7 +1,7 @@
 {
   "recipe_shortcut": "apple_software",
   "list_type": "software",
-  "engine_version": 16,
+  "engine_version": 17,
   "title": "Apple Software",
   "description": "Load software from Apple",
   "urls": [
@@ -19,7 +19,7 @@
       "output": {
         "name": "JSON"
       },
-      "url": "https://itunes.apple.com/search?media=software&limit=6&explicit=YES&term=$INPUT",
+      "url": "https://itunes.apple.com/search?media=software&limit=6&explicit=YES&country=$REGION&term=$INPUT",
       "config": {
         "method": "GET"
       }
