@@ -1,7 +1,7 @@
 {
   "recipe_shortcut": "openfoodfacts",
   "list_type": "food",
-  "engine_version": 16,
+  "engine_version": 17,
   "title": "Open Food Facts",
   "description": "Load groceries information from Open Food Facts.",
   "urls": [
@@ -14,7 +14,7 @@
   "autocomplete_steps": [
       {
         "command": "store",
-        "input": "https://$REGION.openfoodfacts.org/api/v2/product/$INPUT",
+        "input": "https://$SYSTEM_REGION.openfoodfacts.org/api/v2/product/$INPUT",
         "output": {
           "name": "URL1"
         },
@@ -65,7 +65,7 @@
       },
       {
         "command": "load",
-        "url": "https://$REGION.openfoodfacts.org/cgi/search.pl?action=process&search_terms=$INPUT&sort_by=unique_scans_n&page_size=6?sort_by=popularity",
+        "url": "https://$SYSTEM_REGION.openfoodfacts.org/cgi/search.pl?action=process&search_terms=$INPUT&sort_by=unique_scans_n&page_size=6?sort_by=popularity",
         "description": "Search food by name and sort by popularity.",
         "config": {
           "js": true,
@@ -165,7 +165,7 @@
       },
       {
         "command": "store",
-        "input": "https://$REGION.openfoodfacts.org/api/v0/product/$BARCODE.json",
+        "input": "https://$SYSTEM_REGION.openfoodfacts.org/api/v0/product/$BARCODE.json",
         "output": {
           "name": "APIURL"
         },
@@ -173,7 +173,7 @@
       },
       {
         "command": "store",
-        "input": "https://$REGION.openfoodfacts.org/product/$BARCODE/",
+        "input": "https://$SYSTEM_REGION.openfoodfacts.org/product/$BARCODE/",
         "output": {
           "name": "URL",
           "show": true
