@@ -19,7 +19,7 @@
       "output": {
         "name": "JSON"
       },
-      "url": "https://itunes.apple.com/search?media=music&limit=6&explicit=YES&entity=song&country=$REGION&term=$INPUT",
+      "url": "https://itunes.apple.com/search?media=music&limit=6&explicit=YES&entity=song&country=$SYSTEM_REGION&term=$INPUT",
       "config": {
         "method": "GET"
       }
