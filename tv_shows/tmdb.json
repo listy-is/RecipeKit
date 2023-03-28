@@ -19,7 +19,7 @@
     },
     {
       "command": "store_attribute",
-      "locator": "div.results > div:nth-child($i) div.image img",
+      "locator": "div.search_results.tv > div.results > div:nth-child($i) div.image img",
       "attribute_name": "src",
       "output": {
         "name": "COVER$i"
@@ -50,7 +50,7 @@
     },
     {
       "command": "store_text",
-      "locator": "div.results > div:nth-child($i) div.title h2",
+      "locator": "div.search_results.tv > div.results > div:nth-child($i) div.title h2",
       "output": {
         "name": "TITLE$i"
       },
@@ -65,7 +65,7 @@
     },
     {
       "command": "store_text",
-      "locator": "div.results > div:nth-child($i) div.title > span.release_date",
+      "locator": "div.search_results.tv > div.results > div:nth-child($i) div.title > span.release_date",
       "output": {
         "name": "YEAR$i"
       },
@@ -96,7 +96,7 @@
     },
     {
       "command": "store_attribute",
-      "locator": "div.results > div:nth-child($i) div.title a",
+      "locator": "div.search_results.tv > div.results > div:nth-child($i) div.title a",
       "attribute_name": "href",
       "output": {
         "name": "URL$i"
