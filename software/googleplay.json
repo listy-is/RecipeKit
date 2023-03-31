@@ -1,0 +1,258 @@
+{
+  "recipe_shortcut": "software_googleplay",
+  "list_type": "software",
+  "engine_version": 14,
+  "title": "Google Play Apps",
+  "description": "A recipe to get a list of apps",
+  "urls": [
+    "https://play.google.com/store"
+  ],
+  "headers": {
+    "Accept-Language": "en-UK,en",
+    "User-Agent": "Mozilla/5.0 (Linux; Android 10; Pixel 4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Mobile Safari/537.36"
+  },
+  "autocomplete_steps": [
+    {
+      "command": "load",
+      "url": "https://play.google.com/store/search?q=$INPUT&c=apps",
+      "description": "Searches apps by title"
+    },
+    {
+      "command": "store_attribute",
+      "locator": "[data-p]:nth-child(1) [role=listitem]:nth-child(1) a div:nth-child(2) img",
+      "attribute_name": "src",
+      "output": {
+        "name": "COVER1"
+      }
+    },
+    {
+      "command": "store_text",
+      "locator": "[data-p]:nth-child(1) [role=listitem]:nth-child(1) a div:nth-child(2) > div:nth-child(1) > span",
+      "output": {
+        "name": "TITLE1"
+      }
+    },
+    {
+      "command": "store_attribute",
+      "locator": "[data-p]:nth-child(1) [role=listitem]:nth-child(1) a[href*='/store/apps']",
+      "attribute_name": "href",
+      "output": {
+        "name": "URL1"
+      }
+    },
+    {
+      "command": "store",
+      "input": "https://play.google.com$URL1",
+      "output": {
+        "name": "URL1"
+      }
+    },
+    
+    {
+      "command": "store_attribute",
+      "locator": "[data-p]:nth-child(1) [role=listitem]:nth-child(2) a div:nth-child(2) img",
+      "attribute_name": "src",
+      "output": {
+        "name": "COVER2"
+      }
+    },
+    {
+      "command": "store_text",
+      "locator": "[data-p]:nth-child(1) [role=listitem]:nth-child(2) a div:nth-child(2) > div:nth-child(1) > span",
+      "output": {
+        "name": "TITLE2"
+      }
+    },
+    {
+      "command": "store_attribute",
+      "locator": "[data-p]:nth-child(1) [role=listitem]:nth-child(2) a[href*='/store/apps']",
+      "attribute_name": "href",
+      "output": {
+        "name": "URL2"
+      }
+    },
+    {
+      "command": "store",
+      "input": "https://play.google.com$URL2",
+      "output": {
+        "name": "URL2"
+      }
+    },
+    
+    {
+      "command": "store_attribute",
+      "locator": "[data-p]:nth-child(1) [role=listitem]:nth-child(3) a div:nth-child(2) img",
+      "attribute_name": "src",
+      "output": {
+        "name": "COVER3"
+      }
+    },
+    {
+      "command": "store_text",
+      "locator": "[data-p]:nth-child(1) [role=listitem]:nth-child(3) a div:nth-child(2) > div:nth-child(1) > span",
+      "output": {
+        "name": "TITLE3"
+      }
+    },
+    {
+      "command": "store_attribute",
+      "locator": "[data-p]:nth-child(1) [role=listitem]:nth-child(3) a[href*='/store/apps']",
+      "attribute_name": "href",
+      "output": {
+        "name": "URL3"
+      }
+    },
+    {
+      "command": "store",
+      "input": "https://play.google.com$URL3",
+      "output": {
+        "name": "URL3"
+      }
+    },
+    
+    {
+      "command": "store_attribute",
+      "locator": "[data-p]:nth-child(1) [role=listitem]:nth-child(4) a div:nth-child(2) img",
+      "attribute_name": "src",
+      "output": {
+        "name": "COVER4"
+      }
+    },
+    {
+      "command": "store_text",
+      "locator": "[data-p]:nth-child(1) [role=listitem]:nth-child(4) a div:nth-child(2) > div:nth-child(1) > span",
+      "output": {
+        "name": "TITLE4"
+      }
+    },
+    {
+      "command": "store_attribute",
+      "locator": "[data-p]:nth-child(1) [role=listitem]:nth-child(4) a[href*='/store/apps']",
+      "attribute_name": "href",
+      "output": {
+        "name": "URL4"
+      }
+    },
+    {
+      "command": "store",
+      "input": "https://play.google.com$URL4",
+      "output": {
+        "name": "URL4"
+      }
+    },
+    
+    {
+      "command": "store_attribute",
+      "locator": "[data-p]:nth-child(1) [role=listitem]:nth-child(5) a div:nth-child(2) img",
+      "attribute_name": "src",
+      "output": {
+        "name": "COVER5"
+      }
+    },
+    {
+      "command": "store_text",
+      "locator": "[data-p]:nth-child(1) [role=listitem]:nth-child(5) a div:nth-child(2) > div:nth-child(1) > span",
+      "output": {
+        "name": "TITLE5"
+      }
+    },
+    {
+      "command": "store_attribute",
+      "locator": "[data-p]:nth-child(1) [role=listitem]:nth-child(5) a[href*='/store/apps']",
+      "attribute_name": "href",
+      "output": {
+        "name": "URL5"
+      }
+    },
+    {
+      "command": "store",
+      "input": "https://play.google.com$URL5",
+      "output": {
+        "name": "URL5"
+      }
+    },
+    
+    {
+      "command": "store_attribute",
+      "locator": "[data-p]:nth-child(1) [role=listitem]:nth-child(6) a div:nth-child(2) img",
+      "attribute_name": "src",
+      "output": {
+        "name": "COVER6"
+      }
+    },
+    {
+      "command": "store_text",
+      "locator": "[data-p]:nth-child(1) [role=listitem]:nth-child(6) a div:nth-child(2) > div:nth-child(1) > span",
+      "output": {
+        "name": "TITLE1"
+      }
+    },
+    {
+      "command": "store_attribute",
+      "locator": "[data-p]:nth-child(1) [role=listitem]:nth-child(6) a[href*='/store/apps']",
+      "attribute_name": "href",
+      "output": {
+        "name": "URL6"
+      }
+    },
+    {
+      "command": "store",
+      "input": "https://play.google.com$URL6",
+      "output": {
+        "name": "URL6"
+      }
+    }
+  ],
+  "url_steps": [
+    {
+      "command": "load",
+      "url": "$INPUT",
+      "headers": {
+        "User-Agent": "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.113 Mobile Safari/537.36"
+      },
+      "description": "Load the url of the app"
+    },
+    {
+      "command": "store_url",
+      "output": {
+        "name": "URL"
+      },
+      "description": "Saves the URL of the detail"
+    },
+    {
+      "command": "store_text",
+      "locator": "h1[itemprop=name] span",
+      "output": {
+        "name": "TITLE"
+      },
+      "description": "Stores the name of the app"
+    },
+    {
+      "command": "store_text",
+      "locator": "[data-g-id=description",
+      "output": {
+        "name": "DESCRIPTION",
+        "type": "string",
+        "show": true
+      },
+      "description": "Saves the description"
+    },
+    {
+      "command": "store_text",
+      "locator": "[itemprop=starRating] [aria-label]",
+      "output": {
+        "name": "RATING"
+      },
+      "description": "Saves the rating of the app"
+    },
+    {
+      "command": "store_attribute",
+      "locator": "[itemprop=image]",
+      "attribute_name": "src",
+      "output": {
+        "name": "COVER"
+      },
+      "description": "Saves the image"
+    }
+  ]
+}
