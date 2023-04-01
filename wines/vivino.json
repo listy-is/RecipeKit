@@ -136,7 +136,7 @@
       "url": "$INPUT",
       "config": {
         "js": true,
-        "timeout": 5
+        "timeout": 2
       },
       "description": "Load the url of the wine"
     },
@@ -200,7 +200,7 @@
     },
     {
       "command": "store_text",
-      "locator": "#purchase-availability span",
+      "locator": "span[class*=purchaseAvailability__currentPrice]",
       "output": {
         "name": "PRICE",
         "type": "float",
