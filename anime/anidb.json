@@ -1,7 +1,7 @@
 {
   "recipe_shortcut": "anime_anidb",
   "list_type": "anime",
-  "engine_version": 16,
+  "engine_version": 18,
   "title": "Anidb",
   "description": "A recipe to get a list of animes from Anidb",
   "urls": [
@@ -12,109 +12,7 @@
     "Accept-Language": "en-UK,en",
     "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/98.0.4758.102 Safari/537.36"
   },
-  "autocomplete_steps": [
-    {
-      "command": "load",
-      "url": "https://anidb.net/anime/?adb.search=$INPUT",
-      "config": {
-        "js": true
-      },
-      "description": "Searches anime movies"
-    },
-    {
-      "command": "store_attribute",
-      "locator": "table.animelist tr:nth-child($i) td.anime.thumb img",
-      "attribute_name": "src",
-      "output": {
-        "name": "COVER$i"
-      },
-      "config": {
-        "loop": {
-          "index": "i",
-          "from": 1,
-          "to": 6,
-          "step": 1
-        }
-      }
-    },
-    {
-      "command": "store_text",
-      "locator": "table.animelist tr:nth-child($i) td.anime.name a",
-      "output": {
-        "name": "TITLE$i"
-      },
-      "config": {
-        "loop": {
-          "index": "i",
-          "from": 1,
-          "to": 6,
-          "step": 1
-        }
-      }
-    },
-    {
-      "command": "store_text",
-      "locator": "table.animelist tr:nth-child($i) td.airdate.date",
-      "output": {
-        "name": "SUBTITLE$i"
-      },
-      "config": {
-        "loop": {
-          "index": "i",
-          "from": 1,
-          "to": 6,
-          "step": 1
-        }
-      }
-    },
-    {
-      "command": "regex",
-      "input": "$SUBTITLE$i",
-      "expression": "\\d\\d\\d\\d",
-      "output": {
-        "name": "SUBTITLE$i"
-      },
-      "config": {
-        "loop": {
-          "index": "i",
-          "from": 1,
-          "to": 6,
-          "step": 1
-        }
-      }
-    },
-    {
-      "command": "store_attribute",
-      "locator": "table.animelist tr:nth-child($i) td.anime.name a",
-      "attribute_name": "href",
-      "output": {
-        "name": "URL$i"
-      },
-      "config": {
-        "loop": {
-          "index": "i",
-          "from": 1,
-          "to": 6,
-          "step": 1
-        }
-      }
-    },
-    {
-      "command": "store",
-      "input": "https://anidb.net$URL$i",
-      "output": {
-        "name": "URL$i"
-      },
-      "config": {
-        "loop": {
-          "index": "i",
-          "from": 1,
-          "to": 6,
-          "step": 1
-        }
-      }
-    }
-  ],
+  "autocomplete_steps": [],
   "url_steps": [
     {
       "command": "load",
@@ -124,15 +22,13 @@
       },
       "headers": {
         "User-Agent": "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.113 Mobile Safari/537.36"
-      },
-      "description": "Load the url of the movie"
+      }
     },
     {
       "command": "store_url",
       "output": {
         "name": "URL"
-      },
-      "description": "Saves the URL of the detail"
+      }
     },
     {
       "command": "store_text",
@@ -141,16 +37,14 @@
         "name": "TITLE",
         "type": "string",
         "show": true
-      },
-      "description": "Takes the title of the anime"
+      }
     },
     {
       "command": "store_text",
       "locator": "span[itemprop=startDate]",
       "output": {
         "name": "DATE"
-      },
-      "description": "Takes the title of the anime"
+      }
     },
     {
       "command": "regex",
@@ -160,8 +54,7 @@
         "name": "DATE",
         "type": "date",
         "format": "YYYY"
-      },
-      "description": "Takes the date of the anime"
+      }
     },
     {
       "command": "store_text",
@@ -170,8 +63,7 @@
         "name": "DESCRIPTION",
         "type": "string",
         "show": true
-      },
-      "description": "Saves the description"
+      }
     },
     {
       "command": "store_text",
@@ -180,8 +72,7 @@
         "name": "RATING",
         "type": "float",
         "show": true
-      },
-      "description": "Takes the rating"
+      }
     },
     {
       "command": "store_text",
@@ -190,8 +81,7 @@
         "name": "AUTHOR",
         "type": "string",
         "show": true
-      },
-      "description": "Saves the director of the movie"
+      }
     },
     {
       "command": "store_attribute",
@@ -201,8 +91,7 @@
         "name": "COVER",
         "type": "string",
         "show": true
-      },
-      "description": "Saves the image"
+      }
     },
     {
       "command": "store_text",
@@ -211,8 +100,7 @@
         "name": "EPISODES",
         "type": "integer",
         "show": true
-      },
-      "description": "Saves the episodes"
+      }
     }
   ]
 }

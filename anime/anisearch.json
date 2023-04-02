@@ -1,0 +1,266 @@
+{
+  "recipe_shortcut": "anime_anisearch",
+  "list_type": "anime",
+  "engine_version": 18,
+  "title": "Anisearch",
+  "description": "A recipe to get a list of animes from Anisearch",
+  "urls": [
+    "https://www.anisearch.com/",
+    "https://www.anisearch.es/",
+    "https://www.anisearch.jp/",
+    "https://www.anisearch.de/",
+    "https://www.anisearch.it/",
+    "https://www.anisearch.fr/"
+  ],
+  "locale": [
+    "COM",
+    "es_ES",
+    "jp_JP",
+    "de_DE",
+    "it_IT",
+    "fr_FR"
+  ],
+  "headers": {
+    "Accept-Language": "en-UK,en",
+    "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/98.0.4758.102 Safari/537.36"
+  },
+  "autocomplete_steps": [
+    {
+      "command": "load",
+      "url": "https://www.anisearch.$SYSTEM_REGION/anime/index?text=$INPUT&char=all&q=true&redirect_remove=1",
+      "config": {
+        "js": true
+      }
+    },
+    {
+      "command": "store_attribute",
+      "locator": "ul.gallery li:nth-child($i) a",
+      "attribute_name": "href",
+      "output": {
+        "name": "URL$i"
+      },
+      "config": {
+        "loop": {
+          "index": "i",
+          "from": 1,
+          "to": 6,
+          "step": 1
+        }
+      }
+    },
+    {
+      "command": "regex",
+      "input": "$URL$i",
+      "expression": "\\d+(?=\\,)",
+      "output": {
+        "name": "COVER$i"
+      },
+      "config": {
+        "loop": {
+          "index": "i",
+          "from": 1,
+          "to": 6,
+          "step": 1
+        }
+      }
+    },
+    {
+      "command": "store",
+      "input": "https://cdn.anisearch.com/images/anime/cover/full/0/$COVER$i.webp",
+      "output": {
+        "name": "COVER$i"
+      },
+      "config": {
+        "loop": {
+          "index": "i",
+          "from": 1,
+          "to": 6,
+          "step": 1
+        }
+      }
+    },
+    {
+      "command": "store_text",
+      "locator": "ul.gallery li:nth-child($i) span.title",
+      "output": {
+        "name": "TITLE$i"
+      },
+      "config": {
+        "loop": {
+          "index": "i",
+          "from": 1,
+          "to": 6,
+          "step": 1
+        }
+      }
+    },
+    {
+      "command": "store_text",
+      "locator": "ul.gallery li:nth-child($i) span.date",
+      "output": {
+        "name": "SUBTITLE$i"
+      },
+      "config": {
+        "loop": {
+          "index": "i",
+          "from": 1,
+          "to": 6,
+          "step": 1
+        }
+      }
+    },
+    {
+      "command": "regex",
+      "input": "$SUBTITLE$i",
+      "expression": "\\d\\d\\d\\d",
+      "output": {
+        "name": "SUBTITLE$i"
+      },
+      "config": {
+        "loop": {
+          "index": "i",
+          "from": 1,
+          "to": 6,
+          "step": 1
+        }
+      }
+    },
+    {
+      "command": "store",
+      "input": "https://www.anisearch.$SYSTEM_REGION/$URL$i",
+      "output": {
+        "name": "URL$i"
+      },
+      "config": {
+        "loop": {
+          "index": "i",
+          "from": 1,
+          "to": 6,
+          "step": 1
+        }
+      }
+    }
+  ],
+  "url_steps": [
+    {
+      "command": "load",
+      "url": "$INPUT",
+      "config": {
+        "js": true
+      },
+      "headers": {
+        "User-Agent": "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.113 Mobile Safari/537.36"
+      }
+    },
+    {
+      "command": "store_url",
+      "output": {
+        "name": "URL"
+      }
+    },
+    {
+      "command": "store_text",
+      "locator": "#htitle",
+      "output": {
+        "name": "TITLE",
+        "type": "string",
+        "show": true
+      }
+    },
+    {
+      "command": "regex",
+      "input": "$TITLE",
+      "expression": "\\d\\d\\d\\d",
+      "output": {
+        "name": "DATE",
+        "type": "date",
+        "format": "YYYY"
+      }
+    },
+    {
+      "command": "regex",
+      "input": "$TITLE",
+      "expression": "[^\\(]*",
+      "output": {
+        "name": "TITLE",
+        "type": "string",
+        "show": true
+      }
+    },
+    {
+      "command": "store_text",
+      "locator": "div.details-text:nth-child(1)",
+      "output": {
+        "name": "DESCRIPTION",
+        "type": "string",
+        "show": true
+      }
+    },
+    {
+      "command": "store_text",
+      "locator": "#ratingstats tr:nth-child(2) > td > b",
+      "output": {
+        "name": "RATING",
+        "type": "float",
+        "show": true
+      }
+    },
+    {
+      "command": "regex",
+      "input": "$RATING",
+      "expression": "\\d+\\.\\d+",
+      "output": {
+        "name": "RATING",
+        "type": "float",
+        "show": true
+      }
+    },
+    {
+      "command": "store_text",
+      "locator": "div.creators a:nth-child(2)",
+      "output": {
+        "name": "AUTHOR",
+        "type": "string",
+        "show": true
+      }
+    },
+    {
+      "command": "store_attribute",
+      "locator": "#details-cover",
+      "attribute_name": "src",
+      "output": {
+        "name": "COVER",
+        "type": "string",
+        "show": true
+      }
+    },
+    {
+      "command": "store_text",
+      "locator": "div.type",
+      "output": {
+        "name": "EPISODES",
+        "type": "integer",
+        "show": true
+      }
+    },
+    {
+      "command": "regex",
+      "input": "$EPISODES",
+      "expression": "\\d+",
+      "output": {
+        "name": "EPISODES",
+        "type": "integer",
+        "show": true
+      }
+    },
+    {
+      "command": "store_text",
+      "locator": "span.subheader",
+      "output": {
+        "name": "ORIGINAL_TITLE",
+        "type": "string",
+        "show": true
+      }
+    }
+  ]
+}
