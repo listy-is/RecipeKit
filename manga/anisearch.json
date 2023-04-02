@@ -1,16 +1,16 @@
 {
-  "recipe_shortcut": "anime_anisearch",
-  "list_type": "anime",
+  "recipe_shortcut": "manga_anisearch",
+  "list_type": "manga",
   "engine_version": 18,
   "title": "Anisearch",
-  "description": "A recipe to get a list of animes from Anisearch",
+  "description": "A recipe to get a list of manga from Anisearch",
   "urls": [
-    "https://www.anisearch.com/anime",
-    "https://www.anisearch.es/anime",
-    "https://www.anisearch.jp/anime",
-    "https://www.anisearch.de/anime",
-    "https://www.anisearch.it/anime",
-    "https://www.anisearch.fr/anime"
+    "https://www.anisearch.com/manga",
+    "https://www.anisearch.es/manga",
+    "https://www.anisearch.jp/manga",
+    "https://www.anisearch.de/manga",
+    "https://www.anisearch.it/manga",
+    "https://www.anisearch.fr/manga"
   ],
   "locale": [
     "COM",
@@ -27,7 +27,7 @@
   "autocomplete_steps": [
     {
       "command": "load",
-      "url": "https://www.anisearch.$SYSTEM_REGION/anime/index?text=$INPUT&char=all&q=true&redirect_remove=1",
+      "url": "https://www.anisearch.$SYSTEM_REGION/manga/index?text=$INPUT&char=all&q=true&redirect_remove=1",
       "config": {
         "js": true
       }
@@ -66,7 +66,7 @@
     },
     {
       "command": "store",
-      "input": "https://cdn.anisearch.com/images/anime/cover/full/0/$COVER$i.webp",
+      "input": "https://cdn.anisearch.com/images/manga/cover/full/0/$COVER$i.webp",
       "output": {
         "name": "COVER$i"
       },
@@ -217,7 +217,7 @@
     },
     {
       "command": "store_text",
-      "locator": "div.creators a:nth-child(2)",
+      "locator": "div.mangaka",
       "output": {
         "name": "AUTHOR",
         "type": "string",
@@ -236,19 +236,19 @@
     },
     {
       "command": "store_text",
-      "locator": "div.type",
+      "locator": "div.releases",
       "output": {
-        "name": "EPISODES",
+        "name": "VOLUMES",
         "type": "integer",
         "show": true
       }
     },
     {
       "command": "regex",
-      "input": "$EPISODES",
-      "expression": "\\d+",
+      "input": "$VOLUMES",
+      "expression": "\\d+(?=\\s\\/)",
       "output": {
-        "name": "EPISODES",
+        "name": "VOLUMES",
         "type": "integer",
         "show": true
       }
