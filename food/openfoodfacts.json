@@ -1,7 +1,7 @@
 {
   "recipe_shortcut": "openfoodfacts",
   "list_type": "food",
-  "engine_version": 17,
+  "engine_version": 18,
   "title": "Open Food Facts",
   "description": "Load groceries information from Open Food Facts.",
   "urls": [
