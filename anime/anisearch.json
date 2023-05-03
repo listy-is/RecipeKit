@@ -37,7 +37,7 @@
       "locator": "ul.gallery li:nth-child($i) a",
       "attribute_name": "style",
       "output": {
-        "name": "URL$i"
+        "name": "BACKGROUND$i"
       },
       "config": {
         "loop": {
@@ -50,7 +50,7 @@
     },
     {
       "command": "regex",
-      "input": "$URL$i",
+      "input": "$BACKGROUND$i",
       "expression": "\\d+\\/\\d+",
       "output": {
         "name": "COVER$i"
@@ -115,6 +115,22 @@
       "expression": "\\d\\d\\d\\d",
       "output": {
         "name": "SUBTITLE$i"
+      },
+      "config": {
+        "loop": {
+          "index": "i",
+          "from": 1,
+          "to": 6,
+          "step": 1
+        }
+      }
+    },
+    {
+      "command": "store_attribute",
+      "locator": "ul.gallery li:nth-child($i) a",
+      "attribute_name": "href",
+      "output": {
+        "name": "URL$i"
       },
       "config": {
         "loop": {
