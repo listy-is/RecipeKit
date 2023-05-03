@@ -35,7 +35,7 @@
     {
       "command": "store_attribute",
       "locator": "ul.gallery li:nth-child($i) a",
-      "attribute_name": "href",
+      "attribute_name": "style",
       "output": {
         "name": "URL$i"
       },
@@ -51,7 +51,7 @@
     {
       "command": "regex",
       "input": "$URL$i",
-      "expression": "\\d+(?=\\,)",
+      "expression": "\\d+\\/\\d+",
       "output": {
         "name": "COVER$i"
       },
@@ -66,7 +66,7 @@
     },
     {
       "command": "store",
-      "input": "https://cdn.anisearch.com/images/manga/cover/full/0/$COVER$i.webp",
+      "input": "https://cdn.anisearch.com/images/manga/cover/full/$COVER$i.webp",
       "output": {
         "name": "COVER$i"
       },
