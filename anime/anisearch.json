@@ -217,7 +217,6 @@
       "locator": "#ratingstats tr:nth-child(2) > td > b",
       "output": {
         "name": "RATING",
-        "type": "float",
         "show": true
       }
     },
@@ -255,7 +254,6 @@
       "locator": "div.type",
       "output": {
         "name": "EPISODES",
-        "type": "integer",
         "show": true
       }
     },
