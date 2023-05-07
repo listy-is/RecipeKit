@@ -206,7 +206,7 @@
     },
     {
       "command": "store_text",
-      "locator": "div.details-text",
+      "locator": "div.details-text:first-of-type",
       "output": {
         "name": "DESCRIPTION",
         "type": "string",
@@ -234,7 +234,7 @@
     },
     {
       "command": "store_text",
-      "locator": "div.mangaka",
+      "locator": "div.mangaka > span:nth-of-type(2)",
       "output": {
         "name": "AUTHOR",
         "type": "string",
@@ -253,17 +253,16 @@
     },
     {
       "command": "store_text",
-      "locator": "div.releases",
+      "locator": "ul.infoblock > li > div.releases",
       "output": {
         "name": "VOLUMES",
-        "type": "integer",
         "show": true
       }
     },
     {
       "command": "regex",
       "input": "$VOLUMES",
-      "expression": "\\d+(?=\\s\\/)",
+      "expression": "\\d+(?=\\+?\\s\\/)",
       "output": {
         "name": "VOLUMES",
         "type": "integer",
