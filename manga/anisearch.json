@@ -43,7 +43,23 @@
         "loop": {
           "index": "i",
           "from": 1,
-          "to": 3,
+          "to": 6,
+          "step": 1
+        }
+      }
+    },
+    {
+      "command": "store_attribute",
+      "locator": "ul.gallery li:nth-child($i) a",
+      "attribute_name": "data-bg",
+      "output": {
+        "name": "BACKGROUND$i"
+      },
+      "config": {
+        "loop": {
+          "index": "i",
+          "from": 1,
+          "to": 6,
           "step": 1
         }
       }
@@ -59,22 +75,6 @@
         "loop": {
           "index": "i",
           "from": 1,
-          "to": 3,
-          "step": 1
-        }
-      }
-    },
-    {
-      "command": "store_attribute",
-      "locator": "ul.gallery li:nth-child($i) a",
-      "attribute_name": "data-bg",
-      "output": {
-        "name": "COVER$i"
-      },
-      "config": {
-        "loop": {
-          "index": "i",
-          "from": 4,
           "to": 6,
           "step": 1
         }
@@ -90,21 +90,6 @@
         "loop": {
           "index": "i",
           "from": 1,
-          "to": 3,
-          "step": 1
-        }
-      }
-    },
-    {
-      "command": "store",
-      "input": "https://cdn.anisearch.com/images/$COVER$i",
-      "output": {
-        "name": "COVER$i"
-      },
-      "config": {
-        "loop": {
-          "index": "i",
-          "from": 4,
           "to": 6,
           "step": 1
         }
