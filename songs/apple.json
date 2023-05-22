@@ -6,6 +6,8 @@
   "description": "Load songs from Apple",
   "urls": [
     "https://itunes.apple.com/search?media=music",
+    "https://itunes.apple.com",
+    "https://music.apple.com",
     "itunes.apple.com",
     "music.apple.com"
   ],
@@ -93,7 +95,7 @@
     {
       "command": "regex",
       "input": "$INPUT",
-      "expression": "(?<=\\=)([0-9]+)",
+      "expression": "id([0-9]+)|term=([0-9]+)",
       "output": {
         "name": "ID"
       }
