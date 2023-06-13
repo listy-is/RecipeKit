@@ -5,6 +5,7 @@
   "title": "Apple Podcasts",
   "description": "Load podcasts from Apple",
   "urls": [
+    "https://podcasts.apple.com/",
     "https://itunes.apple.com/search?media=podcast",
     "itunes.apple.com",
     "music.apple.com"
