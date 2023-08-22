@@ -7,7 +7,10 @@
   "urls": [
     "https://mobile.twitter.com",
     "https://twitter.com",
-    "twitter.com"
+    "twitter.com",
+    "https://mobile.x.com",
+    "https://x.com",
+    "x.com"
   ],
   "headers": null,
   "autocomplete_steps": null,
