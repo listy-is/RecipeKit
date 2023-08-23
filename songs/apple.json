@@ -6,7 +6,9 @@
   "description": "Load songs from Apple",
   "urls": [
     "https://itunes.apple.com/search?media=music",
-    "https://itunes.apple.com"
+    "https://itunes.apple.com",
+    "https://music.apple.com/",
+    "music.apple.com"
   ],
   "headers": {
     "Accept-Language": "en-UK,en",
