@@ -8,14 +8,13 @@
     "https://itunes.apple.com/search?media=music&entity=album",
     "https://itunes.apple.com",
     "itunes.apple.com",
-    "music.apple.com/es/album",
-    "music.apple.com/es/album/",
-    "music.apple.com/it/album",
-    "music.apple.com/fr/album",
-    "music.apple.com/jp/album",
-    "music.apple.com/us/album",
-    "music.apple.com/gb/album",
-    "music.apple.com/en/album"
+    "https://music.apple.com/es/album",
+    "https://music.apple.com/it/album",
+    "https://music.apple.com/fr/album",
+    "https://music.apple.com/jp/album",
+    "https://music.apple.com/us/album",
+    "https://music.apple.com/gb/album",
+    "https://music.apple.com/en/album"
   ],
   "headers": {
     "Accept-Language": "en-UK,en",
