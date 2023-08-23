@@ -6,7 +6,9 @@
   "description": "Load artists from Apple",
   "urls": [
     "https://itunes.apple.com/search?media=music&entity=musicArtist",
-    "itunes.apple.com"
+    "itunes.apple.com",
+    "https://music.apple.com/",
+    "music.apple.com"
   ],
   "headers": {
     "Accept-Language": "en-UK,en",
