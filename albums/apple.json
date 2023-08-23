@@ -7,9 +7,14 @@
   "urls": [
     "https://itunes.apple.com/search?media=music&entity=album",
     "https://itunes.apple.com",
-    "https://music.apple.com",
     "itunes.apple.com",
-    "music.apple.com"
+    "https://music.apple.com/es/album",
+    "https://music.apple.com/it/album",
+    "https://music.apple.com/fr/album",
+    "https://music.apple.com/jp/album",
+    "https://music.apple.com/us/album",
+    "https://music.apple.com/gb/album",
+    "https://music.apple.com/en/album"
   ],
   "headers": {
     "Accept-Language": "en-UK,en",
