@@ -6,7 +6,15 @@
   "description": "Load albums from Apple",
   "urls": [
     "https://music.apple.com/",
-    "music.apple.com"
+    "music.apple.com",
+    "music.apple.com/es/album",
+    "music.apple.com/es/album/",
+    "music.apple.com/it/album",
+    "music.apple.com/fr/album",
+    "music.apple.com/jp/album",
+    "music.apple.com/us/album",
+    "music.apple.com/gb/album",
+    "music.apple.com/en/album"
   ],
   "headers": {
     "Accept-Language": "en-UK,en",

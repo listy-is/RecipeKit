@@ -3,7 +3,7 @@
   "list_type": "manga",
   "engine_version": 18,
   "title": "Anisearch",
-  "description": "A recipe to get a list of manga from Anisearch",
+  "description": "A recipe to get a list of manga from Anisearc",
   "urls": [
     "https://www.anisearch.com/manga",
     "https://www.anisearch.es/manga",
