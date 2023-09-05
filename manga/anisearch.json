@@ -34,7 +34,7 @@
     },
     {
       "command": "store_attribute",
-      "locator": "ul.gallery li:nth-child($i) a",
+      "locator": "ul.covers li:nth-child($i) a",
       "attribute_name": "style",
       "output": {
         "name": "BACKGROUND$i"
@@ -50,7 +50,7 @@
     },
     {
       "command": "store_attribute",
-      "locator": "ul.gallery li:nth-child($i) a",
+      "locator": "ul.covers li:nth-child($i) a",
       "attribute_name": "data-bg",
       "output": {
         "name": "BACKGROUND$i"
@@ -97,7 +97,7 @@
     },
     {
       "command": "store_text",
-      "locator": "ul.gallery li:nth-child($i) span.title",
+      "locator": "ul.covers li:nth-child($i) span.title",
       "output": {
         "name": "TITLE$i"
       },
@@ -112,7 +112,7 @@
     },
     {
       "command": "store_text",
-      "locator": "ul.gallery li:nth-child($i) span.date",
+      "locator": "ul.covers li:nth-child($i) span.date",
       "output": {
         "name": "SUBTITLE$i"
       },
@@ -143,7 +143,7 @@
     },
     {
       "command": "store_attribute",
-      "locator": "ul.gallery li:nth-child($i) a",
+      "locator": "ul.covers li:nth-child($i) a",
       "attribute_name": "href",
       "output": {
         "name": "URL$i"

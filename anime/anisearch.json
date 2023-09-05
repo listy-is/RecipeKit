@@ -206,7 +206,8 @@
       "output": {
         "name": "DATE",
         "type": "date",
-        "format": "YYYY"
+        "format": "YYYY",
+        "show": true
       }
     },
     {
@@ -233,6 +234,7 @@
       "locator": "#ratingstats tr:nth-child(2) > td > b",
       "output": {
         "name": "RATING",
+        "type": "float",
         "show": true
       }
     },
