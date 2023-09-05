@@ -5,8 +5,6 @@
   "title": "Apple Albums",
   "description": "Load albums from Apple",
   "urls": [
-    "https://itunes.apple.com/search?media=music&entity=album",
-    "https://itunes.apple.com",
     "https://music.apple.com/",
     "music.apple.com"
   ],
