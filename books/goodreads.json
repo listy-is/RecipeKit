@@ -116,7 +116,7 @@
       "url": "$INPUT",
       "config": {
         "js": true,
-        "timeout": 1000
+        "timeout": 4000
       },
       "description": "Loads the book detail"
     },
