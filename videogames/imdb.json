@@ -32,7 +32,7 @@
         "loop": {
           "index": "i",
           "from": 1,
-          "to": 6,
+          "to": 5,
           "step": 1
         }
       }
