@@ -23,7 +23,7 @@
     },
     {
       "command": "store_attribute",
-      "locator": "ul.ipc-metadata-list > li:nth-child($i) > div.lister-item-image img",
+      "locator": "ul.ipc-metadata-list > li:nth-child($i) img",
       "attribute_name": "src",
       "output": {
         "name": "COVER$i"
@@ -39,7 +39,7 @@
     },
     {
       "command": "store_text",
-      "locator": "#main > div > div.lister.list.detail.sub-list > div > div:nth-child($i) > div.lister-item-content > h3",
+      "locator": "ul.ipc-metadata-list > li:nth-child($i) h3",
       "output": {
         "name": "TITLE$i"
       },
@@ -47,14 +47,29 @@
         "loop": {
           "index": "i",
           "from": 1,
-          "to": 6,
+          "to": 5,
+          "step": 1
+        }
+      }
+    },
+    {
+      "command": "store_text",
+      "locator": "ul.ipc-metadata-list > li:nth-child($i) div.dli-title-metadata",
+      "output": {
+        "name": "SUBTITLE$i"
+      },
+      "config": {
+        "loop": {
+          "index": "i",
+          "from": 1,
+          "to": 5,
           "step": 1
         }
       }
     },
     {
       "command": "regex",
-      "input": "$TITLE$i",
+      "input": "$SUBTITLE$i",
       "expression": "(\\d\\d\\d\\d)",
       "output": {
         "name": "SUBTITLE$i"
@@ -63,31 +78,14 @@
         "loop": {
           "index": "i",
           "from": 1,
-          "to": 6,
+          "to": 5,
           "step": 1
         }
       }
     },
     {
-      "command": "regex",
-      "input": "$TITLE$i",
-      "expression": "(?<=\\.\\s).+?(?=\\s\\(|$)",
-      "output": {
-        "name": "TITLE$i"
-      },
-      "config": {
-        "loop": {
-          "index": "i",
-          "from": 1,
-          "to": 6,
-          "step": 1
-        }
-      },
-      "description": "Applies a regular expression to get just the title without the ennum"
-    },
-    {
       "command": "store_attribute",
-      "locator": "#main > div > div.lister.list.detail.sub-list > div > div:nth-child($i) > div.lister-item-content > h3 > a",
+      "locator": "ul.ipc-metadata-list > li:nth-child($i) a.ipc-title-link-wrapper",
       "attribute_name": "href",
       "output": {
         "name": "URL$i"
@@ -96,7 +94,7 @@
         "loop": {
           "index": "i",
           "from": 1,
-          "to": 6,
+          "to": 5,
           "step": 1
         }
       }
@@ -111,7 +109,7 @@
         "loop": {
           "index": "i",
           "from": 1,
-          "to": 6,
+          "to": 5,
           "step": 1
         }
       }
