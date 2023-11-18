@@ -14,7 +14,7 @@
   "autocomplete_steps": [
     {
       "command": "load",
-      "url": "https://www.imdb.com/search/title/?title=$INPUT&title_type=video_game",
+      "url": "https://www.imdb.com/find/?q=$INPUT&s=tt&ttype=vg",
       "config": {
         "js": true,
         "timeout": 1
@@ -32,14 +32,14 @@
         "loop": {
           "index": "i",
           "from": 1,
-          "to": 5,
+          "to": 6,
           "step": 1
         }
       }
     },
     {
       "command": "store_text",
-      "locator": "ul.ipc-metadata-list > li:nth-child($i) h3",
+      "locator": "ul.ipc-metadata-list > li:nth-child($i) a",
       "output": {
         "name": "TITLE$i"
       },
@@ -47,14 +47,14 @@
         "loop": {
           "index": "i",
           "from": 1,
-          "to": 5,
+          "to": 6,
           "step": 1
         }
       }
     },
     {
       "command": "store_text",
-      "locator": "ul.ipc-metadata-list > li:nth-child($i) div.dli-title-metadata",
+      "locator": "ul.ipc-metadata-list > li:nth-child($i) span.ipc-metadata-list-summary-item__li",
       "output": {
         "name": "SUBTITLE$i"
       },
@@ -62,7 +62,7 @@
         "loop": {
           "index": "i",
           "from": 1,
-          "to": 5,
+          "to": 6,
           "step": 1
         }
       }
@@ -78,14 +78,14 @@
         "loop": {
           "index": "i",
           "from": 1,
-          "to": 5,
+          "to": 6,
           "step": 1
         }
       }
     },
     {
       "command": "store_attribute",
-      "locator": "ul.ipc-metadata-list > li:nth-child($i) a.ipc-title-link-wrapper",
+      "locator": "ul.ipc-metadata-list > li:nth-child($i) a",
       "attribute_name": "href",
       "output": {
         "name": "URL$i"
@@ -94,7 +94,7 @@
         "loop": {
           "index": "i",
           "from": 1,
-          "to": 5,
+          "to": 6,
           "step": 1
         }
       }
@@ -109,7 +109,7 @@
         "loop": {
           "index": "i",
           "from": 1,
-          "to": 5,
+          "to": 6,
           "step": 1
         }
       }
