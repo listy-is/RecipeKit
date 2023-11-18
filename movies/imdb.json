@@ -90,7 +90,7 @@
     },
     {
       "command": "store_text",
-      "locator": "li[data-testid*=title-pc-principal-credit] > div > ul >li",
+      "locator": "ul.title-pc-list > li[data-testid*=title-pc-principal-credit]:nth-child(1) > div > ul >li",
       "output": {
         "name": "AUTHOR",
         "type": "string",
