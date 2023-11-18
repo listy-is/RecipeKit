@@ -23,7 +23,7 @@
     },
     {
       "command": "store_attribute",
-      "locator": "#main > div > div.lister.list.detail.sub-list > div > div:nth-child($i) > div.lister-item-image img",
+      "locator": "ul.ipc-metadata-list > li:nth-child($i) > div.lister-item-image img",
       "attribute_name": "src",
       "output": {
         "name": "COVER$i"
