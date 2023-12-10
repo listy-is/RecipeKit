@@ -27,7 +27,7 @@
   "autocomplete_steps": [
     {
       "command": "load",
-      "url": "https://www.anisearch.$SYSTEM_REGION/manga/index?text=$INPUT&char=all",
+      "url": "https://www.anisearch.$SYSTEM_REGION/manga/index?text=$INPUT&char=all&kev=c35be7c2",
       "config": {
         "js": true
       }
