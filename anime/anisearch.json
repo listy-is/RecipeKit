@@ -64,8 +64,11 @@
       "url": "https://www.anisearch.$SYSTEM_REGION/anime/index?text=$INPUT&char=all&$SEARCHKEY=$SEARCHVALUE",
       "config": {
         "js": true,
+        "timeout": 10,
         "headers": {
-          "Cookie": "searchbutton=1; $SEARCHKEY=$SEARCHVALUE"
+          "Accept-Language": "en-UK,en",
+          "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/98.0.4758.102 Safari/537.36",
+          "Cookie": "$SEARCHKEY=$SEARCHVALUE"
         }
       }
     },
