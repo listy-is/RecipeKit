@@ -28,9 +28,49 @@
   "autocomplete_steps": [
     {
       "command": "load",
-      "url": "https://www.anisearch.$SYSTEM_REGION/manga/index?text=$INPUT&char=all&kev=c35be7c2",
+      "url": "https://www.anisearch.$SYSTEM_REGION",
       "config": {
         "js": true
+      }
+    },
+    {
+      "command": "store_attribute",
+      "locator": "#footer",
+      "attribute_name": "data-search",
+      "output": {
+        "name": "SEARCH",
+        "type": "string"
+      }
+    },
+    {
+      "command": "regex",
+      "input": "$SEARCH",
+      "expression": "^([^,]*)",
+      "output": {
+        "name": "KEYSEARCH",
+        "type": "string"
+      }
+    },
+    {
+      "command": "regex",
+      "input": "$SEARCH",
+      "expression": "(?<=,)[^,]*",
+      "output": {
+        "name": "VALUESEARCH",
+        "type": "string"
+      }
+    },
+    {
+      "command": "load",
+      "url": "https://www.anisearch.$SYSTEM_REGION/manga/index?text=$INPUT&char=all&$KEYSEARCH=$VALUESEARCH",
+      "config": {
+        "js": true,
+        "timeout": 1,
+        "headers": {
+          "Accept-Language": "en-UK,en",
+          "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/98.0.4758.102 Safari/537.36",
+          "Cookie": "$KEYSEARCH=$VALUESEARCH"
+        }
       }
     },
     {
