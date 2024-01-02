@@ -250,7 +250,7 @@
     },
     {
       "command": "store_text",
-      "locator": "ol.people > li:nth-child(1) > p > a",
+      "locator": "div.header_info > ol.people > li:nth-child(1) > p > a",
       "output": {
         "name": "AUTHOR",
         "type": "string",
