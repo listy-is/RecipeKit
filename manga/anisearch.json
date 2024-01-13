@@ -90,25 +90,9 @@
       }
     },
     {
-      "command": "store_attribute",
-      "locator": "ul.covers li:nth-child($i) a",
-      "attribute_name": "data-bg",
-      "output": {
-        "name": "BACKGROUND$i"
-      },
-      "config": {
-        "loop": {
-          "index": "i",
-          "from": 1,
-          "to": 6,
-          "step": 1
-        }
-      }
-    },
-    {
       "command": "regex",
       "input": "$BACKGROUND$i",
-      "expression": "\\d+\\/\\d+",
+      "expression": "\\d+\\/\\d+\\_\\d+",
       "output": {
         "name": "COVER$i"
       },
@@ -123,7 +107,7 @@
     },
     {
       "command": "store",
-      "input": "https://cdn.anisearch.com/images/manga/cover/full/$COVER$i.webp",
+      "input": "https://cdn.anisearch.com/images/manga/cover/$COVER$i.webp",
       "output": {
         "name": "COVER$i"
       },
