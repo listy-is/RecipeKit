@@ -1,7 +1,7 @@
 {
   "recipe_shortcut": "manga_anisearch",
   "list_type": "manga",
-  "engine_version": 18,
+  "engine_version": 19,
   "title": "Anisearch",
   "description": "A recipe to get a list of manga from Anisearc",
   "urls": [
@@ -154,21 +154,6 @@
       "command": "regex",
       "input": "$SUBTITLE$i",
       "expression": "\\d\\d\\d\\d",
-      "output": {
-        "name": "SUBTITLE$i"
-      },
-      "config": {
-        "loop": {
-          "index": "i",
-          "from": 1,
-          "to": 6,
-          "step": 1
-        }
-      }
-    },
-    {
-      "command": "store",
-      "input": "https://cdn.anisearch.com/images/manga/cover/$COVER$i.webp",
       "output": {
         "name": "SUBTITLE$i"
       },
