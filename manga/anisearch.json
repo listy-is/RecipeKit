@@ -167,6 +167,21 @@
       }
     },
     {
+      "command": "store",
+      "input": "https://cdn.anisearch.com/images/manga/cover/$COVER$i.webp",
+      "output": {
+        "name": "SUBTITLE$i"
+      },
+      "config": {
+        "loop": {
+          "index": "i",
+          "from": 1,
+          "to": 6,
+          "step": 1
+        }
+      }
+    },
+    {
       "command": "store_attribute",
       "locator": "ul.covers li:nth-child($i) a",
       "attribute_name": "href",
