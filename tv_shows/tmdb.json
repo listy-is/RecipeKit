@@ -15,7 +15,11 @@
     {
       "command": "load",
       "url": "https://www.themoviedb.org/search/tv?language=$SYSTEM_LANGUAGE&query=$INPUT",
-      "description": "Searches movies by title"
+      "description": "Searches movies by title",
+      "config": {
+        "js": true,
+        "timeout": 3
+      }
     },
     {
       "command": "store_attribute",
