@@ -15,31 +15,12 @@
     {
       "command": "load",
       "url": "https://www.themoviedb.org/search/tv?language=$SYSTEM_LANGUAGE&query=$INPUT",
-      "description": "Searches movies by title",
-      "config": {
-        "js": true,
-        "timeout": 3
-      }
+      "description": "Searches movies by title"
     },
     {
       "command": "store_attribute",
       "locator": "div.search_results.tv > div.results > div:nth-child($i) div.image img",
       "attribute_name": "src",
-      "output": {
-        "name": "COVER$i"
-      },
-      "config": {
-        "loop": {
-          "index": "i",
-          "from": 1,
-          "to": 6,
-          "step": 1
-        }
-      }
-    },
-    {
-      "command": "store",
-      "input": "https://www.themoviedb.org$COVER$i",
       "output": {
         "name": "COVER$i"
       },
