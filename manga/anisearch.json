@@ -22,8 +22,7 @@
   ],
   "headers": {
     "Accept-Language": "en-UK,en",
-    "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/98.0.4758.102 Safari/537.36",
-    "Cookie": "searchbutton=1; kev=c35be7c2"
+    "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/98.0.4758.102 Safari/537.36"
   },
   "autocomplete_steps": [
     {
@@ -77,6 +76,22 @@
       "command": "store_attribute",
       "locator": "ul.covers li:nth-child($i) a",
       "attribute_name": "style",
+      "output": {
+        "name": "BACKGROUND$i"
+      },
+      "config": {
+        "loop": {
+          "index": "i",
+          "from": 1,
+          "to": 6,
+          "step": 1
+        }
+      }
+    },
+    {
+      "command": "store_attribute",
+      "locator": "ul.covers li:nth-child($i) a",
+      "attribute_name": "data-bg",
       "output": {
         "name": "BACKGROUND$i"
       },
