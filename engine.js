@@ -329,7 +329,7 @@ async function loadRecipe(recipePath) {
   return JSON.parse(recipeContent);
 }
 
-async function main() {
+async function parseArguments() {
   const args = Bun.argv.slice(2);
   const parsedArgs = {};
   let isDebug = false;
@@ -343,31 +343,32 @@ async function main() {
     }
   }
 
-  // Set the debug flag for the logger
-  logger.isDebug = isDebug;
-  console.log('Logger debug flag:', logger.isDebug);
+  return { parsedArgs, isDebug };
+}
 
+function validateArguments(parsedArgs) {
   if (!parsedArgs.recipe || !parsedArgs.type) {
     logger.error('Usage: bun run engine.js --recipe <recipe_path> --type <step_type> [--input <input>]');
     process.exit(1);
   }
+}
 
-  const { recipe: recipePath, type: stepType, input = '' } = parsedArgs;
-
-  const additionalOptions = {
+function getAdditionalOptions(parsedArgs) {
+  return {
     debug: parsedArgs.debug === 'true',
     timeout: parseInt(parsedArgs.timeout) || 30000,
     userAgent: parsedArgs.userAgent || process.env.USER_AGENT
   };
+}
 
-  let engine;
+async function executeRecipe(recipePath, stepType, input, additionalOptions) {
+  const recipe = await loadRecipe(recipePath);
+  logger.log('Loaded recipe:', JSON.stringify(recipe, null, 2));
+
+  const engine = new RecipeEngine(additionalOptions);
+  await engine.initialize();
+
   try {
-    const recipe = await loadRecipe(recipePath);
-    logger.log('Loaded recipe:', JSON.stringify(recipe, null, 2));
-
-    engine = new RecipeEngine(additionalOptions);
-    await engine.initialize();
-
     const stepTypeMap = {
       'autocomplete': 'autocomplete_steps',
       'url': 'url_steps'
@@ -378,6 +379,23 @@ async function main() {
     results.forEach((result, index) => {
       console.log(`Result ${index + 1}:`, result);
     });
+  } finally {
+    await engine.close();
+  }
+}
+
+async function main() {
+  const { parsedArgs, isDebug } = await parseArguments();
+  logger.isDebug = isDebug;
+  console.log('Logger debug flag:', logger.isDebug);
+
+  validateArguments(parsedArgs);
+
+  const { recipe: recipePath, type: stepType, input = '' } = parsedArgs;
+  const additionalOptions = getAdditionalOptions(parsedArgs);
+
+  try {
+    await executeRecipe(recipePath, stepType, input, additionalOptions);
   } catch (error) {
     if (error instanceof SyntaxError) {
       logger.error('Error parsing recipe JSON:', error);
@@ -385,10 +403,6 @@ async function main() {
       logger.error('Error executing recipe steps:', error);
     } else {
       logger.error('Unexpected error:', error);
-    }
-  } finally {
-    if (engine) {
-      await engine.close();
     }
   }
 }
