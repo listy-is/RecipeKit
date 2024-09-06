@@ -2,8 +2,8 @@ import { launch } from 'puppeteer';
 import { readFile } from 'fs/promises';
 
 class Logger {
-  constructor() {
-    this.isDebug = process.env.DEBUG === 'true';
+  constructor(isDebug = false) {
+    this.isDebug = isDebug;
   }
 
   log(...args) {
@@ -73,7 +73,15 @@ class VariableManager {
   }
 
   get(key) {
-    return this.variables[key] || process.env[key];
+    const value = this.variables[key] || process.env[key];
+    logger.log(`Getting variable: ${key}, Value: ${value}`);
+    return value;
+  }
+
+  updateFromResult(result) {
+    for (const [key, value] of Object.entries(result)) {
+      this.set(key, value);
+    }
   }
 
   replacePlaceholders(str, input, loopIndex) {
@@ -94,6 +102,7 @@ class StepExecutor {
   async execute(step, input, loopIndex) {
     logger.log(`Executing step: ${step.command}`);
     const replacedStep = this.replaceStepPlaceholders(step, input, loopIndex);
+    replacedStep.loopIndex = loopIndex;
     const result = {};
 
     switch (replacedStep.command) {
@@ -106,12 +115,28 @@ class StepExecutor {
       case 'store_attribute':
         await this.executeStoreAttributeStep(replacedStep, result);
         break;
+      case 'regex':
+        await this.executeRegexStep(replacedStep, result);
+        break;
+      case 'store':
+        await this.executeStoreStep(replacedStep, result);
+        break;
+      case 'api_request':
+        await this.executeApiRequestStep(replacedStep, result);
+        break;
+      case 'json_store_text':
+        await this.executeJsonStoreTextStep(replacedStep, result);
+        break;
+      case 'url_encode':
+        await this.executeUrlEncodeStep(replacedStep, result);
+        break;
       // Add other step types here
       default:
         logger.warn(`Unknown step command: ${replacedStep.command}`);
     }
 
     logger.log(`Step result:`, result);
+    this.variableManager.updateFromResult(result);
     return result;
   }
 
@@ -153,17 +178,89 @@ class StepExecutor {
           (el, attr) => el.getAttribute(attr),
           step.attribute_name
         );
-        result[step.output.name] = attributeValue || '';
+        const outputName = step.output.name.replace('$i', step.loopIndex || '');
+        result[outputName] = attributeValue || '';
       }
+    }
+  }
+
+  async executeRegexStep(step, result) {
+    if (step.input && step.expression && step.output) {
+      const inputKey = step.input.replace('$', '');
+      const input = this.variableManager.get(inputKey);
+      logger.log(`Regex step - Input key: ${inputKey}, Input value: ${input}`);
+      
+      if (input === undefined || input === null) {
+        logger.warn(`Input for regex step is undefined or null: ${inputKey}`);
+        return;
+      }
+      
+      const regex = new RegExp(step.expression);
+      const match = input.toString().match(regex);
+      if (match && match[1]) {
+        result[step.output.name] = match[1];
+        logger.log(`Regex match found: ${match[1]}`);
+      } else {
+        logger.warn(`No regex match found for expression: ${step.expression}`);
+      }
+    } else {
+      logger.warn('Regex step is missing required properties');
+    }
+  }
+
+  async executeStoreStep(step, result) {
+    if (step.input && step.output) {
+      let inputValue = step.input;
+      
+      // Check if the input contains any variables to replace
+      const variableMatches = inputValue.match(/\$([A-Z0-9_]+)/g);
+      if (variableMatches) {
+        for (const match of variableMatches) {
+          const variableName = match.substring(1); // Remove the $ prefix
+          const variableValue = this.variableManager.get(variableName);
+          if (variableValue !== undefined) {
+            inputValue = inputValue.replace(match, variableValue);
+          } else {
+            logger.warn(`Variable not found: ${variableName}`);
+          }
+        }
+      }
+      
+      const outputName = step.output.name.replace('$i', step.loopIndex || '');
+      result[outputName] = inputValue;
+      logger.log(`Store step executed successfully. Output: ${outputName} = ${inputValue}`);
+    }
+  }
+
+  async executeApiRequestStep(step, result) {
+    if (step.url && step.output) {
+      const response = await fetch(step.url, step.config);
+      const data = await response.json();
+      result[step.output.name] = data;
+    }
+  }
+
+  async executeJsonStoreTextStep(step, result) {
+    if (step.input && step.locator && step.output) {
+      const data = JSON.parse(this.variableManager.get(step.input));
+      const value = step.locator.split('.').reduce((obj, key) => obj && obj[key], data);
+      result[step.output.name] = value;
+    }
+  }
+
+  async executeUrlEncodeStep(step, result) {
+    if (step.input && step.output) {
+      result[step.output.name] = encodeURIComponent(step.input);
     }
   }
 }
 
 class RecipeEngine {
-  constructor() {
+  constructor(options = {}) {
     this.browserManager = new BrowserManager();
     this.variableManager = new VariableManager();
     this.stepExecutor = new StepExecutor(this.browserManager, this.variableManager);
+    this.options = options;
   }
 
   async initialize() {
@@ -213,11 +310,14 @@ class RecipeEngine {
 
   addToResults(results, stepResult, index) {
     if (index !== undefined) {
-      const resultIndex = Math.floor((index - 1) / 2);
+      const resultIndex = index - 1; // Adjust index to start from 0
       if (!results[resultIndex]) {
         results[resultIndex] = {};
       }
-      Object.assign(results[resultIndex], stepResult);
+      for (const [key, value] of Object.entries(stepResult)) {
+        const newKey = key.replace('$i', index.toString());
+        results[resultIndex][newKey] = value;
+      }
     } else {
       results.push(stepResult);
     }
@@ -232,9 +332,20 @@ async function loadRecipe(recipePath) {
 async function main() {
   const args = Bun.argv.slice(2);
   const parsedArgs = {};
-  for (let i = 0; i < args.length; i += 2) {
-    parsedArgs[args[i].replace('--', '')] = args[i + 1];
+  let isDebug = false;
+
+  for (let i = 0; i < args.length; i++) {
+    if (args[i] === '--debug') {
+      isDebug = true;
+    } else if (args[i].startsWith('--')) {
+      parsedArgs[args[i].replace('--', '')] = args[i + 1];
+      i++;
+    }
   }
+
+  // Set the debug flag for the logger
+  logger.isDebug = isDebug;
+  console.log('Logger debug flag:', logger.isDebug);
 
   if (!parsedArgs.recipe || !parsedArgs.type) {
     logger.error('Usage: bun run engine.js --recipe <recipe_path> --type <step_type> [--input <input>]');
@@ -243,12 +354,18 @@ async function main() {
 
   const { recipe: recipePath, type: stepType, input = '' } = parsedArgs;
 
+  const additionalOptions = {
+    debug: parsedArgs.debug === 'true',
+    timeout: parseInt(parsedArgs.timeout) || 30000,
+    userAgent: parsedArgs.userAgent || process.env.USER_AGENT
+  };
+
   let engine;
   try {
     const recipe = await loadRecipe(recipePath);
     logger.log('Loaded recipe:', JSON.stringify(recipe, null, 2));
 
-    engine = new RecipeEngine();
+    engine = new RecipeEngine(additionalOptions);
     await engine.initialize();
 
     const stepTypeMap = {
@@ -262,7 +379,13 @@ async function main() {
       console.log(`Result ${index + 1}:`, result);
     });
   } catch (error) {
-    logger.error('Error executing recipe:', error);
+    if (error instanceof SyntaxError) {
+      logger.error('Error parsing recipe JSON:', error);
+    } else if (error instanceof TypeError) {
+      logger.error('Error executing recipe steps:', error);
+    } else {
+      logger.error('Unexpected error:', error);
+    }
   } finally {
     if (engine) {
       await engine.close();
