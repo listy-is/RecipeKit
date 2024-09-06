@@ -1,6 +1,10 @@
 import { launch } from 'puppeteer';
 import { readFile } from 'fs/promises';
 
+const STEP_TYPE_MAP = {
+  autocomplete: 'autocomplete_steps',
+  url: 'url_steps'
+};
 
 class RecipeEngine {
   constructor() {
@@ -25,8 +29,13 @@ class RecipeEngine {
       throw new Error('RecipeEngine not initialized');
     }
 
+    const recipeStepType = STEP_TYPE_MAP[stepType];
+    if (!recipeStepType) {
+      throw new Error(`Invalid step type: ${stepType}`);
+    }
+
     const results = [];
-    const steps = recipe[stepType] || [];
+    const steps = recipe[recipeStepType] || [];
 
     for (const step of steps) {
       if (step.config && step.config.loop) {
@@ -41,7 +50,14 @@ class RecipeEngine {
       }
     }
 
-    return results;
+    // Final pass to replace any remaining placeholders
+    return results.map(result => {
+      const finalResult = {};
+      for (const [key, value] of Object.entries(result)) {
+        finalResult[key] = this.replacePlaceholders(value, input);
+      }
+      return finalResult;
+    });
   }
 
   addToResults(results, stepResult, index) {
@@ -119,15 +135,16 @@ async function main() {
 
   if (!parsedArgs.recipe || !parsedArgs.type) {
     console.error('Usage: bun run engine.js --recipe <recipe_path> --type <step_type> [--input <input>]');
-    console.error('Example for URL steps: bun run engine.js --recipe ./recipes/example.json --type url_steps');
-    console.error('Example for autocomplete steps: bun run engine.js --recipe ./recipes/example.json --type autocomplete_steps --input "search term"');
+    console.error('Example for URL steps: bun run engine.js --recipe ./recipes/example.json --type url');
+    console.error('Example for autocomplete steps: bun run engine.js --recipe ./recipes/example.json --type autocomplete --input "search term"');
     process.exit(1);
   }
 
   const { recipe: recipePath, type: stepType, input = '' } = parsedArgs;
 
-  if (stepType !== 'url_steps' && stepType !== 'autocomplete_steps') {
-    console.error('Step type must be either "url_steps" or "autocomplete_steps"');
+  if (!STEP_TYPE_MAP[stepType]) {
+    console.error(`Invalid step type: ${stepType}`);
+    console.error('Step type must be either "url" or "autocomplete"');
     process.exit(1);
   }
 
