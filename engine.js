@@ -102,18 +102,17 @@ class StepExecutor {
   async execute(step, input, loopIndex) {
     logger.log(`Executing step: ${step.command}`);
     const replacedStep = this.replaceStepPlaceholders(step, input, loopIndex);
-    replacedStep.loopIndex = loopIndex;
     const result = {};
 
     switch (replacedStep.command) {
       case 'load':
         await this.executeLoadStep(replacedStep);
         break;
-      case 'store_text':
-        await this.executeStoreTextStep(replacedStep, result);
-        break;
       case 'store_attribute':
         await this.executeStoreAttributeStep(replacedStep, result);
+        break;
+      case 'store_text':
+        await this.executeStoreTextStep(replacedStep, result);
         break;
       case 'regex':
         await this.executeRegexStep(replacedStep, result);
@@ -150,6 +149,9 @@ class StepExecutor {
         replacedStep[key] = this.variableManager.replacePlaceholders(value, input, loopIndex);
       }
     }
+    if (replacedStep.output && replacedStep.output.name) {
+      replacedStep.output.name = replacedStep.output.name.replace('$i', loopIndex || '');
+    }
     return replacedStep;
   }
 
@@ -163,6 +165,19 @@ class StepExecutor {
     }
   }
 
+  async executeStoreAttributeStep(step, result) {
+    if (step.locator && step.attribute_name && step.output) {
+      const elements = await this.browserManager.querySelectorAll(step.locator);
+      if (elements.length > 0) {
+        const attributeValue = await elements[0].evaluate(
+          (el, attr) => el.getAttribute(attr),
+          step.attribute_name
+        );
+        result[step.output.name] = attributeValue || '';
+      }
+    }
+  }
+
   async executeStoreTextStep(step, result) {
     if (step.locator && step.output) {
       const elements = await this.browserManager.querySelectorAll(step.locator);
@@ -173,29 +188,17 @@ class StepExecutor {
     }
   }
 
-  async executeStoreAttributeStep(step, result) {
-    if (step.locator && step.attribute_name && step.output) {
-      const elements = await this.browserManager.querySelectorAll(step.locator);
-      if (elements.length > 0) {
-        const attributeValue = await elements[0].evaluate(
-          (el, attr) => el.getAttribute(attr),
-          step.attribute_name
-        );
-        const outputName = step.output.name.replace('$i', step.loopIndex || '');
-        result[outputName] = attributeValue || '';
-      }
-    }
-  }
-
   async executeRegexStep(step, result) {
     if (step.input && step.expression && step.output) {
-      const inputKey = step.input.replace('$', '');
-      const input = this.variableManager.get(inputKey) || '';
-      logger.log(`Regex step - Input key: ${inputKey}, Input value: ${input}`);
+      const inputKey = step.input.replace(/\$([A-Z_]+)\$i/, (match, p1) => {
+        return `${p1}${step.loopIndex || ''}`;
+      });
+      const input = this.variableManager.get(inputKey);
+      logger.log(`Regex step - Input key: ${inputKey}, Input value: "${input}"`);
       
-      if (input === '') {
-        logger.warn(`Input for regex step is empty: ${inputKey}`);
-        result[step.output.name] = ''; // Set a default empty string
+      if (input === undefined || input === '') {
+        logger.warn(`Input for regex step is empty or undefined: ${inputKey}`);
+        result[step.output.name] = '';
         return;
       }
       
@@ -203,20 +206,20 @@ class StepExecutor {
         const regex = new RegExp(step.expression);
         const match = input.toString().match(regex);
         if (match && match[1]) {
-          result[step.output.name] = match[1];
-          logger.log(`Regex match found: ${match[1]}`);
+          result[step.output.name] = match[1].trim();
+          logger.log(`Regex match found for ${step.output.name}: "${result[step.output.name]}"`);
         } else {
-          logger.warn(`No regex match found for expression: ${step.expression}`);
-          result[step.output.name] = ''; // Set a default empty string
+          logger.warn(`No regex match found for expression: ${step.expression} on input: "${input}"`);
+          result[step.output.name] = '';
         }
       } catch (error) {
         logger.error(`Error in regex step: ${error.message}`);
-        result[step.output.name] = ''; // Set a default empty string
+        result[step.output.name] = '';
       }
     } else {
       logger.warn('Regex step is missing required properties');
       if (step.output) {
-        result[step.output.name] = ''; // Set a default empty string
+        result[step.output.name] = '';
       }
     }
   }
@@ -295,54 +298,71 @@ class RecipeEngine {
 
   async executeRecipe(recipe, stepType, input = '') {
     logger.log(`Executing recipe for step type: ${stepType}`);
-    const results = [];
     const steps = recipe[stepType] || [];
 
     if (steps.length === 0) {
       logger.warn(`No steps found for step type: ${stepType}`);
-      return results;
+      return {};
     }
 
-    logger.log(`Number of steps: ${steps.length}`);
+    if (stepType === 'autocomplete_steps') {
+      return await this.executeAutocompleteSteps(steps, input);
+    } else {
+      return await this.executeUrlSteps(steps, input);
+    }
+  }
+
+  async executeAutocompleteSteps(steps, input) {
+    const results = [];
+    const tempResults = {};
 
     for (const step of steps) {
-      logger.log(`Executing step: ${step.command}`);
       if (step.config && step.config.loop) {
-        await this.executeLoopStep(step, input, results);
+        const { from, to, step: stepSize } = step.config.loop;
+        for (let i = from; i <= to; i += stepSize) {
+          const result = await this.stepExecutor.execute(step, input, i);
+          for (const [key, value] of Object.entries(result)) {
+            if (!tempResults[i]) tempResults[i] = {};
+            tempResults[i][key.replace('$i', i)] = value;
+          }
+        }
       } else {
-        const stepResult = await this.stepExecutor.execute(step, input);
-        this.addToResults(results, stepResult);
+        const result = await this.stepExecutor.execute(step, input);
+        for (const [key, value] of Object.entries(result)) {
+          for (let i = 1; i <= Object.keys(tempResults).length; i++) {
+            if (!tempResults[i]) tempResults[i] = {};
+            tempResults[i][key] = value;
+          }
+        }
       }
-      logger.log(`Step result:`, results[results.length - 1]);
     }
 
-    logger.log(`Final results:`, results);
+    for (const result of Object.values(tempResults)) {
+      results.push(this.cleanupResult(result));
+    }
+
     return results;
   }
 
-  async executeLoopStep(step, input, results) {
-    logger.log(`Executing loop step: ${step.command}`);
-    const { from, to, step: loopStep } = step.config.loop;
-    for (let i = from; i <= to; i += loopStep) {
-      const loopResult = await this.stepExecutor.execute(step, input, i);
-      this.addToResults(results, loopResult, i);
-      logger.log(`Loop step result (index ${i}):`, loopResult);
+  async executeUrlSteps(steps, input) {
+    const finalResult = {};
+
+    for (const step of steps) {
+      const result = await this.stepExecutor.execute(step, input);
+      Object.assign(finalResult, result);
     }
+
+    return this.cleanupResult(finalResult);
   }
 
-  addToResults(results, stepResult, index) {
-    if (index !== undefined) {
-      const resultIndex = index - 1; // Adjust index to start from 0
-      if (!results[resultIndex]) {
-        results[resultIndex] = {};
+  cleanupResult(result) {
+    const cleanResult = {};
+    for (const [key, value] of Object.entries(result)) {
+      if (value !== undefined && value !== '') {
+        cleanResult[key] = value;
       }
-      for (const [key, value] of Object.entries(stepResult)) {
-        const newKey = key.replace('$i', index.toString());
-        results[resultIndex][newKey] = value;
-      }
-    } else {
-      results.push(stepResult);
     }
+    return cleanResult;
   }
 }
 
@@ -396,11 +416,13 @@ async function executeRecipe(recipePath, stepType, input, additionalOptions) {
       'url': 'url_steps'
     };
 
-    const results = await engine.executeRecipe(recipe, stepTypeMap[stepType] || stepType, input);
-    console.log('Recipe execution results:');
-    results.forEach((result, index) => {
-      console.log(`Result ${index + 1}:`, result);
-    });
+    const result = await engine.executeRecipe(recipe, stepTypeMap[stepType] || stepType, input);
+    console.log("Recipe execution results:");
+    if (Array.isArray(result)) {
+      console.log(JSON.stringify(result, null, 2));
+    } else {
+      console.log(JSON.stringify(result, null, 2));
+    }
   } finally {
     await engine.close();
   }
