@@ -72,8 +72,8 @@ class VariableManager {
     this.variables[key] = value;
   }
 
-  get(key) {
-    const value = this.variables[key] || process.env[key];
+  get(key, defaultValue = '') {
+    const value = this.variables[key] || process.env[key] || defaultValue;
     logger.log(`Getting variable: ${key}, Value: ${value}`);
     return value;
   }
@@ -129,6 +129,9 @@ class StepExecutor {
         break;
       case 'url_encode':
         await this.executeUrlEncodeStep(replacedStep, result);
+        break;
+      case 'initialize_variables':
+        await this.executeInitializeVariablesStep(replacedStep, result);
         break;
       // Add other step types here
       default:
@@ -187,24 +190,34 @@ class StepExecutor {
   async executeRegexStep(step, result) {
     if (step.input && step.expression && step.output) {
       const inputKey = step.input.replace('$', '');
-      const input = this.variableManager.get(inputKey);
+      const input = this.variableManager.get(inputKey) || '';
       logger.log(`Regex step - Input key: ${inputKey}, Input value: ${input}`);
       
-      if (input === undefined || input === null) {
-        logger.warn(`Input for regex step is undefined or null: ${inputKey}`);
+      if (input === '') {
+        logger.warn(`Input for regex step is empty: ${inputKey}`);
+        result[step.output.name] = ''; // Set a default empty string
         return;
       }
       
-      const regex = new RegExp(step.expression);
-      const match = input.toString().match(regex);
-      if (match && match[1]) {
-        result[step.output.name] = match[1];
-        logger.log(`Regex match found: ${match[1]}`);
-      } else {
-        logger.warn(`No regex match found for expression: ${step.expression}`);
+      try {
+        const regex = new RegExp(step.expression);
+        const match = input.toString().match(regex);
+        if (match && match[1]) {
+          result[step.output.name] = match[1];
+          logger.log(`Regex match found: ${match[1]}`);
+        } else {
+          logger.warn(`No regex match found for expression: ${step.expression}`);
+          result[step.output.name] = ''; // Set a default empty string
+        }
+      } catch (error) {
+        logger.error(`Error in regex step: ${error.message}`);
+        result[step.output.name] = ''; // Set a default empty string
       }
     } else {
       logger.warn('Regex step is missing required properties');
+      if (step.output) {
+        result[step.output.name] = ''; // Set a default empty string
+      }
     }
   }
 
@@ -251,6 +264,15 @@ class StepExecutor {
   async executeUrlEncodeStep(step, result) {
     if (step.input && step.output) {
       result[step.output.name] = encodeURIComponent(step.input);
+    }
+  }
+
+  async executeInitializeVariablesStep(step, result) {
+    if (step.variables) {
+      for (const [key, value] of Object.entries(step.variables)) {
+        this.variableManager.set(key, value);
+        result[key] = value;
+      }
     }
   }
 }
