@@ -280,6 +280,10 @@ class RecipeEngine {
     this.variableManager = new VariableManager();
     this.stepExecutor = new StepExecutor(this.browserManager, this.variableManager);
     this.options = options;
+
+    // Initialize with environment variables
+    this.variableManager.set('SYSTEM_LANGUAGE', process.env.SYSTEM_LANGUAGE);
+    this.variableManager.set('SYSTEM_REGION', process.env.SYSTEM_REGION);
   }
 
   async initialize() {
@@ -407,8 +411,8 @@ function validateArguments(parsedArgs) {
 function getAdditionalOptions(parsedArgs) {
   return {
     debug: parsedArgs.debug === 'true',
-    timeout: parseInt(parsedArgs.timeout) || 30000,
-    userAgent: parsedArgs.userAgent || process.env.USER_AGENT
+    timeout: parseInt(process.env.DEFAULT_PAGE_LOAD_TIMEOUT) || 30000,
+    userAgent: process.env.USER_AGENT
   };
 }
 

@@ -323,3 +323,85 @@ Specific inputs: pattern, output (dictionary name for the output)
   "description": "Apply url encode to the variable"
 }
 ```
+```
+</p>
+</details>
+
+# RecipeKit Engine
+
+## Prerequisites
+
+Before installing and using the Listy RecipeKit engine, ensure you have the following prerequisite installed on your system:
+
+- Bun (version 1.0 or later)
+
+Bun is a fast all-in-one JavaScript runtime. If you haven't installed Bun yet, you can do so by following the instructions on the [official Bun website](https://bun.sh/).
+
+## Installation
+
+1. Clone the repository:
+   ```
+   git clone https://github.com/listy-is/RecipeKit
+   cd listy-recipekit
+   ```
+
+2. Install the dependencies:
+   ```
+   bun install
+   ```
+
+## Usage
+
+The RecipeKit Engine can be used from the command line. Here's the basic syntax:
+
+```
+bun run engine.js --recipe <path_to_recipe> --type <step_type> --input <input_value> [options]
+```
+
+### Parameters:
+
+- `--recipe`: Path to the JSON file containing the recipe.
+- `--type`: Type of steps to execute. Can be either 'autocomplete' or 'url'.
+- `--input`: Input value for the recipe. For 'autocomplete', this is typically a search term. For 'url', it's the URL to process.
+
+### Options:
+
+- `--debug`: Enable debug logging (optional).
+
+### Examples:
+
+1. Execute autocomplete steps:
+   ```
+   bun run engine.js --recipe movies/tmdb.json --type autocomplete --input "Inception"
+   ```
+
+2. Execute URL steps:
+   ```
+   bun run engine.js --recipe movies/tmdb.json --type url --input "https://www.imdb.com/title/tt1375666/"
+   ```
+
+3. Execute with debug logging and custom headers:
+   ```
+   bun run engine.js --recipe movies/tmdb.json --type autocomplete --input "Inception" --debug
+   ```
+
+## Output
+
+The engine will output the results of the recipe execution in JSON format. For autocomplete steps, this will typically be an array of search results. For URL steps, it will be an object containing details about the specific item.
+
+## Troubleshooting
+
+If you encounter any issues while running the engine:
+
+1. Check that your recipe JSON is valid and follows the correct format.
+2. Ensure that the website or API you're trying to access is available and hasn't changed its structure.
+3. Try running with the `--debug` flag for more detailed logging.
+4. Check the console output for any error messages or stack traces.
+
+If you continue to have problems, please open an issue on the GitHub repository with a detailed description of the problem and steps to reproduce it.
+
+## Contributing
+
+We welcome contributions to the Listy RecipeKit! If you've created a new recipe or improved an existing one, please submit a pull request. Make sure to follow the existing code style and include appropriate documentation for any new features.
+
+For more information on contributing, please see the Contributing section above.
