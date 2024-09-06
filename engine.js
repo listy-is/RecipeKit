@@ -132,6 +132,9 @@ class StepExecutor {
       case 'initialize_variables':
         await this.executeInitializeVariablesStep(replacedStep, result);
         break;
+      case 'store_url':
+        await this.executeStoreUrlStep(replacedStep, result);
+        break;
       // Add other step types here
       default:
         logger.warn(`Unknown step command: ${replacedStep.command}`);
@@ -174,6 +177,10 @@ class StepExecutor {
           step.attribute_name
         );
         result[step.output.name] = attributeValue || '';
+        logger.log(`Stored attribute ${step.attribute_name} for ${step.output.name}: "${result[step.output.name]}"`);
+      } else {
+        logger.warn(`No elements found for locator: ${step.locator}`);
+        result[step.output.name] = '';
       }
     }
   }
@@ -190,14 +197,11 @@ class StepExecutor {
 
   async executeRegexStep(step, result) {
     if (step.input && step.expression && step.output) {
-      const inputKey = step.input.replace(/\$([A-Z_]+)\$i/, (match, p1) => {
-        return `${p1}${step.loopIndex || ''}`;
-      });
-      const input = this.variableManager.get(inputKey);
-      logger.log(`Regex step - Input key: ${inputKey}, Input value: "${input}"`);
+      const input = this.variableManager.get(step.input);
+      logger.log(`Regex step - Input: "${input}", Expression: "${step.expression}"`);
       
       if (input === undefined || input === '') {
-        logger.warn(`Input for regex step is empty or undefined: ${inputKey}`);
+        logger.warn(`Input for regex step is empty or undefined: ${step.input}`);
         result[step.output.name] = '';
         return;
       }
@@ -205,22 +209,23 @@ class StepExecutor {
       try {
         const regex = new RegExp(step.expression);
         const match = input.toString().match(regex);
-        if (match && match[1]) {
-          result[step.output.name] = match[1].trim();
+        if (match) {
+          result[step.output.name] = match[1] ? match[1].trim() : match[0].trim();
           logger.log(`Regex match found for ${step.output.name}: "${result[step.output.name]}"`);
         } else {
           logger.warn(`No regex match found for expression: ${step.expression} on input: "${input}"`);
-          result[step.output.name] = '';
+          result[step.output.name] = input; // Keep the original value if no match is found
         }
       } catch (error) {
         logger.error(`Error in regex step: ${error.message}`);
-        result[step.output.name] = '';
+        result[step.output.name] = input; // Keep the original value if there's an error
       }
     } else {
       logger.warn('Regex step is missing required properties');
-      if (step.output) {
-        result[step.output.name] = '';
-      }
+    }
+    // Always set a value, even if it's an empty string
+    if (step.output) {
+      result[step.output.name] = result[step.output.name] || '';
     }
   }
 
@@ -276,6 +281,12 @@ class StepExecutor {
         this.variableManager.set(key, value);
         result[key] = value;
       }
+    }
+  }
+
+  async executeStoreUrlStep(step, result) {
+    if (step.output) {
+      result[step.output.name] = this.browserManager.page.url();
     }
   }
 }
@@ -344,25 +355,29 @@ class RecipeEngine {
     return results;
   }
 
+  initializeOutputVariables(steps) {
+    const outputVariables = {};
+    steps.forEach(step => {
+      if (step.output && step.output.name) {
+        outputVariables[step.output.name] = '';
+      }
+    });
+    return outputVariables;
+  }
+
   async executeUrlSteps(steps, input) {
-    const finalResult = {};
+    const finalResult = this.initializeOutputVariables(steps);
 
     for (const step of steps) {
       const result = await this.stepExecutor.execute(step, input);
       Object.assign(finalResult, result);
     }
 
-    return this.cleanupResult(finalResult);
+    return finalResult;
   }
 
   cleanupResult(result) {
-    const cleanResult = {};
-    for (const [key, value] of Object.entries(result)) {
-      if (value !== undefined && value !== '') {
-        cleanResult[key] = value;
-      }
-    }
-    return cleanResult;
+    return result;
   }
 }
 
