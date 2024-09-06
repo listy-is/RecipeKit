@@ -97,6 +97,18 @@ class StepExecutor {
   constructor(browserManager, variableManager) {
     this.browserManager = browserManager;
     this.variableManager = variableManager;
+    this.stepHandlers = {
+      load: this.executeLoadStep,
+      store_attribute: this.executeStoreAttributeStep,
+      store_text: this.executeStoreTextStep,
+      regex: this.executeRegexStep,
+      store: this.executeStoreStep,
+      api_request: this.executeApiRequestStep,
+      json_store_text: this.executeJsonStoreTextStep,
+      url_encode: this.executeUrlEncodeStep,
+      initialize_variables: this.executeInitializeVariablesStep,
+      store_url: this.executeStoreUrlStep,
+    };
   }
 
   async execute(step, input, loopIndex) {
@@ -104,40 +116,11 @@ class StepExecutor {
     const replacedStep = this.replaceStepPlaceholders(step, input, loopIndex);
     const result = {};
 
-    switch (replacedStep.command) {
-      case 'load':
-        await this.executeLoadStep(replacedStep);
-        break;
-      case 'store_attribute':
-        await this.executeStoreAttributeStep(replacedStep, result);
-        break;
-      case 'store_text':
-        await this.executeStoreTextStep(replacedStep, result);
-        break;
-      case 'regex':
-        await this.executeRegexStep(replacedStep, result);
-        break;
-      case 'store':
-        await this.executeStoreStep(replacedStep, result);
-        break;
-      case 'api_request':
-        await this.executeApiRequestStep(replacedStep, result);
-        break;
-      case 'json_store_text':
-        await this.executeJsonStoreTextStep(replacedStep, result);
-        break;
-      case 'url_encode':
-        await this.executeUrlEncodeStep(replacedStep, result);
-        break;
-      case 'initialize_variables':
-        await this.executeInitializeVariablesStep(replacedStep, result);
-        break;
-      case 'store_url':
-        await this.executeStoreUrlStep(replacedStep, result);
-        break;
-      // Add other step types here
-      default:
-        logger.warn(`Unknown step command: ${replacedStep.command}`);
+    const handler = this.stepHandlers[replacedStep.command];
+    if (handler) {
+      await handler.call(this, replacedStep, result);
+    } else {
+      logger.warn(`Unknown step command: ${replacedStep.command}`);
     }
 
     logger.log(`Step result:`, result);
@@ -158,7 +141,7 @@ class StepExecutor {
     return replacedStep;
   }
 
-  async executeLoadStep(step) {
+  async executeLoadStep(step, result) {
     if (step.url) {
       const options = {
         waitUntil: step.config?.js ? 'networkidle0' : 'domcontentloaded',
@@ -316,11 +299,9 @@ class RecipeEngine {
       return {};
     }
 
-    if (stepType === 'autocomplete_steps') {
-      return await this.executeAutocompleteSteps(steps, input);
-    } else {
-      return await this.executeUrlSteps(steps, input);
-    }
+    return stepType === 'autocomplete_steps'
+      ? await this.executeAutocompleteSteps(steps, input)
+      : await this.executeUrlSteps(steps, input);
   }
 
   async executeAutocompleteSteps(steps, input) {
@@ -328,24 +309,7 @@ class RecipeEngine {
     const tempResults = {};
 
     for (const step of steps) {
-      if (step.config && step.config.loop) {
-        const { from, to, step: stepSize } = step.config.loop;
-        for (let i = from; i <= to; i += stepSize) {
-          const result = await this.stepExecutor.execute(step, input, i);
-          for (const [key, value] of Object.entries(result)) {
-            if (!tempResults[i]) tempResults[i] = {};
-            tempResults[i][key.replace('$i', i)] = value;
-          }
-        }
-      } else {
-        const result = await this.stepExecutor.execute(step, input);
-        for (const [key, value] of Object.entries(result)) {
-          for (let i = 1; i <= Object.keys(tempResults).length; i++) {
-            if (!tempResults[i]) tempResults[i] = {};
-            tempResults[i][key] = value;
-          }
-        }
-      }
+      await this.executeStep(step, input, tempResults);
     }
 
     for (const result of Object.values(tempResults)) {
@@ -353,6 +317,36 @@ class RecipeEngine {
     }
 
     return results;
+  }
+
+  async executeStep(step, input, tempResults) {
+    if (step.config && step.config.loop) {
+      await this.executeLoopStep(step, input, tempResults);
+    } else {
+      await this.executeNonLoopStep(step, input, tempResults);
+    }
+  }
+
+  async executeLoopStep(step, input, tempResults) {
+    const { from, to, step: stepSize } = step.config.loop;
+    for (let i = from; i <= to; i += stepSize) {
+      const result = await this.stepExecutor.execute(step, input, i);
+      this.updateTempResults(tempResults, result, i);
+    }
+  }
+
+  async executeNonLoopStep(step, input, tempResults) {
+    const result = await this.stepExecutor.execute(step, input);
+    for (let i = 1; i <= Object.keys(tempResults).length || i === 1; i++) {
+      this.updateTempResults(tempResults, result, i);
+    }
+  }
+
+  updateTempResults(tempResults, result, index) {
+    if (!tempResults[index]) tempResults[index] = {};
+    for (const [key, value] of Object.entries(result)) {
+      tempResults[index][key.replace('$i', index)] = value;
+    }
   }
 
   initializeOutputVariables(steps) {
@@ -426,21 +420,20 @@ async function executeRecipe(recipePath, stepType, input, additionalOptions) {
   await engine.initialize();
 
   try {
-    const stepTypeMap = {
-      'autocomplete': 'autocomplete_steps',
-      'url': 'url_steps'
-    };
-
-    const result = await engine.executeRecipe(recipe, stepTypeMap[stepType] || stepType, input);
+    const result = await engine.executeRecipe(recipe, getStepTypeKey(stepType), input);
     console.log("Recipe execution results:");
-    if (Array.isArray(result)) {
-      console.log(JSON.stringify(result, null, 2));
-    } else {
-      console.log(JSON.stringify(result, null, 2));
-    }
+    console.log(JSON.stringify(result, null, 2));
   } finally {
     await engine.close();
   }
+}
+
+function getStepTypeKey(stepType) {
+  const stepTypeMap = {
+    'autocomplete': 'autocomplete_steps',
+    'url': 'url_steps'
+  };
+  return stepTypeMap[stepType] || stepType;
 }
 
 async function main() {
@@ -456,13 +449,17 @@ async function main() {
   try {
     await executeRecipe(recipePath, stepType, input, additionalOptions);
   } catch (error) {
-    if (error instanceof SyntaxError) {
-      logger.error('Error parsing recipe JSON:', error);
-    } else if (error instanceof TypeError) {
-      logger.error('Error executing recipe steps:', error);
-    } else {
-      logger.error('Unexpected error:', error);
-    }
+    handleError(error);
+  }
+}
+
+function handleError(error) {
+  if (error instanceof SyntaxError) {
+    logger.error('Error parsing recipe JSON:', error);
+  } else if (error instanceof TypeError) {
+    logger.error('Error executing recipe steps:', error);
+  } else {
+    logger.error('Unexpected error:', error);
   }
 }
 
