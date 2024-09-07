@@ -1,5 +1,6 @@
 import { launch } from 'puppeteer';
 import { readFile } from 'fs/promises';
+import chalk from 'chalk';
 
 // Define constants for hardcoded variables
 const VARIABLE_NAMES = {
@@ -455,6 +456,15 @@ function getAdditionalOptions(parsedArgs) {
   };
 }
 
+function colorizeJson(obj) {
+  const json = JSON.stringify(obj, null, 2);
+  return json.replace(/"(\w+)":/g, (match, p1) => `"${chalk.cyan(p1)}":`) // Keys
+             .replace(/"([^"]+)"(?=,|\n|\s*})/g, (match, p1) => `"${chalk.green(p1)}"`) // String values
+             .replace(/: (\d+)(,?)/g, (match, p1, p2) => `: ${chalk.yellow(p1)}${p2}`) // Number values
+             .replace(/: (true|false)(,?)/g, (match, p1, p2) => `: ${chalk.magenta(p1)}${p2}`) // Boolean values
+             .replace(/: (null)(,?)/g, (match, p1, p2) => `: ${chalk.gray(p1)}${p2}`); // Null values
+}
+
 async function executeRecipe(recipePath, stepType, input, additionalOptions) {
   const recipe = await loadRecipe(recipePath);
   logger.log('Loaded recipe:', JSON.stringify(recipe, null, 2));
@@ -465,7 +475,7 @@ async function executeRecipe(recipePath, stepType, input, additionalOptions) {
   try {
     const result = await engine.executeRecipe(recipe, getStepTypeKey(stepType), input);
     console.log("Recipe execution results:");
-    console.log(JSON.stringify(result, null, 2));
+    console.log(colorizeJson(result));
   } finally {
     await engine.close();
   }
