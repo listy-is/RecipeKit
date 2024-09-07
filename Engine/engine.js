@@ -187,40 +187,57 @@ class StepExecutor {
 
   async executeStoreTextStep(step, result) {
     if (step.locator && step.output) {
-      const elements = await this.browserManager.querySelectorAll(step.locator);
-      if (elements.length > 0) {
-        const text = await elements[0].evaluate(el => el.textContent);
-        result[step.output.name] = text ? text.trim() : '';
+      try {
+        const elements = await this.browserManager.querySelectorAll(step.locator);
+        if (elements.length > 0) {
+          const text = await elements[0].evaluate(el => el.textContent);
+          result[step.output.name] = text ? text.trim() : '';
+          logger.log(`Stored text for ${step.output.name}: "${result[step.output.name]}"`);
+        } else {
+          logger.warn(`No elements found for locator: ${step.locator}`);
+          result[step.output.name] = '';
+        }
+      } catch (error) {
+        logger.error(`Error in store_text step: ${error.message}`);
+        result[step.output.name] = '';
       }
+    } else {
+      logger.warn('store_text step is missing required properties');
+      result[step.output.name] = '';
     }
   }
 
   async executeRegexStep(step, result, loopIndex, indexVariable) {
     if (step.input && step.expression && step.output) {
       const resolvedInput = this.variableManager.replacePlaceholders(step.input, '', loopIndex, indexVariable);
-      const input = resolvedInput; // Use the resolved input directly, don't try to get it again
+      const input = resolvedInput;
 
       const expression = step.expression.replace(/\\\\/g, '\\');
       logger.log(`Regex step - Input: "${input}", Expression: "${expression}"`);
       
-      if (input === undefined || input === '') {
-        logger.warn(`Input for regex step is empty or undefined: ${step.input}`);
+      if (input === '') {
+        logger.warn(`Input for regex step is empty: ${step.input}`);
         result[step.output.name] = '';
         return;
       }
       
       try {
-        const regex = new RegExp(expression, 'g');
+        // Use 's' flag for dot-all mode, allowing '.' to match newlines
+        const regex = new RegExp(expression, 'gs');
         const matches = [...input.matchAll(regex)];
         
         if (matches.length > 0) {
-          const captureGroups = matches.map(match => match.slice(1));
-          const shortestMatch = captureGroups.reduce((shortest, current) => 
-            current.length < shortest.length ? current : shortest
-          );
+          let matchResult;
+          if (matches[0].length > 1) {
+            // If there are capture groups, use the first non-empty one
+            matchResult = matches[0].slice(1).find(group => group !== undefined);
+          } else {
+            // If no capture groups, use the entire match
+            matchResult = matches[0][0];
+          }
           
           const outputName = step.output.name.replace(`$${indexVariable}`, loopIndex);
-          result[outputName] = shortestMatch[0] ? shortestMatch[0].trim() : '';
+          result[outputName] = matchResult ? matchResult.trim() : '';
           logger.log(`Regex match found for ${outputName}: "${result[outputName]}"`);
         } else {
           logger.warn(`No regex match found for expression: ${expression} on input: "${input}"`);
