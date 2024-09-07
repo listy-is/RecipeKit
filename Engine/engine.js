@@ -1,6 +1,13 @@
 import { launch } from 'puppeteer';
 import { readFile } from 'fs/promises';
 
+// Define constants for hardcoded variables
+const VARIABLE_NAMES = {
+  INPUT: 'INPUT',
+  SYSTEM_LANGUAGE: 'SYSTEM_LANGUAGE',
+  SYSTEM_REGION: 'SYSTEM_REGION',
+};
+
 class Logger {
   constructor(isDebug = false) {
     this.isDebug = isDebug;
@@ -66,6 +73,9 @@ class BrowserManager {
 class VariableManager {
   constructor() {
     this.variables = {};
+    // Initialize with environment variables
+    this.set(VARIABLE_NAMES.SYSTEM_LANGUAGE, process.env.SYSTEM_LANGUAGE);
+    this.set(VARIABLE_NAMES.SYSTEM_REGION, process.env.SYSTEM_REGION);
   }
 
   set(key, value) {
@@ -87,7 +97,7 @@ class VariableManager {
   replacePlaceholders(str, input, loopIndex, indexVariable) {
     const indexRegex = new RegExp(`\\$${indexVariable}`, 'g');
     return str.replace(/\$([A-Z_]+)(\$[a-z]+)?/g, (match, p1, p2) => {
-      if (p1 === 'INPUT') return input;
+      if (p1 === VARIABLE_NAMES.INPUT) return input;
       if (p2) {
         // Handle variables with dynamic index suffix
         const variableName = `${p1}${loopIndex}`;
@@ -118,7 +128,7 @@ class StepExecutor {
 
   async execute(step, input) {
     logger.log(`Executing step: ${step.command}`);
-    const indexVariable = step.config?.loop?.index || 'i';
+    const indexVariable = step.config?.loop?.index;
     const loopIndex = step.loopIndex;
     const replacedStep = this.replaceStepPlaceholders(step, input, loopIndex, indexVariable);
     const result = {};
@@ -290,10 +300,6 @@ class RecipeEngine {
     this.variableManager = new VariableManager();
     this.stepExecutor = new StepExecutor(this.browserManager, this.variableManager);
     this.options = options;
-
-    // Initialize with environment variables
-    this.variableManager.set('SYSTEM_LANGUAGE', process.env.SYSTEM_LANGUAGE);
-    this.variableManager.set('SYSTEM_REGION', process.env.SYSTEM_REGION);
   }
 
   async initialize() {
