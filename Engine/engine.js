@@ -84,12 +84,17 @@ class VariableManager {
     }
   }
 
-  replacePlaceholders(str, input, loopIndex) {
-    return str.replace(/\$([A-Z_]+|i)/g, (match, p1) => {
+  replacePlaceholders(str, input, loopIndex, indexVariable) {
+    const indexRegex = new RegExp(`\\$${indexVariable}`, 'g');
+    return str.replace(/\$([A-Z_]+)(\$[a-z]+)?/g, (match, p1, p2) => {
       if (p1 === 'INPUT') return input;
-      if (p1 === 'i') return loopIndex !== undefined ? loopIndex.toString() : match;
-      return this.get(p1) || match;
-    });
+      if (p2) {
+        // Handle variables with dynamic index suffix
+        const variableName = `${p1}${loopIndex}`;
+        return this.get(variableName, match);
+      }
+      return this.get(p1, match);
+    }).replace(indexRegex, loopIndex !== undefined ? loopIndex.toString() : '$' + indexVariable);
   }
 }
 
@@ -111,14 +116,16 @@ class StepExecutor {
     };
   }
 
-  async execute(step, input, loopIndex) {
+  async execute(step, input) {
     logger.log(`Executing step: ${step.command}`);
-    const replacedStep = this.replaceStepPlaceholders(step, input, loopIndex);
+    const indexVariable = step.config?.loop?.index || 'i';
+    const loopIndex = step.loopIndex;
+    const replacedStep = this.replaceStepPlaceholders(step, input, loopIndex, indexVariable);
     const result = {};
 
     const handler = this.stepHandlers[replacedStep.command];
     if (handler) {
-      await handler.call(this, replacedStep, result);
+      await handler.call(this, replacedStep, result, loopIndex, indexVariable);
     } else {
       logger.warn(`Unknown step command: ${replacedStep.command}`);
     }
@@ -128,15 +135,14 @@ class StepExecutor {
     return result;
   }
 
-  replaceStepPlaceholders(step, input, loopIndex) {
+  replaceStepPlaceholders(step, input, loopIndex, indexVariable) {
     const replacedStep = JSON.parse(JSON.stringify(step));
     for (const [key, value] of Object.entries(replacedStep)) {
       if (typeof value === 'string') {
-        replacedStep[key] = this.variableManager.replacePlaceholders(value, input, loopIndex);
+        replacedStep[key] = this.variableManager.replacePlaceholders(value, input, loopIndex, indexVariable);
+      } else if (typeof value === 'object' && value !== null) {
+        replacedStep[key] = this.replaceStepPlaceholders(value, input, loopIndex, indexVariable);
       }
-    }
-    if (replacedStep.output && replacedStep.output.name) {
-      replacedStep.output.name = replacedStep.output.name.replace('$i', loopIndex || '');
     }
     return replacedStep;
   }
@@ -151,7 +157,7 @@ class StepExecutor {
     }
   }
 
-  async executeStoreAttributeStep(step, result) {
+  async executeStoreAttributeStep(step, result, loopIndex, indexVariable) {
     if (step.locator && step.attribute_name && step.output) {
       const elements = await this.browserManager.querySelectorAll(step.locator);
       if (elements.length > 0) {
@@ -159,8 +165,9 @@ class StepExecutor {
           (el, attr) => el.getAttribute(attr),
           step.attribute_name
         );
-        result[step.output.name] = attributeValue || '';
-        logger.log(`Stored attribute ${step.attribute_name} for ${step.output.name}: "${result[step.output.name]}"`);
+        const outputName = step.output.name.replace(`$${indexVariable}`, loopIndex);
+        result[outputName] = attributeValue || '';
+        logger.log(`Stored attribute ${step.attribute_name} for ${outputName}: "${result[outputName]}"`);
       } else {
         logger.warn(`No elements found for locator: ${step.locator}`);
         result[step.output.name] = '';
@@ -178,10 +185,14 @@ class StepExecutor {
     }
   }
 
-  async executeRegexStep(step, result) {
+  async executeRegexStep(step, result, loopIndex, indexVariable) {
     if (step.input && step.expression && step.output) {
-      const input = this.variableManager.get(step.input);
-      logger.log(`Regex step - Input: "${input}", Expression: "${step.expression}"`);
+      // Resolve the input variable
+      const resolvedInput = this.variableManager.replacePlaceholders(step.input, '', loopIndex, indexVariable);
+      const input = this.variableManager.get(resolvedInput, '');
+      
+      const expression = step.expression.replace(/\\\\/g, '\\');
+      logger.log(`Regex step - Input: "${input}", Expression: "${expression}"`);
       
       if (input === undefined || input === '') {
         logger.warn(`Input for regex step is empty or undefined: ${step.input}`);
@@ -190,25 +201,24 @@ class StepExecutor {
       }
       
       try {
-        const regex = new RegExp(step.expression);
-        const match = input.toString().match(regex);
-        if (match) {
-          result[step.output.name] = match[1] ? match[1].trim() : match[0].trim();
-          logger.log(`Regex match found for ${step.output.name}: "${result[step.output.name]}"`);
+        const regex = new RegExp(expression);
+        const match = input.match(regex);
+        
+        if (match && match[1]) {
+          const outputName = step.output.name.replace(`$${indexVariable}`, loopIndex);
+          result[outputName] = match[1].trim();
+          logger.log(`Regex match found for ${outputName}: "${result[outputName]}"`);
         } else {
-          logger.warn(`No regex match found for expression: ${step.expression} on input: "${input}"`);
-          result[step.output.name] = input; // Keep the original value if no match is found
+          logger.warn(`No regex match found for expression: ${expression} on input: "${input}"`);
+          result[step.output.name] = '';
         }
       } catch (error) {
         logger.error(`Error in regex step: ${error.message}`);
-        result[step.output.name] = input; // Keep the original value if there's an error
+        result[step.output.name] = '';
       }
     } else {
       logger.warn('Regex step is missing required properties');
-    }
-    // Always set a value, even if it's an empty string
-    if (step.output) {
-      result[step.output.name] = result[step.output.name] || '';
+      result[step.output.name] = '';
     }
   }
 
@@ -332,10 +342,11 @@ class RecipeEngine {
   }
 
   async executeLoopStep(step, input, tempResults) {
-    const { from, to, step: stepSize } = step.config.loop;
+    const { from, to, step: stepSize, index: indexVariable } = step.config.loop;
     for (let i = from; i <= to; i += stepSize) {
-      const result = await this.stepExecutor.execute(step, input, i);
-      this.updateTempResults(tempResults, result, i);
+      const loopStep = { ...step, loopIndex: i };
+      const result = await this.stepExecutor.execute(loopStep, input);
+      this.updateTempResults(tempResults, result, i, indexVariable);
     }
   }
 
@@ -346,10 +357,11 @@ class RecipeEngine {
     }
   }
 
-  updateTempResults(tempResults, result, index) {
+  updateTempResults(tempResults, result, index, indexVariable) {
     if (!tempResults[index]) tempResults[index] = {};
     for (const [key, value] of Object.entries(result)) {
-      tempResults[index][key.replace('$i', index)] = value;
+      const updatedKey = key.replace(`$${indexVariable}`, index);
+      tempResults[index][updatedKey] = value;
     }
   }
 
