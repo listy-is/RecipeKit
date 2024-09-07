@@ -197,10 +197,9 @@ class StepExecutor {
 
   async executeRegexStep(step, result, loopIndex, indexVariable) {
     if (step.input && step.expression && step.output) {
-      // Resolve the input variable
       const resolvedInput = this.variableManager.replacePlaceholders(step.input, '', loopIndex, indexVariable);
-      const input = this.variableManager.get(resolvedInput, '');
-      
+      const input = resolvedInput; // Use the resolved input directly, don't try to get it again
+
       const expression = step.expression.replace(/\\\\/g, '\\');
       logger.log(`Regex step - Input: "${input}", Expression: "${expression}"`);
       
@@ -211,12 +210,17 @@ class StepExecutor {
       }
       
       try {
-        const regex = new RegExp(expression);
-        const match = input.match(regex);
+        const regex = new RegExp(expression, 'g');
+        const matches = [...input.matchAll(regex)];
         
-        if (match && match[1]) {
+        if (matches.length > 0) {
+          const captureGroups = matches.map(match => match.slice(1));
+          const shortestMatch = captureGroups.reduce((shortest, current) => 
+            current.length < shortest.length ? current : shortest
+          );
+          
           const outputName = step.output.name.replace(`$${indexVariable}`, loopIndex);
-          result[outputName] = match[1].trim();
+          result[outputName] = shortestMatch[0] ? shortestMatch[0].trim() : '';
           logger.log(`Regex match found for ${outputName}: "${result[outputName]}"`);
         } else {
           logger.warn(`No regex match found for expression: ${expression} on input: "${input}"`);
