@@ -4,28 +4,8 @@ import { readFile } from 'fs/promises';
 import { file } from 'bun';
 import { dirname, resolve } from 'path';
 import { fileURLToPath } from 'url';
+import { Logger } from './logger.js';
 
-class Logger {
-  constructor(isDebug = false) {
-    this.isDebug = isDebug;
-  }
-
-  log(...args) {
-    if (this.isDebug) {
-      console.log(...args);
-    }
-  }
-
-  warn(...args) {
-    if (this.isDebug) {
-      console.warn(...args);
-    }
-  }
-
-  error(...args) {
-    console.error(...args);
-  }
-}
 
 const logger = new Logger();
 
