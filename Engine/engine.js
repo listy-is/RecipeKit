@@ -240,7 +240,7 @@ class StepExecutor {
       
       if (input === '') {
         logger.warn(`Input for regex step is empty: ${step.input}`);
-        result[step.output.name] = '';
+        result[step.output.name] = input;
         return;
       }
       
@@ -264,15 +264,15 @@ class StepExecutor {
           logger.log(`Regex match found for ${outputName}: "${result[outputName]}"`);
         } else {
           logger.warn(`No regex match found for expression: ${expression} on input: "${input}"`);
-          result[step.output.name] = '';
+          result[step.output.name] = input;
         }
       } catch (error) {
         logger.error(`Error in regex step: ${error.message}`);
-        result[step.output.name] = '';
+        result[step.output.name] = input;
       }
     } else {
       logger.warn('Regex step is missing required properties');
-      result[step.output.name] = '';
+      result[step.output.name] = input;
     }
   }
 
@@ -489,7 +489,7 @@ function colorizeJson(obj) {
 
 async function executeRecipe(recipePath, stepType, input, additionalOptions) {
   const recipe = await loadRecipe(recipePath);
-  logger.log('Loaded recipe:', JSON.stringify(recipe, null, 2));
+  logger.log('Loaded recipe:', recipePath);
 
   const engine = new RecipeEngine(additionalOptions);
   await engine.initialize();
