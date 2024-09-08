@@ -1,17 +1,10 @@
 import { expect, test, describe } from "bun:test";
-import { execSync } from "child_process";
+import { runEngine } from '../Engine/test_utils.js';
 
 describe("tmdb.json", () => {
-  test("--type autocomplete", () => {
-    const output = execSync(
-      "bun Engine/engine.js --recipe movies/tmdb.json --type autocomplete --input \"Matrix\""
-    ).toString();
-
-    const results = JSON.parse(output);
-
-    // Generic validations
-    expect(Array.isArray(results)).toBe(true);
-    expect(results.length).toBeGreaterThan(0);
+  test("--type autocomplete", async() => {
+   
+    const results = await runEngine("movies/tmdb.json", "autocomplete", "Matrix");
 
     // Find the Matrix entry
     const entry = results.find(item => 
@@ -35,16 +28,8 @@ describe("tmdb.json", () => {
     expect(entry[`URL${suffix}`]).toMatch(/^https:\/\/www\.themoviedb\.org\/movie\/.*matrix.*$/i);
   });
 
-  test("--type url'", () => {
-    const output = execSync(
-      "bun Engine/engine.js --recipe movies/tmdb.json --type url --input \"https://www.themoviedb.org/movie/603-the-matrix\?language\=en-US\""
-    ).toString();
-
-    const result = JSON.parse(output);
-
-    // Generic validations
-    expect(typeof result).toBe('object');
-    expect(Object.keys(result).length).toBeGreaterThan(0);
+  test("--type url'", async () => {
+    const result = await runEngine("movies/tmdb.json", "url", "https://www.themoviedb.org/movie/603-the-matrix?language=en-US");
 
     expect(result.URL).toMatch(/^https:\/\/www\.themoviedb\.org\/movie\/.*matrix.*$/i);
     expect(result.TITLE).toBe("The Matrix");
