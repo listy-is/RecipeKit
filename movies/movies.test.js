@@ -1,31 +1,17 @@
 import { expect, test, describe } from "bun:test";
-import { runEngine } from '../Engine/test_utils.js';
+import { runEngine, findEntry } from '../Engine/test_utils.js';
 
 describe("tmdb.json", () => {
   test("--type autocomplete", async() => {
    
     const results = await runEngine("movies/tmdb.json", "autocomplete", "Matrix");
-
-    // Find the Matrix entry
-    const entry = results.find(item => 
-      Object.entries(item).some(([key, value]) => 
-        key.startsWith('TITLE') && value === 'Matrix' && 
-        item[key.replace('TITLE', 'SUBTITLE')] === '1998'
-      )
-    );
-
-    expect(entry).toBeDefined();
-
-    const suffix = Object.keys(entry)
-      .find(key => key.startsWith('TITLE') && entry[key] === 'Matrix')
-      .slice(-1);
-
-    // Assert specific values
-    expect(entry[`COVER${suffix}`]).toMatch(/^https:\/\/.*\.(jpg|jpeg|png|webp)$/i);
-    expect(entry[`TITLE${suffix}`]).toBe("Matrix");
-    expect(entry[`YEAR${suffix}`]).toBe("December 31, 1998");
-    expect(entry[`SUBTITLE${suffix}`]).toBe("1998");
-    expect(entry[`URL${suffix}`]).toMatch(/^https:\/\/www\.themoviedb\.org\/movie\/.*matrix.*$/i);
+    const entry = findEntry(results, "Matrix", "1998");
+    
+    expect(entry.TITLE).toBe("Matrix");
+    expect(entry.SUBTITLE).toBe("1998");
+    expect(entry.YEAR).toBe("December 31, 1998");
+    expect(entry.COVER).toMatch(/^https:\/\/.*\.(jpg|jpeg|png|webp)$/i);
+    expect(entry.URL).toMatch(/^https:\/\/www\.themoviedb\.org\/movie\/.*matrix.*$/i);
   });
 
   test("--type url'", async () => {

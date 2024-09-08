@@ -24,3 +24,21 @@ export async function runEngine(recipe, type, input) {
 
   return result;
 }
+
+export function findEntry(results, title, subtitle = null) {
+  const entry = results.find(item => {
+    const titleEntry = Object.entries(item).find(([key, value]) => key.startsWith('TITLE') && value === title);
+    if (!titleEntry) return false;
+    if (!subtitle) return true;
+    const [titleKey] = titleEntry;
+    const subtitleKey = titleKey.replace('TITLE', 'SUBTITLE');
+    return item[subtitleKey] === subtitle;
+  });
+
+  expect(entry).toBeDefined(`No entry found for title "${title}" ${subtitle ? `and subtitle "${subtitle}"` : ''}`);
+
+  const suffix = Object.keys(entry).find(key => key.startsWith('TITLE') && entry[key] === title).slice(-1);
+  return Object.fromEntries(
+    Object.entries(entry).map(([key, value]) => [key.replace(suffix, ''), value])
+  );
+}
