@@ -11,6 +11,9 @@ export class BrowserManager {
         this.browser = await launch();
         this.page = await this.browser.newPage();
         await this.page.setUserAgent(process.env.USER_AGENT);
+        await this.page.setExtraHTTPHeaders({
+            'Accept-Language': process.env.SYSTEM_LANGUAGE
+        });
     }
 
     async close() {

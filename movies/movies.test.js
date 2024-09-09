@@ -30,3 +30,17 @@ describe("tmdb.json", () => {
     // expect(result.TAGS).toBe("");
   });
 });
+
+describe("imdb.json", () => {
+  test("--type url", async () => {
+    const result = await runEngine("movies/imdb.json", "url", "https://www.imdb.com/title/tt0133093/");
+
+    expect(result.URL).toBe("https://www.imdb.com/title/tt0133093/");
+    expect(result.TITLE).toBe("The Matrix");
+    expect(result.DATE).toBe("1999");
+    expect(result.DESCRIPTION).toBeDefined();
+    expect(result.RATING).toBeDefined();
+    expect(result.AUTHOR).toBeDefined();
+    expect(result.COVER).toMatch(/^https:\/\/.*\.(jpg|jpeg|png|webp)$/i);
+  });
+});
