@@ -22,7 +22,7 @@ export class StepExecutor {
       Log.debug(`Executing step: ${step.command}`);
       const indexVariable = step.config?.loop?.index;
       const loopIndex = step.loopIndex;
-      const replacedStep = this.replaceStepPlaceholders(step, input, loopIndex, indexVariable);
+      const replacedStep = this.variableManager.replaceStepPlaceholders(step, input, loopIndex, indexVariable);
       const result = {};
   
       const handler = this.stepHandlers[replacedStep.command];
@@ -35,18 +35,6 @@ export class StepExecutor {
       Log.debug(`Step result:`, result);
       this.variableManager.updateFromResult(result);
       return result;
-    }
-  
-    replaceStepPlaceholders(step, input, loopIndex, indexVariable) {
-      const replacedStep = JSON.parse(JSON.stringify(step));
-      for (const [key, value] of Object.entries(replacedStep)) {
-        if (typeof value === 'string') {
-          replacedStep[key] = this.variableManager.replacePlaceholders(value, input, loopIndex, indexVariable);
-        } else if (typeof value === 'object' && value !== null) {
-          replacedStep[key] = this.replaceStepPlaceholders(value, input, loopIndex, indexVariable);
-        }
-      }
-      return replacedStep;
     }
   
     async executeLoadStep(step, result) {

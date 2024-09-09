@@ -65,4 +65,16 @@ export class VariableManager {
         return this.get(p1, match);
       }).replace(indexRegex, loopIndex !== undefined ? loopIndex.toString() : '$' + indexVariable);
     }
-  }
+  
+    replaceStepPlaceholders(step, input, loopIndex, indexVariable) {
+      const replacedStep = JSON.parse(JSON.stringify(step));
+      for (const [key, value] of Object.entries(replacedStep)) {
+        if (typeof value === 'string') {
+          replacedStep[key] = this.replacePlaceholders(value, input, loopIndex, indexVariable);
+        } else if (typeof value === 'object' && value !== null) {
+          replacedStep[key] = this.replaceStepPlaceholders(value, input, loopIndex, indexVariable);
+        }
+      }
+      return replacedStep;
+    }
+}
