@@ -1,5 +1,5 @@
 import { expect, test, describe } from "bun:test";
-import { runEngine, findEntry } from '../Engine/test_utils.js';
+import { runEngine, findEntry } from '../Engine/utils/test_utils.js';
 
 describe("tmdb.json", () => {
   test("--type autocomplete", async() => {

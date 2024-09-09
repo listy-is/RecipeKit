@@ -20,7 +20,7 @@ export class VariableManager {
   
     async loadEnvVariables() {
       const __dirname = dirname(fileURLToPath(import.meta.url));
-      const envPath = resolve(__dirname, '.env');
+      const envPath = resolve(__dirname, '../.env');
   
       try {
         const env = await file(envPath).text();

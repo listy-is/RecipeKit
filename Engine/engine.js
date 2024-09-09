@@ -1,7 +1,7 @@
 import chalk from 'chalk';
 import { readFile } from 'fs/promises';
-import { RecipeEngine } from './recipe.js';
-import { Log } from './logger.js';
+import { RecipeEngine } from './src/recipe.js';
+import { Log } from './src/logger.js';
 
 class ArgumentParser {
   async parse() {
