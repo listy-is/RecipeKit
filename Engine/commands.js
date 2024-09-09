@@ -1,0 +1,208 @@
+import { Log } from './logger.js';
+
+export class StepExecutor {
+    constructor(browserManager, variableManager) {
+      this.browserManager = browserManager;
+      this.variableManager = variableManager;
+      this.stepHandlers = {
+        load: this.executeLoadStep,
+        store_attribute: this.executeStoreAttributeStep,
+        store_text: this.executeStoreTextStep,
+        regex: this.executeRegexStep,
+        store: this.executeStoreStep,
+        api_request: this.executeApiRequestStep,
+        json_store_text: this.executeJsonStoreTextStep,
+        url_encode: this.executeUrlEncodeStep,
+        initialize_variables: this.executeInitializeVariablesStep,
+        store_url: this.executeStoreUrlStep,
+      };
+    }
+  
+    async execute(step, input) {
+      Log.debug(`Executing step: ${step.command}`);
+      const indexVariable = step.config?.loop?.index;
+      const loopIndex = step.loopIndex;
+      const replacedStep = this.replaceStepPlaceholders(step, input, loopIndex, indexVariable);
+      const result = {};
+  
+      const handler = this.stepHandlers[replacedStep.command];
+      if (handler) {
+        await handler.call(this, replacedStep, result, loopIndex, indexVariable);
+      } else {
+        Log.warn(`Unknown step command: ${replacedStep.command}`);
+      }
+  
+      Log.debug(`Step result:`, result);
+      this.variableManager.updateFromResult(result);
+      return result;
+    }
+  
+    replaceStepPlaceholders(step, input, loopIndex, indexVariable) {
+      const replacedStep = JSON.parse(JSON.stringify(step));
+      for (const [key, value] of Object.entries(replacedStep)) {
+        if (typeof value === 'string') {
+          replacedStep[key] = this.variableManager.replacePlaceholders(value, input, loopIndex, indexVariable);
+        } else if (typeof value === 'object' && value !== null) {
+          replacedStep[key] = this.replaceStepPlaceholders(value, input, loopIndex, indexVariable);
+        }
+      }
+      return replacedStep;
+    }
+  
+    async executeLoadStep(step, result) {
+      if (step.url) {
+        const options = {
+          waitUntil: step.config?.js ? 'networkidle0' : 'domcontentloaded',
+          timeout: step.config?.timeout || parseInt(process.env.DEFAULT_PAGE_LOAD_TIMEOUT) || 30000
+        };
+        await this.browserManager.loadPage(step.url, options);
+      }
+    }
+  
+    async executeStoreAttributeStep(step, result, loopIndex, indexVariable) {
+      if (step.locator && step.attribute_name && step.output) {
+        const elements = await this.browserManager.querySelectorAll(step.locator);
+        if (elements.length > 0) {
+          const attributeValue = await elements[0].evaluate(
+            (el, attr) => el.getAttribute(attr),
+            step.attribute_name
+          );
+          const outputName = step.output.name.replace(`$${indexVariable}`, loopIndex);
+          result[outputName] = attributeValue || '';
+          Log.debug(`Stored attribute ${step.attribute_name} for ${outputName}: "${result[outputName]}"`);
+        } else {
+          Log.warn(`No elements found for locator: ${step.locator}`);
+          result[step.output.name] = '';
+        }
+      }
+    }
+  
+    async executeStoreTextStep(step, result) {
+      if (step.locator && step.output) {
+        try {
+          const elements = await this.browserManager.querySelectorAll(step.locator);
+          if (elements.length > 0) {
+            const text = await elements[0].evaluate(el => el.textContent);
+            result[step.output.name] = text ? text.trim() : '';
+            Log.debug(`Stored text for ${step.output.name}: "${result[step.output.name]}"`);
+          } else {
+            Log.warn(`No elements found for locator: ${step.locator}`);
+            result[step.output.name] = '';
+          }
+        } catch (error) {
+          Log.error(`Error in store_text step: ${error.message}`);
+          result[step.output.name] = '';
+        }
+      } else {
+        Log.warn('store_text step is missing required properties');
+        result[step.output.name] = '';
+      }
+    }
+  
+    async executeRegexStep(step, result, loopIndex, indexVariable) {
+      if (step.input && step.expression && step.output) {
+        const resolvedInput = this.variableManager.replacePlaceholders(step.input, '', loopIndex, indexVariable);
+        const input = resolvedInput;
+  
+        const expression = step.expression.replace(/\\\\/g, '\\');
+        Log.debug(`Regex step - Input: "${input}", Expression: "${expression}"`);
+        
+        if (input === '') {
+          Log.warn(`Input for regex step is empty: ${step.input}`);
+          result[step.output.name] = input;
+          return;
+        }
+        
+        try {
+          // Use 's' flag for dot-all mode, allowing '.' to match newlines
+          const regex = new RegExp(expression, 'gs');
+          const matches = [...input.matchAll(regex)];
+          
+          if (matches.length > 0) {
+            let matchResult;
+            if (matches[0].length > 1) {
+              // If there are capture groups, use the first non-empty one
+              matchResult = matches[0].slice(1).find(group => group !== undefined);
+            } else {
+              // If no capture groups, use the entire match
+              matchResult = matches[0][0];
+            }
+            
+            const outputName = step.output.name.replace(`$${indexVariable}`, loopIndex);
+            result[outputName] = matchResult ? matchResult.trim() : '';
+            Log.debug(`Regex match found for ${outputName}: "${result[outputName]}"`);
+          } else {
+            Log.warn(`No regex match found for expression: ${expression} on input: "${input}"`);
+            result[step.output.name] = input;
+          }
+        } catch (error) {
+          Log.error(`Error in regex step: ${error.message}`);
+          result[step.output.name] = input;
+        }
+      } else {
+        Log.warn('Regex step is missing required properties');
+        result[step.output.name] = input;
+      }
+    }
+  
+    async executeStoreStep(step, result) {
+      if (step.input && step.output) {
+        let inputValue = step.input;
+        
+        // Check if the input contains any variables to replace
+        const variableMatches = inputValue.match(/\$([A-Z0-9_]+)/g);
+        if (variableMatches) {
+          for (const match of variableMatches) {
+            const variableName = match.substring(1); // Remove the $ prefix
+            const variableValue = this.variableManager.get(variableName);
+            if (variableValue !== undefined) {
+              inputValue = inputValue.replace(match, variableValue);
+            } else {
+              Log.warn(`Variable not found: ${variableName}`);
+            }
+          }
+        }
+        
+        const outputName = step.output.name.replace('$i', step.loopIndex || '');
+        result[outputName] = inputValue;
+        Log.debug(`Store step executed successfully. Output: ${outputName} = ${inputValue}`);
+      }
+    }
+  
+    async executeApiRequestStep(step, result) {
+      if (step.url && step.output) {
+        const response = await fetch(step.url, step.config);
+        const data = await response.json();
+        result[step.output.name] = data;
+      }
+    }
+  
+    async executeJsonStoreTextStep(step, result) {
+      if (step.input && step.locator && step.output) {
+        const data = JSON.parse(this.variableManager.get(step.input));
+        const value = step.locator.split('.').reduce((obj, key) => obj && obj[key], data);
+        result[step.output.name] = value;
+      }
+    }
+  
+    async executeUrlEncodeStep(step, result) {
+      if (step.input && step.output) {
+        result[step.output.name] = encodeURIComponent(step.input);
+      }
+    }
+  
+    async executeInitializeVariablesStep(step, result) {
+      if (step.variables) {
+        for (const [key, value] of Object.entries(step.variables)) {
+          this.variableManager.set(key, value);
+          result[key] = value;
+        }
+      }
+    }
+  
+    async executeStoreUrlStep(step, result) {
+      if (step.output) {
+        result[step.output.name] = this.browserManager.page.url();
+      }
+    }
+}
