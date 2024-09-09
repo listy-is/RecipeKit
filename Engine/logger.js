@@ -1,9 +1,15 @@
-export class Logger {
+let singleton = null;
+
+class Logger {
     constructor(isDebug = false) {
+        if (singleton) {
+            return singleton;
+        }
         this.isDebug = isDebug;
+        singleton = this;
     }
 
-    log(...args) {
+    debug(...args) {
         if (this.isDebug) {
             console.log(...args);
         }
@@ -16,6 +22,13 @@ export class Logger {
     }
 
     error(...args) {
-     console.error(...args);
+        console.error(...args);
+    }
+
+    setDebug(isDebug) {
+        this.isDebug = isDebug;
     }
 }
+
+const Log = new Logger();
+export { Log };

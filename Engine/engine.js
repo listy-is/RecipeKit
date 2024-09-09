@@ -4,10 +4,8 @@ import { readFile } from 'fs/promises';
 import { file } from 'bun';
 import { dirname, resolve } from 'path';
 import { fileURLToPath } from 'url';
-import { Logger } from './logger.js';
+import { Log } from './logger.js';
 
-
-const logger = new Logger();
 
 class VariableManager {
   static VARIABLE_NAMES = {
@@ -37,9 +35,9 @@ class VariableManager {
       );
 
       Object.assign(process.env, envVariables);
-      logger.log("Environment variables loaded successfully", envVariables);
+      Log.debug("Environment variables loaded successfully", envVariables);
     } catch (error) {
-      logger.error(`Error loading .env file from ${envPath}:`, error.message);
+      Log.error(`Error loading .env file from ${envPath}:`, error.message);
     }
   }
 
@@ -49,7 +47,7 @@ class VariableManager {
 
   get(key, defaultValue = '') {
     const value = this.variables[key] || process.env[key] || defaultValue;
-    logger.log(`Getting variable: ${key}, Value: ${value}`);
+    Log.debug(`Getting variable: ${key}, Value: ${value}`);
     return value;
   }
 
@@ -98,7 +96,7 @@ class BrowserManager {
         await new Promise(resolve => setTimeout(resolve, 1000));
       }
     } catch (error) {
-      logger.error(`Error loading page ${url}: ${error.message}`);
+      Log.error(`Error loading page ${url}: ${error.message}`);
     }
   }
 
@@ -130,7 +128,7 @@ class StepExecutor {
   }
 
   async execute(step, input) {
-    logger.log(`Executing step: ${step.command}`);
+    Log.debug(`Executing step: ${step.command}`);
     const indexVariable = step.config?.loop?.index;
     const loopIndex = step.loopIndex;
     const replacedStep = this.replaceStepPlaceholders(step, input, loopIndex, indexVariable);
@@ -140,10 +138,10 @@ class StepExecutor {
     if (handler) {
       await handler.call(this, replacedStep, result, loopIndex, indexVariable);
     } else {
-      logger.warn(`Unknown step command: ${replacedStep.command}`);
+      Log.warn(`Unknown step command: ${replacedStep.command}`);
     }
 
-    logger.log(`Step result:`, result);
+    Log.debug(`Step result:`, result);
     this.variableManager.updateFromResult(result);
     return result;
   }
@@ -180,9 +178,9 @@ class StepExecutor {
         );
         const outputName = step.output.name.replace(`$${indexVariable}`, loopIndex);
         result[outputName] = attributeValue || '';
-        logger.log(`Stored attribute ${step.attribute_name} for ${outputName}: "${result[outputName]}"`);
+        Log.debug(`Stored attribute ${step.attribute_name} for ${outputName}: "${result[outputName]}"`);
       } else {
-        logger.warn(`No elements found for locator: ${step.locator}`);
+        Log.warn(`No elements found for locator: ${step.locator}`);
         result[step.output.name] = '';
       }
     }
@@ -195,17 +193,17 @@ class StepExecutor {
         if (elements.length > 0) {
           const text = await elements[0].evaluate(el => el.textContent);
           result[step.output.name] = text ? text.trim() : '';
-          logger.log(`Stored text for ${step.output.name}: "${result[step.output.name]}"`);
+          Log.debug(`Stored text for ${step.output.name}: "${result[step.output.name]}"`);
         } else {
-          logger.warn(`No elements found for locator: ${step.locator}`);
+          Log.warn(`No elements found for locator: ${step.locator}`);
           result[step.output.name] = '';
         }
       } catch (error) {
-        logger.error(`Error in store_text step: ${error.message}`);
+        Log.error(`Error in store_text step: ${error.message}`);
         result[step.output.name] = '';
       }
     } else {
-      logger.warn('store_text step is missing required properties');
+      Log.warn('store_text step is missing required properties');
       result[step.output.name] = '';
     }
   }
@@ -216,10 +214,10 @@ class StepExecutor {
       const input = resolvedInput;
 
       const expression = step.expression.replace(/\\\\/g, '\\');
-      logger.log(`Regex step - Input: "${input}", Expression: "${expression}"`);
+      Log.debug(`Regex step - Input: "${input}", Expression: "${expression}"`);
       
       if (input === '') {
-        logger.warn(`Input for regex step is empty: ${step.input}`);
+        Log.warn(`Input for regex step is empty: ${step.input}`);
         result[step.output.name] = input;
         return;
       }
@@ -241,17 +239,17 @@ class StepExecutor {
           
           const outputName = step.output.name.replace(`$${indexVariable}`, loopIndex);
           result[outputName] = matchResult ? matchResult.trim() : '';
-          logger.log(`Regex match found for ${outputName}: "${result[outputName]}"`);
+          Log.debug(`Regex match found for ${outputName}: "${result[outputName]}"`);
         } else {
-          logger.warn(`No regex match found for expression: ${expression} on input: "${input}"`);
+          Log.warn(`No regex match found for expression: ${expression} on input: "${input}"`);
           result[step.output.name] = input;
         }
       } catch (error) {
-        logger.error(`Error in regex step: ${error.message}`);
+        Log.error(`Error in regex step: ${error.message}`);
         result[step.output.name] = input;
       }
     } else {
-      logger.warn('Regex step is missing required properties');
+      Log.warn('Regex step is missing required properties');
       result[step.output.name] = input;
     }
   }
@@ -269,14 +267,14 @@ class StepExecutor {
           if (variableValue !== undefined) {
             inputValue = inputValue.replace(match, variableValue);
           } else {
-            logger.warn(`Variable not found: ${variableName}`);
+            Log.warn(`Variable not found: ${variableName}`);
           }
         }
       }
       
       const outputName = step.output.name.replace('$i', step.loopIndex || '');
       result[outputName] = inputValue;
-      logger.log(`Store step executed successfully. Output: ${outputName} = ${inputValue}`);
+      Log.debug(`Store step executed successfully. Output: ${outputName} = ${inputValue}`);
     }
   }
 
@@ -335,11 +333,11 @@ class RecipeEngine {
   }
 
   async executeRecipe(recipe, stepType, input = '') {
-    logger.log(`Executing recipe for step type: ${stepType}`);
+    Log.debug(`Executing recipe for step type: ${stepType}`);
     const steps = recipe[stepType] || [];
 
     if (steps.length === 0) {
-      logger.warn(`No steps found for step type: ${stepType}`);
+      Log.warn(`No steps found for step type: ${stepType}`);
       return {};
     }
 
@@ -445,7 +443,7 @@ async function parseArguments() {
 
 function validateArguments(parsedArgs) {
   if (!parsedArgs.recipe || !parsedArgs.type) {
-    logger.error('Usage: bun run engine.js --recipe <recipe_path> --type <step_type> [--input <input>]');
+    Log.error('Usage: bun run engine.js --recipe <recipe_path> --type <step_type> [--input <input>]');
     process.exit(1);
   }
 }
@@ -469,7 +467,7 @@ function colorizeJson(obj) {
 
 async function executeRecipe(recipePath, stepType, input, additionalOptions) {
   const recipe = await loadRecipe(recipePath);
-  logger.log('Loaded recipe:', recipePath);
+  Log.debug('Loaded recipe:', recipePath);
 
   const engine = new RecipeEngine(additionalOptions);
   await engine.initialize();
@@ -492,7 +490,7 @@ function getStepTypeKey(stepType) {
 
 async function main() {
   const { parsedArgs, isDebug } = await parseArguments();
-  logger.isDebug = isDebug;
+  Log.isDebug = isDebug;
 
   validateArguments(parsedArgs);
 
@@ -508,11 +506,11 @@ async function main() {
 
 function handleError(error) {
   if (error instanceof SyntaxError) {
-    logger.error('Error parsing recipe JSON:', error);
+    Log.error('Error parsing recipe JSON:', error);
   } else if (error instanceof TypeError) {
-    logger.error('Error executing recipe steps:', error);
+    Log.error('Error executing recipe steps:', error);
   } else {
-    logger.error('Unexpected error:', error);
+    Log.error('Unexpected error:', error);
   }
 }
 
