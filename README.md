@@ -323,7 +323,6 @@ Specific inputs: pattern, output (dictionary name for the output)
   "description": "Apply url encode to the variable"
 }
 ```
-```
 </p>
 </details>
 
@@ -388,6 +387,54 @@ bun run engine.js --recipe <path_to_recipe> --type <step_type> --input <input_va
 ## Output
 
 The engine will output the results of the recipe execution in JSON format. For autocomplete steps, this will typically be an array of search results. For URL steps, it will be an object containing details about the specific item.
+
+## Architecture
+
+The Engine is designed as a flexible and modular system for executing web automation recipes. At its core, the Engine class orchestrates the entire process, from parsing command-line arguments to executing the recipe and handling errors.
+
+The RecipeEngine class is responsible for managing the execution of individual steps within a recipe, utilizing three key components: BrowserManager for web interactions, VariableManager for handling variables and placeholders, and StepExecutor for executing specific step commands.
+
+The execution flow begins with loading the recipe and initializing the RecipeEngine. Each step in the recipe is processed sequentially, with the StepExecutor handling the specific logic for different step types (e.g., loading pages, storing attributes, executing regex). 
+
+The VariableManager plays a crucial role throughout the process, replacing placeholders in step configurations and updating variables based on step results. This architecture allows for dynamic and context-aware execution of recipes, with the ability to handle both linear sequences and looped steps. The modular design facilitates easy extension of functionality by adding new step types or modifying existing ones.
+
+
+```mermaid
+graph TD
+    A[Start] --> B[Parse Arguments]
+    B --> C[Load Recipe]
+    C --> D[Initialize RecipeEngine]
+    D --> E[Execute Recipe]
+    E --> F[Process Results]
+    F --> G[Close Browser]
+    G --> H[End]
+
+    subgraph RecipeEngine
+    I[BrowserManager]
+    J[VariableManager]
+    K[StepExecutor]
+    end
+
+    subgraph StepExecution
+    L[Replace Variables]
+    M[Execute Step Command]
+    N[Update Variables]
+    end
+
+    E --> K
+    K --> StepExecution
+    I <--> K
+    J <--> K
+
+    L --> M
+    M --> N
+    N --> O{More Steps?}
+    O -->|Yes| L
+    O -->|No| F
+
+    J --> L
+    N --> J
+```
 
 ## Troubleshooting
 
