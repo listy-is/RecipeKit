@@ -59,15 +59,15 @@ class Engine {
     };
   }
 
-  getStepTypeKey(stepType) {
-    const stepTypeMap = {
+  getEngineCommandType(commandType) {
+    const commandTypeMap = {
       'autocomplete': 'autocomplete_steps',
       'url': 'url_steps'
     };
-    return stepTypeMap[stepType] || stepType;
+    return commandTypeMap[commandType] || commandType;
   }
 
-  async executeRecipe(recipePath, stepType, input, additionalOptions) {
+  async executeRecipe(recipePath, commandType, input, additionalOptions) {
     const recipe = await this.loadRecipe(recipePath);
     Log.debug('Loaded recipe:', recipePath);
 
@@ -75,7 +75,7 @@ class Engine {
     await engine.initialize();
 
     try {
-      const result = await engine.executeRecipe(recipe, this.getStepTypeKey(stepType), input);
+      const result = await engine.executeRecipe(recipe, this.getEngineCommandType(commandType), input);
       console.log(this.jsonColorizer.colorize(result));
     } finally {
       await engine.close();

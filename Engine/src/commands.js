@@ -1,4 +1,5 @@
 import { Log } from './logger.js';
+import _ from 'lodash';
 
 export class StepExecutor {
     constructor(browserManager, variableManager) {
@@ -18,23 +19,32 @@ export class StepExecutor {
       };
     }
   
-    async execute(step, input) {
+    async execute(step) {
       Log.debug(`Executing step: ${step.command}`);
-      const indexVariable = step.config?.loop?.index;
-      const loopIndex = step.loopIndex;
-      const replacedStep = this.variableManager.replaceStepPlaceholders(step, input, loopIndex, indexVariable);
-      const result = {};
-  
-      const handler = this.stepHandlers[replacedStep.command];
+
+      const handler = this.stepHandlers[step.command];
       if (handler) {
-        await handler.call(this, replacedStep, result, loopIndex, indexVariable);
+        if (step.config.loop) {
+          for (let i = step.config.loop.from; i <= step.config.loop.to; i += step.config.loop.step) {
+            // Store and retrieve loop index
+            this.variableManager.set(step.config.loop.index, i)
+
+            // Execute the step
+            let output = await handler.call(this, step);
+
+            // Store the output
+            let outputWithIndex = this.variableManager.checkAndReplaceLoopVariable(step.output.name, step.config.loop.index);
+            this.variableManager.set(outputWithIndex, output);
+          }
+        } else {
+          let output = await handler.call(this, step);
+          this.variableManager.set(step.output.name, output);
+        }
       } else {
         Log.warn(`Unknown step command: ${replacedStep.command}`);
       }
-  
-      Log.debug(`Step result:`, result);
-      this.variableManager.updateFromResult(result);
-      return result;
+
+      Log.debug(`Step executed: ${step.command}`);
     }
   
     async executeLoadStep(step, result) {
@@ -157,19 +167,21 @@ export class StepExecutor {
       }
     }
   
-    async executeApiRequestStep(step, result) {
+    async executeApiRequestStep(step) {
       if (step.url && step.output) {
-        const response = await fetch(step.url, step.config);
-        const data = await response.json();
-        result[step.output.name] = data;
+        let url = this.variableManager.checkAndReplaceGenericVariables(step.url);
+        const input = await fetch(url, step.config);
+        const output = await input.json();
+        return output;
       }
     }
   
-    async executeJsonStoreTextStep(step, result) {
+    async executeJsonStoreTextStep(step) {
       if (step.input && step.locator && step.output) {
-        const data = JSON.parse(this.variableManager.get(step.input));
-        const value = step.locator.split('.').reduce((obj, key) => obj && obj[key], data);
-        result[step.output.name] = value;
+        const input = this.variableManager.get(step.input);
+        const locator = this.variableManager.checkAndReplaceLoopVariable(step.locator, step.config.loop.index);
+        const output = _.get(input, locator);
+        return output
       }
     }
   

@@ -8,6 +8,7 @@ export class VariableManager {
       INPUT: 'INPUT',
       SYSTEM_LANGUAGE: 'SYSTEM_LANGUAGE',
       SYSTEM_REGION: 'SYSTEM_REGION',
+      VARIABLE_START_CHAR: '$'
     };
   
     constructor() {
@@ -16,6 +17,7 @@ export class VariableManager {
       // Initialize with environment variables
       this.set(VariableManager.VARIABLE_NAMES.SYSTEM_LANGUAGE, process.env.SYSTEM_LANGUAGE);
       this.set(VariableManager.VARIABLE_NAMES.SYSTEM_REGION, process.env.SYSTEM_REGION);
+      this.set(VariableManager.VARIABLE_NAMES.INPUT, '');
     }
   
     async loadEnvVariables() {
@@ -42,11 +44,15 @@ export class VariableManager {
     }
   
     get(key, defaultValue = '') {
-      const value = this.variables[key] || process.env[key] || defaultValue;
-      Log.debug(`Getting variable: ${key}, Value: ${value}`);
+      const rawKey = key.replace(VariableManager.VARIABLE_NAMES.VARIABLE_START_CHAR, '');
+      const value = this.variables[rawKey] ?? process.env[rawKey] ?? defaultValue;
       return value;
     }
-  
+
+    getAllVariables() {
+      return this.variables;
+    }
+      
     updateFromResult(result) {
       for (const [key, value] of Object.entries(result)) {
         this.set(key, value);
@@ -65,16 +71,22 @@ export class VariableManager {
         return this.get(p1, match);
       }).replace(indexRegex, loopIndex !== undefined ? loopIndex.toString() : '$' + indexVariable);
     }
-  
-    replaceStepPlaceholders(step, input, loopIndex, indexVariable) {
-      const replacedStep = JSON.parse(JSON.stringify(step));
-      for (const [key, value] of Object.entries(replacedStep)) {
-        if (typeof value === 'string') {
-          replacedStep[key] = this.replacePlaceholders(value, input, loopIndex, indexVariable);
-        } else if (typeof value === 'object' && value !== null) {
-          replacedStep[key] = this.replaceStepPlaceholders(value, input, loopIndex, indexVariable);
-        }
-      }
-      return replacedStep;
+
+    setInput(input) {
+      this.set(VariableManager.VARIABLE_NAMES.INPUT, input);
+    }
+
+    checkAndReplaceGenericVariables(str) {     
+      Log.debug(`Checking and replacing variables in: ${str}`);
+      return Object.keys(VariableManager.VARIABLE_NAMES).reduce((result, variable) => {
+        Log.debug(`Attempting to replace variable: ${variable} with value: ${this.get(variable)}`);
+        return result.replace(`$${variable}`, this.get(variable));
+      }, str);
+    } 
+
+    checkAndReplaceLoopVariable(str, indexVariable) {
+      Log.debug(`Checking and replacing loop variable: ${indexVariable} in: ${str}`);
+      const value = this.get(`${indexVariable}`);
+      return str.replace(`${VariableManager.VARIABLE_NAMES.VARIABLE_START_CHAR}${indexVariable}`, value);
     }
 }
