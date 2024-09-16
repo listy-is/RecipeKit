@@ -99,65 +99,65 @@ export class StepExecutor {
     }
   
     async executeRegexStep(step) {
-      if (step.input && step.expression && step.output) {
+      if (!step.input || !step.expression) {
+        Log.warn('executeRegexStep: Missing required step properties');
+        return '';
+      }
 
-        let input = this.variableManager.replaceVariablesinString(step.input);
-        // Remove escaping characters from input
-        input = input.replace(/\\([\\/?!])/g, '$1');
-        
-        try {
-          // Use 's' flag for dot-all mode, allowing '.' to match newlines
-          const regex = new RegExp(step.expression, 'gs');
-          const matches = [...input.matchAll(regex)];
+      let input = this.variableManager.replaceVariablesinString(step.input);
+      input = input.replace(/\\([\\/?!])/g, '$1');
 
-          if (matches.length > 0) {
-            let output;
-            if (matches[0].length > 1) {
-              // If there are capture groups, use the first non-empty one
-              output = matches[0].slice(1).find(group => group !== undefined);
-            } else {
-              // If no capture groups, use the entire match
-              output = matches[0][0];
-            }
-            
-            return output ? output.trim() : '';
-          } else {
-            Log.warn(`executeRegexStep: No regex match found for step.expression: ${step.expression} on input: "${input}"`);
-            return input;
-          }
-        } catch (error) {
-          Log.error(`executeRegexStep: Error ${error.message}`);
+      try {
+        const regex = new RegExp(step.expression, 'gs');
+        const matches = [...input.matchAll(regex)];
+
+        if (matches.length === 0) {
+          Log.warn(`executeRegexStep: No regex match found for expression: ${step.expression} on input: "${input}"`);
           return input;
         }
-      } else {
-        Log.warn('executeRegexStep: Missing required step properties');
+
+        const [fullMatch, ...captureGroups] = matches[0];
+        const output = captureGroups.find(group => group !== undefined) || fullMatch;
+        
+        return output.trim();
+      } catch (error) {
+        Log.error(`executeRegexStep: Error ${error.message}`);
         return input;
       }
     }
   
     async executeStoreStep(step) {
-      if (step.input && step.output) {
-        const output = this.variableManager.replaceVariablesinString(step.input);
-        return output;
+      if (!step.input) {
+        Log.warn('executeStoreStep: Missing required step properties');
+        return '';
       }
+
+      const output = this.variableManager.replaceVariablesinString(step.input);
+      return output;
     }
   
     async executeApiRequestStep(step) {
-      if (step.url && step.output) {
-        let url = this.variableManager.replaceVariablesinString(step.url);
-        const input = await fetch(url, step.config);
-        const output = await input.json();
-        return output;
+      if (!step.url || !step.config) {
+        Log.warn('executeApiRequestStep: Missing required step properties');
+        return '';
       }
+
+      let url = this.variableManager.replaceVariablesinString(step.url);
+      const input = await fetch(url, step.config);
+      const output = await input.json();
+      return output;
     }
   
     async executeJsonStoreTextStep(step) {
-      if (step.input && step.locator && step.output) {
-        const input = this.variableManager.get(step.input);
-        const locator = this.variableManager.replaceVariablesinString(step.locator);
-        const output = _.get(input, locator);
-        return output
+      if (!step.input || !step.locator) {
+        Log.warn('executeJsonStoreTextStep: Missing required step properties');
+        return '';
       }
+
+      const input = this.variableManager.get(step.input);
+      const locator = this.variableManager.replaceVariablesinString(step.locator);
+      const output = _.get(input, locator);
+      return output
     }
   
     async executeUrlEncodeStep(step, result) {
