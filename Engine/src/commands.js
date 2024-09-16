@@ -42,10 +42,10 @@ export class StepExecutor {
           this.variableManager.set(step.output.name, output);
         }
       } else {
-        Log.warn(`Unknown step command: ${replacedStep.command}`);
+        Log.warn(`execute: Unknown step command: ${replacedStep.command}`);
       }
 
-      Log.debug(`Step executed: ${step.command}`);
+      Log.debug(`execute: Step executed: ${step.command}`);
     }
   
     async executeLoadStep(step, result) {

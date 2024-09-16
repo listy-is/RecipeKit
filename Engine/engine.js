@@ -67,6 +67,50 @@ class Engine {
     return commandTypeMap[commandType] || commandType;
   }
 
+  restructureOutputByIndex(result) {
+    const debug = {};
+    const results = [];
+    const indexedVariables = {};
+
+    for (const [key, value] of Object.entries(result)) {
+      const match = key.match(/^([A-Z]+)(\d+)$/);
+      if (match) {
+        const [, prefix, index] = match;
+        if (!indexedVariables[index]) {
+          indexedVariables[index] = {};
+        }
+        indexedVariables[index][prefix] = value;
+      } else {
+        debug[key] = value;
+      }
+    }
+
+    results.push(...Object.values(indexedVariables));
+
+    // Only include debug if in debug mode
+    return Log.isDebug ? { debug, results } : { results };
+  }
+
+  restructureOutputByStepConfig(result, recipe) {
+    const debug = { ...result };
+    const filteredResult = {};
+
+    if (recipe.url_steps && Array.isArray(recipe.url_steps)) {
+      for (const step of recipe.url_steps) {
+        if (step.output && step.output.name && step.output.show) {
+          const outputName = step.output.name;
+          if (result.hasOwnProperty(outputName)) {
+            filteredResult[outputName] = result[outputName];
+          }
+        }
+      }
+    }
+
+    return Log.isDebug
+      ? { debug, results: filteredResult }
+      : { results: filteredResult };
+  }
+
   async executeRecipe(recipePath, commandType, input, additionalOptions) {
     const recipe = await this.loadRecipe(recipePath);
     Log.debug('Loaded recipe:', recipePath);
@@ -75,8 +119,18 @@ class Engine {
     await engine.initialize();
 
     try {
-      const result = await engine.executeRecipe(recipe, this.getEngineCommandType(commandType), input);
-      console.log(this.jsonColorizer.colorize(result));
+      const rawResult = await engine.executeRecipe(recipe, this.getEngineCommandType(commandType), input);
+      let finalResult;
+
+      if (commandType === 'autocomplete') {
+        finalResult = this.restructureOutputByIndex(rawResult);
+      } else if (commandType === 'url') {
+        finalResult = this.restructureOutputByStepConfig(rawResult, recipe);
+      } else {
+        Log.error('Unknown command type:', commandType);
+      }
+
+      console.log(this.jsonColorizer.colorize(finalResult));
     } finally {
       await engine.close();
     }

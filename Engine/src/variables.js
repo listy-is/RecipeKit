@@ -33,9 +33,9 @@ export class VariableManager {
         );
   
         Object.assign(process.env, envVariables);
-        Log.debug("Environment variables loaded successfully", envVariables);
+        Log.debug("loadEnvVariables: Environment variables loaded successfully", envVariables);
       } catch (error) {
-        Log.error(`Error loading .env file from ${envPath}:`, error.message);
+        Log.error(`loadEnvVariables: Error loading .env file from ${envPath}:`, error.message);
       }
     }
   
@@ -58,9 +58,9 @@ export class VariableManager {
     }
 
     replaceVariablesinString(str) {     
-      Log.debug(`Checking and replacing variables in: ${str}`);
+      Log.debug(`replaceVariablesinString: Checking and replacing variables in: ${str}`);
       return Object.keys(this.variables).reduce((result, variable) => {
-        Log.debug(`Attempting to replace variable: ${variable} with value: ${this.get(variable)}`);
+        if (result.includes(`$${variable}`)) Log.debug(`Attempting to replace variable: ${variable} with value: ${this.get(variable)}`);
         return result.replace(`$${variable}`, this.get(variable));
       }, str);
     } 
