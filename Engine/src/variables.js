@@ -52,41 +52,16 @@ export class VariableManager {
     getAllVariables() {
       return this.variables;
     }
-      
-    updateFromResult(result) {
-      for (const [key, value] of Object.entries(result)) {
-        this.set(key, value);
-      }
-    }
-  
-    replacePlaceholders(str, input, loopIndex, indexVariable) {
-      const indexRegex = new RegExp(`\\$${indexVariable}`, 'g');
-      return str.replace(/\$([A-Z_]+)(\$[a-z]+)?/g, (match, p1, p2) => {
-        if (p1 === VariableManager.VARIABLE_NAMES.INPUT) return input;
-        if (p2) {
-          // Handle variables with dynamic index suffix
-          const variableName = `${p1}${loopIndex}`;
-          return this.get(variableName, match);
-        }
-        return this.get(p1, match);
-      }).replace(indexRegex, loopIndex !== undefined ? loopIndex.toString() : '$' + indexVariable);
-    }
 
     setInput(input) {
       this.set(VariableManager.VARIABLE_NAMES.INPUT, input);
     }
 
-    checkAndReplaceGenericVariables(str) {     
+    replaceVariablesinString(str) {     
       Log.debug(`Checking and replacing variables in: ${str}`);
-      return Object.keys(VariableManager.VARIABLE_NAMES).reduce((result, variable) => {
+      return Object.keys(this.variables).reduce((result, variable) => {
         Log.debug(`Attempting to replace variable: ${variable} with value: ${this.get(variable)}`);
         return result.replace(`$${variable}`, this.get(variable));
       }, str);
     } 
-
-    checkAndReplaceLoopVariable(str, indexVariable) {
-      Log.debug(`Checking and replacing loop variable: ${indexVariable} in: ${str}`);
-      const value = this.get(`${indexVariable}`);
-      return str.replace(`${VariableManager.VARIABLE_NAMES.VARIABLE_START_CHAR}${indexVariable}`, value);
-    }
 }

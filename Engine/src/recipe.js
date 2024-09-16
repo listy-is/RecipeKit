@@ -49,15 +49,10 @@ export class RecipeEngine {
       }
     }
   
-    async executeUrlSteps(steps, input) {
-      const finalResult = this.initializeOutputVariables(steps);
-  
+    async executeUrlSteps(steps) {
       for (const step of steps) {
-        const result = await this.stepExecutor.execute(step, input);
-        Object.assign(finalResult, result);
+        await this.stepExecutor.execute(step)
       }
-  
-      return finalResult;
     }
   
     updateTempResults(tempResults, result, index, indexVariable) {
