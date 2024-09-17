@@ -11,34 +11,29 @@ export async function runEngine(recipe, type, input) {
   ]);
 
   const output = await new Response(proc.stdout).text();
-  const result = JSON.parse(output);
+  const data = JSON.parse(output);
+  const results = data.results;
 
   // Generic validations
   if (type === "autocomplete") {
-    expect(Array.isArray(result)).toBe(true);
-    expect(result.length).toBeGreaterThan(0);
+    expect(Array.isArray(results)).toBe(true);
+    expect(results.length).toBeGreaterThan(0);
   } else if (type === "url") {
-    expect(typeof result).toBe('object');
-    expect(Object.keys(result).length).toBeGreaterThan(0);
+    expect(typeof results).toBe('object');
+    expect(Object.keys(results).length).toBeGreaterThan(0);
   }
 
-  return result;
+  return results;
 }
 
 export function findEntry(results, title, subtitle = null) {
   const entry = results.find(item => {
-    const titleEntry = Object.entries(item).find(([key, value]) => key.startsWith('TITLE') && value === title);
-    if (!titleEntry) return false;
+    if (item.TITLE !== title) return false;
     if (!subtitle) return true;
-    const [titleKey] = titleEntry;
-    const subtitleKey = titleKey.replace('TITLE', 'SUBTITLE');
-    return item[subtitleKey] === subtitle;
+    return item.SUBTITLE === subtitle;
   });
 
   expect(entry).toBeDefined(`No entry found for title "${title}" ${subtitle ? `and subtitle "${subtitle}"` : ''}`);
 
-  const suffix = Object.keys(entry).find(key => key.startsWith('TITLE') && entry[key] === title).slice(-1);
-  return Object.fromEntries(
-    Object.entries(entry).map(([key, value]) => [key.replace(suffix, ''), value])
-  );
+  return entry;
 }
