@@ -39,7 +39,7 @@ export class StepExecutor {
           }
         } else {
           let output = await handler.call(this, step);
-          this.variableManager.set(step.output.name, output);
+          if (step.output?.name) this.variableManager.set(step.output.name, output);
         }
       } else {
         Log.warn(`execute: Unknown step command: ${replacedStep.command}`);
@@ -48,32 +48,37 @@ export class StepExecutor {
       Log.debug(`execute: Step executed: ${step.command}`);
     }
   
-    async executeLoadStep(step, result) {
-      if (step.url) {
-        const options = {
-          waitUntil: step.config?.js ? 'networkidle0' : 'domcontentloaded',
-          timeout: step.config?.timeout || parseInt(process.env.DEFAULT_PAGE_LOAD_TIMEOUT) || 30000
-        };
-        await this.browserManager.loadPage(step.url, options);
+    async executeLoadStep(step) {
+      if (!step.url ) {
+        Log.warn('executeLoadStep: Missing required step properties');
+        return '';
       }
+
+      const options = {
+        waitUntil: step.config?.js ? 'networkidle0' : 'domcontentloaded',
+        timeout: step.config?.timeout || parseInt(process.env.DEFAULT_PAGE_LOAD_TIMEOUT) || 30000
+      };
+      await this.browserManager.loadPage(step.url, options);
     }
   
-    async executeStoreAttributeStep(step, result, loopIndex, indexVariable) {
-      if (step.locator && step.attribute_name && step.output) {
-        // const elements = await this.browserManager.querySelectorAll(step.locator);
-        // if (elements.length > 0) {
-        //   const attributeValue = await elements[0].evaluate(
-        //     (el, attr) => el.getAttribute(attr),
-        //     step.attribute_name
-        //   );
-        //   const outputName = step.output.name.replace(`$${indexVariable}`, loopIndex);
-        //   result[outputName] = attributeValue || '';
-        //   Log.debug(`Stored attribute ${step.attribute_name} for ${outputName}: "${result[outputName]}"`);
-        // } else {
-        //   Log.warn(`No elements found for locator: ${step.locator}`);
-        //   result[step.output.name] = '';
-        // }
+    async executeStoreAttributeStep(step) {
+
+      if (!step.locator && !step.attribute_name && !step.output) {
+        Log.warn('executeStoreAttributeStep: Missing required step properties');
+        return '';
       }
+
+      const locator = this.variableManager.replaceVariablesinString(step.locator);
+      const element = await this.browserManager.querySelector(locator);
+      
+      if (!element) {
+        Log.warn(`executeStoreAttributeStep: No elements found for locator: ${step.locator}`);
+        return '';
+      }
+
+      const attributeValue = await element.evaluate((elem, attr) => elem.getAttribute(attr), step.attribute_name);
+
+      return attributeValue;
     }
   
     async executeStoreTextStep(step, result) {
