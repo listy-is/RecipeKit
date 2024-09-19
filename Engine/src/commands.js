@@ -54,16 +54,18 @@ export class StepExecutor {
         return '';
       }
 
+      const url = this.variableManager.replaceVariablesinString(step.url);
+
       const options = {
         waitUntil: step.config?.js ? 'networkidle0' : 'domcontentloaded',
         timeout: step.config?.timeout || parseInt(process.env.DEFAULT_PAGE_LOAD_TIMEOUT) || 30000
       };
-      await this.browserManager.loadPage(step.url, options);
+      await this.browserManager.loadPage(url, options);
     }
   
     async executeStoreAttributeStep(step) {
 
-      if (!step.locator && !step.attribute_name && !step.output) {
+      if (!step.locator && !step.attribute_name) {
         Log.warn('executeStoreAttributeStep: Missing required step properties');
         return '';
       }
@@ -81,26 +83,24 @@ export class StepExecutor {
       return attributeValue;
     }
   
-    async executeStoreTextStep(step, result) {
-      if (step.locator && step.output) {
-        // try {
-        //   const elements = await this.browserManager.querySelectorAll(step.locator);
-        //   if (elements.length > 0) {
-        //     const text = await elements[0].evaluate(el => el.textContent);
-        //     result[step.output.name] = text ? text.trim() : '';
-        //     Log.debug(`Stored text for ${step.output.name}: "${result[step.output.name]}"`);
-        //   } else {
-        //     Log.warn(`No elements found for locator: ${step.locator}`);
-        //     result[step.output.name] = '';
-        //   }
-        // } catch (error) {
-        //   Log.error(`Error in store_text step: ${error.message}`);
-        //   result[step.output.name] = '';
-        // }
-      } else {
-        // Log.warn('store_text step is missing required properties');
-        // result[step.output.name] = '';
+    async executeStoreTextStep(step) {
+
+      if (!step.locator) {
+        Log.warn('executeStoreTextStep: Missing required step properties');
+        return '';
       }
+
+      const locator = this.variableManager.replaceVariablesinString(step.locator);
+      const element = await this.browserManager.querySelector(locator);
+
+      if (!element) {
+        Log.warn(`executeStoreTextStep: No elements found for locator: ${step.locator}`);
+        return '';
+      }
+
+      const textValue = await element.evaluate(el => el.textContent.trim());
+
+      return textValue;
     }
   
     async executeRegexStep(step) {
