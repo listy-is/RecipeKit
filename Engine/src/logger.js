@@ -16,9 +16,7 @@ class Logger {
     }
 
     warn(...args) {
-        if (this.isDebug) {
-            console.warn(...args);
-        }
+        console.warn(...args);
     }
 
     error(...args) {

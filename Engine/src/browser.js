@@ -36,8 +36,4 @@ export class BrowserManager {
     async querySelector(selector) {
         return await this.page.$(selector);
     }
-
-    async querySelectorAll(selector) {
-        return await this.page.$$(selector);
-    }
 }

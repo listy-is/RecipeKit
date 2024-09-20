@@ -14,7 +14,6 @@ export class StepExecutor {
         api_request: this.executeApiRequestStep,
         json_store_text: this.executeJsonStoreTextStep,
         url_encode: this.executeUrlEncodeStep,
-        initialize_variables: this.executeInitializeVariablesStep,
         store_url: this.executeStoreUrlStep,
       };
     }
@@ -34,7 +33,7 @@ export class StepExecutor {
       }
       
       if (!step.output?.name) {
-        Log.warn('execute: Step has no step.output defined');
+        Log.debug('execute: Step has no step.output defined');
       }
 
       if (isLoop) {
@@ -124,7 +123,7 @@ export class StepExecutor {
         const matches = [...input.matchAll(regex)];
 
         if (matches.length === 0) {
-          Log.warn(`executeRegexStep: No regex match found for expression: ${step.expression} on input: "${input}"`);
+          Log.debug(`executeRegexStep: No regex match found for expression: ${step.expression} on input: "${input}"`);
           return input;
         }
 
