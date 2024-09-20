@@ -8,7 +8,7 @@ export class BrowserManager {
     }
 
     async initialize() {
-        this.browser = await launch();
+        this.browser = await launch({ headless: (process.env.HEADLESS_BROWSER === 'false') ? false : true });
         this.page = await this.browser.newPage();
         await this.setUserAgent(process.env.DEFAULT_USER_AGENT);
         await this.setExtraHTTPHeaders({
