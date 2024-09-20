@@ -24,9 +24,16 @@ export class BrowserManager {
         await this.page.setExtraHTTPHeaders(headers);
     }
 
+    async setCookies(cookies) {
+        if (!Array.isArray(cookies)) {
+            cookies = [cookies];
+        }
+        await this.page.setCookie(...cookies);
+    }
+
     async close() {
         if (this.browser) {
-        await this.browser.close();
+            await this.browser.close();
         }
     }
 

@@ -67,10 +67,24 @@ export class StepExecutor {
         waitUntil: step.config?.js ? 'networkidle0' : 'domcontentloaded',
         timeout: stepTimeout || parseInt(process.env.DEFAULT_PAGE_LOAD_TIMEOUT),
       };
-      await this.browserManager.loadPage(url, options);
-      
-      if (step.config?.headers) await this.browserManager.setExtraHTTPHeaders(step.config.headers);
 
+      if (step.config?.headers) {
+        let replacedHeaders = JSON.stringify(step.config.headers);
+        replacedHeaders = this.variableManager.replaceVariablesinString(replacedHeaders);
+        await this.browserManager.setExtraHTTPHeaders(JSON.parse(replacedHeaders));
+      }
+      
+      if (step.config?.headers?.['Cookie']) {
+        let cookie = this.variableManager.replaceVariablesinString(step.config.headers["Cookie"]);
+        let cookieParts = cookie.split("=");
+        let domain = new URL(url).hostname;
+
+        await this.browserManager.setCookies([
+          { name: cookieParts[0], value: cookieParts[1], domain: domain }
+        ]);
+      }
+
+      await this.browserManager.loadPage(url, options);
       Log.debug(`executeLoadStep: Page loaded: ${url} with options: ${JSON.stringify(options)} and headers: ${JSON.stringify(step.config.headers)}`);
     }
   
