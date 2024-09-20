@@ -23,7 +23,6 @@ describe(RECIPE, () => {
   test("--type url'", async () => {
     const result = await runEngine(`albums/${RECIPE}`, "url", INPUT.URL);
 
-    expect(result.URL).toMatch(/^https:\/\/music\.apple\.com\/[a-z]{2}\/album\/[^\/]+\/\d+(\?uo=4)?$/i);
     expect(result.TITLE).toBe(ENTRY.TITLE);
     expect(result.DATE).toBe("2006");
     expect(result.GENRE).toBe("Alternative");

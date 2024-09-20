@@ -23,26 +23,33 @@ export class StepExecutor {
       Log.debug(`Executing step: ${step.command}`);
 
       const handler = this.stepHandlers[step.command];
+      const isLoop = (step?.config?.loop);
 
-      if (handler) {
-        if (step?.config?.loop) {
-          for (let i = step.config.loop.from; i <= step.config.loop.to; i += step.config.loop.step) {
-            // Store loop index
-            this.variableManager.set(step.config.loop.index, i)
+      let outputValue;
+      let outputKey;
 
-            // Execute the step
-            let output = await handler.call(this, step);
+      if (!handler) {
+        Log.warn(`execute: Unknown step command: ${step.command}`);
+        return;
+      }
+      
+      if (!step.output?.name) {
+        Log.warn('execute: Step has no step.output defined');
+      }
 
-            // Store the output
-            let outputWithIndex = this.variableManager.replaceVariablesinString(step.output.name);
-            this.variableManager.set(outputWithIndex, output);
-          }
-        } else {
-          let output = await handler.call(this, step);
-          if (step.output?.name) this.variableManager.set(step.output.name, output);
+      if (isLoop) {
+        for (let i = step.config.loop.from; i <= step.config.loop.to; i += step.config.loop.step) {
+          // Store loop index
+          this.variableManager.set(step.config.loop.index, i)
+          
+          outputKey = this.variableManager.replaceVariablesinString(step?.output?.name);
+          outputValue = await handler.call(this, step);
+          this.variableManager.set(outputKey, outputValue)
         }
       } else {
-        Log.warn(`execute: Unknown step command: ${replacedStep.command}`);
+        outputKey = step?.output?.name;
+        outputValue = await handler.call(this, step);
+        this.variableManager.set(outputKey, outputValue)
       }
 
       Log.debug(`execute: Step executed: ${step.command}`);
@@ -180,9 +187,7 @@ export class StepExecutor {
       }
     }
   
-    async executeStoreUrlStep(step, result) {
-      if (step.output) {
-        // result[step.output.name] = this.browserManager.page.url();
-      }
+    async executeStoreUrlStep(step) {
+      return this.browserManager.page.url();
     }
 }
