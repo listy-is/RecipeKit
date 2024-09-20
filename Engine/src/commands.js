@@ -172,19 +172,12 @@ export class StepExecutor {
       return output
     }
   
-    async executeUrlEncodeStep(step, result) {
-      if (step.input && step.output) {
-        // result[step.output.name] = encodeURIComponent(step.input);
+    async executeUrlEncodeStep(step) {
+      if (!step.input) {
+        Log.warn('executeUrlEncodeStep: Missing required step properties');
+        return '';
       }
-    }
-  
-    async executeInitializeVariablesStep(step, result) {
-      if (step.variables) {
-        // for (const [key, value] of Object.entries(step.variables)) {
-        //   this.variableManager.set(key, value);
-        //   result[key] = value;
-        // }
-      }
+      return encodeURIComponent(step.input);
     }
   
     async executeStoreUrlStep(step) {
