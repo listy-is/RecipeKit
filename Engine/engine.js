@@ -1,3 +1,6 @@
+import { file } from 'bun';
+import { dirname, resolve } from 'path';
+import { fileURLToPath } from 'url';
 import chalk from 'chalk';
 import { readFile } from 'fs/promises';
 import { RecipeEngine } from './src/recipe.js';
@@ -44,6 +47,26 @@ class Engine {
   constructor() {
     this.argumentParser = new ArgumentParser();
     this.jsonColorizer = new JsonColorizer();
+    this.loadEnvVariables();
+  }
+
+  async loadEnvVariables() {
+    const __dirname = dirname(fileURLToPath(import.meta.url));
+    const envPath = resolve(__dirname, '.env');
+
+    try {
+      const env = await file(envPath).text();
+      const envVariables = Object.fromEntries(
+        env.split('\n')
+          .filter(line => line.trim() !== '' && !line.startsWith('#'))
+          .map(line => line.split('=').map(part => part.trim()))
+      );
+
+      Object.assign(process.env, envVariables);
+      Log.debug("loadEnvVariables: Environment variables loaded successfully", envVariables);
+    } catch (error) {
+      Log.error(`loadEnvVariables: Error loading .env file from ${envPath}:`, error.message);
+    }
   }
 
   async loadRecipe(recipePath) {
@@ -55,7 +78,7 @@ class Engine {
     return {
       debug: parsedArgs.debug === 'true',
       timeout: parseInt(process.env.DEFAULT_PAGE_LOAD_TIMEOUT) || 30000,
-      userAgent: process.env.USER_AGENT
+      userAgent: process.env.DEFAULT_USER_AGENT
     };
   }
 
@@ -111,11 +134,11 @@ class Engine {
       : { results: filteredResult };
   }
 
-  async executeRecipe(recipePath, commandType, input, additionalOptions) {
+  async executeRecipe(recipePath, commandType, input) {
     const recipe = await this.loadRecipe(recipePath);
     Log.debug('Loaded recipe:', recipePath);
 
-    const engine = new RecipeEngine(additionalOptions);
+    const engine = new RecipeEngine();
     await engine.initialize();
 
     try {
@@ -153,10 +176,9 @@ class Engine {
     this.argumentParser.validate(parsedArgs);
 
     const { recipe: recipePath, type: stepType, input = '' } = parsedArgs;
-    const additionalOptions = this.getAdditionalOptions(parsedArgs);
 
     try {
-      await this.executeRecipe(recipePath, stepType, input, additionalOptions);
+      await this.executeRecipe(recipePath, stepType, input);
     } catch (error) {
       this.handleError(error);
     }

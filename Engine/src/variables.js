@@ -1,6 +1,3 @@
-import { file } from 'bun';
-import { dirname, resolve } from 'path';
-import { fileURLToPath } from 'url';
 import { Log } from './logger.js';
 
 export class VariableManager {
@@ -13,30 +10,11 @@ export class VariableManager {
   
     constructor() {
       this.variables = {};
-      this.loadEnvVariables();
+
       // Initialize with environment variables
       this.set(VariableManager.VARIABLE_NAMES.SYSTEM_LANGUAGE, process.env.SYSTEM_LANGUAGE);
       this.set(VariableManager.VARIABLE_NAMES.SYSTEM_REGION, process.env.SYSTEM_REGION);
       this.set(VariableManager.VARIABLE_NAMES.INPUT, '');
-    }
-  
-    async loadEnvVariables() {
-      const __dirname = dirname(fileURLToPath(import.meta.url));
-      const envPath = resolve(__dirname, '../.env');
-  
-      try {
-        const env = await file(envPath).text();
-        const envVariables = Object.fromEntries(
-          env.split('\n')
-            .filter(line => line.trim() !== '' && !line.startsWith('#'))
-            .map(line => line.split('=').map(part => part.trim()))
-        );
-  
-        Object.assign(process.env, envVariables);
-        Log.debug("loadEnvVariables: Environment variables loaded successfully", envVariables);
-      } catch (error) {
-        Log.error(`loadEnvVariables: Error loading .env file from ${envPath}:`, error.message);
-      }
     }
   
     set(key, value) {
