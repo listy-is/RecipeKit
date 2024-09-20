@@ -61,12 +61,15 @@ export class StepExecutor {
       }
 
       const url = this.variableManager.replaceVariablesinString(step.url);
+      let stepTimeout = (step.config?.timeout < process.env.MIN_PAGE_LOAD_TIMEOUT) ? process.env.MIN_PAGE_LOAD_TIMEOUT : step.config?.timeout;
 
       const options = {
         waitUntil: step.config?.js ? 'networkidle0' : 'domcontentloaded',
-        timeout: step.config?.timeout || parseInt(process.env.DEFAULT_PAGE_LOAD_TIMEOUT) || 30000
+        timeout: stepTimeout || parseInt(process.env.DEFAULT_PAGE_LOAD_TIMEOUT),
       };
       await this.browserManager.loadPage(url, options);
+      
+      if (step.config?.headers) await this.browserManager.setExtraHTTPHeaders(step.config.headers);
     }
   
     async executeStoreAttributeStep(step) {
