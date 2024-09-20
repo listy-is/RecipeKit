@@ -70,6 +70,8 @@ export class StepExecutor {
       await this.browserManager.loadPage(url, options);
       
       if (step.config?.headers) await this.browserManager.setExtraHTTPHeaders(step.config.headers);
+
+      Log.debug(`executeLoadStep: Page loaded: ${url} with options: ${JSON.stringify(options)} and headers: ${JSON.stringify(step.config.headers)}`);
     }
   
     async executeStoreAttributeStep(step) {
@@ -83,7 +85,7 @@ export class StepExecutor {
       const element = await this.browserManager.querySelector(locator);
       
       if (!element) {
-        Log.warn(`executeStoreAttributeStep: No elements found for locator: ${step.locator}`);
+        Log.warn(`executeStoreAttributeStep: No elements found for locator: ${locator}`);
         return '';
       }
 
