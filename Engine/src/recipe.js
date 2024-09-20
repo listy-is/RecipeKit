@@ -28,52 +28,20 @@ export class RecipeEngine {
         return {};
       }
 
-      // Store command INPUT
-      this.variableManager.setInput(input);
-
-      switch(stepType) {
-        case 'autocomplete_steps':
-          await this.executeAutocompleteSteps(steps);
-        case 'url_steps':
-          await this.executeUrlSteps(steps);
-        default:
-          Log.warn(`Unknown step type: ${stepType}`);
+      if (stepType != 'autocomplete_steps' && stepType != 'url_steps') {
+        Log.warn(`Unknown step type: ${stepType}`);
+        return {};
       }
+
+      this.variableManager.setInput(input);
+      await this.executeSteps(steps);
 
       return this.variableManager.getAllVariables();
     }
   
-    async executeAutocompleteSteps(steps) {
+    async executeSteps(steps) {
       for (const step of steps) {
         await this.stepExecutor.execute(step);
       }
-    }
-  
-    async executeUrlSteps(steps) {
-      for (const step of steps) {
-        await this.stepExecutor.execute(step)
-      }
-    }
-  
-    updateTempResults(tempResults, result, index, indexVariable) {
-      if (!tempResults[index]) tempResults[index] = {};
-      for (const [key, value] of Object.entries(result)) {
-        const updatedKey = key.replace(`$${indexVariable}`, index);
-        tempResults[index][updatedKey] = value;
-      }
-    }
-  
-    initializeOutputVariables(steps) {
-      const outputVariables = {};
-      steps.forEach(step => {
-        if (step.output && step.output.name) {
-          outputVariables[step.output.name] = '';
-        }
-      });
-      return outputVariables;
-    }
-  
-    cleanupResult(result) {
-      return result;
     }
   }
