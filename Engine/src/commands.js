@@ -2,9 +2,9 @@ import { Log } from './logger.js';
 import _ from 'lodash';
 
 export class StepExecutor {
-    constructor(browserManager, variableManager) {
-      this.browserManager = browserManager;
-      this.variableManager = variableManager;
+    constructor(BrowserManager, RecipeEngine) {
+      this.BrowserManager = BrowserManager;
+      this.RecipeEngine = RecipeEngine;
       this.stepHandlers = {
         load: this.executeLoadStep,
         store_attribute: this.executeStoreAttributeStep,
@@ -39,16 +39,16 @@ export class StepExecutor {
       if (isLoop) {
         for (let i = step.config.loop.from; i <= step.config.loop.to; i += step.config.loop.step) {
           // Store loop index
-          this.variableManager.set(step.config.loop.index, i)
+          this.RecipeEngine.set(step.config.loop.index, i)
           
-          outputKey = this.variableManager.replaceVariablesinString(step?.output?.name);
+          outputKey = this.RecipeEngine.replaceVariablesinString(step?.output?.name);
           outputValue = await handler.call(this, step);
-          this.variableManager.set(outputKey, outputValue)
+          this.RecipeEngine.set(outputKey, outputValue)
         }
       } else {
         outputKey = step?.output?.name;
         outputValue = await handler.call(this, step);
-        this.variableManager.set(outputKey, outputValue)
+        this.RecipeEngine.set(outputKey, outputValue)
       }
 
       Log.debug(`execute: Step executed: ${step.command}`);
@@ -60,7 +60,7 @@ export class StepExecutor {
         return '';
       }
 
-      const url = this.variableManager.replaceVariablesinString(step.url);
+      const url = this.RecipeEngine.replaceVariablesinString(step.url);
       let stepTimeout = (step.config?.timeout < process.env.MIN_PAGE_LOAD_TIMEOUT) ? process.env.MIN_PAGE_LOAD_TIMEOUT : step.config?.timeout;
 
       const options = {
@@ -70,22 +70,22 @@ export class StepExecutor {
 
       if (step.config?.headers) {
         let replacedHeaders = JSON.stringify(step.config.headers);
-        replacedHeaders = this.variableManager.replaceVariablesinString(replacedHeaders);
-        await this.browserManager.setExtraHTTPHeaders(JSON.parse(replacedHeaders));
+        replacedHeaders = this.RecipeEngine.replaceVariablesinString(replacedHeaders);
+        await this.BrowserManager.setExtraHTTPHeaders(JSON.parse(replacedHeaders));
       }
       
       if (step.config?.headers?.['Cookie']) {
-        let cookie = this.variableManager.replaceVariablesinString(step.config.headers["Cookie"]);
+        let cookie = this.RecipeEngine.replaceVariablesinString(step.config.headers["Cookie"]);
         let cookieParts = cookie.split("=");
         let domain = new URL(url).hostname;
 
-        await this.browserManager.setCookies([
+        await this.BrowserManager.setCookies([
           { name: cookieParts[0], value: cookieParts[1], domain: domain }
         ]);
       }
 
-      await this.browserManager.loadPage(url, options);
-      Log.debug(`executeLoadStep: Page loaded: ${url} with options: ${JSON.stringify(options)} and headers: ${JSON.stringify(step.config.headers)}`);
+      await this.BrowserManager.loadPage(url, options);
+      Log.debug(`executeLoadStep: Page loaded: ${url} with options: ${JSON.stringify(options)} and headers: ${JSON.stringify(step.config?.headers)}`);
     }
   
     async executeStoreAttributeStep(step) {
@@ -95,8 +95,8 @@ export class StepExecutor {
         return '';
       }
 
-      const locator = this.variableManager.replaceVariablesinString(step.locator);
-      const element = await this.browserManager.querySelector(locator);
+      const locator = this.RecipeEngine.replaceVariablesinString(step.locator);
+      const element = await this.BrowserManager.querySelector(locator);
       
       if (!element) {
         Log.warn(`executeStoreAttributeStep: No elements found for locator: ${locator}`);
@@ -115,8 +115,8 @@ export class StepExecutor {
         return '';
       }
 
-      const locator = this.variableManager.replaceVariablesinString(step.locator);
-      const element = await this.browserManager.querySelector(locator);
+      const locator = this.RecipeEngine.replaceVariablesinString(step.locator);
+      const element = await this.BrowserManager.querySelector(locator);
 
       if (!element) {
         Log.warn(`executeStoreTextStep: No elements found for locator: ${step.locator}`);
@@ -134,7 +134,7 @@ export class StepExecutor {
         return '';
       }
 
-      let input = this.variableManager.replaceVariablesinString(step.input);
+      let input = this.RecipeEngine.replaceVariablesinString(step.input);
       input = input.replace(/\\([\\/?!])/g, '$1');
 
       try {
@@ -162,7 +162,7 @@ export class StepExecutor {
         return '';
       }
 
-      const output = this.variableManager.replaceVariablesinString(step.input);
+      const output = this.RecipeEngine.replaceVariablesinString(step.input);
       return output;
     }
   
@@ -172,7 +172,7 @@ export class StepExecutor {
         return '';
       }
 
-      let url = this.variableManager.replaceVariablesinString(step.url);
+      let url = this.RecipeEngine.replaceVariablesinString(step.url);
       const input = await fetch(url, step.config);
       const output = await input.json();
       return output;
@@ -184,8 +184,8 @@ export class StepExecutor {
         return '';
       }
 
-      const input = this.variableManager.get(step.input);
-      const locator = this.variableManager.replaceVariablesinString(step.locator);
+      const input = this.RecipeEngine.get(step.input);
+      const locator = this.RecipeEngine.replaceVariablesinString(step.locator);
       const output = _.get(input, locator);
       return output
     }
@@ -199,6 +199,6 @@ export class StepExecutor {
     }
   
     async executeStoreUrlStep(step) {
-      return this.browserManager.page.url();
+      return this.BrowserManager.page.url();
     }
 }
