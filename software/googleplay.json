@@ -1,0 +1,240 @@
+{
+  "recipe_shortcut": "google_software",
+  "list_type": "software",
+  "engine_version": 18,
+  "title": "Google Play Software",
+  "description": "Load software from Google Play",
+  "urls": [
+    "https://play.google.com"
+  ],
+  "headers": {
+    "Accept-Language": "en-UK,en",
+    "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.113 Safari/537.36"
+  },
+  "autocomplete_steps": [
+    {
+      "command": "load",
+      "url": "https://play.google.com/store/search?q=$INPUT&c=apps",
+      "description": "Searches apps by title"
+    },
+    {
+      "command": "store_attribute",
+      "locator": "c-wiz > c-wiz:nth-child(2) section > div > div > a",
+      "attribute_name": "href",
+      "output": {
+        "name": "URL_END1",
+        "show": false
+      }
+    },
+    {
+      "command": "store",
+      "input": "https://play.google.com$URL_END1",
+      "output": {
+        "name": "URL1"
+      }
+    },
+    {
+      "command": "store_attribute",
+      "locator": "c-wiz c-wiz:nth-child(2) div:nth-child(2) img",
+      "attribute_name": "src",
+      "output": {
+        "name": "COVER1"
+      }
+    },
+    {
+      "command": "store_text",
+      "locator": "c-wiz c-wiz:nth-child(2) div:nth-child(2) div > div:nth-child(1) div:nth-child(1)",
+      "output": {
+        "name": "TITLE1"
+      }
+    },
+    {
+      "command": "store_attribute",
+      "locator": "c-wiz [role='listitem']:nth-child($i) div:nth-child(1) a",
+      "attribute_name": "href",
+      "output": {
+        "name": "URL_END$i"
+      },
+      "config": {
+        "loop": {
+          "index": "i",
+          "from": 2,
+          "to": 6,
+          "step": 1
+        }
+      }
+    },
+    {
+      "command": "store",
+      "input": "https://play.google.com$URL_END$i",
+      "output": {
+        "name": "URL$i"
+      },
+      "config": {
+        "loop": {
+          "index": "i",
+          "from": 2,
+          "to": 6,
+          "step": 1
+        }
+      }
+    },
+    {
+      "command": "store_attribute",
+      "locator": "c-wiz [role='listitem']:nth-child($i) a div:nth-child(2) img",
+      "attribute_name": "src",
+      "output": {
+        "name": "COVER$i"
+      },
+      "config": {
+        "loop": {
+          "index": "i",
+          "from": 2,
+          "to": 6,
+          "step": 1
+        }
+      }
+    },
+    {
+      "command": "store_text",
+      "locator": "c-wiz [role='listitem']:nth-child($i) a div:nth-child(1) span",
+      "output": {
+        "name": "TITLE$i"
+      },
+      "config": {
+        "loop": {
+          "index": "i",
+          "from": 2,
+          "to": 6,
+          "step": 1
+        }
+      }
+    }
+  ],
+  "url_steps": [
+    {
+      "command": "regex",
+      "input": "$INPUT",
+      "expression": "id([0-9]+)|term=([0-9]+)",
+      "output": {
+        "name": "ID"
+      },
+      "description": "Extract the app id from the URL."
+    },
+    {
+      "command": "store",
+      "input": "https://itunes.apple.com/search?media=software&limit=1&explicit=YES&term=$ID",
+      "output":
+      {
+        "name": "APIURL"
+      }
+    },
+    {
+      "command": "api_request",
+      "output": {
+        "name": "JSON"
+      },
+      "url": "$APIURL",
+      "config": {
+        "method": "GET"
+      }
+    },
+    {
+      "command": "json_store_text",
+      "locator": "results.[0].artistName",
+      "input": "$JSON",
+      "output": {
+        "name": "AUTHOR",
+        "type": "string",
+        "show": true
+      }
+    },
+    {
+      "command": "json_store_text",
+      "locator": "results.[0].trackName",
+      "input": "$JSON",
+      "output": {
+        "name": "TITLE",
+        "type": "string",
+        "show": true
+      }
+    },
+    {
+      "command": "json_store_text",
+      "locator": "results.[0].trackViewUrl",
+      "input": "$JSON",
+      "output": {
+        "name": "URL"
+      }
+    },
+    {
+      "command": "json_store_text",
+      "locator": "results.[0].artworkUrl512",
+      "input": "$JSON",
+      "output": {
+        "name": "COVER",
+        "type": "string",
+        "show": true
+      }
+    },
+    {
+      "command": "json_store_text",
+      "locator": "results.[0].formattedPrice",
+      "input": "$JSON",
+      "output": {
+        "name": "PRICE",
+        "type": "float",
+        "show": true
+      }
+    },
+    {
+      "command": "json_store_text",
+      "locator": "results.[0].releaseDate",
+      "input": "$JSON",
+      "output": {
+        "name": "DATE"
+      }
+    },
+    {
+      "command": "json_store_text",
+      "locator": "results.[0].primaryGenreName",
+      "input": "$JSON",
+      "output": {
+        "name": "GENRE",
+        "type": "string",
+        "show": true
+      }
+    },
+    {
+      "command": "regex",
+      "input": "$DATE",
+      "expression": "\\d\\d\\d\\d",
+      "output": {
+        "name": "DATE",
+        "type": "date",
+        "format": "YYYY",
+        "show": true
+      }
+    },
+    {
+      "command": "json_store_text",
+      "locator": "results.[0].averageUserRating",
+      "input": "$JSON",
+      "output": {
+        "name": "RATING",
+        "type": "float",
+        "show": true
+      }
+    },
+    {
+      "command": "json_store_text",
+      "locator": "results.[0].description",
+      "input": "$JSON",
+      "output": {
+        "name": "DESCRIPTION",
+        "type": "string",
+        "show": true
+      }
+    }
+  ]
+}
