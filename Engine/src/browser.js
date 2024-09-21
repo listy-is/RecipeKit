@@ -8,7 +8,7 @@ export class BrowserManager {
     }
 
     async initialize() {
-        this.browser = await launch({ headless: (process.env.HEADLESS_BROWSER === 'false') ? false : true });
+        this.browser = await launch({ headless: !Log.isDebug });
         this.page = await this.browser.newPage();
         await this.setUserAgent(process.env.DEFAULT_USER_AGENT);
         await this.setExtraHTTPHeaders({
@@ -32,19 +32,19 @@ export class BrowserManager {
     }
 
     async close() {
-        if (this.browser) {
+        if (this.browser && !Log.isDebug) {
             await this.browser.close();
         }
     }
 
     async loadPage(url, options) {
         try {
-        await this.page.goto(url, options);
-        if (options.waitUntil === 'networkidle0') {
-            await new Promise(resolve => setTimeout(resolve, 1000));
-        }
+            await this.page.goto(url, options);
+            if (options.waitUntil === 'networkidle0') {
+                await new Promise(resolve => setTimeout(resolve, 1000));
+            }
         } catch (error) {
-        Log.error(`Error loading page ${url}: ${error.message}`);
+         Log.error(`Error loading page ${url}: ${error.message}`);
         }
     }
 
