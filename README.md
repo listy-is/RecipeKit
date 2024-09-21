@@ -328,6 +328,8 @@ Specific inputs: pattern, output (dictionary name for the output)
 
 # RecipeKit Engine
 
+The RecipeKit Engine is a powerful tool for automating web interactions and data extraction. It is designed to work with [Listy](https://listy.is), a mobile app that allows users to create lists of their favorite things. The engine is built using JavaScript and the Bun runtime. It leverages the Puppeteer library for browser automation in headless mode.
+
 ## Prerequisites
 
 Before installing and using the Listy RecipeKit engine, ensure you have the following prerequisite installed on your system:
@@ -342,6 +344,7 @@ Bun is a fast all-in-one JavaScript runtime. If you haven't installed Bun yet, y
    ```
    git clone https://github.com/listy-is/RecipeKit
    cd listy-recipekit
+   cd Engine
    ```
 
 2. Install the dependencies:
@@ -354,7 +357,7 @@ Bun is a fast all-in-one JavaScript runtime. If you haven't installed Bun yet, y
 The RecipeKit Engine can be used from the command line. Here's the basic syntax:
 
 ```
-bun run engine.js --recipe <path_to_recipe> --type <step_type> --input <input_value> [options]
+bun run ./Engine/engine.js --recipe <path_to_recipe> --type <step_type> --input <input_value> [options]
 ```
 
 ### Parameters:
@@ -365,23 +368,23 @@ bun run engine.js --recipe <path_to_recipe> --type <step_type> --input <input_va
 
 ### Options:
 
-- `--debug`: Enable debug logging (optional).
+- `--debug`: Enable debug logging and a full browser launch, that needs to be manually closed. (optional).
 
 ### Examples:
 
 1. Execute autocomplete steps:
    ```
-   bun run engine.js --recipe movies/tmdb.json --type autocomplete --input "Inception"
+   bun run ./Engine/engine.js --recipe ./movies/tmdb.json --type autocomplete --input "Inception"
    ```
 
 2. Execute URL steps:
    ```
-   bun run engine.js --recipe movies/tmdb.json --type url --input "https://www.imdb.com/title/tt1375666/"
+   bun run ./Engine/engine.js --recipe ./movies/tmdb.json --type url --input "https://www.imdb.com/title/tt1375666/"
    ```
 
 3. Execute with debug logging and custom headers:
    ```
-   bun run engine.js --recipe movies/tmdb.json --type autocomplete --input "Inception" --debug
+   bun run ./Engine/engine.js --recipe ./movies/tmdb.json --type autocomplete --input "Inception" --debug
    ```
 
 ## Output
@@ -390,13 +393,11 @@ The engine will output the results of the recipe execution in JSON format. For a
 
 ## Architecture
 
-The Engine is designed as a flexible and modular system for executing web automation recipes. At its core, the Engine class orchestrates the entire process, from parsing command-line arguments to executing the recipe and handling errors.
+The Engine is a sophisticated system for executing web automation recipes. It begins by parsing command-line arguments to determine the recipe path, step type, and input. The core functionality is encapsulated in the RecipeEngine class, which manages the execution of individual steps within a recipe using the BrowserManager for web interactions and the StepExecutor for handling specific step commands.
 
-The RecipeEngine class is responsible for managing the execution of individual steps within a recipe, utilizing three key components: BrowserManager for web interactions, VariableManager for handling variables and placeholders, and StepExecutor for executing specific step commands.
+The execution flow starts with loading the recipe and initializing the RecipeEngine. Each step in the recipe is processed sequentially, with the StepExecutor handling various step types such as loading pages, storing attributes, executing regex, and making API requests. Throughout this process, the RecipeEngine manages variables, replacing placeholders in step configurations and updating variable values based on step results.
 
-The execution flow begins with loading the recipe and initializing the RecipeEngine. Each step in the recipe is processed sequentially, with the StepExecutor handling the specific logic for different step types (e.g., loading pages, storing attributes, executing regex). 
-
-The VariableManager plays a crucial role throughout the process, replacing placeholders in step configurations and updating variables based on step results. This architecture allows for dynamic and context-aware execution of recipes, with the ability to handle both linear sequences and looped steps. The modular design facilitates easy extension of functionality by adding new step types or modifying existing ones.
+After executing all steps, the Engine processes the raw results, restructuring them based on the command type (either 'autocomplete' or 'url'). The final results are then colorized for better readability and printed to the console. Error handling is implemented throughout the process to catch and report issues effectively. 
 
 
 ```mermaid
@@ -411,7 +412,7 @@ graph TD
 
     subgraph RecipeEngine
     I[BrowserManager]
-    J[VariableManager]
+    J[Variable Management]
     K[StepExecutor]
     end
 
@@ -443,7 +444,6 @@ If you encounter any issues while running the engine:
 1. Check that your recipe JSON is valid and follows the correct format.
 2. Ensure that the website or API you're trying to access is available and hasn't changed its structure.
 3. Try running with the `--debug` flag for more detailed logging.
-4. Check the console output for any error messages or stack traces.
 
 If you continue to have problems, please open an issue on the GitHub repository with a detailed description of the problem and steps to reproduce it.
 
