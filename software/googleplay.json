@@ -1,7 +1,7 @@
 {
   "recipe_shortcut": "google_software",
   "list_type": "software",
-  "engine_version": 18,
+  "engine_version": 20,
   "title": "Google Play Software",
   "description": "Load software from Google Play",
   "urls": [
@@ -46,6 +46,14 @@
       "locator": "c-wiz c-wiz:nth-child(2) div:nth-child(2) div > div:nth-child(1) div:nth-child(1)",
       "output": {
         "name": "TITLE1"
+      }
+    },
+    {
+      "command": "store_text",
+      "locator": "c-wiz:nth-child(2) > c-wiz section img + div div:nth-child(2)",
+      "output": {
+        "name": "SUBTITLE1",
+        "show": true
       }
     },
     {
@@ -97,9 +105,26 @@
     },
     {
       "command": "store_text",
-      "locator": "c-wiz [role='listitem']:nth-child($i) a div:nth-child(1) span",
+      "locator": "c-wiz [role='listitem']:nth-child($i) a div:nth-child(2) img + div div:nth-child(1) span",
       "output": {
         "name": "TITLE$i"
+      },
+      "config": {
+        "loop": {
+          "index": "i",
+          "from": 2,
+          "to": 6,
+          "step": 1
+        }
+      }
+    },
+
+    {
+      "command": "store_text",
+      "locator": "c-wiz [role='listitem']:nth-child($i) a div:nth-child(2) img + div div:nth-child(2) span",
+      "output": {
+        "name": "SUBTITLE$i",
+        "show": true
       },
       "config": {
         "loop": {
