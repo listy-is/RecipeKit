@@ -113,126 +113,74 @@
   ],
   "url_steps": [
     {
-      "command": "regex",
-      "input": "$INPUT",
-      "expression": "id([0-9]+)|term=([0-9]+)",
-      "output": {
-        "name": "ID"
-      },
-      "description": "Extract the app id from the URL."
+      "command": "load",
+      "url": "$INPUT"
     },
     {
-      "command": "store",
-      "input": "https://itunes.apple.com/search?media=software&limit=1&explicit=YES&term=$ID",
-      "output":
-      {
-        "name": "APIURL"
-      }
-    },
-    {
-      "command": "api_request",
-      "output": {
-        "name": "JSON"
-      },
-      "url": "$APIURL",
-      "config": {
-        "method": "GET"
-      }
-    },
-    {
-      "command": "json_store_text",
-      "locator": "results.[0].artistName",
-      "input": "$JSON",
-      "output": {
-        "name": "AUTHOR",
-        "type": "string",
-        "show": true
-      }
-    },
-    {
-      "command": "json_store_text",
-      "locator": "results.[0].trackName",
-      "input": "$JSON",
+      "command": "store_text",
+      "locator": "[itemprop='name']",
       "output": {
         "name": "TITLE",
-        "type": "string",
         "show": true
       }
     },
     {
-      "command": "json_store_text",
-      "locator": "results.[0].trackViewUrl",
-      "input": "$JSON",
+      "command": "store_text",
+      "locator": "[itemprop='starRating']",
       "output": {
-        "name": "URL"
-      }
-    },
-    {
-      "command": "json_store_text",
-      "locator": "results.[0].artworkUrl512",
-      "input": "$JSON",
-      "output": {
-        "name": "COVER",
-        "type": "string",
-        "show": true
-      }
-    },
-    {
-      "command": "json_store_text",
-      "locator": "results.[0].formattedPrice",
-      "input": "$JSON",
-      "output": {
-        "name": "PRICE",
-        "type": "float",
-        "show": true
-      }
-    },
-    {
-      "command": "json_store_text",
-      "locator": "results.[0].releaseDate",
-      "input": "$JSON",
-      "output": {
-        "name": "DATE"
-      }
-    },
-    {
-      "command": "json_store_text",
-      "locator": "results.[0].primaryGenreName",
-      "input": "$JSON",
-      "output": {
-        "name": "GENRE",
-        "type": "string",
+        "name": "RATING",
         "show": true
       }
     },
     {
       "command": "regex",
-      "input": "$DATE",
-      "expression": "\\d\\d\\d\\d",
-      "output": {
-        "name": "DATE",
-        "type": "date",
-        "format": "YYYY",
-        "show": true
-      }
-    },
-    {
-      "command": "json_store_text",
-      "locator": "results.[0].averageUserRating",
-      "input": "$JSON",
+      "input": "$RATING",
+      "expression": "^(\\d+(?:\\.\\d+)?)",
       "output": {
         "name": "RATING",
-        "type": "float",
         "show": true
       }
     },
     {
-      "command": "json_store_text",
-      "locator": "results.[0].description",
-      "input": "$JSON",
+      "command": "store_attribute",
+      "locator": "[itemprop='image']",
+      "attribute_name": "src",
+      "output": {
+        "name": "COVER",
+        "show": true
+      }
+    },
+    {
+      "command": "store_text",
+      "locator": "a[href*='/store/apps/developer'] span",
+      "output": {
+        "name": "AUTHOR",
+        "show": true
+      }
+    },
+    {
+      "command": "store_attribute",
+      "locator": "[itemprop='description']",
+      "attribute_name": "content",
       "output": {
         "name": "DESCRIPTION",
-        "type": "string",
+        "show": true
+      }
+    },
+    {
+      "command": "store_text",
+      "locator": "c-wiz:nth-child(2) section div > span",
+      "output": {
+        "name": "GENRE",
+        "show": true
+      }
+    },
+    {
+      "command": "store_attribute",
+      "locator": "[itemprop='price']",
+      "attribute_name": "content",
+      "output": {
+        "name": "PRICE",
         "show": true
       }
     }

@@ -37,7 +37,8 @@ export class RecipeEngine {
   }
 
   setInput(input) {
-    this.set(RecipeEngine.VARIABLE_NAMES.INPUT, input);
+    let sanitizedInput = input.replace(/\\/g, '');
+    this.set(RecipeEngine.VARIABLE_NAMES.INPUT, sanitizedInput);
   }
 
   replaceVariablesinString(str) {     
