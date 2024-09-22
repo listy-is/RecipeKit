@@ -1,0 +1,213 @@
+{
+  "recipe_shortcut": "google_software",
+  "list_type": "software",
+  "engine_version": 20,
+  "title": "Google Play Software",
+  "description": "Load software from Google Play",
+  "urls": [
+    "https://play.google.com"
+  ],
+  "headers": {
+    "Accept-Language": "en-UK,en",
+    "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.113 Safari/537.36"
+  },
+  "autocomplete_steps": [
+    {
+      "command": "load",
+      "url": "https://play.google.com/store/search?q=$INPUT&c=apps",
+      "description": "Searches apps by title"
+    },
+    {
+      "command": "store_attribute",
+      "locator": "c-wiz > c-wiz:nth-child(2) section > div > div > a",
+      "attribute_name": "href",
+      "output": {
+        "name": "URL_END1",
+        "show": false
+      }
+    },
+    {
+      "command": "store",
+      "input": "https://play.google.com$URL_END1",
+      "output": {
+        "name": "URL1"
+      }
+    },
+    {
+      "command": "store_attribute",
+      "locator": "c-wiz c-wiz:nth-child(2) div:nth-child(2) img",
+      "attribute_name": "src",
+      "output": {
+        "name": "COVER1"
+      }
+    },
+    {
+      "command": "store_text",
+      "locator": "c-wiz c-wiz:nth-child(2) div:nth-child(2) div > div:nth-child(1) div:nth-child(1)",
+      "output": {
+        "name": "TITLE1"
+      }
+    },
+    {
+      "command": "store_text",
+      "locator": "c-wiz:nth-child(2) > c-wiz section img + div div:nth-child(2)",
+      "output": {
+        "name": "SUBTITLE1",
+        "show": true
+      }
+    },
+    {
+      "command": "store_attribute",
+      "locator": "c-wiz [role='listitem']:nth-child($i) div:nth-child(1) a",
+      "attribute_name": "href",
+      "output": {
+        "name": "URL_END$i"
+      },
+      "config": {
+        "loop": {
+          "index": "i",
+          "from": 2,
+          "to": 6,
+          "step": 1
+        }
+      }
+    },
+    {
+      "command": "store",
+      "input": "https://play.google.com$URL_END$i",
+      "output": {
+        "name": "URL$i"
+      },
+      "config": {
+        "loop": {
+          "index": "i",
+          "from": 2,
+          "to": 6,
+          "step": 1
+        }
+      }
+    },
+    {
+      "command": "store_attribute",
+      "locator": "c-wiz [role='listitem']:nth-child($i) a div:nth-child(2) img",
+      "attribute_name": "src",
+      "output": {
+        "name": "COVER$i"
+      },
+      "config": {
+        "loop": {
+          "index": "i",
+          "from": 2,
+          "to": 6,
+          "step": 1
+        }
+      }
+    },
+    {
+      "command": "store_text",
+      "locator": "c-wiz [role='listitem']:nth-child($i) a div:nth-child(2) img + div div:nth-child(1) span",
+      "output": {
+        "name": "TITLE$i"
+      },
+      "config": {
+        "loop": {
+          "index": "i",
+          "from": 2,
+          "to": 6,
+          "step": 1
+        }
+      }
+    },
+
+    {
+      "command": "store_text",
+      "locator": "c-wiz [role='listitem']:nth-child($i) a div:nth-child(2) img + div div:nth-child(2) span",
+      "output": {
+        "name": "SUBTITLE$i",
+        "show": true
+      },
+      "config": {
+        "loop": {
+          "index": "i",
+          "from": 2,
+          "to": 6,
+          "step": 1
+        }
+      }
+    }
+  ],
+  "url_steps": [
+    {
+      "command": "load",
+      "url": "$INPUT"
+    },
+    {
+      "command": "store_text",
+      "locator": "[itemprop='name']",
+      "output": {
+        "name": "TITLE",
+        "show": true
+      }
+    },
+    {
+      "command": "store_text",
+      "locator": "[itemprop='starRating']",
+      "output": {
+        "name": "RATING",
+        "show": true
+      }
+    },
+    {
+      "command": "regex",
+      "input": "$RATING",
+      "expression": "^(\\d+(?:\\.\\d+)?)",
+      "output": {
+        "name": "RATING",
+        "show": true
+      }
+    },
+    {
+      "command": "store_attribute",
+      "locator": "[itemprop='image']",
+      "attribute_name": "src",
+      "output": {
+        "name": "COVER",
+        "show": true
+      }
+    },
+    {
+      "command": "store_text",
+      "locator": "a[href*='/store/apps/developer'] span",
+      "output": {
+        "name": "AUTHOR",
+        "show": true
+      }
+    },
+    {
+      "command": "store_attribute",
+      "locator": "[itemprop='description']",
+      "attribute_name": "content",
+      "output": {
+        "name": "DESCRIPTION",
+        "show": true
+      }
+    },
+    {
+      "command": "store_text",
+      "locator": "c-wiz:nth-child(2) section div > span",
+      "output": {
+        "name": "GENRE",
+        "show": true
+      }
+    },
+    {
+      "command": "store_attribute",
+      "locator": "[itemprop='price']",
+      "attribute_name": "content",
+      "output": {
+        "name": "PRICE",
+        "show": true
+      }
+    }
+  ]
+}

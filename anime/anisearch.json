@@ -12,18 +12,28 @@
     "https://www.anisearch.it/anime",
     "https://www.anisearch.fr/anime"
   ],
-  "locale": [
-    "COM",
-    "es_ES",
-    "jp_JP",
-    "de_DE",
-    "it_IT",
-    "fr_FR"
-  ],
   "headers": {
     "Accept-Language": "en-UK,en",
     "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/98.0.4758.102 Safari/537.36"
   },
+  "regions_available": [
+    "COM",
+    "ES",
+    "JP",
+    "DE",
+    "IT",
+    "FR"
+  ],
+  "region_default": "COM",
+  "languages_available": [
+    "COM",
+    "es",
+    "jp",
+    "de",
+    "it",
+    "fr"
+  ],
+  "language_default": "COM",
   "autocomplete_steps": [
     {
       "command": "load",

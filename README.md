@@ -323,3 +323,132 @@ Specific inputs: pattern, output (dictionary name for the output)
   "description": "Apply url encode to the variable"
 }
 ```
+</p>
+</details>
+
+# RecipeKit Engine
+
+The RecipeKit Engine is a powerful tool for automating web interactions and data extraction. It is designed to work with [Listy](https://listy.is), a mobile app that allows users to create lists of their favorite things. The engine is built using JavaScript and the Bun runtime. It leverages the Puppeteer library for browser automation in headless mode.
+
+## Prerequisites
+
+Before installing and using the Listy RecipeKit engine, ensure you have the following prerequisite installed on your system:
+
+- Bun (version 1.0 or later)
+
+Bun is a fast all-in-one JavaScript runtime. If you haven't installed Bun yet, you can do so by following the instructions on the [official Bun website](https://bun.sh/).
+
+## Installation
+
+1. Clone the repository:
+   ```
+   git clone https://github.com/listy-is/RecipeKit
+   cd listy-recipekit
+   cd Engine
+   ```
+
+2. Install the dependencies:
+   ```
+   bun install
+   ```
+
+## Usage
+
+The RecipeKit Engine can be used from the command line. Here's the basic syntax:
+
+```
+bun run ./Engine/engine.js --recipe <path_to_recipe> --type <step_type> --input <input_value> [options]
+```
+
+### Parameters:
+
+- `--recipe`: Path to the JSON file containing the recipe.
+- `--type`: Type of steps to execute. Can be either 'autocomplete' or 'url'.
+- `--input`: Input value for the recipe. For 'autocomplete', this is typically a search term. For 'url', it's the URL to process.
+
+### Options:
+
+- `--debug`: Enable debug logging and a full browser launch, that needs to be manually closed. (optional).
+
+### Examples:
+
+1. Execute autocomplete steps:
+   ```
+   bun run ./Engine/engine.js --recipe ./movies/tmdb.json --type autocomplete --input "Inception"
+   ```
+
+2. Execute URL steps:
+   ```
+   bun run ./Engine/engine.js --recipe ./movies/tmdb.json --type url --input "https://www.imdb.com/title/tt1375666/"
+   ```
+
+3. Execute with debug logging and custom headers:
+   ```
+   bun run ./Engine/engine.js --recipe ./movies/tmdb.json --type autocomplete --input "Inception" --debug
+   ```
+
+## Output
+
+The engine will output the results of the recipe execution in JSON format. For autocomplete steps, this will typically be an array of search results. For URL steps, it will be an object containing details about the specific item.
+
+## Architecture
+
+The Engine is a sophisticated system for executing web automation recipes. It begins by parsing command-line arguments to determine the recipe path, step type, and input. The core functionality is encapsulated in the RecipeEngine class, which manages the execution of individual steps within a recipe using the BrowserManager for web interactions and the StepExecutor for handling specific step commands.
+
+The execution flow starts with loading the recipe and initializing the RecipeEngine. Each step in the recipe is processed sequentially, with the StepExecutor handling various step types such as loading pages, storing attributes, executing regex, and making API requests. Throughout this process, the RecipeEngine manages variables, replacing placeholders in step configurations and updating variable values based on step results.
+
+After executing all steps, the Engine processes the raw results, restructuring them based on the command type (either 'autocomplete' or 'url'). The final results are then colorized for better readability and printed to the console. Error handling is implemented throughout the process to catch and report issues effectively. 
+
+
+```mermaid
+graph TD
+    A[Start] --> B[Parse Arguments]
+    B --> C[Load Recipe]
+    C --> D[Initialize RecipeEngine]
+    D --> E[Execute Recipe]
+    E --> F[Process Results]
+    F --> G[Close Browser]
+    G --> H[End]
+
+    subgraph RecipeEngine
+    I[BrowserManager]
+    J[Variable Management]
+    K[StepExecutor]
+    end
+
+    subgraph StepExecution
+    L[Replace Variables]
+    M[Execute Step Command]
+    N[Update Variables]
+    end
+
+    E --> K
+    K --> StepExecution
+    I <--> K
+    J <--> K
+
+    L --> M
+    M --> N
+    N --> O{More Steps?}
+    O -->|Yes| L
+    O -->|No| F
+
+    J --> L
+    N --> J
+```
+
+## Troubleshooting
+
+If you encounter any issues while running the engine:
+
+1. Check that your recipe JSON is valid and follows the correct format.
+2. Ensure that the website or API you're trying to access is available and hasn't changed its structure.
+3. Try running with the `--debug` flag for more detailed logging.
+
+If you continue to have problems, please open an issue on the GitHub repository with a detailed description of the problem and steps to reproduce it.
+
+## Contributing
+
+We welcome contributions to the Listy RecipeKit! If you've created a new recipe or improved an existing one, please submit a pull request. Make sure to follow the existing code style and include appropriate documentation for any new features.
+
+For more information on contributing, please see the Contributing section above.
