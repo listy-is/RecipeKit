@@ -173,9 +173,17 @@ export class StepExecutor {
       }
 
       let url = this.RecipeEngine.replaceVariablesinString(step.url);
-      const input = await fetch(url, step.config);
-      const output = await input.json();
-      return output;
+      try {
+        const response = await fetch(url, step.config);
+        if (!response.ok) {
+          throw new Error(`executeApiRequestStep HTTP error! status: ${response.status} ${response.statusText}`);
+        }
+        const output = await response.json();
+        return output;
+      } catch (error) {
+        Log.error(`executeApiRequestStep: Error fetching data: ${error.message}`);
+        return {};
+      }
     }
   
     async executeJsonStoreTextStep(step) {
