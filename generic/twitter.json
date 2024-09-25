@@ -23,7 +23,8 @@
       "command": "load",
       "url": "$INPUT",
       "config": {
-        "js": true
+        "js": true,
+        "timeout": 2
       }
     },
     {
