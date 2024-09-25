@@ -106,7 +106,7 @@ export class RecipeEngine {
     if (recipe.languages_available && recipe.regions_available) this.matchLanguageAndRegion(recipe);
 
     // Override headers .env for recipe ones
-    this.updateHeadersFromRecipe(recipe);
+    if (recipe.headers) this.updateHeadersFromRecipe(recipe);
 
     // Set the input from the user
     this.setInput(input);
