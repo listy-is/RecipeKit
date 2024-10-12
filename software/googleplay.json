@@ -19,7 +19,7 @@
     },
     {
       "command": "store_attribute",
-      "locator": "c-wiz > c-wiz:nth-child(2) section > div > div > a",
+      "locator": "c-wiz > c-wiz a:empty",
       "attribute_name": "href",
       "output": {
         "name": "URL_END1",
@@ -35,7 +35,7 @@
     },
     {
       "command": "store_attribute",
-      "locator": "c-wiz c-wiz:nth-child(2) div:nth-child(2) img",
+      "locator": "c-wiz > c-wiz div:nth-child(2) img",
       "attribute_name": "src",
       "output": {
         "name": "COVER1"
@@ -43,14 +43,14 @@
     },
     {
       "command": "store_text",
-      "locator": "c-wiz c-wiz:nth-child(2) div:nth-child(2) div > div:nth-child(1) div:nth-child(1)",
+      "locator": "c-wiz > c-wiz div:nth-child(2) div:nth-child(1) div:nth-child(1) div:nth-child(1)",
       "output": {
         "name": "TITLE1"
       }
     },
     {
       "command": "store_text",
-      "locator": "c-wiz:nth-child(2) > c-wiz section img + div div:nth-child(2)",
+      "locator": "c-wiz > c-wiz div:nth-child(2) div:nth-child(2) div:nth-child(2)",
       "output": {
         "name": "SUBTITLE1",
         "show": true
