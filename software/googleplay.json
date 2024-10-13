@@ -19,7 +19,7 @@
     },
     {
       "command": "store_attribute",
-      "locator": "c-wiz > c-wiz a:empty",
+      "locator": "c-wiz > c-wiz a",
       "attribute_name": "href",
       "output": {
         "name": "URL_END1",
