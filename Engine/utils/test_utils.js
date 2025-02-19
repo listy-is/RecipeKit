@@ -1,12 +1,32 @@
 import { expect } from "bun:test";
-import { spawn } from "bun";
+import { spawn, file } from "bun";
+import { dirname, resolve } from 'path';
+import { fileURLToPath } from 'url';
+
+export async function loadEnvVariables() {
+  const __dirname = dirname(fileURLToPath(import.meta.url));
+  const envPath = resolve(__dirname, '../.env');
+
+  try {
+    const env = await file(envPath).text();
+    const envVariables = Object.fromEntries(
+      env.split('\n')
+        .filter(line => line.trim() !== '' && !line.startsWith('#'))
+        .map(line => line.split('=').map(part => part.trim()))
+    );
+
+    Object.assign(process.env, envVariables);
+  } catch (error) {
+    console.log(`loadEnvVariables: Error loading .env file from ${envPath}:`, error.message);
+  }
+}
 
 export async function runEngine(recipe, type, input) {
   const proc = spawn([
     "bun", 
     "Engine/engine.js", 
-    "--recipe", recipe, 
-    "--type", type, 
+    "--recipe", recipe,
+    "--type", type,
     "--input", input
   ]);
 
