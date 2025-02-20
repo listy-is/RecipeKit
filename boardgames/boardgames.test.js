@@ -23,6 +23,7 @@ describe(RECIPE, () => {
         expect(entry.COVER).toMatch(/^https:\/\/.*\.(jpg|jpeg|png|webp)$/i);
         expect(entry.URL).toMatch(/^https:\/\/www\.boardgamegeek\.com\/boardgame\/2952\/trivial-pursuit-genus-edition$/i);
     }, TIMEOUT);
+    
     test("--type url", async () => {
         const result = await runEngine (`boardgames/${RECIPE}`, "url", INPUT.URL);
 
