@@ -1,6 +1,7 @@
 import { expect, test, describe } from "bun:test";
 import { runEngine, findEntry, loadEnvVariables } from '../Engine/utils/test_utils.js';
 
+// Add process.env variables from the .env file
 await loadEnvVariables();
 const TIMEOUT = parseInt(process.env.TEST_TIMEOUT);
 
