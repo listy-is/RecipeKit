@@ -1,5 +1,9 @@
 import { expect, test, describe } from "bun:test";
-import { runEngine, findEntry } from '../Engine/utils/test_utils.js';
+import { runEngine, findEntry , loadEnvVariables } from '../Engine/utils/test_utils.js';
+
+// Add process.env variables from the .env file
+await loadEnvVariables();
+const TIMEOUT = parseInt(process.env.TEST_TIMEOUT);
 
 const RECIPE = "tmdb.json";
 const INPUT = {
@@ -18,7 +22,7 @@ describe(RECIPE, () => {
     expect(entry.SUBTITLE).toBe(ENTRY.SUBTITLE);
     expect(entry.COVER).toMatch(/^https:\/\/.*\.(jpg|jpeg|png|webp)$/i);
     expect(entry.URL).toMatch(/^https:\/\/www\.themoviedb\.org\/movie\/.*matrix.*$/i);
-  });
+  }, TIMEOUT);
 
   test("--type url'", async () => {
     const result = await runEngine(`movies/${RECIPE}`, "url", INPUT.URL);
@@ -31,7 +35,7 @@ describe(RECIPE, () => {
     expect(result.RATING).toBeDefined();
     expect(result.AUTHOR).toBeDefined();
     expect(result.COVER).toMatch(/^https:\/\/.*\.(jpg|jpeg|png|webp)$/i);
-  });
+  }, TIMEOUT);
 });
 
 describe("imdb.json", () => {
@@ -44,5 +48,5 @@ describe("imdb.json", () => {
     expect(result.RATING).toBeDefined();
     expect(result.AUTHOR).toBeDefined();
     expect(result.COVER).toMatch(/^https:\/\/.*\.(jpg|jpeg|png|webp)$/i);
-  });
+  }, TIMEOUT);
 });
