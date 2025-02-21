@@ -20,10 +20,6 @@ describe(RECIPE, () => {
     test("--type autocomplete", async ()=> {
         
     const results = await runEngine (`books/${RECIPE}`, "autocomplete", INPUT.AUTOCOMPLETE);
-    console.log("Results:", results);
-    console.log("Looking for:", ENTRY.TITLE, ENTRY.SUBTITLE);
-
-
     const entry = findEntry(results, ENTRY.TITLE,ENTRY.SUBTITLE);
 
     expect(entry.TITLE).toBe(ENTRY.TITLE);

@@ -28,7 +28,7 @@ export class StepExecutor {
       let outputKey;
 
       if (!handler) {
-        Log.warn(`execute: Unknown step command: ${step.command}`);
+        Log.error(`execute: Unknown step command: ${step.command}`);
         return;
       }
       
@@ -56,7 +56,7 @@ export class StepExecutor {
   
     async executeLoadStep(step) {
       if (!step.url ) {
-        Log.warn('executeLoadStep: Missing required step properties');
+        Log.error('executeLoadStep: Missing required step properties');
         return '';
       }
 
@@ -91,7 +91,7 @@ export class StepExecutor {
     async executeStoreAttributeStep(step) {
 
       if (!step.locator && !step.attribute_name) {
-        Log.warn('executeStoreAttributeStep: Missing required step properties');
+        Log.error('executeStoreAttributeStep: Missing required step properties');
         return '';
       }
 
@@ -99,7 +99,7 @@ export class StepExecutor {
       const element = await this.BrowserManager.querySelector(locator);
       
       if (!element) {
-        Log.warn(`executeStoreAttributeStep: No elements found for locator: ${locator}`);
+        Log.debug(`executeStoreAttributeStep: No elements found for locator: ${locator}`);
         return '';
       }
 
@@ -111,7 +111,7 @@ export class StepExecutor {
     async executeStoreTextStep(step) {
 
       if (!step.locator) {
-        Log.warn('executeStoreTextStep: Missing required step properties');
+        Log.error('executeStoreTextStep: Missing required step properties');
         return '';
       }
 
@@ -119,7 +119,7 @@ export class StepExecutor {
       const element = await this.BrowserManager.querySelector(locator);
 
       if (!element) {
-        Log.warn(`executeStoreTextStep: No elements found for locator: ${step.locator}`);
+        Log.debug(`executeStoreTextStep: No elements found for locator: ${step.locator}`);
         return '';
       }
 
@@ -130,7 +130,7 @@ export class StepExecutor {
   
     async executeRegexStep(step) {
       if (!step.input || !step.expression) {
-        Log.warn('executeRegexStep: Missing required step properties');
+        Log.error('executeRegexStep: Missing required step properties');
         return '';
       }
 
@@ -158,7 +158,7 @@ export class StepExecutor {
   
     async executeStoreStep(step) {
       if (!step.input) {
-        Log.warn('executeStoreStep: Missing required step properties');
+        Log.error('executeStoreStep: Missing required step properties');
         return '';
       }
 
@@ -168,7 +168,7 @@ export class StepExecutor {
   
     async executeApiRequestStep(step) {
       if (!step.url || !step.config) {
-        Log.warn('executeApiRequestStep: Missing required step properties');
+        Log.error('executeApiRequestStep: Missing required step properties');
         return '';
       }
 
@@ -188,7 +188,7 @@ export class StepExecutor {
   
     async executeJsonStoreTextStep(step) {
       if (!step.input || !step.locator) {
-        Log.warn('executeJsonStoreTextStep: Missing required step properties');
+        Log.error('executeJsonStoreTextStep: Missing required step properties');
         return '';
       }
 
@@ -200,7 +200,7 @@ export class StepExecutor {
   
     async executeUrlEncodeStep(step) {
       if (!step.input) {
-        Log.warn('executeUrlEncodeStep: Missing required step properties');
+        Log.error('executeUrlEncodeStep: Missing required step properties');
         return '';
       }
       return encodeURIComponent(step.input);
