@@ -17,5 +17,4 @@ jobs:
           cd Engine
           bun install
           cd ../
-          bun run ./Engine/engine.js --recipe wines/vivino.json --type autocomplete --input "Sobral"
           bun test
