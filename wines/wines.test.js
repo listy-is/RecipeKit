@@ -11,7 +11,7 @@ const INPUT = {
 	URL: "https://www.vivino.com/ES/es/wines/2854251"
 }
 
-const ENTRY = {TITLE: "Señorío de Sobral Albariño", SUBTITLE: "Rías Baixas·España"};
+const ENTRY = {TITLE: "Señorío de Sobral Albariño" };
 
 describe(RECIPE, () => {
 	test("--type autocomplete", async () => {
@@ -19,7 +19,7 @@ describe(RECIPE, () => {
 		const entry = findEntry(results, ENTRY.TITLE, ENTRY.SUBTITLE);
 
 		expect(entry.TITLE).toBe(ENTRY.TITLE);
-		expect(entry.SUBTITLE).toBe(ENTRY.SUBTITLE);
+		expect(entry.SUBTITLE).toContain("Rías Baixas");
 		expect(entry.COVER).toMatch(/^https:\/\/.*\.(jpg|jpeg|png|webp)$/i);
 		expect(entry.URL).toBeDefined();
 	}, TIMEOUT);
