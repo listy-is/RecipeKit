@@ -7,11 +7,11 @@ const TIMEOUT = parseInt(process.env.TEST_TIMEOUT);
 
 const RECIPE = "vivino.json";
 const INPUT = {
-    AUTOCOMPLETE: "Opus One",
-	URL: "https://www.vivino.com/ES/es/wines/164942685"
+    AUTOCOMPLETE: "Sobral",
+	URL: "https://www.vivino.com/ES/es/wines/2854251"
 }
 
-const ENTRY = {TITLE: "Opus One Overture", SUBTITLE: "Napa Valley·Estados Unidos"};
+const ENTRY = {TITLE: "Señorío de Sobral Albariño", SUBTITLE: "Rías Baixas·España"};
 
 describe(RECIPE, () => {
 	test("--type autocomplete", async () => {
@@ -28,7 +28,7 @@ describe(RECIPE, () => {
 		const result = await runEngine(`wines/${RECIPE}`, "url", INPUT.URL);
 
 		expect(result.TITLE).toBe(ENTRY.TITLE);
-		expect(result.COUNTRY).toBe("Estados Unidos");
+		expect(result.COUNTRY).toBe("España");
 		expect(result.REGION).toBeDefined();
 		expect(result.WINERY).toBeDefined();
 		expect(result.RATING).toBeDefined();
