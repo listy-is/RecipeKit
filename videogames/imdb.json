@@ -252,7 +252,7 @@
     },
     {
       "command": "store_array",
-      "locator": "td[data-item-keyword='playstation'] div.sodatext",
+      "locator": ".ipc-metadata-list-summary-item__t[href*='playstation']",
       "output": {
         "name": "TAGS",
         "type": "string",
@@ -262,7 +262,7 @@
     },
     {
       "command": "store_array",
-      "locator": "td[data-item-keyword='playstation 1'] div.sodatext",
+      "locator": ".ipc-metadata-list-summary-item__t[href*='playstation-1']",
       "output": {
         "name": "TAGS",
         "type": "string",
@@ -272,7 +272,7 @@
     },
     {
       "command": "store_array",
-      "locator": "td[data-item-keyword='playstation 2'] div.sodatext",
+      "locator": ".ipc-metadata-list-summary-item__t[href*='playstation-2']",
       "output": {
         "name": "TAGS",
         "type": "string",
@@ -282,7 +282,7 @@
     },
     {
       "command": "store_array",
-      "locator": "td[data-item-keyword='playstation 3'] div.sodatext",
+      "locator": ".ipc-metadata-list-summary-item__t[href*='playstation-3']",
       "output": {
         "name": "TAGS",
         "type": "string",
@@ -292,7 +292,7 @@
     },
     {
       "command": "store_array",
-      "locator": "td[data-item-keyword='playstation 4'] div.sodatext",
+      "locator": ".ipc-metadata-list-summary-item__t[href*='playstation-4']",
       "output": {
         "name": "TAGS",
         "type": "string",
@@ -302,7 +302,7 @@
     },
     {
       "command": "store_array",
-      "locator": "td[data-item-keyword='gameboy'] div.sodatext",
+      "locator": ".ipc-metadata-list-summary-item__t[href*='game-boy']",
       "output": {
         "name": "TAGS",
         "type": "string",
@@ -312,7 +312,7 @@
     },
     {
       "command": "store_array",
-      "locator": "td[data-item-keyword='game boy'] div.sodatext",
+      "locator": ".ipc-metadata-list-summary-item__t[href*='game-boy-advance']",
       "output": {
         "name": "TAGS",
         "type": "string",
@@ -322,7 +322,7 @@
     },
     {
       "command": "store_array",
-      "locator": "td[data-item-keyword='game boy advance'] div.sodatext",
+      "locator": ".ipc-metadata-list-summary-item__t[href*='nintendo-ds']",
       "output": {
         "name": "TAGS",
         "type": "string",
@@ -332,7 +332,7 @@
     },
     {
       "command": "store_array",
-      "locator": "td[data-item-keyword='nintendo ds'] div.sodatext",
+      "locator": ".ipc-metadata-list-summary-item__t[href*='xbox']",
       "output": {
         "name": "TAGS",
         "type": "string",
@@ -342,7 +342,7 @@
     },
     {
       "command": "store_array",
-      "locator": "td[data-item-keyword='xbox'] div.sodatext",
+      "locator": ".ipc-metadata-list-summary-item__t[href*='megadrive']",
       "output": {
         "name": "TAGS",
         "type": "string",
@@ -352,7 +352,7 @@
     },
     {
       "command": "store_array",
-      "locator": "td[data-item-keyword='megadrive'] div.sodatext",
+      "locator": ".ipc-metadata-list-summary-item__t[href*='sega-genesis']",
       "output": {
         "name": "TAGS",
         "type": "string",
@@ -362,7 +362,7 @@
     },
     {
       "command": "store_array",
-      "locator": "td[data-item-keyword='sega genesis'] div.sodatext",
+      "locator": ".ipc-metadata-list-summary-item__t[href*='sega-master-system']",
       "output": {
         "name": "TAGS",
         "type": "string",
@@ -372,7 +372,7 @@
     },
     {
       "command": "store_array",
-      "locator": "td[data-item-keyword='sega master system'] div.sodatext",
+      "locator": ".ipc-metadata-list-summary-item__t[href*='sega-game-gear']",
       "output": {
         "name": "TAGS",
         "type": "string",
@@ -382,7 +382,7 @@
     },
     {
       "command": "store_array",
-      "locator": "td[data-item-keyword='sega game gear'] div.sodatext",
+      "locator": ".ipc-metadata-list-summary-item__t[href*='nintendo-3ds']",
       "output": {
         "name": "TAGS",
         "type": "string",
@@ -392,7 +392,7 @@
     },
     {
       "command": "store_array",
-      "locator": "td[data-item-keyword='nintendo 3ds'] div.sodatext",
+      "locator": ".ipc-metadata-list-summary-item__t[href*='nintendo-switch']",
       "output": {
         "name": "TAGS",
         "type": "string",
@@ -402,7 +402,7 @@
     },
     {
       "command": "store_array",
-      "locator": "td[data-item-keyword='nintendo switch'] div.sodatext",
+      "locator": ".ipc-metadata-list-summary-item__t[href*='nintendo-64']",
       "output": {
         "name": "TAGS",
         "type": "string",
@@ -412,7 +412,7 @@
     },
     {
       "command": "store_array",
-      "locator": "td[data-item-keyword='nintendo 64'] div.sodatext",
+      "locator": ".ipc-metadata-list-summary-item__t[href*='nintendo-gamecube']",
       "output": {
         "name": "TAGS",
         "type": "string",
@@ -422,7 +422,7 @@
     },
     {
       "command": "store_array",
-      "locator": "td[data-item-keyword='nintendo gamecube'] div.sodatext",
+      "locator": ".ipc-metadata-list-summary-item__t[href*='nintendo-wii']",
       "output": {
         "name": "TAGS",
         "type": "string",
@@ -432,7 +432,7 @@
     },
     {
       "command": "store_array",
-      "locator": "td[data-item-keyword='nintendo wii”'] div.sodatext",
+      "locator": ".ipc-metadata-list-summary-item__t[href*='xbox-one']",
       "output": {
         "name": "TAGS",
         "type": "string",
@@ -442,7 +442,7 @@
     },
     {
       "command": "store_array",
-      "locator": "td[data-item-keyword='xbox one'] div.sodatext",
+      "locator": ".ipc-metadata-list-summary-item__t[href*='sega-dreamcast']",
       "output": {
         "name": "TAGS",
         "type": "string",
@@ -452,7 +452,7 @@
     },
     {
       "command": "store_array",
-      "locator": "td[data-item-keyword='sega dreamcast'] div.sodatext",
+      "locator": ".ipc-metadata-list-summary-item__t[href*='xbox-360']",
       "output": {
         "name": "TAGS",
         "type": "string",
@@ -462,7 +462,7 @@
     },
     {
       "command": "store_array",
-      "locator": "td[data-item-keyword='xbox 360'] div.sodatext",
+      "locator": ".ipc-metadata-list-summary-item__t[href*='microsoft-windows']",
       "output": {
         "name": "TAGS",
         "type": "string",
@@ -472,7 +472,7 @@
     },
     {
       "command": "store_array",
-      "locator": "td[data-item-keyword='microsoft windows'] div.sodatext",
+      "locator": ".ipc-metadata-list-summary-item__t[href*='super-nintendo']",
       "output": {
         "name": "TAGS",
         "type": "string",
@@ -482,7 +482,7 @@
     },
     {
       "command": "store_array",
-      "locator": "td[data-item-keyword='super nintendo'] div.sodatext",
+      "locator": ".ipc-metadata-list-summary-item__t[href*='nintendo-wii-u']",
       "output": {
         "name": "TAGS",
         "type": "string",
@@ -492,17 +492,7 @@
     },
     {
       "command": "store_array",
-      "locator": "td[data-item-keyword='nintendo wii u'] div.sodatext",
-      "output": {
-        "name": "TAGS",
-        "type": "string",
-        "show": true
-      },
-      "description": "List of platforms"
-    },
-    {
-      "command": "store_array",
-      "locator": "td[data-item-keyword='playstation 5'] div.sodatext",
+      "locator": ".ipc-metadata-list-summary-item__t[href*='playstation-5']",
       "output": {
         "name": "TAGS",
         "type": "string",

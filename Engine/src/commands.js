@@ -9,6 +9,7 @@ export class StepExecutor {
         load: this.executeLoadStep,
         store_attribute: this.executeStoreAttributeStep,
         store_text: this.executeStoreTextStep,
+        store_array: this.executeStoreArrayStep,
         regex: this.executeRegexStep,
         store: this.executeStoreStep,
         api_request: this.executeApiRequestStep,
@@ -23,6 +24,7 @@ export class StepExecutor {
 
       const handler = this.stepHandlers[step.command];
       const isLoop = (step?.config?.loop);
+      const storeAsArray = (step?.command === 'store_array');
 
       let outputValue;
       let outputKey;
@@ -40,15 +42,26 @@ export class StepExecutor {
         for (let i = step.config.loop.from; i <= step.config.loop.to; i += step.config.loop.step) {
           // Store loop index
           this.RecipeEngine.set(step.config.loop.index, i)
-          
           outputKey = this.RecipeEngine.replaceVariablesinString(step?.output?.name);
-          outputValue = await handler.call(this, step);
-          this.RecipeEngine.set(outputKey, outputValue)
+
+          if (storeAsArray) {
+            outputValue = await handler.call(this, step);
+            if (outputValue !== '') this.RecipeEngine.push(outputKey, outputValue);
+          } else {
+            outputValue = await handler.call(this, step);
+            this.RecipeEngine.set(outputKey, outputValue)
+          }
         }
       } else {
         outputKey = step?.output?.name;
-        outputValue = await handler.call(this, step);
-        this.RecipeEngine.set(outputKey, outputValue)
+
+        if (storeAsArray) {
+          outputValue = await handler.call(this, step);
+          if (outputValue !== '') this.RecipeEngine.push(outputKey, outputValue);
+        } else {
+          outputValue = await handler.call(this, step);
+          this.RecipeEngine.set(outputKey, outputValue);
+        }
       }
 
       Log.debug(`execute: Step executed: ${step.command}`);
@@ -125,6 +138,24 @@ export class StepExecutor {
 
       const textValue = await element.evaluate(el => el.textContent.trim());
 
+      return textValue;
+    }
+
+    async executeStoreArrayStep(step) {
+      if (!step.locator) {
+        Log.error('executeStoreArrayStep: Missing required step properties');
+        return '';
+      }
+
+      const locator = this.RecipeEngine.replaceVariablesinString(step.locator);
+      const element = await this.BrowserManager.querySelector(locator);
+
+      if (!element) {
+        Log.debug(`executeStoreArrayStep: No element found for locator: ${step.locator}`);
+        return '';
+      }
+
+      const textValue = await element.evaluate(el => el.textContent.trim());
       return textValue;
     }
   

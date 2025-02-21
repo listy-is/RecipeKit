@@ -22,6 +22,14 @@ export class RecipeEngine {
     this.stepExecutor = new StepExecutor(this.browserManager, this);
   }
 
+  push(key, value) {
+    // Initialize the array if it doesn't exist
+    if (!this.variables[key]) {
+      this.variables[key] = [];
+    }
+    this.variables[key].push(value);
+  }
+
   set(key, value) {
     this.variables[key] = value;
   }
