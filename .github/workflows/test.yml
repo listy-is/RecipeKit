@@ -13,7 +13,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: oven-sh/setup-bun@v2
-      - run: `pwd`
-      - run: `ls -la`
+      - run: echo "pwd: $(pwd)"
+      - run: echo "ls -la: $(ls -la)"
       - run: bun install
       - run: bun test
