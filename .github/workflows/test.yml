@@ -13,9 +13,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: oven-sh/setup-bun@v2
-      - run: cd ./Engine
+      - run: cd Engine
       - run: echo `pwd`
       - run: echo `ls -la`
+      - run: cd wines
+      - run: echo `ls -la`
+      - run: echo `pwd`
       - run: bun install
       - run: cd ../
       - run: bun test
