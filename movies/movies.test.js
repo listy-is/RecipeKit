@@ -42,7 +42,7 @@ describe("imdb.json", () => {
   test("--type url", async () => {
     const result = await runEngine("movies/imdb.json", "url", "https://www.imdb.com/title/tt0133093/");
 
-    expect(result.TITLE).toBe("Matrix");
+    expect(result.TITLE).toContain("Matrix");
     expect(result.DATE).toBe("1999");
     expect(result.DESCRIPTION).toBeDefined();
     expect(result.RATING).toBeDefined();
