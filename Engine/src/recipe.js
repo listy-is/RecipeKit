@@ -2,6 +2,14 @@ import { BrowserManager } from './browser.js';
 import { StepExecutor } from './commands.js';
 import { Log } from './logger.js';
 
+function cleanVariableValue(variableValue) {
+  if (typeof variableValue == "string") {
+    return variableValue.replace(/[\r\n\t]+/g, '').replace(/\s+/g, ' ').trim();
+  } else {
+    return variableValue;
+  }
+}
+
 export class RecipeEngine {
 
   static VARIABLE_NAMES = {
@@ -27,11 +35,11 @@ export class RecipeEngine {
     if (!this.variables[key]) {
       this.variables[key] = [];
     }
-    this.variables[key].push(value);
+    this.variables[key].push(cleanVariableValue(value));
   }
 
   set(key, value) {
-    this.variables[key] = value;
+    this.variables[key] = cleanVariableValue(value);
   }
 
   get(key, defaultValue = '') {
