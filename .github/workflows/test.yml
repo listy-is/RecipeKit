@@ -1,0 +1,16 @@
+name: test-recipes
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 0 * * *"
+  pull_request:
+    branches:
+        - main
+jobs:
+  test-recipes:
+    name: test-recipes
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+      - run: bun test
