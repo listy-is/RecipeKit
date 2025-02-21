@@ -9,6 +9,7 @@ export class StepExecutor {
         load: this.executeLoadStep,
         store_attribute: this.executeStoreAttributeStep,
         store_text: this.executeStoreTextStep,
+        store_array: this.executeStoreArrayStep,
         regex: this.executeRegexStep,
         store: this.executeStoreStep,
         api_request: this.executeApiRequestStep,
@@ -23,12 +24,13 @@ export class StepExecutor {
 
       const handler = this.stepHandlers[step.command];
       const isLoop = (step?.config?.loop);
+      const storeAsArray = (step?.command === 'store_array');
 
       let outputValue;
       let outputKey;
 
       if (!handler) {
-        Log.warn(`execute: Unknown step command: ${step.command}`);
+        Log.error(`execute: Unknown step command: ${step.command}`);
         return;
       }
       
@@ -40,15 +42,26 @@ export class StepExecutor {
         for (let i = step.config.loop.from; i <= step.config.loop.to; i += step.config.loop.step) {
           // Store loop index
           this.RecipeEngine.set(step.config.loop.index, i)
-          
           outputKey = this.RecipeEngine.replaceVariablesinString(step?.output?.name);
-          outputValue = await handler.call(this, step);
-          this.RecipeEngine.set(outputKey, outputValue)
+
+          if (storeAsArray) {
+            outputValue = await handler.call(this, step);
+            if (outputValue !== '') this.RecipeEngine.push(outputKey, outputValue);
+          } else {
+            outputValue = await handler.call(this, step);
+            this.RecipeEngine.set(outputKey, outputValue)
+          }
         }
       } else {
         outputKey = step?.output?.name;
-        outputValue = await handler.call(this, step);
-        this.RecipeEngine.set(outputKey, outputValue)
+
+        if (storeAsArray) {
+          outputValue = await handler.call(this, step);
+          if (outputValue !== '') this.RecipeEngine.push(outputKey, outputValue);
+        } else {
+          outputValue = await handler.call(this, step);
+          this.RecipeEngine.set(outputKey, outputValue);
+        }
       }
 
       Log.debug(`execute: Step executed: ${step.command}`);
@@ -56,7 +69,7 @@ export class StepExecutor {
   
     async executeLoadStep(step) {
       if (!step.url ) {
-        Log.warn('executeLoadStep: Missing required step properties');
+        Log.error('executeLoadStep: Missing required step properties');
         return '';
       }
 
@@ -91,7 +104,7 @@ export class StepExecutor {
     async executeStoreAttributeStep(step) {
 
       if (!step.locator && !step.attribute_name) {
-        Log.warn('executeStoreAttributeStep: Missing required step properties');
+        Log.error('executeStoreAttributeStep: Missing required step properties');
         return '';
       }
 
@@ -99,7 +112,7 @@ export class StepExecutor {
       const element = await this.BrowserManager.querySelector(locator);
       
       if (!element) {
-        Log.warn(`executeStoreAttributeStep: No elements found for locator: ${locator}`);
+        Log.debug(`executeStoreAttributeStep: No elements found for locator: ${locator}`);
         return '';
       }
 
@@ -111,7 +124,7 @@ export class StepExecutor {
     async executeStoreTextStep(step) {
 
       if (!step.locator) {
-        Log.warn('executeStoreTextStep: Missing required step properties');
+        Log.error('executeStoreTextStep: Missing required step properties');
         return '';
       }
 
@@ -119,7 +132,7 @@ export class StepExecutor {
       const element = await this.BrowserManager.querySelector(locator);
 
       if (!element) {
-        Log.warn(`executeStoreTextStep: No elements found for locator: ${step.locator}`);
+        Log.debug(`executeStoreTextStep: No elements found for locator: ${step.locator}`);
         return '';
       }
 
@@ -127,10 +140,28 @@ export class StepExecutor {
 
       return textValue;
     }
+
+    async executeStoreArrayStep(step) {
+      if (!step.locator) {
+        Log.error('executeStoreArrayStep: Missing required step properties');
+        return '';
+      }
+
+      const locator = this.RecipeEngine.replaceVariablesinString(step.locator);
+      const element = await this.BrowserManager.querySelector(locator);
+
+      if (!element) {
+        Log.debug(`executeStoreArrayStep: No element found for locator: ${step.locator}`);
+        return '';
+      }
+
+      const textValue = await element.evaluate(el => el.textContent.trim());
+      return textValue;
+    }
   
     async executeRegexStep(step) {
       if (!step.input || !step.expression) {
-        Log.warn('executeRegexStep: Missing required step properties');
+        Log.error('executeRegexStep: Missing required step properties');
         return '';
       }
 
@@ -158,7 +189,7 @@ export class StepExecutor {
   
     async executeStoreStep(step) {
       if (!step.input) {
-        Log.warn('executeStoreStep: Missing required step properties');
+        Log.error('executeStoreStep: Missing required step properties');
         return '';
       }
 
@@ -168,7 +199,7 @@ export class StepExecutor {
   
     async executeApiRequestStep(step) {
       if (!step.url || !step.config) {
-        Log.warn('executeApiRequestStep: Missing required step properties');
+        Log.error('executeApiRequestStep: Missing required step properties');
         return '';
       }
 
@@ -188,7 +219,7 @@ export class StepExecutor {
   
     async executeJsonStoreTextStep(step) {
       if (!step.input || !step.locator) {
-        Log.warn('executeJsonStoreTextStep: Missing required step properties');
+        Log.error('executeJsonStoreTextStep: Missing required step properties');
         return '';
       }
 
@@ -200,7 +231,7 @@ export class StepExecutor {
   
     async executeUrlEncodeStep(step) {
       if (!step.input) {
-        Log.warn('executeUrlEncodeStep: Missing required step properties');
+        Log.error('executeUrlEncodeStep: Missing required step properties');
         return '';
       }
       return encodeURIComponent(step.input);

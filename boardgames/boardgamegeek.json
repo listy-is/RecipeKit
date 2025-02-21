@@ -187,7 +187,7 @@
     },
     {
       "command": "store_text",
-      "locator": "#mainbody > div > div.global-body-content.pending.ready > div.content.ng-isolate-scope > div:nth-child(2) > ng-include > div > ng-include > div > div.game-header > div.game-header-body > div.game-header-title-container > div > div.game-header-title-info > h1 > span",
+      "locator": ".game-year",
       "output": {
         "name": "DATE"
       },
@@ -207,7 +207,7 @@
     },
     {
       "command": "store_text",
-      "locator": "#mainbody > div > div.global-body-content.pending.ready > div.content.ng-isolate-scope > div:nth-child(2) > ng-include > div > ng-include > div > div.game-header > div.game-header-body > div.game-header-gameplay.hidden-game-header-collapsed > gameplay-module > div > div > ul > li:nth-child(2) > div.gameplay-item-primary > span",
+      "locator": "gameplay-module .gameplay-item:nth-child(2) p",
       "output": {
         "name": "TIME",
         "type": "string",
@@ -216,19 +216,58 @@
       "description": "Saves the duration of the game"
     },
     {
-      "command": "store_text",
-      "locator": "#mainbody > div > div.global-body-content.pending.ready > div.content.ng-isolate-scope > div:nth-child(2) > ng-include > div > ng-include > div > div.game-header > div.game-header-body > div.game-header-gameplay.hidden-game-header-collapsed > gameplay-module > div > div > ul > li:nth-child(1) > div.gameplay-item-primary",
+      "command": "regex",
+      "input": "$TIME",
+      "expression": "(\\d+)",
       "output": {
-        "name": "PLAYERS",
+        "name": "TIME",
         "type": "string",
         "show": true
+      }
+    },
+    {
+      "command": "store",
+      "input": "$TIME min",
+      "output": {
+        "name": "TIME",
+        "type": "string",
+        "show": true
+      }
+    },
+    {
+      "command": "store_attribute",
+      "locator": "gameplay-module [itemprop='numberOfPlayers'] [itemprop='minValue']",
+      "attribute_name": "content",
+      "output": {
+        "name": "PLAYERS_MIN",
+        "type": "string",
+        "show": false
       },
       "description": "Saves the number of players of the game"
     },
     {
+      "command": "store_attribute",
+      "locator": "gameplay-module [itemprop='numberOfPlayers'] [itemprop='maxValue']",
+      "attribute_name": "content",
+      "output": {
+        "name": "PLAYERS_MAX",
+        "type": "string",
+        "show": false
+      },
+      "description": "Saves the number of players of the game"
+    },
+    {
+      "command": "store",
+      "input": "$PLAYERS_MIN - $PLAYERS_MAX",
+      "output": {
+        "name": "PLAYERS",
+        "type": "string",
+        "show": true
+      }
+    },
+    {
       "command": "store_text",
-      "attribute_name": "title",
-      "locator": "#mainbody > div > div.global-body-content.pending.ready > div.content.ng-isolate-scope > div:nth-child(2) > ng-include > div > div > ui-view > ui-view > div > overview-module > description-module > div > div.panel-body > div > div.game-description-classification.well.ng-scope > classifications-module > div > div.panel-body > ul > li:nth-child(1) > div.feature-description > span > a",
+      "locator": ".features .feature:nth-child(2) popup-list li:nth-child(1)",
       "output": {
         "name": "CATEGORY",
         "type": "string",

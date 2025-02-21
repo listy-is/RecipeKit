@@ -37,7 +37,7 @@
     {
       "command": "regex",
       "input": "$TITLE",
-      "expression": "(?<=\\()\\d\\d\\d\\d(?=\\))",
+      "expression": "(\\d{4})",
       "output": {
         "name": "DATE",
         "type": "date",

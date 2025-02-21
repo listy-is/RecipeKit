@@ -8,7 +8,14 @@ export class BrowserManager {
     }
 
     async initialize() {
-        this.browser = await launch({ headless: !Log.isDebug });
+        this.browser = await launch({
+            headless: !Log.isDebug,
+            // Needed to run on GitHub Actions
+            args: [
+                "--no-sandbox",
+                "--disable-setuid-sandbox"
+              ]
+        });
         this.page = await this.browser.newPage();
         await this.setUserAgent(process.env.DEFAULT_USER_AGENT);
         await this.setExtraHTTPHeaders({

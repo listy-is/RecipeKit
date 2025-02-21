@@ -1,5 +1,9 @@
 import { expect, test, describe } from "bun:test";
-import { runEngine, findEntry } from '../Engine/utils/test_utils.js';
+import { runEngine, findEntry, loadEnvVariables } from '../Engine/utils/test_utils.js';
+
+// Add process.env variables from the .env file
+await loadEnvVariables();
+const TIMEOUT = parseInt(process.env.TEST_TIMEOUT);
 
 const RECIPE = "apple.json";
 const INPUT = {
@@ -18,7 +22,7 @@ describe(RECIPE, () => {
     expect(entry.SUBTITLE).toBe(ENTRY.SUBTITLE);
     expect(entry.COVER).toMatch(/^https:\/\/.*\.(jpg|jpeg|png|webp)$/i);
     expect(entry.URL).toMatch(/^https:\/\/music\.apple\.com\/[a-z]{2}\/album\/[^\/]+\/\d+(\?uo=4)?$/i);
-  });
+  }, TIMEOUT);
 
   test("--type url'", async () => {
     const result = await runEngine(`albums/${RECIPE}`, "url", INPUT.URL);
@@ -29,6 +33,6 @@ describe(RECIPE, () => {
     expect(result.AUTHOR).toBeDefined(ENTRY.SUBTITLE);
     expect(result.COVER).toMatch(/^https:\/\/.*\.(jpg|jpeg|png|webp)$/i);
 
-  });
+  }, TIMEOUT);
 });
 
