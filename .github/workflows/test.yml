@@ -13,7 +13,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: oven-sh/setup-bun@v2
-      - run: cd Engine
+      - run: cd ./Engine
       - run: bun install
       - run: cd ../
       - run: bun test
