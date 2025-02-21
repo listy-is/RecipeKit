@@ -10,6 +10,7 @@ export class BrowserManager {
     async initialize() {
         this.browser = await launch({
             headless: !Log.isDebug,
+            // Needed to run on GitHub Actions
             args: [
                 "--no-sandbox",
                 "--disable-setuid-sandbox"
