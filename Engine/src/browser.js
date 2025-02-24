@@ -8,7 +8,14 @@ export class BrowserManager {
     }
 
     async initialize() {
-        this.browser = await launch({ headless: !Log.isDebug });
+        this.browser = await launch({
+            headless: !Log.isDebug,
+            // Needed to run on GitHub Actions
+            args: [
+                "--no-sandbox",
+                "--disable-setuid-sandbox"
+              ]
+        });
         this.page = await this.browser.newPage();
         await this.setUserAgent(process.env.DEFAULT_USER_AGENT);
         await this.setExtraHTTPHeaders({
@@ -39,7 +46,10 @@ export class BrowserManager {
 
     async loadPage(url, options) {
         try {
-            await this.page.goto(url, options);
+            await this.page.goto(url, {
+                waitUntil: 'domcontentloaded',
+                timeout: process.env.MIN_PAGE_LOAD_TIMEOUT
+            });
             if (options.waitUntil === 'networkidle0') {
                 await new Promise(resolve => setTimeout(resolve, 1000));
             }

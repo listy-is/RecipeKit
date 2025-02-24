@@ -180,7 +180,7 @@
     },
     {
       "command": "store_text",
-      "locator": "span.vintage",
+      "locator": "#vintageListSection a div div:nth-child(1) span",
       "output": {
         "name": "VINTAGE",
         "type": "string",
@@ -190,7 +190,7 @@
     },
     {
       "command": "store_text",
-      "locator": "div.rating > div > a > div > div:nth-child(1)",
+      "locator": "[class^=vivinoRating_averageValue]",
       "output": {
         "name": "RATING",
         "type": "float",
@@ -200,7 +200,7 @@
     },
     {
       "command": "store_text",
-      "locator": "span[class*=purchaseAvailability__currentPrice]",
+      "locator": "[class^=purchaseAvailabilityPPC__amount]",
       "output": {
         "name": "PRICE",
         "type": "float",
@@ -250,7 +250,7 @@
     },
     {
       "command": "store",
-      "input": "$COUNTRY $REGION",
+      "input": "$COUNTRY, $PLACE",
       "output": {
         "name": "REGION",
         "type": "string",
@@ -260,7 +260,7 @@
     },
     {
       "command": "store_attribute",
-      "locator": "picture.bottleShot img",
+      "locator": "picture img",
       "attribute_name": "src",
       "output": {
         "name": "COVER"
@@ -279,7 +279,7 @@
     },
     {
       "command": "store_text",
-      "locator": "div[class*=wineLocationHeader__text]",
+      "locator": "[class^=wineFacts__wineFacts] tr:last-child [class^=wineFacts__fact] span",
       "output": {
         "name": "DESCRIPTION",
         "type": "string",
