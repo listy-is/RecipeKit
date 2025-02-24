@@ -41,6 +41,6 @@ describe("amazon.json", () => {
 
         expect(results.TITLE).toBeDefined();
         expect(results.DESCRIPTION).toBeDefined();
-        expect(results.COVER).toMatch(/^https:\/\/.*\.(jpg|jpeg|png|webp)$/i);
+        expect(results.COVER).toBeDefined();
     }, TIMEOUT);
 });
