@@ -46,7 +46,10 @@ export class BrowserManager {
 
     async loadPage(url, options) {
         try {
-            await this.page.goto(url, options);
+            await this.page.goto(url, {
+                waitUntil: 'domcontentloaded',
+                timeout: process.env.MIN_PAGE_LOAD_TIMEOUT
+            });
             if (options.waitUntil === 'networkidle0') {
                 await new Promise(resolve => setTimeout(resolve, 1000));
             }
