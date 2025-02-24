@@ -72,7 +72,7 @@
     {
       "command": "store_attribute",
       "locator": "div.imgTagWrapper img",
-      "attribute_name": "data-old-hires",
+      "attribute_name": "src",
       "output": {
         "name": "COVER",
         "type": "string",
