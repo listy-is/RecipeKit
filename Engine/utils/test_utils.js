@@ -2,6 +2,9 @@ import { expect } from "bun:test";
 import { spawn, file } from "bun";
 import { dirname, resolve } from 'path';
 import { fileURLToPath } from 'url';
+import { Log } from '../src/logger.js';
+
+Log.setDebug(process.env.DEBUG === 'true');
 
 export async function loadEnvVariables() {
   const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -33,6 +36,8 @@ export async function runEngine(recipe, type, input) {
   const output = await new Response(proc.stdout).text();
   const data = JSON.parse(output);
   const results = data.results;
+
+  Log.debug(results);
 
   // Generic validations
   if (type === "autocomplete") {
