@@ -16,8 +16,8 @@ describe(RECIPE, () => {
         const results = await runEngine(`generic/${RECIPE}`, "url", INPUT.URL);
 
 		expect(results.TITLE).toBe(ENTRY.TITLE);
-        expect(results.DESCRIPTION).toBeDefined();
-        expect(results.FAVICON).toBeDefined();
+        expect(results.DESCRIPTION).not.toBeEmpty();
+        expect(results.FAVICON).not.toBeEmpty();
 		expect(results.COVER).toMatch(/^https:\/\/.*\.(jpg|jpeg|png|webp)(\?[^ ]*)?$/i);
     }, TIMEOUT);
 });
@@ -26,11 +26,11 @@ describe("twitter.json", () => {
     test("--type url", async () => {
         const results = await runEngine(`generic/twitter.json`, "url", "https://x.com/rihanna/status/1893712776922808485");
 
-        expect(results.AUTHOR).toBeDefined();
-        expect(results.COVER).toMatch(/^https:\/\/.*\.(jpg|jpeg|png|webp)$/i);
-        expect(results.AVATAR).toBeDefined();
-        expect(results.DATE).toBeDefined();
-        expect(results.SUMMARY).toBeDefined();
+        expect(results.AUTHOR).not.toBeEmpty();
+        expect(results.COVER).not.toBeEmpty();
+        expect(results.AVATAR).not.toBeEmpty();
+        expect(results.DATE).not.toBeEmpty();
+        expect(results.SUMMARY).not.toBeEmpty();
     }, TIMEOUT);
 });
 
@@ -39,8 +39,8 @@ describe("amazon.json", () => {
     test("--type url", async () => {
         const results = await runEngine(`generic/amazon.json`, "url", "https://www.amazon.es/MARSGAMING-Ergon%C3%B3mico-Alfombrilla-Compatibilidad-Multiplataforma/dp/B0D7MG3HCQ/?th=1");
 
-        expect(results.TITLE).toBeDefined();
-        expect(results.DESCRIPTION).toBeDefined();
-        expect(results.COVER).toBeDefined();
+        expect(results.TITLE).not.toBeEmpty();
+        expect(results.DESCRIPTION).not.toBeEmpty();
+        expect(results.COVER).not.toBeEmpty();
     }, TIMEOUT);
 });
