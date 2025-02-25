@@ -15,9 +15,9 @@ jobs:
       - uses: oven-sh/setup-bun@v2
       
       - name: Install dependencies
-      - run: |
-          cd Engine
-          bun install
+        run: |
+            cd Engine
+            bun install
       
       - name: Test recipes
-      - run: export DEBUG=true && bun test
+        run: export DEBUG=true && bun test
