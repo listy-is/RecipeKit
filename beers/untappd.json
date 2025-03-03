@@ -24,7 +24,7 @@
       },
       {
         "command": "store_attribute",
-        "locator": "[class*=beer-item]:nth-child($i) img",
+        "locator": ".beer-item:nth-child($i) img",
         "attribute_name": "src",
         "output": {
           "name": "COVER$i"
@@ -33,14 +33,14 @@
           "loop": {
             "index": "i",
             "from": 1,
-            "to": 10,
+            "to": 6,
             "step": 1
           }
         }
       },
       {
         "command": "store_text",
-        "locator": "[class*=beer-item]:nth-child($i) .name a",
+        "locator": ".beer-item:nth-child($i) .name a",
         "output": {
           "name": "TITLE$i"
         },
@@ -48,7 +48,7 @@
           "loop": {
             "index": "i",
             "from": 1,
-            "to": 10,
+            "to": 6,
             "step": 1
           }
         },
@@ -65,7 +65,7 @@
           "loop": {
             "index": "i",
             "from": 1,
-            "to": 10,
+            "to": 6,
             "step": 1
           }
         },
@@ -73,7 +73,7 @@
       },
       {
         "command": "store_text",
-        "locator": "[class*=beer-item]:nth-child($i) .brewery a",
+        "locator": ".beer-item:nth-child($i) .brewery a",
         "output": {
           "name": "SUBTITLE$i"
         },
@@ -81,11 +81,27 @@
           "loop": {
             "index": "i",
             "from": 1,
-            "to": 10,
+            "to": 6,
             "step": 1
           }
         },
         "description": "Saves the factory of the beer"
+      },
+      {
+        "command": "store_attribute",
+        "locator": ".beer-item:nth-child($i) .name a",
+        "attribute_name": "href",
+        "output": {
+          "name": "URL$i"
+        },
+        "config": {
+          "loop": {
+            "index": "i",
+            "from": 1,
+            "to": 6,
+            "step": 1
+          }
+        }
       },
       {
         "command": "store",
@@ -97,27 +113,11 @@
           "loop": {
             "index": "i",
             "from": 1,
-            "to": 10,
+            "to": 6,
             "step": 1
           }
         }
-      },
-      {
-        "command": "store_attribute",
-        "locator": "[class*=beer-item]:nth-child($i) .name a",
-        "attribute_name": "href",
-        "output": {
-          "name": "URL$i"
-        },
-        "config": {
-          "loop": {
-            "index": "i",
-            "from": 1,
-            "to": 10,
-            "step": 1
-          }
-        }
-      }   
+      }
     ],
     "url_steps": [
         {
@@ -138,7 +138,7 @@
         },
         {
           "command": "store_text",
-          "locator": "p[class*=brewery] > a",
+          "locator": "p.brewery > a",
           "output": {
             "name": "AUTHOR",
             "type": "string",
@@ -148,7 +148,7 @@
         },
         {
           "command": "store_text",
-          "locator": "div[class*=name] > h1:first-of-type",
+          "locator": "div.name > h1:first-of-type",
           "output": {
             "name": "TITLE",
             "type": "string",
@@ -158,7 +158,7 @@
         },
         {
           "command": "store_text",
-          "locator": "[class*=details] > span",
+          "locator": ".details > span",
           "output": {
             "name": "RATING",
             "type": "float",
@@ -167,8 +167,16 @@
           "description": "Field: Get the rating"
         },
         {
+          "command": "regex",
+          "input": "$RATING",
+          "expression": "(\\d+\\.\\d+)",
+          "output": {
+            "name": "RATING"
+          }
+        },
+        {
           "command": "store_text",
-          "locator": "div[class*=details] > p",
+          "locator": ".details > p",
           "output": {
             "name": "ALCOHOL",
             "type": "string",
@@ -178,7 +186,7 @@
         },
         {
           "command": "store_text",
-          "locator": "p[class*=style]",
+          "locator": "p.style",
           "output": {
             "name": "STYLE",
             "type": "string",
@@ -188,8 +196,8 @@
         },
         {
           "command": "store_attribute",
-          "locator": "div[class*=basic] a > img",
-          "attribute_name": "src",
+          "locator": "meta[property='og:image']",
+          "attribute_name": "content",
           "output": {
             "name": "COVER",
             "type": "string",
