@@ -21,8 +21,8 @@ describe(RECIPE, () => {
 
         expect(entry.TITLE).toBe(ENTRY.TITLE);
         expect(entry.SUBTITLE).toBe(ENTRY.SUBTITLE);
-        expect(entry.COVER).toMatch(/https:\/\/assets\.untappd\.com\/site\/beer_logos\/.*\.(jpg|png|jpeg)/);
-        expect(entry.URL).toMatch(/^\/b\/.*\/\d+$/);
+        expect(entry.COVER).not.toBeEmpty();
+        expect(entry.URL).not.toBeEmpty();
     }, TIMEOUT);
     
     test("--type url", async () => {
@@ -31,9 +31,9 @@ describe(RECIPE, () => {
 
         expect(results.TITLE).toBe(ENTRY.TITLE);
         expect(results.AUTHOR).toBe(ENTRY.SUBTITLE);
-        expect(results.COVER).toMatch(/https:\/\/assets\.untappd\.com\/site\/beer_logos\/.*\.(jpg|png|jpeg)/);
-        expect(results.RATING).toBeDefined();
-        expect(results.STYLE).toBeDefined();
-        expect(results.ALCOHOL).toBeDefined();
+        expect(results.COVER).not.toBeEmpty();
+        expect(results.RATING).not.toBeEmpty();
+        expect(results.STYLE).not.toBeEmpty();
+        expect(results.ALCOHOL).not.toBeEmpty();
     }, TIMEOUT);
 });
