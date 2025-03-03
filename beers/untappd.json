@@ -15,7 +15,7 @@
     "autocomplete_steps": [
       {
         "command": "load",
-        "url": "https://www.untappd.com/search?tab=beer&q=$INPUT",
+        "url": "https://www.untappd.com/search?q=$INPUT",
         "description": "Load the url of the beer",
         "config": {
           "js": true,
@@ -24,7 +24,7 @@
       },
       {
         "command": "store_attribute",
-        "locator": "[class^=label] img",
+        "locator": "[class*=beer-item]:nth-child($i) img",
         "attribute_name": "src",
         "output": {
           "name": "COVER$i"
@@ -33,14 +33,14 @@
           "loop": {
             "index": "i",
             "from": 1,
-            "to": 11,
-            "step": 2
+            "to": 10,
+            "step": 1
           }
         }
       },
       {
         "command": "store_text",
-        "locator": "[class^=beer-details] > p > a",
+        "locator": "[class*=beer-item]:nth-child($i) .name a",
         "output": {
           "name": "TITLE$i"
         },
@@ -48,8 +48,8 @@
           "loop": {
             "index": "i",
             "from": 1,
-            "to": 11,
-            "step": 2
+            "to": 10,
+            "step": 1
           }
         },
         "description": "Saves the title of the beer"
@@ -65,15 +65,15 @@
           "loop": {
             "index": "i",
             "from": 1,
-            "to": 11,
-            "step": 2
+            "to": 10,
+            "step": 1
           }
         },
         "description": "Saves the provider"
       },
       {
         "command": "store_text",
-        "locator": "[class^=brewery]> a",
+        "locator": "[class*=beer-item]:nth-child($i) .brewery a",
         "output": {
           "name": "SUBTITLE$i"
         },
@@ -81,8 +81,8 @@
           "loop": {
             "index": "i",
             "from": 1,
-            "to": 11,
-            "step": 2
+            "to": 10,
+            "step": 1
           }
         },
         "description": "Saves the factory of the beer"
@@ -97,14 +97,14 @@
           "loop": {
             "index": "i",
             "from": 1,
-            "to": 11,
-            "step": 2
+            "to": 10,
+            "step": 1
           }
         }
       },
       {
         "command": "store_attribute",
-        "locator": "[class^=beer-details] > p > a",
+        "locator": "[class*=beer-item]:nth-child($i) .name a",
         "attribute_name": "href",
         "output": {
           "name": "URL$i"
@@ -113,8 +113,8 @@
           "loop": {
             "index": "i",
             "from": 1,
-            "to": 11,
-            "step": 2
+            "to": 10,
+            "step": 1
           }
         }
       }   
