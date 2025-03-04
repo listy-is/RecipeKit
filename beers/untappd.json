@@ -1,0 +1,209 @@
+{
+    "recipe_shortcut": "untappd_beers",
+    "list_type": "beers",
+    "engine_version": 16,
+    "title": "Untappd",
+    "description": "Retrieve the beers from page untappd",
+    "urls": [
+      "https://untappd.com",
+      "https://www.untappd.com"
+    ],
+    "headers": {
+      "Accept-Language": "en-UK,en",
+      "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.113 Safari/537.36"
+    },
+    "autocomplete_steps": [
+      {
+        "command": "load",
+        "url": "https://www.untappd.com/search?q=$INPUT",
+        "description": "Load the url of the beer",
+        "config": {
+          "js": true,
+          "timeout": 3000
+        }
+      },
+      {
+        "command": "store_attribute",
+        "locator": ".beer-item:nth-child($i) img",
+        "attribute_name": "src",
+        "output": {
+          "name": "COVER$i"
+        },
+        "config": {
+          "loop": {
+            "index": "i",
+            "from": 1,
+            "to": 6,
+            "step": 1
+          }
+        }
+      },
+      {
+        "command": "store_text",
+        "locator": ".beer-item:nth-child($i) .name a",
+        "output": {
+          "name": "TITLE$i"
+        },
+        "config": {
+          "loop": {
+            "index": "i",
+            "from": 1,
+            "to": 6,
+            "step": 1
+          }
+        },
+        "description": "Saves the title of the beer"
+      },
+      {
+        "command": "regex",
+        "input": "$TITLE$i",
+        "expression": ".+?(?=\\,|$)",
+        "output": {
+          "name": "TITLE$i"
+        },
+        "config": {
+          "loop": {
+            "index": "i",
+            "from": 1,
+            "to": 6,
+            "step": 1
+          }
+        },
+        "description": "Saves the provider"
+      },
+      {
+        "command": "store_text",
+        "locator": ".beer-item:nth-child($i) .brewery a",
+        "output": {
+          "name": "SUBTITLE$i"
+        },
+        "config": {
+          "loop": {
+            "index": "i",
+            "from": 1,
+            "to": 6,
+            "step": 1
+          }
+        },
+        "description": "Saves the factory of the beer"
+      },
+      {
+        "command": "store_attribute",
+        "locator": ".beer-item:nth-child($i) .name a",
+        "attribute_name": "href",
+        "output": {
+          "name": "URL$i"
+        },
+        "config": {
+          "loop": {
+            "index": "i",
+            "from": 1,
+            "to": 6,
+            "step": 1
+          }
+        }
+      },
+      {
+        "command": "store",
+        "input": "https://www.untappd.com$URL$i",
+        "output": {
+          "name": "URL$i"
+        },
+        "config": {
+          "loop": {
+            "index": "i",
+            "from": 1,
+            "to": 6,
+            "step": 1
+          }
+        }
+      }
+    ],
+    "url_steps": [
+        {
+          "command": "load",
+          "url": "$INPUT",
+          "config": {
+            "js": true,
+            "timeout": 3000
+          },
+          "description": "Load the url of the beer"
+        },
+        {
+          "command": "store_url",
+          "output": {
+            "name": "URL"
+          },
+          "description": "Saves the URL of the detail"
+        },
+        {
+          "command": "store_text",
+          "locator": "p.brewery > a",
+          "output": {
+            "name": "AUTHOR",
+            "type": "string",
+            "show": true
+          },
+          "description": "Field: Saves the beerhouse of the beer"
+        },
+        {
+          "command": "store_text",
+          "locator": "div.name > h1:first-of-type",
+          "output": {
+            "name": "TITLE",
+            "type": "string",
+            "show": true
+          },
+          "description": "Field: Saves the title of the beer"
+        },
+        {
+          "command": "store_text",
+          "locator": ".details > span",
+          "output": {
+            "name": "RATING",
+            "type": "float",
+            "show": true
+          },
+          "description": "Field: Get the rating"
+        },
+        {
+          "command": "regex",
+          "input": "$RATING",
+          "expression": "(\\d+\\.\\d+)",
+          "output": {
+            "name": "RATING"
+          }
+        },
+        {
+          "command": "store_text",
+          "locator": ".details > p",
+          "output": {
+            "name": "ALCOHOL",
+            "type": "string",
+            "show": true
+          },
+          "description": "Field: Get the alcohol"
+        },
+        {
+          "command": "store_text",
+          "locator": "p.style",
+          "output": {
+            "name": "STYLE",
+            "type": "string",
+            "show": true
+          },
+          "description": "Field: Saves the style"
+        },
+        {
+          "command": "store_attribute",
+          "locator": "meta[property='og:image']",
+          "attribute_name": "content",
+          "output": {
+            "name": "COVER",
+            "type": "string",
+            "show": true
+          },
+          "description": "Field: Saves the image"
+        }
+      ]
+    }
