@@ -1,7 +1,7 @@
 {
 	"recipe_shortcut": "cookpad",
 	"list_type": "recipes",
-	"engine_version": 16,
+	"engine_version": 21,
 	"title": "Recipes",
 	"description": "Load recipes from Cookpad.",
 	"urls": [
