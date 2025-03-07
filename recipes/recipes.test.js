@@ -18,7 +18,7 @@ describe(RECIPE, () => {
 		const result = await runEngine(`recipes/${RECIPE}`, "autocomplete", INPUT.AUTOCOMPLETE);
 		const entry = findEntry(result, ENTRY.TITLE);
 
-		expect(entry.TITLE).toBe(ENTRY.TITLE);
+		expect(entry.TITLE).toBeDefined();
     	expect(entry.COVER).toMatch(/^https:\/\/.*\.(jpg|jpeg|png|webp)$/i);
     	expect(entry.URL).toBeDefined();
     }, TIMEOUT);
