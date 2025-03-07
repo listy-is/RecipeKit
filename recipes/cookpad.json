@@ -155,21 +155,37 @@
 		  },
 		  {
 			"command": "store_array",
-			"locator": "div[class*=ingredient-list] ol > li",
+			"locator": ".ingredient-list ol li:nth-child($i)",
 			"output": {
 			  "name": "INGREDIENTS",
 			  "show": true
 			},
-			"description": "Field: Saves the ingredients"
+			"description": "Field: Saves the ingredients",
+			"config": {
+			  "loop": {
+				"index": "i",
+				"from": 1,
+				"to": 50,
+				"step": 1
+			  }
+			}
 		  },
 		  {
 			"command": "store_array",
-			"locator": "ol[class*=list-none] > li",
+			"locator": "ol.list-none li:nth-child($i)",
 			"output": {
 			  "name": "STEPS",
 			  "show": true
 			},
-			"description": "Field: Saves the steps"
+			"description": "Field: Saves the steps",
+			"config": {
+			  "loop": {
+				"index": "i",
+				"from": 1,
+				"to": 50,
+				"step": 1
+			  }
+			}
 		  },
 		  {
 			"command": "store_text",

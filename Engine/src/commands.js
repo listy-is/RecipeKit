@@ -148,21 +148,15 @@ export class StepExecutor {
       }
 
       const locator = this.RecipeEngine.replaceVariablesinString(step.locator);
-      const elements = await this.BrowserManager.querySelectorAll(locator);
+      const element = await this.BrowserManager.querySelector(locator);
 
-      if (!elements) {
+      if (!element) {
         Log.debug(`executeStoreArrayStep: No element found for locator: ${step.locator}`);
         return '';
       }
 
-      const textValues = await Promise.all(
-        elements.map(async (el) => {
-          const textValue = await el.evaluate(el => el.textContent.trim());
-          return textValue.replace(/\s+/g, ' '); 
-        })
-      );
-
-      return textValues;
+      const textValue = await element.evaluate(el => el.textContent.trim());
+      return textValue;
     }
   
     async executeRegexStep(step) {
@@ -246,5 +240,4 @@ export class StepExecutor {
     async executeStoreUrlStep(step) {
       return this.BrowserManager.page.url();
     }
-
 }
