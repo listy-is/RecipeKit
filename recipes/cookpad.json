@@ -92,7 +92,9 @@
 			"url": "https://cookpad.com/",
 			"description": "Load the url of the recipe",
 			"config": {
-			"timeout": 10000
+			"timeout": 10000,
+			"follow_redirects": true, 
+			"js": true    
   			}
 		  },
 		  {
