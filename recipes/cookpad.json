@@ -5,8 +5,8 @@
 	"title": "Recipes",
 	"description": "Load recipes from Cookpad.",
 	"urls": [
-		"https://cookpad.com/",
-		"https://www.cookpad.com/"
+		"https://cookpad.com/$SYSTEM_REGION/homepage",
+		"https://www.cookpad.com/$SYSTEM_REGION/homepage"
 	],
 	"headers": {
 		"Accept-Language": "en-UK,en",
@@ -16,7 +16,7 @@
 	  [
 		{
 			"command": "load",
-			"url": "https://cookpad.com/",
+			"url": "https://cookpad.com/$SYSTEM_REGION/homepage",
 			"description": "Load the url of the recipe",
 			"config": {
 			"timeout": 10000
