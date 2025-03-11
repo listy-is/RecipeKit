@@ -5,8 +5,11 @@
 	"title": "Recipes",
 	"description": "Load recipes from Cookpad.",
 	"urls": [
-		"https://cookpad.com/$SYSTEM_REGION/homepage",
-		"https://www.cookpad.com/$SYSTEM_REGION/homepage"
+		"https://cookpad.com/es/homepage",
+		"https://www.cookpad.com/fr/homepage",
+		"https://cookpad.com/uk/homepage", 
+		"https://cookpad.com/de/homepage",
+		"https://cookpad.com/us/homepage"
 	],
 	"headers": {
 		"Accept-Language": "en-UK,en",
@@ -16,7 +19,7 @@
 	  [
 		{
 			"command": "load",
-			"url": "https://cookpad.com/$SYSTEM_REGION/homepage",
+			"url": "https://cookpad.com/",
 			"description": "Load the url of the recipe",
 			"config": {
 			"timeout": 10000
