@@ -27,22 +27,14 @@
 			"locator": "form",
 			"attribute_name": "action",
 			"output": {
-			  "name": "URL_REGION$i",
+			  "name": "URL_REGION",
 			  "show": true
-			},
-			"config": {
-			  "loop": {
-				"index": "i",
-				"from": 1,
-				"to": 6,
-				"step": 1
-			  }
 			},
 			"description": "Extracts the recipe URL"
 		  },
 		  {
 			"command": "load",
-			"url": "https://www.cookpad.com/$URL_REGION$i/$INPUT?event=search.filtered_query&order=recent"
+			"url": "https://www.cookpad.com/$URL_REGION/$INPUT?event=search.filtered_query&order=recent"
   			},
 		  {
 			"command": "store_attribute",
