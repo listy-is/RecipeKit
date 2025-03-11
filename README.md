@@ -330,6 +330,8 @@ Specific inputs: pattern, output (dictionary name for the output)
 
 The RecipeKit Engine is a powerful tool for automating web interactions and data extraction. It is designed to work with [Listy](https://listy.is), a mobile app that allows users to create lists of their favorite things. The engine is built using JavaScript and the Bun runtime. It leverages the Puppeteer library for browser automation in headless mode.
 
+The engine runs against the **US region**, so we recommend installing a VPN of your choice, such as **TunnelBear**, to work with **RecipeKit**.  
+
 ## Prerequisites
 
 Before installing and using the Listy RecipeKit engine, ensure you have the following prerequisite installed on your system:
