@@ -108,7 +108,7 @@
 		  },
 		  {
 			"command": "load",
-			"url": "https://www.cookpad.com/$URL_REGION/$INPUT?event=search.filtered_query&order=recent"
+			"url": "https://www.cookpad.com$URL_REGION/$INPUT?event=search.filtered_query&order=recent"
   			},
 		  {
 			"command": "store_attribute",
