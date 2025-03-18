@@ -29,6 +29,7 @@ describe(RECIPE, () => {
 		expect(result.TITLE).toBe(ENTRY.TITLE);
     	expect(result.COVER).toMatch(/^https:\/\/.*\.(jpg|jpeg|png|webp)$/i);
     	expect(result.INGREDIENTS).toBeDefined();
+		expect(result.DESCRIPTION).toBeDefined();
     	expect(result.STEPS).toBeDefined();
     	expect(result.COOKING_TIME).toBeDefined();
 		expect(result.DINERS).toBeDefined();
