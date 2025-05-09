@@ -8,9 +8,9 @@ const TIMEOUT = parseInt(process.env.TEST_TIMEOUT);
 const RECIPE = "cookpad.json";
 const INPUT = {
     AUTOCOMPLETE: "Paella",
-    URL: "https://www.cookpad.com/us/recipes/15546861-spanish-paella"
+    URL: "https://www.cookpad.com/us/recipes/3892194-valencian-paella"
 }
-const ENTRY = { TITLE:"Spanish Paella"};
+const ENTRY = { TITLE:"Valencian Paella"};
 
 describe(RECIPE, () => {
     test("--type autocomplete", async() => {
@@ -27,11 +27,11 @@ describe(RECIPE, () => {
 		const result = await runEngine(`recipes/${RECIPE}`, "url", INPUT.URL);
 
 		expect(result.TITLE).toBe(ENTRY.TITLE);
-    	expect(result.COVER).toMatch(/^https:\/\/.*\.(jpg|jpeg|png|webp)$/i);
-    	expect(result.INGREDIENTS).toBeDefined();
+		expect(result.COVER).toMatch(/^https:\/\/.*\.(jpg|jpeg|png|webp)$/i);
+		expect(result.INGREDIENTS).toBeDefined();
 		expect(result.DESCRIPTION).toBeDefined();
-    	expect(result.STEPS).toBeDefined();
-    	expect(result.COOKING_TIME).toBeDefined();
+		expect(result.STEPS).toBeDefined();
+		expect(result.COOKING_TIME).toBeDefined();
 		expect(result.DINERS).toBeDefined();
     }, TIMEOUT);
 });
