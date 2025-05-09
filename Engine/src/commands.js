@@ -16,6 +16,7 @@ export class StepExecutor {
         json_store_text: this.executeJsonStoreTextStep,
         url_encode: this.executeUrlEncodeStep,
         store_url: this.executeStoreUrlStep,
+        replace: this.executeReplaceStep,
       };
     }
   
@@ -239,5 +240,15 @@ export class StepExecutor {
   
     async executeStoreUrlStep(step) {
       return this.BrowserManager.page.url();
+    }
+
+    async executeReplaceStep(step) {
+      if (!step.input || !step.find || !step.replace) {
+        Log.error('executeReplaceStep: Missing required step properties');
+        return '';
+      }
+      const input = this.RecipeEngine.replaceVariablesinString(step.input);
+      const output = input.replace(step.find, step.replace);
+      return output;
     }
 }
