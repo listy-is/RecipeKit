@@ -326,9 +326,31 @@ Specific inputs: pattern, output (dictionary name for the output)
 </p>
 </details>
 
+<details><summary>replace: Replace text in a string</summary>
+<p>
+Replaces occurrences of a specified text with another text in the input string.
+Specific inputs: input (text to be modified), find (text to find), replace (text to replace with), output (dictionary name for the output)
+
+```json
+{
+	"command": "replace",
+	"input": "$TITLE",
+	"find": "The ",
+	"replace": "",
+	"output": {
+		"name": "TITLE"
+	},
+  "description": "Remove 'The ' prefix from the title"
+}
+```
+</p>
+</details>
+
 # RecipeKit Engine
 
 The RecipeKit Engine is a powerful tool for automating web interactions and data extraction. It is designed to work with [Listy](https://listy.is), a mobile app that allows users to create lists of their favorite things. The engine is built using JavaScript and the Bun runtime. It leverages the Puppeteer library for browser automation in headless mode.
+
+The engine runs against the **US region**, so we recommend installing a VPN of your choice, such as **TunnelBear**, to work with **RecipeKit**.  
 
 ## Prerequisites
 

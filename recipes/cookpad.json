@@ -1,0 +1,225 @@
+{
+	"recipe_shortcut": "cookpad",
+	"list_type": "recipes",
+	"engine_version": 21,
+	"title": "Recipes",
+	"description": "Load recipes from Cookpad.",
+	"urls": [
+		"https://cookpad.com/",
+        "https://*.cookpad.com",
+        "https://www.cookpad.com",
+        "https://www.cookpad.com/*"
+	],
+	"headers": {
+		"Accept-Language": "en-UK,en",
+		"User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.113 Safari/537.36"
+	  },
+	"autocomplete_steps":
+	[
+		{
+			"command": "replace",
+			"input": "$SYSTEM_REGION",
+			"find": "gb",
+			"replace": "uk",
+			"output": {
+				"name": "SYSTEM_REGION",
+				"show": false
+			}
+		},
+		{
+			"command": "load",
+			"url": "https://cookpad.com/$SYSTEM_REGION/",
+			"description": "Load the url of the recipe",
+			"config": {
+				"timeout": 3000,
+				"js": true
+			}
+		},
+		{
+			"command": "store_attribute",
+			"locator": "form",
+			"attribute_name": "action",
+			"output": {
+				"name": "URL_REGION",
+				"show": true
+			},
+			"description": "Extracts the recipe URL"
+		},
+		{
+			"command": "load",
+			"url": "https://www.cookpad.com$URL_REGION/$INPUT?event=search.filtered_query&order=recent"
+		},
+		{
+			"command": "store_attribute",
+			"locator": "li[id*=recipe]:nth-child($i) > div > picture > img",
+			"attribute_name": "alt",
+			"output": {
+				"name": "TITLE$i",
+				"show": true
+			},
+			"config": {
+				"loop": {
+					"index": "i",
+					"from": 1,
+					"to": 6,
+					"step": 1
+				}
+			},
+			"description": "Saves the main title of the recipe"
+		},
+		{
+			"command": "store_attribute",
+			"locator": "li[id*=recipe]:nth-child($i) > div > picture > img",
+			"attribute_name": "src",
+			"output": {
+				"name": "COVER$i",
+				"show": true
+			},
+			"config": {
+				"loop": {
+					"index": "i",
+					"from": 1,
+					"to": 6,
+					"step": 1
+				}
+			},
+			"description": "Saves the cover image URL"
+		},
+		{
+			"command": "store_attribute",
+			"locator": "li[id*=recipe]:nth-child($i) a",
+			"attribute_name": "href",
+			"output": {
+				"name": "URL$i",
+				"show": true
+			},
+			"config": {
+				"loop": {
+					"index": "i",
+					"from": 1,
+					"to": 6,
+					"step": 1
+				}
+			},
+			"description": "Extracts the recipe URL"
+		},
+		{
+			"command": "store",
+			"input": "https://www.cookpad.com$URL$i",
+			"output": {
+				"name": "URL$i"
+			},
+			"config": {
+				"loop": {
+					"index": "i",
+					"from": 1,
+					"to": 6,
+					"step": 1
+				}
+			}
+		}
+	],
+	"url_steps":
+	[
+		{
+			"command": "load",
+			"url": "$INPUT",
+			"config": {
+				"js": true
+			},
+			"description": "Load the url of the recipe"
+		},
+		{
+			"command": "store_url",
+			"output": {
+				"name": "URL"
+			},
+			"description": "Saves the URL of the detail"
+		},
+		{
+			"command": "store_text",
+			"locator": "h1[data-controller]",
+			"output": {
+				"name": "TITLE",
+				"type": "string",
+				"show": true
+			},
+			"description": "Field: Saves the title of the recipe"
+		},
+		{
+			"command": "store_attribute",
+			"locator": ".tofu_image > picture > img",
+			"attribute_name": "src",
+			"output": {
+				"name": "COVER",
+				"type": "string",
+				"show": true
+			},
+			"description": "Field: Saves the image"
+		},
+		{
+			"command": "store_array",
+			"locator": ".ingredient-list ol li:nth-child($i)",
+			"output": {
+				"name": "INGREDIENTS",
+				"show": true
+			},
+			"description": "Field: Saves the ingredients",
+			"config": {
+				"loop": {
+					"index": "i",
+					"from": 1,
+					"to": 50,
+					"step": 1
+				}
+			}
+		},
+		{
+			"command": "store_array",
+			"locator": "ol.list-none li:nth-child($i)",
+			"output": {
+				"name": "STEPS",
+				"show": true
+			},
+			"description": "Field: Saves the steps",
+			"config": {
+				"loop": {
+					"index": "i",
+					"from": 1,
+					"to": 50,
+					"step": 1
+				}
+			}
+		},
+		{
+			"command": "store_text",
+			"locator": "div[data-collapse-target*=content] > p",
+			"output": {
+				"name": "DESCRIPTION",
+				"type": "string",
+				"show": true
+			},
+			"description": "Field: Saves the description of the recipe"
+		},
+		{
+			"command": "store_text",
+			"locator": "div[id*=serving_recipe] > span",
+			"output": {
+				"name": "DINERS",
+				"type": "string",
+				"show": true
+			},
+			"description": "Field: Saves the diners"
+		},
+		{
+			"command": "store_text",
+			"locator": "div[id*=cooking_time_recipe] > span",
+			"output": {
+				"name": "COOKING_TIME",
+				"type": "string",
+				"show": true
+			},
+			"description": "Field: Saves the cooking time"
+		}
+	]
+}
