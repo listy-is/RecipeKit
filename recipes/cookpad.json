@@ -3,7 +3,7 @@
 	"list_type": "recipes",
 	"engine_version": 21,
 	"title": "Recipes",
-	"description": "Load recipes from Cookpad.",
+	"description": "Load recipes from Cookpad",
 	"urls": [
 		"https://cookpad.com/",
         "https://*.cookpad.com",
