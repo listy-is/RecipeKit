@@ -102,7 +102,7 @@
     },
     {
       "command": "store",
-      "input": "https://itunes.apple.com/search?media=software&limit=1&explicit=YES&term=$ID",
+      "input": "https://itunes.apple.com/lookup?id=$ID",
       "output":
       {
         "name": "APIURL"
