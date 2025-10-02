@@ -76,7 +76,7 @@
     },
     {
       "command": "store",
-      "input": "https://itunes.apple.com/search?media=music&entity=musicArtist&limit=1&explicit=YES&term=$ID",
+      "input": "https://itunes.apple.com/lookup?id=$ID",
       "output":
       {
         "name": "APIURL"
